@@ -24,7 +24,7 @@ There's a Light Theme too. Color and style balanced from the Dark theme for easy
 ## Installation
 
 ```plaintext
-pip install git+https://github.com/5yutan5/PyQtDarkTheme
+pip install pyqtdarktheme
 ```
 
 This command requires [Git](https://git-scm.com/downloads).
