@@ -1,0 +1,365 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "type": "object",
+    "title": "The json schema for validating color map file",
+    "description": "The root schema comprises the entire JSON document.",
+    "definitions": {
+        "color_code": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "main_theme",
+        "base",
+        "highlight",
+        "sub-highlight",
+        "highlight-disabled",
+        "warning",
+        "dangerous",
+        "text",
+        "highlight-text",
+        "text-disabled",
+        "border",
+        "popup",
+        "popup-text",
+        "popup-item-selected",
+        "statusbar",
+        "statusbar-button-hover",
+        "statusbar-button-pressed",
+        "statusbar-button-checked",
+        "statusbar-button-disabled",
+        "menubar",
+        "menubar-hover",
+        "menubar-item-selected",
+        "toolbar",
+        "toolbar-button-hover",
+        "toolbar-button-pressed",
+        "toolbar-button-checked",
+        "toolbar-button-disabled",
+        "scrollbar-handle",
+        "scrollbar-handle-hover",
+        "progressbar-chunk",
+        "progressbar-text",
+        "button-hover",
+        "button-pressed",
+        "button-checked",
+        "button-disabled",
+        "input-line",
+        "input-line-border",
+        "input-line-button-hover",
+        "slider-subpage-handle",
+        "slider-handle-hover",
+        "slider-addpage",
+        "tabbar-button-hover",
+        "dockwidget-titlebar",
+        "toolbox-tab",
+        "scrollarea-highlight",
+        "scrollarea-highlight-disabled",
+        "scrollarea-highlight-text",
+        "itemview-alternate",
+        "itemview-item-hover",
+        "itemview-highlight-nonactive",
+        "textedit",
+        "textedit-highlight",
+        "listview-item-hover",
+        "headerview-section",
+        "headerview-text-active",
+        "tableview",
+        "tableview-gridline",
+        "tableview-highlight-text",
+        "contained-button",
+        "contained-button-hover",
+        "contained-button-pressed",
+        "contained-button-border-pressed",
+        "contained-button-checked",
+        "contained-button-disabled",
+        "sidebar",
+        "sidebar-button-hover",
+        "sidebar-button-pressed",
+        "sidebar-button-checked",
+        "sidebar-button-disabled"
+    ],
+    "additionalProperties": false,
+    "properties": {
+        "main_theme": {
+            "description": "The main theme of this theme. Chose dark or light",
+            "enum": [
+                "dark",
+                "light"
+            ],
+            "$ref": "#/definitions/color_code"
+        },
+        "base": {
+            "description": "Main background color",
+            "$ref": "#/definitions/color_code"
+        },
+        "highlight": {
+            "description": "Main Highlight color",
+            "$ref": "#/definitions/color_code"
+        },
+        "sub-highlight": {
+            "description": "Sub highlight color of QTableview",
+            "$ref": "#/definitions/color_code"
+        },
+        "highlight-disabled": {
+            "description": "Disabled main Highlight color",
+            "$ref": "#/definitions/color_code"
+        },
+        "warning": {
+            "description": "Warning color",
+            "$ref": "#/definitions/color_code"
+        },
+        "dangerous": {
+            "description": "Dangerous color",
+            "$ref": "#/definitions/color_code"
+        },
+        "text": {
+            "description": "Main text color",
+            "$ref": "#/definitions/color_code"
+        },
+        "highlight-text": {
+            "description": "Main highlight text color",
+            "$ref": "#/definitions/color_code"
+        },
+        "text-disabled": {
+            "description": "Disabled main text color",
+            "$ref": "#/definitions/color_code"
+        },
+        "border": {
+            "description": "Border color",
+            "$ref": "#/definitions/color_code"
+        },
+        "popup": {
+            "description": "Pop-up color",
+            "$ref": "#/definitions/color_code"
+        },
+        "popup-text": {
+            "description": "Pop-up text color",
+            "$ref": "#/definitions/color_code"
+        },
+        "popup-item-selected": {
+            "description": "Selected pop-up color",
+            "$ref": "#/definitions/color_code"
+        },
+        "statusbar": {
+            "description": "QStatusBar background color",
+            "$ref": "#/definitions/color_code"
+        },
+        "statusbar-button-hover": {
+            "description": "Hovered button color in statusbar",
+            "$ref": "#/definitions/color_code"
+        },
+        "statusbar-button-pressed": {
+            "description": "Pressed button color in statusbar",
+            "$ref": "#/definitions/color_code"
+        },
+        "statusbar-button-checked": {
+            "description": "Checked button color in statusbar",
+            "$ref": "#/definitions/color_code"
+        },
+        "statusbar-button-disabled": {
+            "description": "Disabled button color in statusbar",
+            "$ref": "#/definitions/color_code"
+        },
+        "menubar": {
+            "description": "QMenuBar background color",
+            "$ref": "#/definitions/color_code"
+        },
+        "menubar-hover": {
+            "description": "Hovered QMenuBar background color",
+            "$ref": "#/definitions/color_code"
+        },
+        "menubar-item-selected": {
+            "description": "Selected item color in QMenuBar",
+            "$ref": "#/definitions/color_code"
+        },
+        "toolbar": {
+            "description": "QToolBar background color",
+            "$ref": "#/definitions/color_code"
+        },
+        "toolbar-button-hover": {
+            "description": "Hovered button color in QToolBar",
+            "$ref": "#/definitions/color_code"
+        },
+        "toolbar-button-pressed": {
+            "description": "Pressed button color in QToolBar",
+            "$ref": "#/definitions/color_code"
+        },
+        "toolbar-button-checked": {
+            "description": "Checked button color in QToolBar",
+            "$ref": "#/definitions/color_code"
+        },
+        "toolbar-button-disabled": {
+            "description": "Disabled button color in QToolBar",
+            "$ref": "#/definitions/color_code"
+        },
+        "scrollbar-handle": {
+            "description": "QScrollBar handle color",
+            "$ref": "#/definitions/color_code"
+        },
+        "scrollbar-handle-hover": {
+            "description": "Hovered QScrollBar color",
+            "$ref": "#/definitions/color_code"
+        },
+        "progressbar-chunk": {
+            "description": "QProgressBar chunk color",
+            "$ref": "#/definitions/color_code"
+        },
+        "progressbar-text": {
+            "description": "QProgressBar text color",
+            "$ref": "#/definitions/color_code"
+        },
+        "button-hover": {
+            "description": "Hovered button color",
+            "$ref": "#/definitions/color_code"
+        },
+        "button-pressed": {
+            "description": "Pressed button color",
+            "$ref": "#/definitions/color_code"
+        },
+        "button-checked": {
+            "description": "Checked button color",
+            "$ref": "#/definitions/color_code"
+        },
+        "button-disabled": {
+            "description": "Disabled button color",
+            "$ref": "#/definitions/color_code"
+        },
+        "input-line": {
+            "description": "Input box color like QComboBox, QLineEdit and QSpinBox",
+            "$ref": "#/definitions/color_code"
+        },
+        "input-line-border": {
+            "description": "Input box border color",
+            "$ref": "#/definitions/color_code"
+        },
+        "input-line-button-hover": {
+            "description": "Hovered button of input line",
+            "$ref": "#/definitions/color_code"
+        },
+        "slider-subpage-handle": {
+            "description": "Sub page and handle color of QSlider",
+            "$ref": "#/definitions/color_code"
+        },
+        "slider-addpage": {
+            "description": "Add page color of QSlider",
+            "$ref": "#/definitions/color_code"
+        },
+        "slider-handle-hover": {
+            "description": "Hovered handle color of QSlider",
+            "$ref": "#/definitions/color_code"
+        },
+        "tabbar-button-hover": {
+            "description": "Hovered button color of QTabBar",
+            "$ref": "#/definitions/color_code"
+        },
+        "dockwidget-titlebar": {
+            "description": "Title bar color",
+            "$ref": "#/definitions/color_code"
+        },
+        "toolbox-tab": {
+            "description": "QToolBox tab color",
+            "$ref": "#/definitions/color_code"
+        },
+        "scrollarea-highlight": {
+            "description": "QScrollArea highlight color",
+            "$ref": "#/definitions/color_code"
+        },
+        "scrollarea-highlight-disabled": {
+            "description": "Disabled QScrollArea highlight color",
+            "$ref": "#/definitions/color_code"
+        },
+        "scrollarea-highlight-text": {
+            "description": "Text highlight color of scrollarea",
+            "$ref": "#/definitions/color_code"
+        },
+        "itemview-alternate": {
+            "description": "ItemView alternate color",
+            "$ref": "#/definitions/color_code"
+        },
+        "itemview-item-hover": {
+            "description": "Hovered item color of itemview",
+            "$ref": "#/definitions/color_code"
+        },
+        "itemview-highlight-nonactive": {
+            "description": "Non-activated highlight color of itemview",
+            "$ref": "#/definitions/color_code"
+        },
+        "textedit": {
+            "description": "Textedit color",
+            "$ref": "#/definitions/color_code"
+        },
+        "textedit-highlight": {
+            "description": "Textedit highlight color",
+            "$ref": "#/definitions/color_code"
+        },
+        "listview-item-hover": {
+            "description": "Hovered listview item",
+            "$ref": "#/definitions/color_code"
+        },
+        "headerview-section": {
+            "description": "QHeaderview section color",
+            "$ref": "#/definitions/color_code"
+        },
+        "headerview-text-active": {
+            "description": "QHeaderview active section text color",
+            "$ref": "#/definitions/color_code"
+        },
+        "tableview": {
+            "description": "QTableview color",
+            "$ref": "#/definitions/color_code"
+        },
+        "tableview-gridline": {
+            "description": "QTableview grid line color",
+            "$ref": "#/definitions/color_code"
+        },
+        "tableview-highlight-text": {
+            "description": "QTableview highlight text color",
+            "$ref": "#/definitions/color_code"
+        },
+        "contained-button": {
+            "description": "Contained button color",
+            "$ref": "#/definitions/color_code"
+        },
+        "contained-button-hover": {
+            "description": "Hovered contained button color",
+            "$ref": "#/definitions/color_code"
+        },
+        "contained-button-pressed": {
+            "description": "Pressed contained button color",
+            "$ref": "#/definitions/color_code"
+        },
+        "contained-button-border-pressed": {
+            "description": "Border color of pressed contained button",
+            "$ref": "#/definitions/color_code"
+        },
+        "contained-button-checked": {
+            "description": "Checked contained button color",
+            "$ref": "#/definitions/color_code"
+        },
+        "contained-button-disabled": {
+            "description": "Disabled contained button color",
+            "$ref": "#/definitions/color_code"
+        },
+        "sidebar": {
+            "description": "SideBar background color",
+            "$ref": "#/definitions/color_code"
+        },
+        "sidebar-button-hover": {
+            "description": "Hovered button color in SideBar",
+            "$ref": "#/definitions/color_code"
+        },
+        "sidebar-button-pressed": {
+            "description": "Pressed button color in SideBar",
+            "$ref": "#/definitions/color_code"
+        },
+        "sidebar-button-checked": {
+            "description": "Checked button color in SideBar",
+            "$ref": "#/definitions/color_code"
+        },
+        "sidebar-button-disabled": {
+            "description": "Disabled button color in SideBar",
+            "$ref": "#/definitions/color_code"
+        }
+    }
+}

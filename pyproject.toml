@@ -1,0 +1,58 @@
+[tool.poetry]
+name = "PyQtDarkTheme"
+version = "0.1.0"
+description = "Dark theme for PySide, PyQt and Qt Designer."
+authors = ["Yunosuke Ohsugi <63651161+5yutan5@users.noreply.github.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/5yutan5/PyQtDarkTheme"
+homepage = "https://github.com/5yutan5/PyQtDarkTheme"
+packages = [
+    { include = "qdarktheme" }
+]
+include = ["NOTICE.md"]
+
+keywords = [
+    "qt",
+    "stylesheets",
+    "dark-theme",
+    "qt-designer"
+]
+
+classifiers = [
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Environment :: X11 Applications :: Qt",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9"
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+typing-extensions = "^3.10.0"
+
+[tool.poetry.dev-dependencies]
+black = "^21.7b0"
+flake8 = "^3.9.2"
+pyproject-flake8 = "^0.0.1-alpha.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.flake8]
+max-line-length = 119
+max-complexity = 10
+
+[tool.black]
+line-length = 119
+
+[tool.isort]
+profile = "black"
+line_length = 119
