@@ -1,6 +1,7 @@
 PyQtDarkTheme
 =============
 
+[![PyPI version](https://badge.fury.io/py/pyqtdarktheme.svg)](https://badge.fury.io/py/pyqtdarktheme)
 [![License](https://img.shields.io/github/license/5yutan5/PyQtDarkTheme)](/LICENSE)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/5yutan5/PyQtDarkTheme.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/5yutan5/PyQtDarkTheme/alerts/)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/5yutan5/PyQtDarkTheme.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/5yutan5/PyQtDarkTheme/context:python)
