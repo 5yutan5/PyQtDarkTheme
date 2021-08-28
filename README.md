@@ -1,7 +1,7 @@
 PyQtDarkTheme
 =============
-
-[![PyPI version](https://badge.fury.io/py/pyqtdarktheme.svg)](https://badge.fury.io/py/pyqtdarktheme)
+[![PyPI Latest Release](https://img.shields.io/pypi/v/pyqtdarktheme.svg)](https://pypi.org/project/pyqtdarktheme/)
+[![Python Versions](https://img.shields.io/pypi/pyversions/pyqtdarktheme.svg)](https://pypi.org/project/pyqtdarktheme/)
 [![License](https://img.shields.io/github/license/5yutan5/PyQtDarkTheme)](/LICENSE)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/5yutan5/PyQtDarkTheme.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/5yutan5/PyQtDarkTheme/alerts/)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/5yutan5/PyQtDarkTheme.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/5yutan5/PyQtDarkTheme/context:python)
@@ -27,8 +27,6 @@ There's a Light Theme too. Color and style balanced from the Dark theme for easy
 ```plaintext
 pip install pyqtdarktheme
 ```
-
-This command requires [Git](https://git-scm.com/downloads).
 
 ## Usage
 
