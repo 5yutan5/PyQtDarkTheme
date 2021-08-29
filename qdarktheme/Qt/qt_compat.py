@@ -30,7 +30,7 @@ def _get_loaded_api() -> Optional[str]:
     importing any other Qt-binding is unsafe.
     Returns
     -------
-    None, 'PySide6', 'PyQt6', 'PySide2', 'PyQt5'
+    None, 'PySide6', 'PyQt6', 'PyQt5', 'PySide2'
     """
     for api in _API_LIST:
         if sys.modules.get(f"{api}.QtCore"):
@@ -50,7 +50,7 @@ def _get_installed_api() -> Optional[str]:
 
     Returns
     -------
-    None, 'PySide6', 'PyQt6', 'PySide2', 'PyQt5'
+    None, 'PySide6', 'PyQt6', 'PyQt5', 'PySide2'
     """
     # Fix [AttributeError: module 'importlib' has no attribute 'util']
     # See https://stackoverflow.com/a/39661116/13452582

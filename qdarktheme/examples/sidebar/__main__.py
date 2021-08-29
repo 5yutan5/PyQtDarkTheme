@@ -1,12 +1,17 @@
 import sys
 
 import qdarktheme
+from qdarktheme.Qt.qt_compat import QT_API
 from qdarktheme.Qt.QtCore import Qt
 from qdarktheme.Qt.QtGui import QAction, QActionGroup
 from qdarktheme.Qt.QtWidgets import QApplication, QLabel, QMainWindow, QStackedWidget, QToolBar
 from qdarktheme.resource_manager import get_icon
 
 app = QApplication(sys.argv)
+# Fix the svg icon display becoming low quality in Qt5.
+# Exclude PyQt6 because it doesn't have this attribute.
+if QT_API != "PyQt6":
+    app.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)
 main_win = QMainWindow()
 
 # Create action

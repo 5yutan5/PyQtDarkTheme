@@ -49,6 +49,12 @@ app.exec()
 
 ```
 
+> ⚠ The quality of image may be low on Qt5(PyQt5, PySide2) due to the use of svg.
+You can add the following [attribute](https://doc.qt.io/qt-5/qt.html#ApplicationAttribute-enum) to improve the quality of images.
+> ```Python
+> app.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)
+> ```
+
 ### Light theme
 
 ```Python

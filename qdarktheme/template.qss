@@ -341,10 +341,14 @@ QMenu::icon {
     height: 14px;
 }
 QMenu::right-arrow {
+    image: url("qdarktheme:svg/${main_theme}/chevron_right_24dp.svg");
     margin: 2px;
     padding-left: 12px;
-    height: 9px;
-    width: 9px;
+    height: 20px;
+    width: 20px;
+}
+QMenu::right-arrow:disabled {
+    image: url("qdarktheme:svg/${main_theme}/chevron_right_disabled_24dp.svg");
 }
 
 /* QScrollBar -------------------------------------------------------------
@@ -468,23 +472,6 @@ QToolButton:checked {
 QToolButton::checked:disabled {
     background-color: $button-disabled;
 }
-QToolButton[popupMode="0"] {
-    padding-right: 2px;
-}
-QToolButton[popupMode="1"] {
-    padding-right: 20px;
-}
-QToolButton[popupMode="1"]::menu-button {
-    border: none;
-}
-QToolButton[popupMode="1"]::menu-button:hover {
-    border: none;
-    border-left: 1px solid $highlight;
-    border-radius: 0;
-}
-QToolButton[popupMode="2"] {
-    padding-right: 2px;
-}
 QToolButton::menu-button {
     padding: 2px;
     border-radius: 4px;
@@ -496,10 +483,14 @@ QToolButton::menu-button:hover, QToolButton::menu-button:checked:hover {
     border: 1px solid $highlight;
 }
 QToolButton::menu-indicator {
-    height: 8px;
-    width: 8px;
-    top: 0;
-    left: -2px;
+    image: url("qdarktheme:svg/${main_theme}/expand_more_24dp.svg");
+    height: 18px;
+    width: 18px;
+    top: 6px;
+    left: 3px;
+}
+QToolButton::menu-indicator:disabled {
+    image: url("qdarktheme:svg/${main_theme}/expand_more_disabled_24dp.svg")
 }
 QToolButton::menu-arrow {
     height: 8px;
@@ -532,7 +523,7 @@ QComboBox::down-arrow {
     width: 23px;
 }
 QComboBox::down-arrow:disabled {
-    image: url("qdarktheme:svg/${main_theme}/expand_more_disabled_24dp.svg")
+    image: url("qdarktheme:svg/${main_theme}/expand_more_disabled_24dp.svg");
 }
 
 QComboBox QAbstractItemView {
@@ -940,6 +931,20 @@ QHeaderView::section:vertical {
 QHeaderView::section::last, QHeaderView::section::only-one {
     margin: 0;
 }
+QHeaderView::down-arrow {
+    image: url("qdarktheme:svg/${main_theme}/expand_more_24dp.svg");
+    width: 20px;
+}
+QHeaderView::down-arrow:disabled {
+    image: url("qdarktheme:svg/${main_theme}/expand_more_disabled_24dp.svg")
+}
+QHeaderView::up-arrow {
+    image: url("qdarktheme:svg/${main_theme}/expand_less_24dp.svg");
+    width: 20px;
+}
+QHeaderView::up-arrow:disabled {
+    image: url("qdarktheme:svg/${main_theme}/expand_less_disabled_24dp.svg")
+}
 
 /* QTableView -------------------------------------------------------------
 
@@ -1163,7 +1168,7 @@ QPushButton[type="contained"]:checked {
 QPushButton[type="contained"]:disabled {
     border-color: $contained-button-disabled;
     background-color: $contained-button-disabled;
-    color: $text;
+    color: $text-disabled;
 }
 
 /* === Text button === */
