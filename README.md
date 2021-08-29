@@ -1,10 +1,12 @@
 PyQtDarkTheme
 =============
 [![PyPI Latest Release](https://img.shields.io/pypi/v/pyqtdarktheme.svg)](https://pypi.org/project/pyqtdarktheme/)
+[![Conda Latest Release](https://img.shields.io/conda/v/qt_theme/pyqtdarktheme.svg?label=conda&color=orange)](https://anaconda.org/qt_theme/pyqtdarktheme/)
 [![Python Versions](https://img.shields.io/pypi/pyversions/pyqtdarktheme.svg)](https://pypi.org/project/pyqtdarktheme/)
-[![License](https://img.shields.io/github/license/5yutan5/PyQtDarkTheme)](https://github.com/5yutan5/PyQtDarkTheme/blob/main/LICENSE)
+[![License](https://img.shields.io/github/license/5yutan5/PyQtDarkTheme)](https://github.com/5yutan5/PyQtDarkTheme/blob/main/LICENSE/)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/5yutan5/PyQtDarkTheme.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/5yutan5/PyQtDarkTheme/alerts/)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/5yutan5/PyQtDarkTheme.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/5yutan5/PyQtDarkTheme/context:python)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)
 
 Dark theme for PySide, PyQt and Qt Designer.
 
@@ -24,15 +26,20 @@ There's a Light Theme too. Color and style balanced from the Dark theme for easy
 
 ## Installation Method
 
-- From PyPi
-   - Last released version
-      ```plaintext
-      pip install pyqtdarktheme
-      ```
-   - Latest development version
-      ```plaintext
-      pip install git+https://github.com/5yutan5/PyQtDarkTheme
-      ```
+### From PyPi
+- Last released version
+   ```plaintext
+   pip install pyqtdarktheme
+   ```
+- Latest development version
+   ```plaintext
+   pip install git+https://github.com/5yutan5/PyQtDarkTheme
+   ```
+### From conda
+- Last released version
+   ```plaintext
+   conda install -c qt_theme pyqtdarktheme
+   ```
 
 ## Usage
 
