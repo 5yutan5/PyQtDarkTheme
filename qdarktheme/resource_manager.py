@@ -1,8 +1,3 @@
-try:
-    from typing import Literal
-except ImportError:  # Python 3.7 requires typing-extensions.
-    from typing_extensions import Literal
-
 import qdarktheme
 from qdarktheme.compile import compile_stylesheet
 from qdarktheme.Qt.QtCore import QDir
@@ -10,7 +5,7 @@ from qdarktheme.Qt.QtGui import QIcon
 from qdarktheme.util import get_qdarktheme_root_path
 
 
-def load_stylesheet(theme: Literal["dark", "light"] = "dark") -> str:
+def load_stylesheet(theme: str = "dark") -> str:
     """Load the style sheet which looks like flat design. There are two themes, dark theme and light theme.
 
 
@@ -32,11 +27,7 @@ def load_stylesheet(theme: Literal["dark", "light"] = "dark") -> str:
         If the qss file fails to load.
     """
     if theme not in ["dark", "light"]:
-        raise TypeError(
-            "\n==============================================================="
-            "\nThe argument [mode] can only be specified as 'dark' or 'light'."
-            "\n==============================================================="
-        )
+        raise TypeError("The argument [mode] can only be specified as 'dark' or 'light'.")
 
     root_path = get_qdarktheme_root_path()
 
@@ -48,28 +39,15 @@ def load_stylesheet(theme: Literal["dark", "light"] = "dark") -> str:
     return compile_stylesheet(stylesheet_file, theme_colormap_file)
 
 
-def get_icon(
-    icon_name: Literal[
-        "clear",
-        "circle",
-        "copy_all",
-        "dark_mode",
-        "favorite_border",
-        "flip_to_front",
-        "folder_open",
-        "home",
-        "light_mode",
-        "palette",
-        "settings",
-    ]
-) -> QIcon:
-    """Creates an icon from the given icon name. See below folder(`qdarktheme/svg/example`) for details on
+def get_icon(icon_name: str) -> QIcon:
+    """Creates an icon from `qdarktheme/svg/example`. See below folder(`qdarktheme/svg/example`) for details on
     available icons.
 
     Parameters
     ----------
     icon_name : str
-        Available icon name.
+        Available icon name: "clear", "circle", "copy_all", "dark_mode", "favorite_border", "flip_to_front",
+        "folder_open", "home", "light_mode", "palette", "settings",
 
     Returns
     -------

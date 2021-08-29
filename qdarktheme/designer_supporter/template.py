@@ -2,12 +2,6 @@ import re
 import shutil
 from pathlib import Path
 from typing import Union
-
-try:
-    from typing import Literal
-except ImportError:  # Python 3.7 requires typing-extensions.
-    from typing_extensions import Literal
-
 from xml.dom import minidom
 from xml.etree import ElementTree as ET
 
@@ -16,7 +10,7 @@ from qdarktheme.util import get_qdarktheme_root_path
 
 
 class TemplateGenerator:
-    def __init__(self, save_folder: Union[Path, str], theme: Literal["dark", "light"]) -> None:
+    def __init__(self, save_folder: Union[Path, str], theme: str) -> None:
         self._qdarktheme_root_folder = get_qdarktheme_root_path()
         self._save_folder = Path(save_folder)
         self._theme = theme

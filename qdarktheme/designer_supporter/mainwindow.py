@@ -1,8 +1,3 @@
-try:
-    from typing import Literal
-except ImportError:  # Python 3.7 requires typing-extensions.
-    from typing_extensions import Literal
-
 from qdarktheme.designer_supporter.template import TemplateGenerator, convert_stylesheet_for_designer
 from qdarktheme.designer_supporter.ui import UI
 from qdarktheme.Qt.QtCore import Slot
@@ -15,7 +10,7 @@ class MainDialog(QDialog):
         super().__init__()
         self._ui = UI()
         self._ui.setup_ui(self)
-        self._theme: Literal["dark", "light"] = "dark"
+        self._theme = "dark"
         self._setup()
 
     def _setup(self) -> None:
