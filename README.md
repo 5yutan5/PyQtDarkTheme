@@ -75,12 +75,12 @@ sidebar = QToolBar()
 sidebar.setProperty("type", "sidebar")
 ```
 
-| Widget      | Property | Property value            | Default  | Command for demo                                                                                                                            |
-|-------------|----------|---------------------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| QToolBar    | type     | toolbar, sidebar          | toolbar  | [`python -m qdarktheme.examples.sidebar`](https://github.com/5yutan5/PyQtDarkTheme/blob/main/qdarktheme/examples/sidebar/__main__.py)       |
-| QPushButton | type     | outlined, contained, text | outlined | [`python -m qdarktheme.examples.pushbutton`](https://github.com/5yutan5/PyQtDarkTheme/blob/main/qdarktheme/examples/pushbutton/__main__.py) |
-| QLineEdit   | state    | normal, warning, error    | normal   | [`python -m qdarktheme.examples.lineedit`](https://github.com/5yutan5/PyQtDarkTheme/blob/main/qdarktheme/examples/lineedit/__main__.py)     |
-| QFrame      | type     | normal, h_line, v_line    | normal   | [`python -m qdarktheme.examples.line`](https://github.com/5yutan5/PyQtDarkTheme/blob/main/qdarktheme/examples/line/__main__.py)             |
+| Widget      | Property | Property value            | Default  | Command for demo                           |
+|-------------|----------|---------------------------|----------|--------------------------------------------|
+| QToolBar    | type     | toolbar, sidebar          | toolbar  | `python -m qdarktheme.examples.sidebar`    |
+| QPushButton | type     | outlined, contained, text | outlined | `python -m qdarktheme.examples.pushbutton` |
+| QLineEdit   | state    | normal, warning, error    | normal   | `python -m qdarktheme.examples.lineedit`   |
+| QFrame      | type     | normal, h_line, v_line    | normal   | `python -m qdarktheme.examples.line`       |
 
 ## Support Qt Designer
 
