@@ -2,7 +2,6 @@ import re
 import shutil
 from pathlib import Path
 from typing import Union
-from xml.dom import minidom
 from xml.etree import ElementTree as ET
 
 from qdarktheme import load_stylesheet
@@ -53,10 +52,7 @@ class TemplateGenerator:
             file_tag.text = str(file.relative_to(self._qdarktheme_root_folder))
 
         resource_file = self._save_folder / "resource.qrc"
-        xml_str = minidom.parseString(ET.tostring(rcc_tag)).toprettyxml(indent="  ")
-        with resource_file.open("w", encoding="utf-8") as f:
-            f.write("<!DOCTYPE RCC>\n")
-            f.write(xml_str)
+        ET.ElementTree(rcc_tag).write(str(resource_file), "utf-8")
 
 
 def convert_stylesheet_for_designer(stylesheet: str) -> str:
