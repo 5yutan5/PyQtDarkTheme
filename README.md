@@ -22,11 +22,17 @@ There's a Light Theme too. Color and style balanced from the Dark theme for easy
 - [Python 3.7+](https://www.python.org/downloads/release/python-396/)
 - PySide6, PyQt6, PyQt5 or PySide2
 
-## Installation
+## Installation Method
 
-```plaintext
-pip install pyqtdarktheme
-```
+- From PyPi
+   - Last released version
+      ```plaintext
+      pip install pyqtdarktheme
+      ```
+   - Latest development version
+      ```plaintext
+      pip install git+https://github.com/5yutan5/PyQtDarkTheme
+      ```
 
 ## Usage
 
@@ -49,8 +55,7 @@ app.exec()
 
 ```
 
-> ⚠ The quality of image may be low on Qt5(PyQt5, PySide2) due to the use of svg.
-You can add the following [attribute](https://doc.qt.io/qt-5/qt.html#ApplicationAttribute-enum) to improve the quality of images.
+> ⚠ The quality of image may be low on Qt5(PyQt5, PySide2) due to the use of svg. You can add the following [attribute](https://doc.qt.io/qt-5/qt.html#ApplicationAttribute-enum) to improve the quality of images.
 > ```Python
 > app.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)
 > ```
