@@ -1,7 +1,7 @@
 from qdarktheme import load_stylesheet
 from qdarktheme.examples.widget_gallery.ui.main_ui import UI
-from qdarktheme.Qt.QtCore import Slot
-from qdarktheme.Qt.QtWidgets import QApplication, QColorDialog, QFileDialog, QMainWindow
+from qdarktheme.qtpy.QtCore import Slot
+from qdarktheme.qtpy.QtWidgets import QApplication, QColorDialog, QFileDialog, QMainWindow
 from qdarktheme.resource_manager import get_icon
 
 

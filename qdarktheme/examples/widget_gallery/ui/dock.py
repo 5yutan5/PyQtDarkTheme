@@ -1,5 +1,5 @@
-from qdarktheme.Qt.QtCore import Qt
-from qdarktheme.Qt.QtWidgets import QDockWidget, QMainWindow, QTextEdit
+from qdarktheme.qtpy.QtCore import Qt
+from qdarktheme.qtpy.QtWidgets import QDockWidget, QMainWindow, QTextEdit
 
 
 class DockUI:

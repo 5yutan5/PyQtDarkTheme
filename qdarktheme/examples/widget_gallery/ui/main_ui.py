@@ -1,10 +1,9 @@
-from qdarktheme.resource_manager import get_icon
-from qdarktheme.Qt.QtCore import Qt
-from qdarktheme.Qt.QtGui import QAction
-from qdarktheme.Qt.QtWidgets import QMainWindow, QMenuBar, QStackedWidget, QStatusBar, QToolBar, QToolButton, QWidget
-
 from qdarktheme.examples.widget_gallery.ui.dock import DockUI
 from qdarktheme.examples.widget_gallery.ui.home import HomeUI
+from qdarktheme.qtpy.QtCore import Qt
+from qdarktheme.qtpy.QtGui import QAction
+from qdarktheme.qtpy.QtWidgets import QMainWindow, QMenuBar, QStackedWidget, QStatusBar, QToolBar, QToolButton, QWidget
+from qdarktheme.resource_manager import get_icon
 
 
 class UI:

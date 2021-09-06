@@ -1,7 +1,7 @@
 import sys
 
 import qdarktheme
-from qdarktheme.Qt.QtWidgets import QApplication, QDialog, QLineEdit, QVBoxLayout
+from qdarktheme.qtpy.QtWidgets import QApplication, QDialog, QLineEdit, QVBoxLayout
 
 app = QApplication(sys.argv)
 main_win = QDialog()

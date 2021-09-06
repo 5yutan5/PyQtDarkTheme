@@ -1,6 +1,6 @@
-from qdarktheme.Qt.QtCore import Qt
-from qdarktheme.Qt.QtGui import QTextOption
-from qdarktheme.Qt.QtWidgets import (
+from qdarktheme.qtpy.QtCore import Qt
+from qdarktheme.qtpy.QtGui import QTextOption
+from qdarktheme.qtpy.QtWidgets import (
     QCheckBox,
     QComboBox,
     QCommandLinkButton,

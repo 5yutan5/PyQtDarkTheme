@@ -1,7 +1,7 @@
 import qdarktheme
 from qdarktheme.compile import compile_stylesheet
-from qdarktheme.Qt.QtCore import QDir
-from qdarktheme.Qt.QtGui import QIcon
+from qdarktheme.qtpy.QtCore import QDir
+from qdarktheme.qtpy.QtGui import QIcon
 from qdarktheme.util import get_qdarktheme_root_path
 
 

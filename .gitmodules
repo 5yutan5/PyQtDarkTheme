@@ -1,0 +1,3 @@
+[submodule "qdarktheme/qtpy"]
+	path = qdarktheme/qtpy
+	url = https://github.com/5yutan5/qtpy_qt6
