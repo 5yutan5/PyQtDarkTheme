@@ -27,6 +27,8 @@ There's a Light Theme too. Color and style balanced from the Dark theme for easy
 - [Python 3.7+](https://www.python.org/downloads/)
 - PySide6, PyQt6, PyQt5 or PySide2
 
+Not tested on linux.
+
 ## Installation Method
 
 ### From PyPi
