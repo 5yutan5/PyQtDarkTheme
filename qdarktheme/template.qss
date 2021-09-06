@@ -145,7 +145,6 @@ QStatusBar::item {
 QStatusBar QWidget {
     background-color: transparent;
     padding: 3px;
-    border-radius: 4px;
 }
 QStatusBar QWidget:hover {
     background-color: $statusbar-button-hover;
@@ -248,7 +247,6 @@ QMenuBar::item {
 QMenuBar::item:selected {
     padding: 4px;
     background-color: $menubar-item-selected;
-    border-radius: 4px;
 }
 QMenuBar::item:pressed {
     padding: 4px;
@@ -322,8 +320,6 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qmenu
 --------------------------------------------------------------------------- */
 QMenu {
     background-color: $popup;
-    border-radius: 8px;
-    padding: 8px 0;
 }
 QMenu::separator {
     height: 1px;
@@ -367,7 +363,6 @@ QScrollBar:vertical {
 QScrollBar::handle {
     background-color: $scrollbar-handle;
     margin: 1px;
-    border-radius: 5px;
 }
 QScrollBar::handle:hover {
     background-color: $scrollbar-handle-hover;
@@ -395,13 +390,11 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qprogressb
 --------------------------------------------------------------------------- */
 QProgressBar {
     border: 1px solid $border;
-    border-radius: 4px;
     text-align: center;
     color: $text;
 }
 QProgressBar::chunk {
     background-color: $progressbar-chunk;
-    border-radius: 3px;
 }
 QProgressBar::chunk:disabled {
     background-color: $highlight-disabled;
@@ -504,7 +497,6 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qcombobox
 --------------------------------------------------------------------------- */
 QComboBox {
     border: 1px solid $input-line-border;
-    border-radius: 4px;
     min-height: 1.5em;
     padding: 0 4px;
     background-color: $input-line;
@@ -527,6 +519,7 @@ QComboBox::down-arrow:disabled {
 }
 
 QComboBox QAbstractItemView {
+    margin: 0;
     border: 1px solid #8ab4f7;
     selection-background-color: $highlight;
     selection-color: $highlight-text;
@@ -583,7 +576,6 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qlineedit
 
 --------------------------------------------------------------------------- */
 QLineEdit {
-    border-radius: 4px;
     padding: 0 4px;
     min-height: 1.5em;
     border: 1px solid $input-line-border;
@@ -630,8 +622,6 @@ QTabBar::tab:selected:disabled {
     color: $text-disabled;
 }
 QTabBar::tab:top {
-    border-top-left-radius: 1px;
-    border-top-right-radius: 1px;
     border-bottom: 2px solid $border;
     margin-left: 3px;
 }
@@ -643,8 +633,6 @@ QTabBar::tab:top:selected:disabled {
     border-color: $highlight-disabled;
 }
 QTabBar::tab:bottom {
-    border-bottom-left-radius: 1px;
-    border-bottom-right-radius: 1px;
     border-top: 2px solid $border;
     margin-left: 3px;
 }
@@ -656,8 +644,6 @@ QTabBar::tab:bottom:selected:disabled {
     border-color: $highlight-disabled;
 }
 QTabBar::tab:left {
-    border-top-left-radius: 1px;
-    border-bottom-left-radius: 1px;
     border-right: 2px solid $border;
     margin-top: 3px;
 }
@@ -668,8 +654,6 @@ QTabBar::tab:left:selected:disabled {
     border-color: $highlight-disabled;
 }
 QTabBar::tab:right {
-    border-top-right-radius: 1px;
-    border-bottom-right-radius: 1px;
     border-left: 2px solid $border;
     margin-top: 3px;
 }
@@ -684,7 +668,6 @@ QTabBar::tab:right:selected:disabled {
 
 --------------------------------------------------------------------------- */
 QDockWidget {
-    border-radius: 4px;
     border: 1px solid $border;
 }
 QDockWidget::title {
@@ -710,7 +693,6 @@ https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qframe
 --------------------------------------------------------------------------- */
 QFrame {
     border: 1px solid $border;
-    border-radius: 4px;
     padding: 1px;
 }
 
@@ -901,7 +883,6 @@ QHeaderView {
     padding: 0;
     margin: 0;
     border: none;
-    border-radius: 0;
 }
 QHeaderView::section {
     background-color: $headerview-section;
@@ -997,7 +978,6 @@ QTableView QHeaderView{
 --------------------------------------------------------------------------- */
 QCalendarWidget {
     border: 1px solid $border;
-    border-radius: 4px;
 }
 
 QCalendarWidget QWidget {
@@ -1012,7 +992,6 @@ QCalendarWidget QTableView {
 --------------------------------------------------------------------------- */
 QAbstractSpinBox {
     border: 1px solid $input-line-border;
-    border-radius: 4px;
     min-height: 1.5em;
     padding: 0 4px;
     background-color: $input-line;
