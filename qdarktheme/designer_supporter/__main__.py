@@ -2,7 +2,7 @@ import sys
 
 import qdarktheme
 from qdarktheme.designer_supporter.mainwindow import MainDialog
-from qdarktheme.Qt.QtWidgets import QApplication
+from qdarktheme.qtpy.QtWidgets import QApplication
 
 app = QApplication(sys.argv)
 main_win = MainDialog()

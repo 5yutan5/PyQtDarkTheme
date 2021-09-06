@@ -1,7 +1,7 @@
 from qdarktheme.designer_supporter.template import TemplateGenerator, convert_stylesheet_for_designer
 from qdarktheme.designer_supporter.ui import UI
-from qdarktheme.Qt.QtCore import Slot
-from qdarktheme.Qt.QtWidgets import QApplication, QDialog
+from qdarktheme.qtpy.QtCore import Slot
+from qdarktheme.qtpy.QtWidgets import QApplication, QDialog
 from qdarktheme.resource_manager import load_stylesheet
 
 

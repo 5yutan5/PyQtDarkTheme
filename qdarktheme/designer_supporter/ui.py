@@ -1,4 +1,4 @@
-from qdarktheme.Qt.QtWidgets import (
+from qdarktheme.qtpy.QtWidgets import (
     QComboBox,
     QDialogButtonBox,
     QFileDialog,
