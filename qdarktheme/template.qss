@@ -169,8 +169,7 @@ QCheckBox:hover {
     border-bottom: 2px solid $highlight;
 }
 QCheckBox::indicator {
-    margin-left: 2px;
-    margin-right: 15px;
+    margin: 0 0 2 15;
     height: 18px;
     width: 18px;
 }
@@ -456,11 +455,9 @@ QToolButton:pressed {
 }
 QToolButton:selected {
     background-color: $button-checked;
-    border-color: #8ab4f7;
 }
 QToolButton:checked {
     background-color: $button-checked;
-    outline: none;
 }
 QToolButton::checked:disabled {
     background-color: $button-disabled;
@@ -520,7 +517,7 @@ QComboBox::down-arrow:disabled {
 
 QComboBox QAbstractItemView {
     margin: 0;
-    border: 1px solid #8ab4f7;
+    border: 1px solid $highlight;
     selection-background-color: $highlight;
     selection-color: $highlight-text;
 }
