@@ -1,17 +1,20 @@
 PyQtDarkTheme
 =============
-[![PyPI Latest Release](https://img.shields.io/pypi/v/pyqtdarktheme.svg)](https://pypi.org/project/pyqtdarktheme/)
+[![PyPI Latest Release](https://img.shields.io/pypi/v/pyqtdarktheme.svg?color=orange)](https://pypi.org/project/pyqtdarktheme/)
 [![Conda Latest Release](https://img.shields.io/conda/v/qt_theme/pyqtdarktheme.svg?label=conda&color=orange)](https://anaconda.org/qt_theme/pyqtdarktheme/)
-[![Python Versions](https://img.shields.io/pypi/pyversions/pyqtdarktheme.svg)](https://pypi.org/project/pyqtdarktheme/)
-[![License](https://img.shields.io/github/license/5yutan5/PyQtDarkTheme)](https://github.com/5yutan5/PyQtDarkTheme/blob/main/LICENSE/)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/5yutan5/PyQtDarkTheme.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/5yutan5/PyQtDarkTheme/alerts/)
-[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/5yutan5/PyQtDarkTheme.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/5yutan5/PyQtDarkTheme/context:python)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)
+[![Python Versions](https://img.shields.io/pypi/pyversions/pyqtdarktheme.svg?color=blue)](https://www.python.org/downloads/)
+[![Qt Versions](https://img.shields.io/badge/Qt-5%20|%206-blue.svg?&logo=Qt&logoWidth=18&logoColor=white)](https://www.qt.io/qt-for-python)
+[![License](https://img.shields.io/github/license/5yutan5/PyQtDarkTheme.svg?color=green)](https://github.com/5yutan5/PyQtDarkTheme/blob/main/LICENSE/)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/5yutan5/PyQtDarkTheme.svg?logo=lgtm&logoWidth=18&color=success)](https://lgtm.com/projects/g/5yutan5/PyQtDarkTheme/alerts/)
+[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/5yutan5/PyQtDarkTheme.svg?logo=lgtm&logoWidth=18&color=success)](https://lgtm.com/projects/g/5yutan5/PyQtDarkTheme/context:python)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-black.svg)](https://github.com/python/black)
 
 Dark theme for PySide, PyQt and Qt Designer.
 
 This python module applies a theme to a Qt applications(PySide6, PyQt6, PyQt5 and PySide2) using a qt stylesheets system.  
 There's a Light Theme too. Color and style balanced from the Dark theme for easy viewing in daylight.
+
+[Japanese article](https://qiita.com/papuriko/items/1c8f81ddb383812b86ab)
 
 ### Dark Theme
 ![widget_gallery_dark_theme](https://raw.githubusercontent.com/5yutan5/PyQtDarkTheme/main/images/widget_gallery_dark.png)
@@ -21,7 +24,7 @@ There's a Light Theme too. Color and style balanced from the Dark theme for easy
 
 ## Requirements
 
-- [Python 3.7+](https://www.python.org/downloads/release/python-396/)
+- [Python 3.7+](https://www.python.org/downloads/)
 - PySide6, PyQt6, PyQt5 or PySide2
 
 ## Installation Method
