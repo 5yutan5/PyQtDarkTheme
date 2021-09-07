@@ -1,5 +1,8 @@
+import inspect
 import json
 from pathlib import Path
+
+import qdarktheme
 
 
 def _replace_variable_to_value(contents: str, value_map: dict) -> str:
@@ -10,6 +13,9 @@ def _replace_variable_to_value(contents: str, value_map: dict) -> str:
 
         # Replace the variable by color code
         contents = contents.replace(f"${variable_name};", f"{color_code};")
+    # Replace the variable by prefix or absolute path
+    path = Path(inspect.getfile(qdarktheme)).parent
+    contents = contents.replace("${path}", str(path))
     return contents
 
 

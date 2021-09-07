@@ -1,8 +1,7 @@
-import qdarktheme
+from importlib import resources
+
 from qdarktheme.compile import compile_stylesheet
-from qdarktheme.qtpy.QtCore import QDir
 from qdarktheme.qtpy.QtGui import QIcon
-from qdarktheme.util import get_qdarktheme_root_path
 
 
 def load_stylesheet(theme: str = "dark") -> str:
@@ -29,14 +28,9 @@ def load_stylesheet(theme: str = "dark") -> str:
     if theme not in ["dark", "light"]:
         raise TypeError("The argument [mode] can only be specified as 'dark' or 'light'.")
 
-    root_path = get_qdarktheme_root_path()
-
-    # Add icon folder path to search path for style sheet.
-    QDir.addSearchPath(qdarktheme.__name__, str(root_path))
-
-    stylesheet_file = root_path / "template.qss"
-    theme_colormap_file = root_path / "theme" / f"{theme}.json"
-    return compile_stylesheet(stylesheet_file, theme_colormap_file)
+    with resources.path("qdarktheme", "template.qss") as stylesheet_file:
+        with resources.path("qdarktheme.theme", f"{theme}.json") as theme_colormap_file:
+            return compile_stylesheet(stylesheet_file, theme_colormap_file)
 
 
 def get_icon(icon_name: str) -> QIcon:
@@ -54,7 +48,5 @@ def get_icon(icon_name: str) -> QIcon:
     QIcon
         QIcon object with the given icon name.
     """
-
-    icon_folder = get_qdarktheme_root_path() / "svg" / "example"
-    icon_path = icon_folder / f"{icon_name}_24dp.svg"
-    return QIcon(str(icon_path))
+    with resources.path("qdarktheme.svg.example", f"{icon_name}_24dp.svg") as icon_path:
+        return QIcon(str(icon_path))

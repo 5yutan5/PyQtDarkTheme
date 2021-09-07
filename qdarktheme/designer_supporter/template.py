@@ -1,16 +1,17 @@
+import inspect
 import re
 import shutil
 from pathlib import Path
 from typing import Union
 from xml.etree import ElementTree as ET
 
+import qdarktheme
 from qdarktheme import load_stylesheet
-from qdarktheme.util import get_qdarktheme_root_path
 
 
 class TemplateGenerator:
     def __init__(self, save_folder: Union[Path, str], theme: str) -> None:
-        self._qdarktheme_root_folder = get_qdarktheme_root_path()
+        self._qdarktheme_root_folder = Path(inspect.getfile(qdarktheme)).parent
         self._save_folder = Path(save_folder)
         self._theme = theme
 
@@ -57,7 +58,8 @@ class TemplateGenerator:
 
 def convert_stylesheet_for_designer(stylesheet: str) -> str:
     # Convert to path for resource system
-    stylesheet_designer = stylesheet.replace("qdarktheme:", ":/qdarktheme/")
+    root_path = Path(inspect.getfile(qdarktheme)).parent
+    stylesheet_designer = stylesheet.replace(f"{root_path}", ":/qdarktheme")
     # Deleate comment
     stylesheet_designer = re.sub("[\s\t]*/\*/?(\n|[^/]|[^*]/)*\*/", "", stylesheet_designer)
     return stylesheet_designer
