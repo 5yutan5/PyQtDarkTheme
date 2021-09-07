@@ -29,12 +29,10 @@ def compile_stylesheet(stylesheet_file: Path, theme_file: Path) -> str:
             return stylesheet_compiled
     except FileNotFoundError:
         raise FileNotFoundError(
-            "\n======================================================================="
-            "\nUnable to load the QSS file."
+            "Unable to load the QSS file."
             f"\nQSS file path: {stylesheet_file}"
             "\nThe qss file may be crushed or not installed properly."
             "\nTry reinstalling the module again.[pip install qdarktheme]"
             "\nAlso, this module has only been tested on mac and windows."
             "\nOperation on other operating systems, such as Linux, is not guaranteed."
-            "\n======================================================================="
-        )
+        ) from None

@@ -6,7 +6,6 @@ from typing import Union
 from xml.etree import ElementTree as ET
 
 import qdarktheme
-from qdarktheme import load_stylesheet
 
 
 class TemplateGenerator:
@@ -39,7 +38,7 @@ class TemplateGenerator:
     def _generate_stylesheet_file(self) -> None:
         stylesheet_file = self._save_folder / "stylesheet.qss"
         with stylesheet_file.open(mode="w", encoding="utf-8") as f:
-            stylesheet = load_stylesheet("dark")
+            stylesheet = qdarktheme.load_stylesheet(self._theme)
             stylesheet_for_designer = convert_stylesheet_for_designer(stylesheet)
             f.write(stylesheet_for_designer)
 

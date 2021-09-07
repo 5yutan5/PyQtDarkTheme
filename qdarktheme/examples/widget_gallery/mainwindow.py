@@ -2,7 +2,7 @@ from qdarktheme import load_stylesheet
 from qdarktheme.examples.widget_gallery.ui.main_ui import UI
 from qdarktheme.qtpy.QtCore import Slot
 from qdarktheme.qtpy.QtWidgets import QApplication, QColorDialog, QFileDialog, QMainWindow
-from qdarktheme.resource_manager import get_icon
+from qdarktheme.icon_manager import get_icon
 
 
 class WidgetGallery(QMainWindow):

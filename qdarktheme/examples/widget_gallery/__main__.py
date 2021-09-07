@@ -7,7 +7,7 @@ from qdarktheme.qtpy.QtWidgets import QApplication
 
 app = QApplication(sys.argv)
 # Fix the svg icon display becoming low quality in Qt5.
-# PyQt6 doesn't have this attribute.
+# PyQt6 doesn't have attribute AA_UseHighDpiPixmaps.
 if hasattr(Qt.ApplicationAttribute, "AA_UseHighDpiPixmaps"):
     app.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)
 win = WidgetGallery()

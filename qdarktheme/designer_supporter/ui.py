@@ -10,7 +10,7 @@ from qdarktheme.qtpy.QtWidgets import (
     QToolButton,
     QWidget,
 )
-from qdarktheme.resource_manager import get_icon
+from qdarktheme.icon_manager import get_icon
 
 
 class FlexiblePopupCombobox(QComboBox):

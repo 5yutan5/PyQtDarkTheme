@@ -1,8 +1,8 @@
+import qdarktheme
 from qdarktheme.designer_supporter.template import TemplateGenerator, convert_stylesheet_for_designer
 from qdarktheme.designer_supporter.ui import UI
 from qdarktheme.qtpy.QtCore import Slot
 from qdarktheme.qtpy.QtWidgets import QApplication, QDialog
-from qdarktheme.resource_manager import load_stylesheet
 
 
 class MainDialog(QDialog):
@@ -36,7 +36,7 @@ class MainDialog(QDialog):
     @Slot()  # type: ignore
     def _toggle_theme(self) -> None:
         self._theme = "dark" if self._ui.combobox_theme.currentText() == "Dark Theme" else "light"
-        stylesheet = load_stylesheet(self._theme)
+        stylesheet = qdarktheme.load_stylesheet(self._theme)
         stylesheet_for_designer = convert_stylesheet_for_designer(stylesheet)
         self._ui.textedit_stylesheet.setText(stylesheet_for_designer)
 
