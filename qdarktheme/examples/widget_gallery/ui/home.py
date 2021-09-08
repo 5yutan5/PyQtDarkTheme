@@ -35,8 +35,7 @@ from qdarktheme.icon_manager import get_icon
 
 class HomeUI:
     def setup_ui(self, win: QWidget) -> None:
-        h_splitter_1 = QSplitter(Qt.Orientation.Horizontal)
-        h_splitter_2 = QSplitter(Qt.Orientation.Horizontal)
+        h_splitter_1, h_splitter_2 = QSplitter(Qt.Orientation.Horizontal), QSplitter(Qt.Orientation.Horizontal)
 
         # layout
         h_splitter_1.addWidget(_Group1())
@@ -82,17 +81,13 @@ class _Group1(QGroupBox):
         push_button_text_toggled = QPushButton(text="TOGGLED")
         push_button_text_icon = QPushButton(icon=get_icon("favorite_border"), text="ICON")
 
-        tool_button_normal = QToolButton()
-        tool_button_toggled = QToolButton()
-        tool_button_text = QToolButton()
+        tool_button_normal, tool_button_toggled, tool_button_text = QToolButton(), QToolButton(), QToolButton()
 
-        radio_button_normal_1 = QRadioButton("Normal 1")
-        radio_button_normal_2 = QRadioButton("Normal 2")
+        radio_button_normal_1, radio_button_normal_2 = QRadioButton("Normal 1"), QRadioButton("Normal 2")
 
         command_link_button = QCommandLinkButton("NORMAL")
 
-        checkbox_normal = QCheckBox("Normal")
-        checkbox_tristate = QCheckBox("Tristate")
+        checkbox_normal, checkbox_tristate = QCheckBox("Normal"), QCheckBox("Tristate")
 
         # setup widgets
         self.setCheckable(True)
@@ -177,18 +172,13 @@ class _Group2(QGroupBox):
         group_editable = QGroupBox("Line edit")
         group_date = QGroupBox("Date time edit")
 
-        spinbox_normal = QSpinBox()
-        spinbox_suffix = QSpinBox()
+        spinbox_normal, spinbox_suffix = QSpinBox(), QSpinBox()
 
-        combobox_normal = QComboBox()
-        combobox_line_edit = QComboBox()
+        combobox_normal, combobox_line_edit = QComboBox(), QComboBox()
 
-        lineedit_normal = QLineEdit()
-        lineedit_warning = QLineEdit()
-        lineedit_error = QLineEdit()
+        lineedit_normal, lineedit_warning, lineedit_error = QLineEdit(), QLineEdit(), QLineEdit()
 
-        date_time_edit_normal = QDateTimeEdit()
-        date_time_edit_calendar = QDateTimeEdit()
+        date_time_edit_normal, date_time_edit_calendar = QDateTimeEdit(), QDateTimeEdit()
 
         # setup widget
         self.setCheckable(True)
