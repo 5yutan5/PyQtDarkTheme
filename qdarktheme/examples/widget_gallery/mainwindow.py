@@ -1,8 +1,7 @@
-from qdarktheme import load_stylesheet
+import qdarktheme
 from qdarktheme.examples.widget_gallery.ui.main_ui import UI
 from qdarktheme.qtpy.QtCore import Slot
 from qdarktheme.qtpy.QtWidgets import QApplication, QColorDialog, QFileDialog, QMainWindow
-from qdarktheme.icon_manager import get_icon
 
 
 class WidgetGallery(QMainWindow):
@@ -19,9 +18,10 @@ class WidgetGallery(QMainWindow):
         self._ui.action_open_color_dialog.triggered.connect(self._open_color_dialog)
         self._ui.action_enable.triggered.connect(self._enable)
         self._ui.action_disable.triggered.connect(self._disable)
-        self._ui.action_toggle_theme.triggered.connect(self._toggle_theme)
+        for action in self._ui.actions_theme:
+            action.triggered.connect(self._change_theme)
 
-    @Slot()  # type: ignore  <- Fix pyi file problem of PySide6
+    @Slot()
     def _open_file_dialog(self) -> None:
         QFileDialog.getOpenFileName(self, "Open File", options=QFileDialog.Option.DontUseNativeDialog)
 
@@ -56,14 +56,6 @@ class WidgetGallery(QMainWindow):
         self.statusBar().showMessage("Disable")
 
     @Slot()  # type: ignore
-    def _toggle_theme(self) -> None:
-        if self._ui.action_toggle_theme.text() == "Change to a dark theme":
-            self._ui.action_toggle_theme.setIcon(get_icon("dark_mode"))
-            self._ui.action_toggle_theme.setText("Change to a light theme")
-            q_app: QApplication = QApplication.instance()
-            q_app.setStyleSheet(load_stylesheet("dark"))
-        else:
-            self._ui.action_toggle_theme.setIcon(get_icon("light_mode"))
-            self._ui.action_toggle_theme.setText("Change to a dark theme")
-            q_app: QApplication = QApplication.instance()
-            q_app.setStyleSheet(load_stylesheet("light"))
+    def _change_theme(self) -> None:
+        theme = self.sender().text()
+        QApplication.instance().setStyleSheet(qdarktheme.load_stylesheet(theme))
