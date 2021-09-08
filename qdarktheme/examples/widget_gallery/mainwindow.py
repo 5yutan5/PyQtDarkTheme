@@ -25,37 +25,37 @@ class WidgetGallery(QMainWindow):
     def _open_file_dialog(self) -> None:
         QFileDialog.getOpenFileName(self, "Open File", options=QFileDialog.Option.DontUseNativeDialog)
 
-    @Slot()  # type: ignore
+    @Slot()
     def _open_color_dialog(self) -> None:
         QColorDialog.getColor(parent=self, options=QColorDialog.ColorDialogOption.DontUseNativeDialog)
 
-    @Slot()  # type: ignore
+    @Slot()
     def _change_home_win(self) -> None:
         self._ui.stack_widget.setCurrentIndex(0)
         self._ui.action_change_home_window.setChecked(True)
         self._ui.action_change_dock_window.setChecked(False)
 
-    @Slot()  # type: ignore
+    @Slot()
     def _change_dock_win(self) -> None:
         self._ui.stack_widget.setCurrentIndex(1)
         self._ui.action_change_home_window.setChecked(False)
         self._ui.action_change_dock_window.setChecked(True)
 
-    @Slot()  # type: ignore
+    @Slot()
     def _enable(self) -> None:
         self._ui.central_window.centralWidget().setEnabled(True)
         self._ui.action_enable.setEnabled(False)
         self._ui.action_disable.setEnabled(True)
         self.statusBar().showMessage("Enable")
 
-    @Slot()  # type: ignore
+    @Slot()
     def _disable(self) -> None:
         self._ui.central_window.centralWidget().setEnabled(False)
         self._ui.action_enable.setEnabled(True)
         self._ui.action_disable.setEnabled(False)
         self.statusBar().showMessage("Disable")
 
-    @Slot()  # type: ignore
+    @Slot()
     def _change_theme(self) -> None:
         theme = self.sender().text()
         QApplication.instance().setStyleSheet(qdarktheme.load_stylesheet(theme))

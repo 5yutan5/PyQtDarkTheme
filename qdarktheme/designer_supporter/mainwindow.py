@@ -21,7 +21,7 @@ class MainDialog(QDialog):
 
         self._toggle_theme()
 
-    @Slot()  # type: ignore
+    @Slot()
     def _create_template(self) -> None:
         if not self._ui.folder_dialog.exec():
             return
@@ -29,11 +29,11 @@ class MainDialog(QDialog):
         template_generator = TemplateGenerator(folder_path, self._theme)
         template_generator.generate()
 
-    @Slot()  # type: ignore
+    @Slot()
     def _quit(self) -> None:
         self.close()
 
-    @Slot()  # type: ignore
+    @Slot()
     def _toggle_theme(self) -> None:
         self._theme = "dark" if self._ui.combobox_theme.currentText() == "Dark Theme" else "light"
         stylesheet = qdarktheme.load_stylesheet(self._theme)
@@ -47,6 +47,6 @@ class MainDialog(QDialog):
 
         self._ui.textedit_stylesheet.setMinimumWidth(textedit_width if textedit_width < 700 else 700)
 
-    @Slot()  # type: ignore
+    @Slot()
     def _copy_all(self) -> None:
         QApplication.clipboard().setText(self._ui.textedit_stylesheet.toPlainText())
