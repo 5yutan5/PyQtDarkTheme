@@ -27,7 +27,7 @@ class UI:
         self.action_open_color_dialog = QAction(get_icon("palette"), "Open color dialog", main_win)
         self.action_enable = QAction(get_icon("circle"), "Enable")
         self.action_disable = QAction(get_icon("clear"), "Disable")
-        self.actions_theme = [QAction(theme) for theme in ["dark", "light"]]
+        self.actions_theme = [QAction(theme, main_win) for theme in ["dark", "light"]]
 
         sidebar = QToolBar("Sidebar")
         toolbar = QToolBar("Toolbar")
@@ -63,7 +63,7 @@ class UI:
         menu_toggle_status = menu.addMenu("&Toggle Status")
         menu_toggle_status.addActions([self.action_enable, self.action_disable])
 
-        menu_settings = QMenu()
+        menu_settings = QMenu(main_win)
         menu_settings.addActions([self.action_enable, self.action_disable])
         menu_theme = menu_settings.addMenu("theme")
         menu_theme.addActions(self.actions_theme)
