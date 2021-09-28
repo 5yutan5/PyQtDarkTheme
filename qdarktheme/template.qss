@@ -778,21 +778,26 @@ QSplitter::handle:hover {
     background-color: $highlight;
 }
 QSplitter::handle:horizontal {
-    width: 9px;
+    width: 5px;
     image: url("${path}/svg/${main_theme}/vertical_rule_24dp.svg");
 }
 QSplitter::handle:horizontal:disabled {
-    width: 9px;
     image: url("${path}/svg/${main_theme}/vertical_rule_disabled_24dp.svg");
 }
 QSplitter::handle:vertical {
-    height: 9px;
+    height: 5px;
     image: url("${path}/svg/${main_theme}/horizontal_rule_24dp.svg");
 }
 QSplitter::handle:vertical:disabled {
-    height: 9px;
     image: url("${path}/svg/${main_theme}/horizontal_rule_disabled_24dp.svg");
 }
+
+/*
+QSplitterHandle is the QSplitter handle class.
+[QSplitter::handle:hover] is enabled by the following settings.
+Warning: This setting is not mentioned in the documentation.
+*/
+QSplitterHandle::item:hover {}
 
 /* QAbstractScrollArea ----------------------------------------------------
 
