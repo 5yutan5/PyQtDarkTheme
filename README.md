@@ -14,7 +14,7 @@ Dark theme for PySide, PyQt and Qt Designer.
 This python module applies a theme to a Qt applications(PySide6, PyQt6, PyQt5 and PySide2) using a qt stylesheets system.  
 There's a Light Theme too. Color and style balanced from the Dark theme for easy viewing in daylight.
 
-> ⚠ I have created new module that can be used the vscode theme.  
+> I have created new module that can be used the vscode theme.  
 > See [QtVSCodeStyle](https://github.com/5yutan5/QtVSCodeStyle).
 
 [Japanese article](https://qiita.com/papuriko/items/1c8f81ddb383812b86ab)
