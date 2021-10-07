@@ -14,10 +14,6 @@ Dark theme for PySide, PyQt and Qt Designer.
 This python module applies a theme to a Qt applications(PySide6, PyQt6, PyQt5 and PySide2) using a qt stylesheets system.  
 There's a Light Theme too. Color and style balanced from the Dark theme for easy viewing in daylight.
 
-> I have created new module that can be used the vscode theme.  
-> See [QtVSCodeStyle](https://github.com/5yutan5/QtVSCodeStyle).
-
-[Japanese article](https://qiita.com/papuriko/items/1c8f81ddb383812b86ab)
 
 ### Dark Theme
 ![widget_gallery_dark_theme](https://raw.githubusercontent.com/5yutan5/PyQtDarkTheme/main/images/widget_gallery_dark.png)
@@ -107,23 +103,6 @@ sidebar.setProperty("type", "sidebar")
 | QPushButton | type     | outlined, contained, text | outlined | `python -m qdarktheme.examples.pushbutton` |
 | QLineEdit   | state    | normal, warning, error    | normal   | `python -m qdarktheme.examples.lineedit`   |
 | QFrame      | type     | normal, h_line, v_line    | normal   | `python -m qdarktheme.examples.line`       |
-
-## Support Qt Designer
-
-This module support Qt Designer.
-
-How to use PyQtDarktheme with Qt Designer.
-1. Run the following command in the terminal to launch the app that creates the template for the designer.  
-   ```plaintext
-   python -m qdarktheme.designer_supporter
-   ```
-1. Select a theme(dark or light) and press the Create button to create a template in any folder.
-1. Copy the style sheet displayed in the text box.
-1. Start Qt designer and save the ui file in the root of the template you created.
-1. Paste the copied stylesheet into the top-level widget.
-1. Register the resource file(.qrc) in the template to the resource browser.
-
-> ⚠ Support for Qt’s resource system has been removed in PyQt6. Therefore, if you want to use Qt Designer in PyQt6, you need to delete the stylesheet in the ui file and load the stylesheet using `load_stylesheet()`.
 
 ## License
 
