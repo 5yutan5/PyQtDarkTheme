@@ -234,8 +234,8 @@ class _Group3(QGroupBox):
         self.setCheckable(True)
         tab_widget.setTabsClosable(True)
         tab_widget.setMovable(True)
-        tab_text_edit.append("<b>QtVSCodeStyle</b>")
-        tab_text_edit.append("VS Code style for QtWidgets application(Qt for python).")
+        tab_text_edit.append("<b>PyQtDarkTheme</b>")
+        tab_text_edit.append("Dark theme for PySide and PyQt.")
         tab_text_edit.append("This project is licensed under the MIT license.")
         tab_text_edit.setWordWrapMode(QTextOption.WrapMode.NoWrap)
 
