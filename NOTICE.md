@@ -6,7 +6,7 @@ PyQtDarkTheme incorporates image assets from external sources,
 it is covered by its own license and copyright notice. 
 
 Any file not listed here is covered by PyQtDarkTheme's MIT license,
-described in the [LICENSE](LICENSE) file in this repository.
+described in the License.txt in the project root.
 
 --------------------------------------------------------------------
 
@@ -26,7 +26,10 @@ https://github.com/google/material-design-icons/blob/master/LICENSE
 
 Files covered:
 
-All files under [qdarktheme/svg](qdarktheme/svg).
+builder/svg/*
+qdarktheme/dist/dark/svg/*
+qdarktheme/dist/light/svg/*
+qdarktheme/widget_gallery/svg/*
 
 
 ## QDarkStyleSheet(Source code)
@@ -49,4 +52,6 @@ https://github.com/ColinDuquesnoy/QDarkStyleSheet/blob/master/LICENSE.rst
 
 Files covered:
 
-[qdarktheme/template.qss](qdarktheme/template.qss)
+qdarktheme/builder/base.qss
+qdarktheme/dist/dark/stylesheet.qss
+qdarktheme/dist/light/stylesheet.qss
