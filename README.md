@@ -10,7 +10,7 @@ PyQtDarkTheme
 
 Dark theme for PySide and PyQt.
 
-This python module applies a theme to a Qt applications(PySide6, PyQt6, PyQt5 and PySide2) using a qt stylesheets system.  
+This python package applies a flat dark theme to a Qt applications(PySide6, PyQt6, PyQt5 and PySide2) using a qt stylesheets system.  
 There's a Light Theme too. Color and style balanced from the Dark theme for easy viewing in daylight.
 
 
@@ -24,8 +24,6 @@ There's a Light Theme too. Color and style balanced from the Dark theme for easy
 
 - [Python 3.7+](https://www.python.org/downloads/)
 - PySide6, PyQt6, PyQt5 or PySide2
-
-Not tested on linux.
 
 ## Installation Method
 
@@ -59,7 +57,7 @@ app.exec()
 
 ```
 
-> ⚠ The quality of image may be low on Qt5(PyQt5, PySide2) due to the use of svg. You can add the following [attribute](https://doc.qt.io/qt-5/qt.html#ApplicationAttribute-enum) to improve the quality of images.
+> ⚠ The image quality may be lower on Qt5(PyQt5, PySide2) due to the use of svg. You can add the following attribute to improve the quality of images.
 > ```Python
 > app.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)
 > ```
@@ -72,7 +70,7 @@ app.setStyleSheet(qdarktheme.load_stylesheet("light"))
 
 ### Check common widgets
 
-Input the following command in a terminal to check common widgets.
+To check common widgets, run:
 
 ```plaintext
 python -m qdarktheme.widget_gallery
@@ -80,5 +78,5 @@ python -m qdarktheme.widget_gallery
 
 ## License
 
-The icons used in the demo code are sourced from the [Material design icons](https://fonts.google.com/icons)(Apache License Version 2.0).  
-Any file not listed the [NOTICE.md](https://github.com/5yutan5/PyQtDarkTheme/blob/main/NOTICE.md) file is covered by PyQtDarkTheme's MIT license.
+PyQtDarkTheme incorporates image assets from external sources. The icons for the PyQtDarkTheme are derived [Material design icons](https://fonts.google.com/icons)(Apache License Version 2.0).  
+Any file not listed in the [NOTICE.md](https://github.com/5yutan5/PyQtDarkTheme/blob/main/NOTICE.md) file is covered by PyQtDarkTheme's MIT license.
