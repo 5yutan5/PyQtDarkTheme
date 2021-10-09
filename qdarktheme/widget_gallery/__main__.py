@@ -6,9 +6,9 @@
 import sys
 
 import qdarktheme
-from qdarktheme.examples.widget_gallery.ui.main_ui import UI
 from qdarktheme.qtpy.QtCore import Qt, Slot
 from qdarktheme.qtpy.QtWidgets import QApplication, QColorDialog, QFileDialog, QMainWindow
+from qdarktheme.widget_gallery.ui.main_ui import UI
 
 
 class WidgetGallery(QMainWindow):
@@ -19,8 +19,8 @@ class WidgetGallery(QMainWindow):
         self._setup()
 
     def _setup(self) -> None:
-        self._ui.action_change_home_window.triggered.connect(self._change_home_win)
-        self._ui.action_change_dock_window.triggered.connect(self._change_dock_win)
+        self._ui.action_change_home.triggered.connect(self._change_page)
+        self._ui.action_change_dock.triggered.connect(self._change_page)
         self._ui.action_open_folder.triggered.connect(
             lambda: QFileDialog.getOpenFileName(self, "Open File", options=QFileDialog.Option.DontUseNativeDialog)
         )
@@ -33,16 +33,9 @@ class WidgetGallery(QMainWindow):
             action.triggered.connect(self._change_theme)
 
     @Slot()
-    def _change_home_win(self) -> None:
-        self._ui.stack_widget.setCurrentIndex(0)
-        self._ui.action_change_home_window.setChecked(True)
-        self._ui.action_change_dock_window.setChecked(False)
-
-    @Slot()
-    def _change_dock_win(self) -> None:
-        self._ui.stack_widget.setCurrentIndex(1)
-        self._ui.action_change_home_window.setChecked(False)
-        self._ui.action_change_dock_window.setChecked(True)
+    def _change_page(self) -> None:
+        action_name = self.sender().text()
+        self._ui.stack_widget.setCurrentIndex(0 if action_name == "Move to home" else 1)
 
     @Slot()
     def _toggle_state(self) -> None:
