@@ -82,27 +82,8 @@ app.setStyleSheet(qdarktheme.load_stylesheet("light"))
 Input the following command in a terminal to check common widgets.
 
 ```plaintext
-python -m qdarktheme.examples.widget_gallery
+python -m qdarktheme.widget_gallery
 ```
-
-## Custom Properties
-
-This module provides several custom properties.  
-You can use `setProperty()` of the widget object to apply a modern style.
-
-For example, if you set the QToolbar `type` property to `sidebar`, the style for the sidebar will be applied.
-
-```Python
-sidebar = QToolBar()
-sidebar.setProperty("type", "sidebar")
-```
-
-| Widget      | Property | Property value            | Default  | Command for demo                           |
-|-------------|----------|---------------------------|----------|--------------------------------------------|
-| QToolBar    | type     | toolbar, sidebar          | toolbar  | `python -m qdarktheme.examples.sidebar`    |
-| QPushButton | type     | outlined, contained, text | outlined | `python -m qdarktheme.examples.pushbutton` |
-| QLineEdit   | state    | normal, warning, error    | normal   | `python -m qdarktheme.examples.lineedit`   |
-| QFrame      | type     | normal, h_line, v_line    | normal   | `python -m qdarktheme.examples.line`       |
 
 ## License
 
