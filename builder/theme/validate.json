@@ -27,20 +27,8 @@
             "description": "Main Highlight color",
             "$ref": "#/definitions/color_code"
         },
-        "sub-highlight": {
-            "description": "Sub highlight color of QTableview",
-            "$ref": "#/definitions/color_code"
-        },
         "highlight-disabled": {
             "description": "Disabled main Highlight color",
-            "$ref": "#/definitions/color_code"
-        },
-        "warning": {
-            "description": "Warning color",
-            "$ref": "#/definitions/color_code"
-        },
-        "dangerous": {
-            "description": "Dangerous color",
             "$ref": "#/definitions/color_code"
         },
         "text": {
@@ -246,50 +234,6 @@
         "tableview-highlight-text": {
             "description": "QTableview highlight text color",
             "$ref": "#/definitions/color_code"
-        },
-        "contained-button": {
-            "description": "Contained button color",
-            "$ref": "#/definitions/color_code"
-        },
-        "contained-button-hover": {
-            "description": "Hovered contained button color",
-            "$ref": "#/definitions/color_code"
-        },
-        "contained-button-pressed": {
-            "description": "Pressed contained button color",
-            "$ref": "#/definitions/color_code"
-        },
-        "contained-button-border-pressed": {
-            "description": "Border color of pressed contained button",
-            "$ref": "#/definitions/color_code"
-        },
-        "contained-button-checked": {
-            "description": "Checked contained button color",
-            "$ref": "#/definitions/color_code"
-        },
-        "contained-button-disabled": {
-            "description": "Disabled contained button color",
-            "$ref": "#/definitions/color_code"
-        },
-        "sidebar": {
-            "description": "SideBar background color",
-            "$ref": "#/definitions/color_code"
-        },
-        "sidebar-button-hover": {
-            "description": "Hovered button color in SideBar",
-            "$ref": "#/definitions/color_code"
-        },
-        "sidebar-button-pressed": {
-            "description": "Pressed button color in SideBar",
-            "$ref": "#/definitions/color_code"
-        },
-        "sidebar-button-checked": {
-            "description": "Checked button color in SideBar",
-            "$ref": "#/definitions/color_code"
-        },
-        "sidebar-button-disabled": {
-            "description": "Disabled button color in SideBar",
-            "$ref": "#/definitions/color_code"
         }
     },
     "required": [
@@ -297,10 +241,7 @@
         "icon-foreground",
         "icon-foreground-disabled",
         "highlight",
-        "sub-highlight",
         "highlight-disabled",
-        "warning",
-        "dangerous",
         "text",
         "highlight-text",
         "text-disabled",
@@ -351,17 +292,6 @@
         "headerview-text-active",
         "tableview",
         "tableview-gridline",
-        "tableview-highlight-text",
-        "contained-button",
-        "contained-button-hover",
-        "contained-button-pressed",
-        "contained-button-border-pressed",
-        "contained-button-checked",
-        "contained-button-disabled",
-        "sidebar",
-        "sidebar-button-hover",
-        "sidebar-button-pressed",
-        "sidebar-button-checked",
-        "sidebar-button-disabled"
+        "tableview-highlight-text"
     ]
 }
