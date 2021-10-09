@@ -1,3 +1,8 @@
+# ---------------------------------------------------------------------------------------------
+#  Copyright (c) Yunosuke Ohsugi. All rights reserved.
+#  Licensed under the MIT License. See License.txt in the project root for license information.
+# --------------------------------------------------------------------------------------------*/
+
 def load_stylesheet(theme: str = "dark") -> str:
     """Load the style sheet which looks like flat design. There are two themes, dark theme and light theme.
 

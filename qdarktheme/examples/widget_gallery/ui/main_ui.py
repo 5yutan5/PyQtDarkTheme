@@ -1,3 +1,8 @@
+# ---------------------------------------------------------------------------------------------
+#  Copyright (c) Yunosuke Ohsugi. All rights reserved.
+#  Licensed under the MIT License. See License.txt in the project root for license information.
+# --------------------------------------------------------------------------------------------*/
+
 from qdarktheme.examples.widget_gallery.ui.dock import DockUI
 from qdarktheme.examples.widget_gallery.ui.home import HomeUI
 from qdarktheme.icon_manager import get_icon
