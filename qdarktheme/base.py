@@ -62,6 +62,6 @@ def load_stylesheet(theme: str = "dark") -> str:
 
     # Replace the variable by prefix or absolute path
     with resources.path("qdarktheme", "__init__.py") as path:
-        stylesheet = stylesheet.replace("${path}", str(path.parent))
+        stylesheet = stylesheet.replace("${path}", str(path.parent.as_posix()))
 
     return stylesheet
