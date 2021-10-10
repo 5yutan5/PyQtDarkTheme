@@ -1,4 +1,4 @@
-name: Code Quality
+name: codeql
 
 on: [push, pull_request]
 
