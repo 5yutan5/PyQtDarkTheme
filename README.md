@@ -4,6 +4,8 @@ PyQtDarkTheme
 [![Python Versions](https://img.shields.io/pypi/pyversions/pyqtdarktheme.svg?color=blue)](https://www.python.org/downloads/)
 [![Qt Versions](https://img.shields.io/badge/Qt-5%20|%206-blue.svg?&logo=Qt&logoWidth=18&logoColor=white)](https://www.qt.io/qt-for-python)
 [![License](https://img.shields.io/github/license/5yutan5/PyQtDarkTheme.svg?color=green)](https://github.com/5yutan5/PyQtDarkTheme/blob/main/LICENSE/)
+[![Build Status](https://github.com/5yutan5/PyQtDarkTheme/workflows/os-test/badge.svg)](https://github.com/5yutan5/PyQtDarkTheme/actions/workflows/os-test.yml)
+[![CodeQL Status](https://github.com/5yutan5/PyQtDarkTheme/workflows/codeql/badge.svg)](https://github.com/5yutan5/PyQtDarkTheme/actions/workflows/code-quality.yml)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/5yutan5/PyQtDarkTheme.svg?logo=lgtm&logoWidth=18&color=success)](https://lgtm.com/projects/g/5yutan5/PyQtDarkTheme/alerts/)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/5yutan5/PyQtDarkTheme.svg?logo=lgtm&logoWidth=18&color=success)](https://lgtm.com/projects/g/5yutan5/PyQtDarkTheme/context:python)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-black.svg)](https://github.com/python/black)
