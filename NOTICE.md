@@ -3,7 +3,7 @@
 ## General Information
 
 PyQtDarkTheme incorporates image assets from external sources,
-it is covered by its own license and copyright notice. 
+it is covered by its own license and copyright notice.
 
 Any file not listed here is covered by PyQtDarkTheme's MIT license,
 described in the License.txt in the project root.

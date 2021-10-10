@@ -10,7 +10,7 @@ PyQtDarkTheme
 
 Dark theme for PySide and PyQt.
 
-This python package applies a flat dark theme to a Qt applications(PySide6, PyQt6, PyQt5 and PySide2) using a qt stylesheets system.  
+This python package applies a flat dark theme to a Qt applications(PySide6, PyQt6, PyQt5 and PySide2) using a qt stylesheets system.
 There's a Light Theme too. Color and style balanced from the Dark theme for easy viewing in daylight.
 
 
@@ -78,5 +78,5 @@ python -m qdarktheme.widget_gallery
 
 ## License
 
-PyQtDarkTheme incorporates image assets from external sources. The icons for the PyQtDarkTheme are derived [Material design icons](https://fonts.google.com/icons)(Apache License Version 2.0).  
+PyQtDarkTheme incorporates image assets from external sources. The icons for the PyQtDarkTheme are derived [Material design icons](https://fonts.google.com/icons)(Apache License Version 2.0).
 Any file not listed in the [NOTICE.md](https://github.com/5yutan5/PyQtDarkTheme/blob/main/NOTICE.md) file is covered by PyQtDarkTheme's MIT license.

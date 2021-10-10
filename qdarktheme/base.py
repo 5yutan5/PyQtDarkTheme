@@ -10,6 +10,7 @@ import operator
 import re
 from distutils.version import StrictVersion
 from importlib import resources
+
 from qdarktheme.util import create_logger, multireplace
 
 _logger = create_logger(__name__)

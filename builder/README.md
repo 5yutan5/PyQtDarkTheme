@@ -1,5 +1,5 @@
-Build svg and stylesheet based on the color-map of the theme file.  
-The resources are output to `qdarktheme/dist`.  
+Build svg and stylesheet based on the color-map of the theme file.
+The resources are output to `qdarktheme/dist`.
 To build resources, run:
 
 ```Plaintext
