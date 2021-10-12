@@ -9,7 +9,7 @@ from qdarktheme.qtpy.QtGui import QIcon
 
 
 def get_icon(icon_name: str) -> QIcon:
-    """Creates an icon from svg file in `qdarktheme/svg/app`. See below folder(`qdarktheme/svg/app`)
+    """Creates an icon from svg file in `qdarktheme/svg/app`. See below folder(`qdarktheme/widget_gallery/svg`)
     for details on available icons.
     """
     with resources.path("qdarktheme.widget_gallery.svg", f"{icon_name}_24dp.svg") as icon_path:

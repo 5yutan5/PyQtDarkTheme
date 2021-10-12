@@ -16,9 +16,8 @@ class WidgetGallery(QMainWindow):
         super().__init__()
         self._ui = UI()
         self._ui.setup_ui(self)
-        self._setup()
 
-    def _setup(self) -> None:
+        # Signal
         self._ui.action_change_home.triggered.connect(self._change_page)
         self._ui.action_change_dock.triggered.connect(self._change_page)
         self._ui.action_open_folder.triggered.connect(

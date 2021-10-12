@@ -44,7 +44,9 @@ def _parse_env_patch(stylesheet: str) -> dict[str, str]:
                 version = property["version"].replace(qualifier, "")
                 break
         else:
-            raise SyntaxError(f"invalid character in qualifier. Available qualifiers {list(operators.keys())}")
+            raise SyntaxError(
+                f"invalid character in qualifier. Available qualifiers {list(operators.keys())}"
+            ) from None
 
         is_true = operators[qualifier](StrictVersion(qt_version), StrictVersion(version))
         replacements[match_text] = property["value"] if is_true else ""

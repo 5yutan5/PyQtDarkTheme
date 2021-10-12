@@ -17,26 +17,10 @@ class RGBA:
         self._a = max(min(1, a), 0)
 
     def __str__(self) -> str:
-        return f"rgba({self.r:.3f}, {self.g:.3f}, {self.b:.3f}, {self.a:.3f})"
+        return f"rgba({self._r:.3f}, {self._g:.3f}, {self._b:.3f}, {self._a:.3f})"
 
     def __getitem__(self, item: int) -> float:
-        return [self.r, self.g, self.b, self.a][item]
-
-    @property
-    def r(self) -> float:
-        return self._r
-
-    @property
-    def g(self) -> float:
-        return self._g
-
-    @property
-    def b(self) -> float:
-        return self._b
-
-    @property
-    def a(self) -> float:
-        return self._a
+        return [self._r, self._g, self._b, self._a][item]
 
     @staticmethod
     @lru_cache()
