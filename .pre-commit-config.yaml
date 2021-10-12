@@ -20,7 +20,8 @@ repos:
     rev: v4.0.1
     hooks:
       - id: trailing-whitespace
+        exclude: (?x)(^.*/.*\.md$)
       - id: end-of-file-fixer
-        exclude: (?x)(^.*/svg/.*)
+        exclude: (?x)(^.*/.*\.svg$)
       - id: check-yaml
       - id: check-added-large-files
