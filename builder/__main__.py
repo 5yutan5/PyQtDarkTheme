@@ -97,3 +97,5 @@ if __name__ == "__main__":
 
         with (output_folder_path / "stylesheet.qss").open("w") as f:
             f.write(template_stylesheet)
+
+    print(f"changed some content in {dist_folder_path.relative_to(Path.cwd())}")
