@@ -1,4 +1,4 @@
-name: os-test
+name: Tests
 on:
   push:
     paths-ignore:
