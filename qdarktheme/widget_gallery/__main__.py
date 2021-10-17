@@ -50,13 +50,14 @@ class WidgetGallery(QMainWindow):
         QApplication.instance().setStyleSheet(qdarktheme.load_stylesheet(theme))
 
 
-app = QApplication(sys.argv)
-# Fix the svg icon display becoming low quality in Qt5.
-# PyQt6 doesn't have attribute AA_UseHighDpiPixmaps.
-if hasattr(Qt.ApplicationAttribute, "AA_UseHighDpiPixmaps"):
-    app.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)
-win = WidgetGallery()
-win.menuBar().setNativeMenuBar(False)
-app.setStyleSheet(qdarktheme.load_stylesheet())
-win.show()
-app.exec()
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    # Fix the svg icon display becoming low quality in Qt5.
+    # PyQt6 doesn't have attribute AA_UseHighDpiPixmaps.
+    if hasattr(Qt.ApplicationAttribute, "AA_UseHighDpiPixmaps"):
+        app.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)
+    win = WidgetGallery()
+    win.menuBar().setNativeMenuBar(False)
+    app.setStyleSheet(qdarktheme.load_stylesheet())
+    win.show()
+    app.exec()
