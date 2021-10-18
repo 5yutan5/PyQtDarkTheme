@@ -6,8 +6,9 @@
 import sys
 
 import qdarktheme
-from qdarktheme.qtpy.QtCore import Qt, Slot
+from qdarktheme.qtpy.QtCore import QDir, Qt, Slot
 from qdarktheme.qtpy.QtWidgets import QApplication, QColorDialog, QFileDialog, QMainWindow
+from qdarktheme.util import get_project_root_path
 from qdarktheme.widget_gallery.ui.main_ui import UI
 
 
@@ -52,10 +53,9 @@ class WidgetGallery(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    # Fix the svg icon display becoming low quality in Qt5.
-    # PyQt6 doesn't have attribute AA_UseHighDpiPixmaps.
-    if hasattr(Qt.ApplicationAttribute, "AA_UseHighDpiPixmaps"):
+    if hasattr(Qt.ApplicationAttribute, "AA_UseHighDpiPixmaps"):  # Enable High DPI display with Qt5
         app.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)
+    QDir.addSearchPath("icons", f"{get_project_root_path().as_posix()}/widget_gallery/ui/svg")
     win = WidgetGallery()
     win.menuBar().setNativeMenuBar(False)
     app.setStyleSheet(qdarktheme.load_stylesheet())

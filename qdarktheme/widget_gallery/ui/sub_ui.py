@@ -6,7 +6,7 @@
 from typing import Any
 
 from qdarktheme.qtpy.QtCore import QAbstractTableModel, QModelIndex, Qt
-from qdarktheme.qtpy.QtGui import QTextOption
+from qdarktheme.qtpy.QtGui import QIcon, QTextOption
 from qdarktheme.qtpy.QtWidgets import (
     QCheckBox,
     QComboBox,
@@ -37,7 +37,6 @@ from qdarktheme.qtpy.QtWidgets import (
     QVBoxLayout,
     QWidget,
 )
-from qdarktheme.widget_gallery.ui.icon_manager import get_icon
 
 
 class _Group1(QGroupBox):
@@ -65,9 +64,9 @@ class _Group1(QGroupBox):
         push_btn_flat.setFlat(True)
         push_btn_flat_toggled.setFlat(True)
 
-        tool_btn.setIcon(get_icon("favorite_border"))
-        tool_btn_toggled.setIcon(get_icon("favorite_border"))
-        tool_btn_text.setIcon(get_icon("favorite_border"))
+        tool_btn.setIcon(QIcon("icons:favorite_border_24dp.svg"))
+        tool_btn_toggled.setIcon(QIcon("icons:favorite_border_24dp.svg"))
+        tool_btn_text.setIcon(QIcon("icons:favorite_border_24dp.svg"))
         tool_btn_text.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
         tool_btn_text.setText("Text")
         tool_btn_toggled.setCheckable(True)

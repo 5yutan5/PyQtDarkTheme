@@ -9,9 +9,8 @@ import json
 import operator
 import re
 from distutils.version import StrictVersion
-from importlib import resources
 
-from qdarktheme.util import create_logger, multireplace
+from qdarktheme.util import create_logger, get_project_root_path, multireplace
 
 _logger = create_logger(__name__)
 
@@ -59,12 +58,15 @@ def load_stylesheet(theme: str = "dark") -> str:
     if theme not in ["dark", "light"]:
         raise TypeError("The argument [theme] can only be specified as 'dark' or 'light'.") from None
 
-    stylesheet = resources.read_text(f"qdarktheme.dist.{theme}", "stylesheet.qss")
-    replacements = _parse_env_patch(stylesheet)
-    stylesheet = multireplace(stylesheet, replacements)
+    if theme == "dark":
+        from qdarktheme.dist.dark.stylesheet import STYLE_SHEET
+    else:
+        from qdarktheme.dist.light.stylesheet import STYLE_SHEET
 
-    # Replace the variable by prefix or absolute path
-    with resources.path("qdarktheme", "__init__.py") as path:
-        stylesheet = stylesheet.replace("${path}", str(path.parent.as_posix()))
+    replacements = _parse_env_patch(STYLE_SHEET)
+    stylesheet = multireplace(STYLE_SHEET, replacements)
+
+    # Replace the variable by absolute path
+    stylesheet = stylesheet.replace("${path}", get_project_root_path().as_posix())
 
     return stylesheet

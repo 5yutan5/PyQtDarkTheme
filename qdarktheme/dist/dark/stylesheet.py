@@ -1,3 +1,4 @@
+STYLE_SHEET = """
 
 /* ==========================================================================================
  * PyQtDarkTheme.
@@ -1132,3 +1133,5 @@ PlotWidget {
     https://github.com/ColinDuquesnoy/QDarkStyleSheet/issues/134 */
     padding: 0px;
 }
+
+"""

@@ -4,7 +4,7 @@
 # --------------------------------------------------------------------------------------------*/
 
 from qdarktheme.qtpy.QtCore import Qt
-from qdarktheme.qtpy.QtGui import QAction, QActionGroup
+from qdarktheme.qtpy.QtGui import QAction, QActionGroup, QIcon
 from qdarktheme.qtpy.QtWidgets import (
     QMainWindow,
     QMenuBar,
@@ -15,19 +15,18 @@ from qdarktheme.qtpy.QtWidgets import (
     QToolButton,
     QWidget,
 )
-from qdarktheme.widget_gallery.ui.icon_manager import get_icon
 from qdarktheme.widget_gallery.ui.sub_ui import DockUI, HomeUI
 
 
 class UI:
     def setup_ui(self, main_win: QMainWindow) -> None:
         # Actions
-        self.action_change_home = QAction(get_icon("home"), "Move to home")
-        self.action_change_dock = QAction(get_icon("flip_to_front"), "Move to dock")
-        self.action_open_folder = QAction(get_icon("folder_open"), "Open folder dialog")
-        self.action_open_color_dialog = QAction(get_icon("palette"), "Open color dialog")
-        self.action_enable = QAction(get_icon("circle"), "Enable")
-        self.action_disable = QAction(get_icon("clear"), "Disable")
+        self.action_change_home = QAction(QIcon("icons:home_24dp.svg"), "Move to home")
+        self.action_change_dock = QAction(QIcon("icons:flip_to_front_24dp.svg"), "Move to dock")
+        self.action_open_folder = QAction(QIcon("icons:folder_open_24dp.svg"), "Open folder dialog")
+        self.action_open_color_dialog = QAction(QIcon("icons:palette_24dp.svg"), "Open color dialog")
+        self.action_enable = QAction(QIcon("icons:circle_24dp.svg"), "Enable")
+        self.action_disable = QAction(QIcon("icons:clear_24dp.svg"), "Disable")
         self.actions_theme = [QAction(theme, main_win) for theme in ["dark", "light"]]
 
         action_group_toolbar = QActionGroup(main_win)
@@ -60,11 +59,11 @@ class UI:
         activitybar.addWidget(spacer)
         activitybar.addWidget(tool_btn_settings)
 
-        tool_btn_settings.setIcon(get_icon("settings"))
+        tool_btn_settings.setIcon(QIcon("icons:settings_24dp.svg"))
         tool_btn_settings.setPopupMode(QToolButton.ToolButtonPopupMode.InstantPopup)
         tool_btn_enable.setDefaultAction(self.action_enable)
         tool_btn_disable.setDefaultAction(self.action_disable)
-        tool_btn_theme.setIcon(get_icon("contrast"))
+        tool_btn_theme.setIcon(QIcon("icons:contrast_24dp.svg"))
         tool_btn_theme.setPopupMode(QToolButton.ToolButtonPopupMode.InstantPopup)
 
         toolbar.addActions((self.action_open_folder, self.action_open_color_dialog))

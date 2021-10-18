@@ -95,7 +95,8 @@ if __name__ == "__main__":
         colors = {f"${key}": str(RGBA.from_hex(value)) for key, value in colors.items()}
         template_stylesheet = multireplace(stylesheet, {**url_replacements, **colors})
 
-        with (output_folder_path / "stylesheet.qss").open("w") as f:
-            f.write(template_stylesheet)
+        with (output_folder_path / "stylesheet.py").open("w") as f:
+            py_text = f'STYLE_SHEET = """\n{template_stylesheet}\n"""\n'
+            f.write(py_text)
 
     print(f"changed some content in {dist_folder_path.relative_to(Path.cwd())}")
