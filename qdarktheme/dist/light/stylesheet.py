@@ -806,6 +806,10 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qcombobox
 QAbstractItemView {
     alternate-background-color: rgba(233.000, 236.000, 239.000, 1.000);
 }
+QAbstractItemView:item {
+    spacing: 6px;
+    border-color: transparent;  /* Fix indicator bug in Qt6 */
+}
 QAbstractItemView:selected:!active,
 QAbstractItemView:selected:!focus,
 QAbstractItemView::item:selected:!active,
@@ -875,10 +879,6 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtableview
 QTableView {
     gridline-color: rgba(88.000, 89.000, 92.000, 1.000);
     background-color: rgba(255.000, 255.000, 255.000, 1.000);
-}
-QTableView:item {
-    spacing: 6px;
-    border-color: transparent;
 }
 
 QTableView QTableCornerButton::section {
