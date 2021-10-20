@@ -875,6 +875,10 @@ QTableView {
     gridline-color: $tableview-gridline;
     background-color: $tableview;
 }
+QTableView:item {
+    spacing: 6px;
+    border-color: transparent;
+}
 
 QTableView QTableCornerButton::section {
     border: none;
