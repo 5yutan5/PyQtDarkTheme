@@ -1,12 +1,4 @@
 repos:
-  - repo: local
-    hooks:
-      - id: build-resources
-        name: Build resources
-        entry: poetry run python -m builder
-        require_serial: true
-        language: system
-
   - repo: https://github.com/psf/black
     rev: 21.9b0
     hooks:
