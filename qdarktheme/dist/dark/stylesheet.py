@@ -566,12 +566,18 @@ QTabWidget::pane {
 QTabBar::close-button:selected {
     image: url(${path}/dist/dark/svg/close_icon-foreground_0.svg);
 }
-QTabBar::close-button, QTabBar::close-button:disabled {
+QTabBar::close-button:!selected {
+    image: url(${path}/dist/dark/svg/close_tabbar-button-inselected_0.svg)
+}
+QTabBar::close-button:disabled {
     image: url(${path}/dist/dark/svg/close_icon-foreground-disabled_0.svg);
 }
 QTabBar::close-button:hover {
     background-color: rgba(85.000, 128.000, 173.000, 1.000);
     border-radius: 4px
+}
+QTabBar::close-button:hover:!selected {
+    background-color: rgba(50.000, 71.000, 99.000, 1.000);
 }
 QTabBar::tab {
     padding: 3px;
@@ -588,51 +594,61 @@ QTabBar::tab:selected:disabled {
     color: rgba(105.000, 113.000, 119.000, 1.000);
 }
 QTabBar::tab:top {
-    border-top-left-radius: 1px;
-    border-top-right-radius: 1px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
     border-bottom: 2px solid rgba(63.000, 64.000, 66.000, 1.000);
-    margin-left: 3px;
+    margin-left: 4px;
 }
 QTabBar::tab:top:selected {
     border-bottom: 2px solid rgba(138.000, 180.000, 247.000, 1.000);
-    padding-left: 3px;
+}
+QTabBar::tab:top:hover {
+    border-color: rgba(138.000, 180.000, 247.000, 1.000);
 }
 QTabBar::tab:top:selected:disabled {
     border-color: rgba(83.000, 87.000, 91.000, 1.000);
 }
 QTabBar::tab:bottom {
-    border-bottom-left-radius: 1px;
-    border-bottom-right-radius: 1px;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
     border-top: 2px solid rgba(63.000, 64.000, 66.000, 1.000);
-    margin-left: 3px;
+    margin-left: 4px;
 }
 QTabBar::tab:bottom:selected {
     border-top: 2px solid rgba(138.000, 180.000, 247.000, 1.000);
-    padding-left: 3px;
+}
+QTabBar::tab:bottom:hover {
+    border-color: rgba(138.000, 180.000, 247.000, 1.000);
 }
 QTabBar::tab:bottom:selected:disabled {
     border-color: rgba(83.000, 87.000, 91.000, 1.000);
 }
 QTabBar::tab:left {
-    border-top-left-radius: 1px;
-    border-bottom-left-radius: 1px;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
     border-right: 2px solid rgba(63.000, 64.000, 66.000, 1.000);
-    margin-top: 3px;
+    margin-top: 4px;
 }
 QTabBar::tab:left:selected {
     border-right: 2px solid rgba(138.000, 180.000, 247.000, 1.000);
+}
+QTabBar::tab:left:hover {
+    border-color: rgba(138.000, 180.000, 247.000, 1.000);
 }
 QTabBar::tab:left:selected:disabled {
     border-color: rgba(83.000, 87.000, 91.000, 1.000);
 }
 QTabBar::tab:right {
-    border-top-right-radius: 1px;
-    border-bottom-right-radius: 1px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
     border-left: 2px solid rgba(63.000, 64.000, 66.000, 1.000);
-    margin-top: 3px;
+    margin-top: 4px;
 }
 QTabBar::tab:right:selected {
     border-left: 2px solid rgba(138.000, 180.000, 247.000, 1.000);
+}
+QTabBar::tab:right:hover {
+    border-color: rgba(138.000, 180.000, 247.000, 1.000);
 }
 QTabBar::tab:right:selected:disabled {
     border-color: rgba(83.000, 87.000, 91.000, 1.000);
@@ -808,7 +824,7 @@ QAbstractItemView {
 }
 QAbstractItemView:item {
     spacing: 6px;
-    border-color: transparent;  /* Fix indicator bug in Qt6 */
+    border-color: transparent;  /* Fix indicator bug on Qt6 */
 }
 QAbstractItemView:selected:!active,
 QAbstractItemView:selected:!focus,
@@ -840,14 +856,15 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtreeview
 
 --------------------------------------------------------------------------- */
 QTreeView::branch {
+    border-image: url(${path}/dist/dark/svg/vertical_line_guides-stroke-inactive_0.svg) 0;
+}
+QTreeView::branch:active {
     border-image: url(${path}/dist/dark/svg/vertical_line_icon-foreground_0.svg) 0;
 }
 QTreeView::branch:disabled {
     border-image: url(${path}/dist/dark/svg/vertical_line_icon-foreground-disabled_0.svg) 0;
 }
-QTreeView::branch:has-siblings:adjoins-item {
-    border-image: none;
-}
+QTreeView::branch:has-siblings:adjoins-item,
 QTreeView::branch:!has-children:!has-siblings:adjoins-item {
     border-image: none;
 }
@@ -882,19 +899,15 @@ QTableView {
 }
 
 QTableView QTableCornerButton::section {
-    border: none;
     border-right: 2px solid transparent;
     border-bottom: 2px solid transparent;
-    background-color: rgba(0.000, 0.000, 0.000, 1.000);
-    /* Same color as the QHeaderView selction. */
-    image: url(${path}/dist/dark/svg/corner_button_headerview-section_0.svg);
+    border-top-left-radius: 2px;
+    background-color: rgba(63.000, 64.000, 66.000, 1.000);
 }
 QTableView QTableCornerButton::section:pressed {
-    image: url(${path}/dist/dark/svg/corner_button_highlight_0.svg);
+    background-color: rgba(138.000, 180.000, 247.000, 1.000);
 }
-QTableView QTableCornerButton::section:disabled {
-    image: url(${path}/dist/dark/svg/corner_button_icon-foreground-disabled_0.svg);
-}
+
 QTableView QHeaderView{
     background-color: rgba(0.000, 0.000, 0.000, 1.000);
 }
