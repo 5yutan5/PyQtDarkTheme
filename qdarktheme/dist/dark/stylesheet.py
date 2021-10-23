@@ -291,7 +291,6 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qmenu
 --------------------------------------------------------------------------- */
 QMenu {
     background-color: rgba(41.000, 42.000, 45.000, 1.000);
-    border-radius: 8px;
     padding: 8px 0;
 }
 QMenu::separator {
@@ -1138,6 +1137,16 @@ QAbstractItemView::indicator:indeterminate:disabled {
     image: url(${path}/dist/dark/svg/indeterminate_check_box_icon-foreground-disabled_0.svg);
 }
 
+/* Rounded popup ----------------------------------------------------------
+
+--------------------------------------------------------------------------- */
+/* In Qt6, the style crashes by rounded popup. */
+QMenu {
+    $env_patch{"version": "<6.0", "value": "border-radius: 8px"};
+}
+QComboBox QAbstractItemView {
+    $env_patch{"version": ">=6.0", "value": "border-radius: 0; margin: 0"};
+}
 
 /* PyQtGraph
 =========================================================================== */
