@@ -580,7 +580,6 @@ QTabBar::close-button:hover:!selected {
 }
 QTabBar::tab {
     padding: 3px;
-    border: 1px solid $border;
 }
 QTabBar::tab:hover {
     background-color: $button-hover;
@@ -597,11 +596,13 @@ QTabBar::tab:top {
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
     border-bottom: 2px solid $border;
-    margin-left: 3px;
+    margin-left: 4px;
 }
 QTabBar::tab:top:selected {
     border-bottom: 2px solid $highlight;
-    padding-left: 3px;
+}
+QTabBar::tab:top:hover {
+    border-color: $highlight;
 }
 QTabBar::tab:top:selected:disabled {
     border-color: $highlight-disabled;
@@ -610,11 +611,13 @@ QTabBar::tab:bottom {
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 2px;
     border-top: 2px solid $border;
-    margin-left: 3px;
+    margin-left: 4px;
 }
 QTabBar::tab:bottom:selected {
     border-top: 2px solid $highlight;
-    padding-left: 3px;
+}
+QTabBar::tab:bottom:hover {
+    border-color: $highlight;
 }
 QTabBar::tab:bottom:selected:disabled {
     border-color: $highlight-disabled;
@@ -623,10 +626,13 @@ QTabBar::tab:left {
     border-top-left-radius: 2px;
     border-bottom-left-radius: 2px;
     border-right: 2px solid $border;
-    margin-top: 3px;
+    margin-top: 4px;
 }
 QTabBar::tab:left:selected {
     border-right: 2px solid $highlight;
+}
+QTabBar::tab:left:hover {
+    border-color: $highlight;
 }
 QTabBar::tab:left:selected:disabled {
     border-color: $highlight-disabled;
@@ -635,10 +641,13 @@ QTabBar::tab:right {
     border-top-right-radius: 2px;
     border-bottom-right-radius: 2px;
     border-left: 2px solid $border;
-    margin-top: 3px;
+    margin-top: 4px;
 }
 QTabBar::tab:right:selected {
     border-left: 2px solid $highlight;
+}
+QTabBar::tab:right:hover {
+    border-color: $highlight;
 }
 QTabBar::tab:right:selected:disabled {
     border-color: $highlight-disabled;

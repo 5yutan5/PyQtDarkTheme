@@ -581,7 +581,6 @@ QTabBar::close-button:hover:!selected {
 }
 QTabBar::tab {
     padding: 3px;
-    border: 1px solid rgba(63.000, 64.000, 66.000, 1.000);
 }
 QTabBar::tab:hover {
     background-color: rgba(30.000, 43.000, 60.000, 1.000);
@@ -598,11 +597,13 @@ QTabBar::tab:top {
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
     border-bottom: 2px solid rgba(63.000, 64.000, 66.000, 1.000);
-    margin-left: 3px;
+    margin-left: 4px;
 }
 QTabBar::tab:top:selected {
     border-bottom: 2px solid rgba(138.000, 180.000, 247.000, 1.000);
-    padding-left: 3px;
+}
+QTabBar::tab:top:hover {
+    border-color: rgba(138.000, 180.000, 247.000, 1.000);
 }
 QTabBar::tab:top:selected:disabled {
     border-color: rgba(83.000, 87.000, 91.000, 1.000);
@@ -611,11 +612,13 @@ QTabBar::tab:bottom {
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 2px;
     border-top: 2px solid rgba(63.000, 64.000, 66.000, 1.000);
-    margin-left: 3px;
+    margin-left: 4px;
 }
 QTabBar::tab:bottom:selected {
     border-top: 2px solid rgba(138.000, 180.000, 247.000, 1.000);
-    padding-left: 3px;
+}
+QTabBar::tab:bottom:hover {
+    border-color: rgba(138.000, 180.000, 247.000, 1.000);
 }
 QTabBar::tab:bottom:selected:disabled {
     border-color: rgba(83.000, 87.000, 91.000, 1.000);
@@ -624,10 +627,13 @@ QTabBar::tab:left {
     border-top-left-radius: 2px;
     border-bottom-left-radius: 2px;
     border-right: 2px solid rgba(63.000, 64.000, 66.000, 1.000);
-    margin-top: 3px;
+    margin-top: 4px;
 }
 QTabBar::tab:left:selected {
     border-right: 2px solid rgba(138.000, 180.000, 247.000, 1.000);
+}
+QTabBar::tab:left:hover {
+    border-color: rgba(138.000, 180.000, 247.000, 1.000);
 }
 QTabBar::tab:left:selected:disabled {
     border-color: rgba(83.000, 87.000, 91.000, 1.000);
@@ -636,10 +642,13 @@ QTabBar::tab:right {
     border-top-right-radius: 2px;
     border-bottom-right-radius: 2px;
     border-left: 2px solid rgba(63.000, 64.000, 66.000, 1.000);
-    margin-top: 3px;
+    margin-top: 4px;
 }
 QTabBar::tab:right:selected {
     border-left: 2px solid rgba(138.000, 180.000, 247.000, 1.000);
+}
+QTabBar::tab:right:hover {
+    border-color: rgba(138.000, 180.000, 247.000, 1.000);
 }
 QTabBar::tab:right:selected:disabled {
     border-color: rgba(83.000, 87.000, 91.000, 1.000);
