@@ -2,14 +2,16 @@ import sys
 from importlib import resources
 
 import qdarktheme
-from qdarktheme.qtpy.QtCore import Qt
+from qdarktheme.qtpy.QtCore import QDir, Qt
 from qdarktheme.qtpy.QtGui import QGuiApplication
 from qdarktheme.qtpy.QtWidgets import QApplication
+from qdarktheme.util import get_project_root_path
 from qdarktheme.widget_gallery.__main__ import WidgetGallery
 
 app = QApplication(sys.argv)
 if hasattr(Qt.ApplicationAttribute, "AA_UseHighDpiPixmaps"):
     app.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)
+QDir.addSearchPath("icons", f"{get_project_root_path().as_posix()}/widget_gallery/ui/svg")
 
 for contents in resources.contents("builder.theme"):
     if ".json" not in contents or "validate.json" in contents:
