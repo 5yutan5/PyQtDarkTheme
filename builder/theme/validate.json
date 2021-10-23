@@ -167,8 +167,20 @@
             "description": "Hovered handle color of QSlider",
             "$ref": "#/definitions/color_code"
         },
+        "guides-stroke-inactive": {
+            "description": "QTreeView guides stroke color when inactive",
+            "$ref": "#/definitions/color_code"
+        },
+        "tabbar-button-inselected": {
+            "description": "Button background color of QTabBar when inselected",
+            "$ref": "#/definitions/color_code"
+        },
         "tabbar-button-hover": {
-            "description": "Hovered button color of QTabBar",
+            "description": "Hovered button background color of QTabBar",
+            "$ref": "#/definitions/color_code"
+        },
+        "tabbar-button-hover-inselected": {
+            "description": "Hovered button background color of QTabBar when inselected",
             "$ref": "#/definitions/color_code"
         },
         "dockwidget-titlebar": {

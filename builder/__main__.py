@@ -21,9 +21,10 @@ from builder.color import RGBA
 from qdarktheme.util import multireplace
 
 
-# A class that handle the properties of the $url{...} variable in the stylesheet template.
 @dataclass(unsafe_hash=True, frozen=True)
 class Url:
+    """A class that handle the properties of the $url{...} variable in the stylesheet template."""
+
     icon: str
     id: str
     rotate: str
@@ -32,7 +33,7 @@ class Url:
 
 
 def parse_url(stylesheet: str) -> set[Url]:
-    """Parse $type_patch{...} and $env_patch{...} in template stylesheet."""
+    """Parse $url{...} in template stylesheet."""
     urls = set()
     for match in re.finditer(r"\$url\{.+\}", stylesheet):
         match_text = match.group()
@@ -146,7 +147,8 @@ if __name__ == "__main__":
         click.style("\nBuild finished!\n", fg="green")
         + "changed some content in "
         + click.style(dist_folder_path.relative_to(Path.cwd()), bold=True)
+        + "\n"
     )
     if not is_installed:
-        subprocess.run("poetry run pip uninstall pyside6 shiboken6".split())
+        subprocess.run("poetry run pip uninstall -y pyside6 shiboken6".split())
         click.echo("Install and uninstall PySide6")

@@ -565,15 +565,22 @@ QTabWidget::pane {
 QTabBar::close-button:selected {
     image: $url{"icon": "close.svg", "id": "icon-foreground", "rotate": "0"};
 }
-QTabBar::close-button, QTabBar::close-button:disabled {
+QTabBar::close-button:!selected {
+    image: $url{"icon": "close.svg", "id": "tabbar-button-inselected", "rotate": "0"}
+}
+QTabBar::close-button:disabled {
     image: $url{"icon": "close.svg", "id": "icon-foreground-disabled", "rotate": "0"};
 }
 QTabBar::close-button:hover {
     background-color: $tabbar-button-hover;
     border-radius: 4px
 }
+QTabBar::close-button:hover:!selected {
+    background-color: $tabbar-button-hover-inselected;
+}
 QTabBar::tab {
     padding: 3px;
+    border: 1px solid $border;
 }
 QTabBar::tab:hover {
     background-color: $button-hover;
@@ -587,8 +594,8 @@ QTabBar::tab:selected:disabled {
     color: $text-disabled;
 }
 QTabBar::tab:top {
-    border-top-left-radius: 1px;
-    border-top-right-radius: 1px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
     border-bottom: 2px solid $border;
     margin-left: 3px;
 }
@@ -600,8 +607,8 @@ QTabBar::tab:top:selected:disabled {
     border-color: $highlight-disabled;
 }
 QTabBar::tab:bottom {
-    border-bottom-left-radius: 1px;
-    border-bottom-right-radius: 1px;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
     border-top: 2px solid $border;
     margin-left: 3px;
 }
@@ -613,8 +620,8 @@ QTabBar::tab:bottom:selected:disabled {
     border-color: $highlight-disabled;
 }
 QTabBar::tab:left {
-    border-top-left-radius: 1px;
-    border-bottom-left-radius: 1px;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
     border-right: 2px solid $border;
     margin-top: 3px;
 }
@@ -625,8 +632,8 @@ QTabBar::tab:left:selected:disabled {
     border-color: $highlight-disabled;
 }
 QTabBar::tab:right {
-    border-top-right-radius: 1px;
-    border-bottom-right-radius: 1px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
     border-left: 2px solid $border;
     margin-top: 3px;
 }
@@ -807,7 +814,7 @@ QAbstractItemView {
 }
 QAbstractItemView:item {
     spacing: 6px;
-    border-color: transparent;  /* Fix indicator bug in Qt6 */
+    border-color: transparent;  /* Fix indicator bug on Qt6 */
 }
 QAbstractItemView:selected:!active,
 QAbstractItemView:selected:!focus,
@@ -839,14 +846,15 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtreeview
 
 --------------------------------------------------------------------------- */
 QTreeView::branch {
+    border-image: $url{"icon": "vertical_line.svg", "id": "guides-stroke-inactive", "rotate": "0"} 0;
+}
+QTreeView::branch:active {
     border-image: $url{"icon": "vertical_line.svg", "id": "icon-foreground", "rotate": "0"} 0;
 }
 QTreeView::branch:disabled {
     border-image: $url{"icon": "vertical_line.svg", "id": "icon-foreground-disabled", "rotate": "0"} 0;
 }
-QTreeView::branch:has-siblings:adjoins-item {
-    border-image: none;
-}
+QTreeView::branch:has-siblings:adjoins-item,
 QTreeView::branch:!has-children:!has-siblings:adjoins-item {
     border-image: none;
 }
@@ -881,19 +889,15 @@ QTableView {
 }
 
 QTableView QTableCornerButton::section {
-    border: none;
     border-right: 2px solid transparent;
     border-bottom: 2px solid transparent;
-    background-color: $tableview;
-    /* Same color as the QHeaderView selction. */
-    image: $url{"icon": "corner_button.svg", "id": "headerview-section", "rotate": "0"};
+    border-top-left-radius: 2px;
+    background-color: $headerview-section;
 }
 QTableView QTableCornerButton::section:pressed {
-    image: $url{"icon": "corner_button.svg", "id": "highlight", "rotate": "0"};
+    background-color: $highlight;
 }
-QTableView QTableCornerButton::section:disabled {
-    image: $url{"icon": "corner_button.svg", "id": "icon-foreground-disabled", "rotate": "0"};
-}
+
 QTableView QHeaderView{
     background-color: $tableview;
 }
