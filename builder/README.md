@@ -1,9 +1,13 @@
+### Build resources
+
 Build svg and stylesheet based on the color-map of the theme file.
 The resources are output to `qdarktheme/dist`.
+This program is not included in the built package.
+
 To build resources, run:
 
 ```Plaintext
-python -m builder
+poetry run python -m builder
 ```
 
 #### Output format
@@ -13,12 +17,14 @@ dist
 ├── __init__.py
 ├── dark
 │   ├── __init__.py
-│   ├── stylesheet.qss
+│   ├── rc_icons.py
+│   ├── stylesheet.py
 │   └── svg
 │       └── ...
 └── light
     ├── __init__.py
-    ├── stylesheet.qss
+    ├── rc_icons.py
+    ├── stylesheet.py
     └── svg
         └── ...
 ```

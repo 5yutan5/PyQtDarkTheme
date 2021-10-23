@@ -196,7 +196,7 @@ class _TableModel(QAbstractTableModel):
             flag |= Qt.ItemFlag.ItemIsUserCheckable
         elif index.column() in (2, 3):
             flag |= Qt.ItemFlag.ItemIsEditable
-        return flag
+        return flag  # type: ignore
 
     def headerData(self, section: int, orientation: Qt.Orientation, role: int = ...) -> Any:
         if role != Qt.ItemDataRole.DisplayRole:

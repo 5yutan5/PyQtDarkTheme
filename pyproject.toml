@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "PyQtDarkTheme"
 version = "0.1.6"
-description = "Dark theme for PySide, PyQt and Qt Designer."
+description = "Flat dark theme for PySide, PyQt."
 authors = ["Yunosuke Ohsugi <63651161+5yutan5@users.noreply.github.com>"]
 license = "MIT"
 readme = "README.md"
@@ -43,6 +43,7 @@ pyproject-flake8 = "^0.0.1-alpha.2"
 isort = "^5.9.3"
 pre-commit = "^2.15.0"
 pytest = "^6.2.5"
+click = "^8.0.3"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

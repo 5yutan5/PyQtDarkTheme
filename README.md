@@ -3,7 +3,7 @@ PyQtDarkTheme
 [![PyPI Latest Release](https://img.shields.io/pypi/v/pyqtdarktheme.svg?color=orange)](https://pypi.org/project/pyqtdarktheme/)
 [![Python Versions](https://img.shields.io/pypi/pyversions/pyqtdarktheme.svg?color=blue)](https://www.python.org/downloads/)
 [![Qt Versions](https://img.shields.io/badge/Qt-5%20|%206-blue.svg?&logo=Qt&logoWidth=18&logoColor=white)](https://www.qt.io/qt-for-python)
-[![License](https://img.shields.io/github/license/5yutan5/PyQtDarkTheme.svg?color=green)](https://github.com/5yutan5/PyQtDarkTheme/blob/main/LICENSE/)
+[![License](https://img.shields.io/github/license/5yutan5/PyQtDarkTheme.svg?color=green)](https://github.com/5yutan5/PyQtDarkTheme/blob/main/LICENSE.txt/)
 [![Build Status](https://github.com/5yutan5/PyQtDarkTheme/workflows/os-test/badge.svg)](https://github.com/5yutan5/PyQtDarkTheme/actions/workflows/os-test.yml)
 [![CodeQL Status](https://github.com/5yutan5/PyQtDarkTheme/workflows/codeql/badge.svg)](https://github.com/5yutan5/PyQtDarkTheme/actions/workflows/code-quality.yml)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/5yutan5/PyQtDarkTheme.svg?logo=lgtm&logoWidth=18&color=success)](https://lgtm.com/projects/g/5yutan5/PyQtDarkTheme/alerts/)
@@ -12,8 +12,10 @@ PyQtDarkTheme
 
 Dark theme for PySide and PyQt.
 
-This python package applies a flat dark theme to a Qt applications(PySide6, PyQt6, PyQt5 and PySide2) using a qt stylesheets system.
+PyQtDarkTheme applies a flat dark theme to Qt applications(PySide6, PyQt6, PyQt5 and PySide2) using the qt stylesheets system.
 There's a Light Theme too. Color and style balanced from the Dark theme for easy viewing in daylight.
+
+PyQtDarkTheme is easy to freeze with freezing library(PyInstaller, py2app, cx_freeze or etc..).
 
 
 ### Dark Theme
@@ -43,8 +45,9 @@ There's a Light Theme too. Color and style balanced from the Dark theme for easy
 ```Python
 import sys
 
-import qdarktheme
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton
+
+import qdarktheme
 
 app = QApplication(sys.argv)
 main_win = QMainWindow()
