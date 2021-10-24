@@ -26,7 +26,7 @@ class Url:
     """A class that handle the properties of the $url{...} variable in the stylesheet template."""
 
     icon: str
-    id: str
+    color_id: str
     rotate: str
     match_text: str
     file_name: str
@@ -39,9 +39,9 @@ def parse_url(stylesheet: str) -> set[Url]:
         match_text = match.group()
         json_text = match_text.replace("$url", "")
 
-        icon, id, rotate = json.loads(json_text).values()
-        file_name = f"{icon.replace('.svg', '')}_{id}_{rotate}.svg"
-        urls.add(Url(icon, id, rotate, match_text, file_name))
+        icon, color_id, rotate = json.loads(json_text).values()
+        file_name = f"{icon.replace('.svg', '')}_{color_id}_{rotate}.svg"
+        urls.add(Url(icon, color_id, rotate, match_text, file_name))
     return urls
 
 
@@ -60,7 +60,7 @@ def build_svg_file(urls: set[Url], colors: dict[str, str], output_folder_path: P
         return f'fill="rgb({r}, {g}, {b})" fill-opacity="{a}"'
 
     for url in urls:
-        color = colors[url.id]
+        color = colors[url.color_id]
         # Change color and rotate. See https://stackoverflow.com/a/15139069/13452582
         new_contents = f'{to_svg_color_format(color)} transform="rotate({url.rotate}, 12, 12)"'
         svg_code_converted = svg_codes[url.icon].replace('fill="#FFFFFF"', new_contents)
@@ -131,10 +131,10 @@ if __name__ == "__main__":
                 ET.ElementTree(main_tag).write(str(qrc_file_path), "utf-8")
 
                 py_resource_file_path = output_folder_path / "rc_icons.py"
-                subprocess.run(["poetry", "run", "pyside6-rcc", qrc_file_path, "-o", py_resource_file_path])
+                subprocess.run(f"poetry run pyside6-rcc {qrc_file_path} -o {py_resource_file_path}".split())
             py_resource_text_converted = py_resource_file_path.read_text().replace("PySide6", "qdarktheme.qtpy")
             py_resource_file_path.write_text(py_resource_text_converted)
-            subprocess.run(["poetry", "run", "black", py_resource_file_path])
+            subprocess.run(f"poetry run black {py_resource_file_path}".split())
 
         # Refresh dist folder
         dist_folder_path = Path.cwd() / "qdarktheme" / "dist"

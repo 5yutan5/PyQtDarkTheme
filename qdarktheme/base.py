@@ -9,12 +9,19 @@ import json
 import operator as ope
 import re
 import sys
-from distutils.version import StrictVersion
 from pathlib import Path
 
 from qdarktheme.util import create_logger, get_project_root_path, multireplace
 
 _logger = create_logger(__name__)
+
+# greater_equal and less_equal must be evaluated before greater and less.
+_OPERATORS = {"==": ope.eq, "!=": ope.ne, ">=": ope.ge, "<=": ope.le, ">": ope.gt, "<": ope.lt}
+
+
+def _compare_v(v1: str, operator: str, v2) -> bool:
+    v1_tuple, v2_tuple = [tuple(map(int, (v.split(".")))) for v in (v1, v2)]
+    return _OPERATORS[operator](v1_tuple, v2_tuple)
 
 
 def _parse_env_patch(stylesheet: str) -> dict[str, str]:
@@ -24,26 +31,21 @@ def _parse_env_patch(stylesheet: str) -> dict[str, str]:
         _logger.warning("Failed to detect Qt version. -> Load stylesheet as the latest version.")
         qt_version = "10.0.0"  # Fairly future version for always setting latest version.
 
-    # greater_equal and less_equal must be evaluated before greater and less.
-    operators = {"==": ope.eq, "!=": ope.ne, ">=": ope.ge, "<=": ope.le, ">": ope.gt, "<": ope.lt}
     replacements = {}
-
     for match in re.finditer(r"\$env_patch\{[\s\S]*?\}", stylesheet):
         match_text = match.group()
         json_text = match_text.replace("$env_patch", "")
-        property: dict[str, str] = json.loads(json_text)
+        env_property: dict[str, str] = json.loads(json_text)
 
-        for qualifier in operators.keys():
-            if qualifier in property["version"]:
-                version = property["version"].replace(qualifier, "")
+        for operator in _OPERATORS.keys():
+            if operator in env_property["version"]:
+                version = env_property["version"].replace(operator, "")
+                replacements[match_text] = env_property["value"] if _compare_v(qt_version, operator, version) else ""
                 break
         else:
             raise SyntaxError(
-                f"invalid character in qualifier. Available qualifiers {list(operators.keys())}"
+                f"invalid character in qualifier. Available qualifiers {list(_OPERATORS.keys())}"
             ) from None
-
-        is_true = operators[qualifier](StrictVersion(qt_version), StrictVersion(version))
-        replacements[match_text] = property["value"] if is_true else ""
     return replacements
 
 
