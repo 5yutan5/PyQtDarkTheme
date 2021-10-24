@@ -291,6 +291,7 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qmenu
 QMenu {
     background-color: $popup;
     padding: 8px 0;
+    border: 1px solid $border;
 }
 QMenu::separator {
     height: 1px;
