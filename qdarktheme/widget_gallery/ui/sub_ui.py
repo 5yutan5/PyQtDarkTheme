@@ -179,9 +179,9 @@ class _TableModel(QAbstractTableModel):
     def data(self, index: QModelIndex, role: int) -> Any:
         if role == Qt.ItemDataRole.DisplayRole:
             return self._data[index.row()][index.column()]
-        elif role == Qt.ItemDataRole.CheckStateRole and index.column() == 1:
+        if role == Qt.ItemDataRole.CheckStateRole and index.column() == 1:
             return Qt.CheckState.Checked if index.row() % 2 == 0 else Qt.CheckState.Unchecked
-        elif role == Qt.ItemDataRole.EditRole and index.column() == 2:
+        if role == Qt.ItemDataRole.EditRole and index.column() == 2:
             return self._data[index.row()][index.column()]
         return None
 
