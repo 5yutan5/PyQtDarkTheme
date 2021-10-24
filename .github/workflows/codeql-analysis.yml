@@ -34,8 +34,8 @@ jobs:
         # queries: ./path/to/local/query, your-org/your-repo/queries@main
     - name: Install Dependencies
       run: |
-        python -m pip list
-        python -m pip install pyside6
+        CODEQL_PYTHON -m pip list
+        CODEQL_PYTHON -m pip install pyside6
 
     # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
     # If this step fails, then you should remove it and run the build manually (see below)
