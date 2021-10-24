@@ -33,9 +33,7 @@ jobs:
         # Prefix the list here with "+" to use these queries and those in the config file.
         # queries: ./path/to/local/query, your-org/your-repo/queries@main
     - name: Install Dependencies
-      run: |
-        ${{ env.CODEQL_PYTHON }} -m pip list
-        ${{ env.CODEQL_PYTHON }} -m pip install pyside6
+      run: ${{ env.CODEQL_PYTHON }} -m pip install pyside6
 
     # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
     # If this step fails, then you should remove it and run the build manually (see below)
