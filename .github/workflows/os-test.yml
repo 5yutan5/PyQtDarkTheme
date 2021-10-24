@@ -1,21 +1,27 @@
 name: os-test
 on:
   push:
-    paths-ignore:
-      - "*.md"
-      - "*.gitignore"
-      - "*.pre-commit-config.yaml"
-      - ".github/dependabot.yaml"
-      - ".github/workflows/codeql-analysis.yaml"
-      - "LICENSE.txt"
+    paths:
+      - "builder/**"
+      - "qdarktheme/**"
+      - "tests/**"
+      - ".gitmodules"
+      - "poetry.lock"
+      - "pyproject.toml"
+      - ".github/scripts/capture.py"
+      - ".github/workflows/os-test.yml"
+      - "!**.md"
   pull_request:
-    paths-ignore:
-      - "*.md"
-      - "*.gitignore"
-      - "*.pre-commit-config.yaml"
-      - ".github/dependabot.yaml"
-      - ".github/workflows/codeql-analysis.yaml"
-      - "LICENSE.txt"
+    paths:
+      - "builder/**"
+      - "qdarktheme/**"
+      - "tests/**"
+      - ".gitmodules"
+      - "poetry.lock"
+      - "pyproject.toml"
+      - ".github/scripts/capture.py"
+      - ".github/workflows/os-test.yml"
+      - "!**.md"
 
 jobs:
   test:
