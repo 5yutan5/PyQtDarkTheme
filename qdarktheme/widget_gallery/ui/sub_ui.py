@@ -183,6 +183,7 @@ class _TableModel(QAbstractTableModel):
             return Qt.CheckState.Checked if index.row() % 2 == 0 else Qt.CheckState.Unchecked
         elif role == Qt.ItemDataRole.EditRole and index.column() == 2:
             return self._data[index.row()][index.column()]
+        return None
 
     def rowCount(self, index) -> int:
         return len(self._data)
