@@ -32,6 +32,15 @@ class Url:
     file_name: str
 
 
+def remove_comment(stylesheet: str) -> str:
+    comment_pattern = re.compile(r"/\*[\s\S]*?\*/")
+    match = comment_pattern.search(stylesheet)
+    license_text = "/* MIT License */" if match is None else match.group()
+    stylesheet_noncomment = comment_pattern.sub("", stylesheet)
+
+    return license_text + re.sub(r"\n\s*\n", "\n", stylesheet_noncomment)
+
+
 def parse_url(stylesheet: str) -> set[Url]:
     """Parse $url{...} in template stylesheet."""
     urls = set()
@@ -39,8 +48,12 @@ def parse_url(stylesheet: str) -> set[Url]:
         match_text = match.group()
         json_text = match_text.replace("$url", "")
 
-        icon, color_id, rotate = json.loads(json_text).values()
-        file_name = f"{icon.replace('.svg', '')}_{color_id}_{rotate}.svg"
+        url_property = json.loads(json_text)
+        icon = url_property["icon"]
+        color_id = url_property["id"]
+        rotate = url_property.get("rotate", "0")
+
+        file_name = f"{icon.replace('.svg', '')}__{color_id}__rotate-{rotate}.svg"
         urls.add(Url(icon, color_id, rotate, match_text, file_name))
     return urls
 
@@ -71,6 +84,7 @@ def build_svg_file(urls: set[Url], colors: dict[str, str], output_folder_path: P
 
 if __name__ == "__main__":
     stylesheet = resources.read_text("builder", "base.qss")
+    stylesheet = remove_comment(stylesheet)
     urls = parse_url(stylesheet)
     is_installed = False
 
