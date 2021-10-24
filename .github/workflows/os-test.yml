@@ -5,12 +5,16 @@ on:
       - "*.md"
       - "*.gitignore"
       - "*.pre-commit-config.yaml"
+      - ".github/dependabot.yaml"
+      - ".github/workflows/codeql-analysis.yaml"
       - "LICENSE.txt"
   pull_request:
     paths-ignore:
       - "*.md"
       - "*.gitignore"
       - "*.pre-commit-config.yaml"
+      - ".github/dependabot.yaml"
+      - ".github/workflows/codeql-analysis.yaml"
       - "LICENSE.txt"
 
 jobs:
