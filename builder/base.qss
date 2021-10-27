@@ -806,11 +806,11 @@ QPlainTextEdit:selected {
 /* In version -5.15, [!focus] state is disabled. */
 QTextEdit:!focus,
 QPlainTextEdit:!focus {
-    $env_patch{"version": ">=5.15.0", "value": "selection-background-color: $itemview-highlight-nonactive"};
+    $env_patch{"version": ">=5.15.0", "value": "selection-background-color: $itemview-highlight-inactive"};
 }
 QTextEdit:!active,
 QPlainTextEdit:!active {
-    $env_patch{"version": "<5.15.0", "value": "selection-background-color: $itemview-highlight-nonactive"};
+    $env_patch{"version": "<5.15.0", "value": "selection-background-color: $itemview-highlight-inactive"};
 }
 
 /* QAbstractItemView ------------------------------------------------------
@@ -829,7 +829,7 @@ QAbstractItemView:selected:!active,
 QAbstractItemView:selected:!focus,
 QAbstractItemView::item:selected:!active,
 QTreeView::branch:selected:!active {
-    background-color: $itemview-highlight-nonactive;
+    background-color: $itemview-highlight-inactive;
 }
 QAbstractItemView::item:selected,
 QTreeView::branch:selected {

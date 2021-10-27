@@ -58,7 +58,7 @@ def parse_url(stylesheet: str) -> set[Url]:
     return urls
 
 
-def build_svg_file(urls: set[Url], colors: dict[str, str], output_folder_path: Path) -> None:
+def build_svg_file(urls: set[Url], colors: dict[str, RGBA], output_folder_path: Path) -> None:
     svg_codes: dict[str, str] = {}  # {file name: svg code}
     for content in resources.contents("builder.svg"):
         if ".svg" not in content:  # Only svg file
@@ -66,20 +66,29 @@ def build_svg_file(urls: set[Url], colors: dict[str, str], output_folder_path: P
         svg_codes[content] = resources.read_text("builder.svg", content)
 
     # QSvg does not support #RRGGBBAA. Therefore, we need to set the alpha value to `fill-opacity` instead.
-    def to_svg_color_format(hex_code: str) -> str:
-        if color is None:
-            return 'fill=""'
-        r, g, b, a = RGBA.from_hex(hex_code)
+    def to_svg_color_format(rgba: RGBA) -> str:
+        r, g, b, a = rgba
         return f'fill="rgb({r}, {g}, {b})" fill-opacity="{a}"'
 
     for url in urls:
-        color = colors[url.color_id]
+        rgba = colors[url.color_id]
         # Change color and rotate. See https://stackoverflow.com/a/15139069/13452582
-        new_contents = f'{to_svg_color_format(color)} transform="rotate({url.rotate}, 12, 12)"'
+        new_contents = f'{to_svg_color_format(rgba)} transform="rotate({url.rotate}, 12, 12)"'
         svg_code_converted = svg_codes[url.icon].replace('fill="#FFFFFF"', new_contents)
 
         with (output_folder_path / url.file_name).open("w") as f:
             f.write(svg_code_converted)
+
+
+def build_palette_file(colors: dict[str, RGBA], output_folder_path: Path) -> None:
+    def to_arg_text(rgba: RGBA) -> str:
+        r, g, b, a = rgba
+        return f"{r}, {g}, {b}, {a*255}"
+
+    replacements = {f'"${color_id}"': to_arg_text(rgba) for color_id, rgba in colors.items()}
+    palette_text = resources.read_text("builder", "palette.txt.py")
+    with (output_folder_path / "palette.py").open("w") as f:
+        f.write(multireplace(palette_text, replacements))
 
 
 if __name__ == "__main__":
@@ -108,7 +117,7 @@ if __name__ == "__main__":
             if ".json" not in contents or "validate.json" in contents:
                 continue
             with resources.open_binary("builder.theme", contents) as f:
-                colors: dict[str, str] = json.load(f)
+                colors = {color_id: RGBA.from_hex(color_hex) for color_id, color_hex in json.load(f).items()}
                 theme_name = contents.replace(".json", "")
 
             # Setup output folder
@@ -121,11 +130,14 @@ if __name__ == "__main__":
             svg_folder_path.mkdir()
             build_svg_file(urls, colors, svg_folder_path)
 
+            # Build palette file
+            build_palette_file(colors, output_folder_path)
+
             # Build template stylesheet
             url_replacements = {
                 url.match_text: f"url(${{path}}/dist/{theme_name}/svg/{url.file_name})" for url in urls
             }
-            colors = {f"${key}": str(RGBA.from_hex(value)) for key, value in colors.items()}
+            colors = {f"${color_id}": str(rgba) for color_id, rgba in colors.items()}
             template_stylesheet = multireplace(stylesheet, {**url_replacements, **colors})
 
             with (output_folder_path / "stylesheet.py").open("w") as f:
@@ -154,7 +166,6 @@ if __name__ == "__main__":
         dist_folder_path = Path.cwd() / "qdarktheme" / "dist"
         shutil.rmtree(str(dist_folder_path), ignore_errors=True)
         shutil.copytree(temp_dir, dist_folder_path)
-        # dist_folder_path.mkdir()
         (dist_folder_path / "__init__.py").touch()
 
     click.echo(

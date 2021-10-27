@@ -155,6 +155,10 @@
             "description": "Hovered button of input line",
             "$ref": "#/definitions/color_code"
         },
+        "placeholder-text": {
+            "description": "Used as the placeholder color for various text input widgets",
+            "$ref": "#/definitions/color_code"
+        },
         "slider-subpage-handle": {
             "description": "Sub page and handle color of QSlider",
             "$ref": "#/definitions/color_code"
@@ -211,7 +215,7 @@
             "description": "Hovered item color of itemview",
             "$ref": "#/definitions/color_code"
         },
-        "itemview-highlight-nonactive": {
+        "itemview-highlight-inactive": {
             "description": "Non-activated highlight color of itemview",
             "$ref": "#/definitions/color_code"
         },
@@ -245,6 +249,10 @@
         },
         "tableview-highlight-text": {
             "description": "QTableview highlight text color",
+            "$ref": "#/definitions/color_code"
+        },
+        "link-visited": {
+            "description": "A text color used for already visited hyperlinks",
             "$ref": "#/definitions/color_code"
         }
     },
@@ -285,6 +293,7 @@
         "input-line",
         "input-line-border",
         "input-line-button-hover",
+        "placeholder-text",
         "slider-subpage-handle",
         "slider-handle-hover",
         "slider-addpage",
@@ -296,7 +305,7 @@
         "scrollarea-highlight-text",
         "itemview-alternate",
         "itemview-item-hover",
-        "itemview-highlight-nonactive",
+        "itemview-highlight-inactive",
         "textedit",
         "textedit-highlight",
         "listview-item-hover",
@@ -304,6 +313,7 @@
         "headerview-text-active",
         "tableview",
         "tableview-gridline",
-        "tableview-highlight-text"
+        "tableview-highlight-text",
+        "link-visited"
     ]
 }

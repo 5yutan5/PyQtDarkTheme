@@ -49,7 +49,7 @@
     "scrollarea-highlight-text": "#e4e7eb",
     "itemview-alternate": "#292b2e",
     "itemview-item-hover": "#292d2e",
-    "itemview-highlight-nonactive": "#393d41",
+    "itemview-highlight-inactive": "#393d41",
     "textedit": "#1e1d1e",
     "textedit-highlight": "#12507b",
     "tableview-highlight-text": "#e4e7eb",
@@ -57,5 +57,7 @@
     "headerview-section": "#3f4042",
     "headerview-text-active": "#8ab4f7",
     "tableview": "#000000",
-    "tableview-gridline": "#58595c"
+    "tableview-gridline": "#58595c",
+    "link-visited": "#c58af8",
+    "placeholder-text": "#8a8b8d"
 }
