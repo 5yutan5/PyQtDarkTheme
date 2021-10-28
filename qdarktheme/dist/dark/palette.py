@@ -5,7 +5,7 @@ _palette = QPalette()
 # base
 _palette.setColor(QPalette.ColorRole.WindowText, QColor(228, 231, 235, 255))
 _palette.setColor(QPalette.ColorRole.Button, QColor(32, 33, 36, 255))
-_palette.setColor(QPalette.ColorRole.Text, QColor(228, 231, 235, 255))
+_palette.setColor(QPalette.ColorRole.Text, QColor(239, 241, 241, 255))
 _palette.setColor(QPalette.ColorRole.ButtonText, QColor(138, 180, 247, 255))
 _palette.setColor(QPalette.ColorRole.Base, QColor(32, 33, 36, 255))
 _palette.setColor(QPalette.ColorRole.Window, QColor(32, 33, 36, 255))

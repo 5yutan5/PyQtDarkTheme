@@ -5,7 +5,7 @@ _palette = QPalette()
 # base
 _palette.setColor(QPalette.ColorRole.WindowText, QColor("$text"))
 _palette.setColor(QPalette.ColorRole.Button, QColor("$base"))
-_palette.setColor(QPalette.ColorRole.Text, QColor("$text"))
+_palette.setColor(QPalette.ColorRole.Text, QColor("$icon-foreground"))
 _palette.setColor(QPalette.ColorRole.ButtonText, QColor("$highlight"))
 _palette.setColor(QPalette.ColorRole.Base, QColor("$base"))
 _palette.setColor(QPalette.ColorRole.Window, QColor("$base"))
@@ -31,7 +31,7 @@ _palette.setColor(QPalette.ColorRole.Shadow, QColor("$border"))
 
 # disabled
 _palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.WindowText, QColor("$text-disabled"))
-_palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.Text, QColor("$text-disabled"))
+_palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.Text, QColor("$icon-foreground-disabled"))
 _palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.ButtonText, QColor("$button-disabled"))
 _palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.Highlight, QColor("$highlight-disabled"))
 _palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.HighlightedText, QColor("$text-disabled"))
