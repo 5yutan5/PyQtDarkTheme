@@ -16,12 +16,12 @@ _palette.setColor(QPalette.ColorRole.AlternateBase, QColor(41, 43, 46, 255))
 _palette.setColor(QPalette.ColorRole.ToolTipBase, QColor(41, 42, 45, 255))
 _palette.setColor(QPalette.ColorRole.ToolTipText, QColor(228, 231, 235, 255))
 _palette.setColor(QPalette.ColorRole.LinkVisited, QColor(197, 138, 248, 255))
-_palette.setColor(QPalette.ColorRole.Foreground, QColor(228, 231, 235, 255))
-if hasattr(QPalette.ColorRole, "PlaceholderText"):
-    _palette.setColor(QPalette.ColorRole.PlaceholderText, QColor(138, 139, 141, 255))
-_palette.setColor(QPalette.ColorRole.BrightText, QColor("red"))
 _palette.setColor(QPalette.ColorRole.ToolTipText, QColor(41, 42, 45, 255))
 _palette.setColor(QPalette.ColorRole.ToolTipBase, QColor(228, 231, 235, 255))
+if hasattr(QPalette.ColorRole, "Foreground"):
+    _palette.setColor(QPalette.ColorRole.Foreground, QColor(228, 231, 235, 255))
+if hasattr(QPalette.ColorRole, "PlaceholderText"):
+    _palette.setColor(QPalette.ColorRole.PlaceholderText, QColor(138, 139, 141, 255))
 
 _palette.setColor(QPalette.ColorRole.Light, QColor(63, 64, 66, 255))
 _palette.setColor(QPalette.ColorRole.Midlight, QColor(63, 64, 66, 255))
