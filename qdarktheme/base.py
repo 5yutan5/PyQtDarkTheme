@@ -78,3 +78,15 @@ def load_stylesheet(theme: str = "dark") -> str:
             icon_path = get_project_root_path().as_posix()
     # Replace the ${path} variable by real path value
     return stylesheet.replace("${path}", icon_path)
+
+
+def load_palette(theme: str = "dark"):
+    """Load the QPalette for the dark or light theme"""
+
+    if theme == "dark":
+        from qdarktheme.dist.dark.palette import PALETTE
+    elif theme == "light":
+        from qdarktheme.dist.light.palette import PALETTE
+    else:
+        raise TypeError("The argument [theme] can only be specified as 'dark' or 'light'.") from None
+    return PALETTE

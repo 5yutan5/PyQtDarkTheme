@@ -217,6 +217,7 @@ QToolBar > QToolButton#qt_toolbar_ext_button:disabled {
 QMenu {
     background-color: rgba(41.000, 42.000, 45.000, 1.000);
     padding: 8px 0;
+    border: 1px solid rgba(63.000, 64.000, 66.000, 1.000);
 }
 QMenu::separator {
     height: 1px;

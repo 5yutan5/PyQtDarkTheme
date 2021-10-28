@@ -15,8 +15,8 @@ PyQtDarkTheme
 
 Dark theme for PySide and PyQt.
 
-PyQtDarkTheme applies a flat dark theme to Qt applications(PySide6, PyQt6, PyQt5 and PySide2) using the qt stylesheets system.
-There's a Light Theme too. Color and style balanced from the Dark theme for easy viewing in daylight.
+PyQtDarkTheme applies a flat dark theme to Qt applications(PySide6, PyQt6, PyQt5 and PySide2) using the qt stylesheets.
+There's a light theme too. Color and style balanced from a dark theme for easy viewing in daylight.
 
 PyQtDarkTheme is easy to freeze with freezing library(PyInstaller, py2app, cx_freeze or etc..).
 
@@ -57,7 +57,11 @@ main_win = QMainWindow()
 push_button = QPushButton("PyQtDarkTheme!!")
 main_win.setCentralWidget(push_button)
 
+# Default is dark theme
 app.setStyleSheet(qdarktheme.load_stylesheet())
+# You can input the theme name.
+#
+# app.setStyleSheet(qdarktheme.load_stylesheet("dark"))
 
 main_win.show()
 
@@ -76,9 +80,39 @@ app.exec()
 app.setStyleSheet(qdarktheme.load_stylesheet("light"))
 ```
 
-### Check common widgets
+## QPalette for this theme
 
-To check common widgets, run:
+You can get color of this theme by loading QPalette.
+To load palette, run:
+
+```Python
+palette = qdarktheme.load_palette()
+# Support following commands.
+#
+# qdarktheme.load_palette("dark")
+# qdarktheme.load_palette("light")
+```
+
+For example, you can apply a link color to your application.
+
+```Python
+import sys
+
+from PyQt6.QtGui import QPalette
+from PyQt6.QtWidgets import QApplication
+
+import qdarktheme
+
+app = QApplication(sys.argv)
+dark_palette = qdarktheme.load_palette()
+palette = app.palette()
+palette.setColor(QPalette.ColorRole.Link, dark_palette.link().color())
+app.setPalette(palette)
+```
+
+## Check theme
+
+You can check the theme by following command.
 
 ```plaintext
 python -m qdarktheme.widget_gallery
