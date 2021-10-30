@@ -245,17 +245,16 @@ QMenu::right-arrow:disabled {
     image: url(${path}/dist/light/svg/chevron_right__icon-foreground-disabled__rotate-0.svg);
 }
 QScrollBar:horizontal {
-    height: 12px;
-    margin: 0 12px;
+    height: 7px;
+    margin: 0 6px;
 }
 QScrollBar:vertical {
-    width: 12px;
-    margin: 12px 0;
+    width: 7px;
+    margin: 6px 0;
 }
 QScrollBar::handle {
     background-color: rgba(155.000, 155.000, 157.000, 1.000);
-    margin: 1px;
-    border-radius: 5px;
+    border-radius: 3px;
 }
 QScrollBar::handle:hover {
     background-color: rgba(117.000, 117.000, 119.000, 1.000);
