@@ -655,7 +655,7 @@ QAbstractItemView::item:selected:disabled {
 QAbstractItemView QLineEdit,
 QAbstractItemView QAbstractSpinBox,
 QAbstractItemView QComboBox {
-    padding: 2px;
+    padding: 0px;
     margin: 1px;
 }
 QTreeView::branch {
