@@ -648,8 +648,11 @@ QTreeView::branch:!selected:hover {
 QAbstractItemView::item:selected:disabled {
     color: rgba(105.000, 113.000, 119.000, 1.000);
 }
-QAbstractItemView QLineEdit {
+QAbstractItemView QLineEdit,
+QAbstractItemView QAbstractSpinBox,
+QAbstractItemView QComboBox {
     padding: 2px;
+    margin: 1px;
 }
 QTreeView::branch {
     border-image: url(${path}/dist/dark/svg/vertical_line__guides-stroke-inactive__rotate-0.svg) 0;
