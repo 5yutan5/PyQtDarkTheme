@@ -59,5 +59,6 @@
     "tableview": "#ffffff",
     "tableview-gridline": "#58595c",
     "link-visited": "#660098",
-    "placeholder-text": "#696a6c"
+    "placeholder-text": "#696a6c",
+    "menu-checkbox": "#c4c7cc"
 }

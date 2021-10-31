@@ -846,8 +846,14 @@ QDateTimeEdit QCalendarWidget QAbstractItemView {
 }
 QComboBox::indicator:checked,
 QMenu::indicator:checked {
-    width: 20px;
+    width: 18px;
     image: url(${path}/dist/light/svg/check__icon-foreground__rotate-0.svg);
+}
+QMenu::indicator {
+    width: 18px;
+    background-color: rgba(196.000, 199.000, 204.000, 1.000);
+    border-radius: 4px;
+    margin-left: 3px;
 }
 QCheckBox {
     spacing: 8px;

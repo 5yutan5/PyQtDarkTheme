@@ -561,9 +561,7 @@ QTabWidget::pane {
     border-radius: 3px;
 }
 QTabBar {
-    /*
-    Not filling background color when drawBase property is true. So need to set drawBase to false.
-     */
+    /* Not filling background color when drawBase property is true. So need to set drawBase to false. */
     qproperty-drawBase: 0;
 }
 QTabBar::close-button:selected {
@@ -1095,8 +1093,14 @@ QDateTimeEdit QCalendarWidget QAbstractItemView {
 --------------------------------------------------------------------------- */
 QComboBox::indicator:checked,
 QMenu::indicator:checked {
-    width: 20px;
+    width: 18px;
     image: $url{"icon": "check.svg", "id": "icon-foreground"};
+}
+QMenu::indicator {
+    width: 18px;
+    background-color: $menu-checkbox;
+    border-radius: 4px;
+    margin-left: 3px;
 }
 
 /* Check indicator --------------------------------------------------------
