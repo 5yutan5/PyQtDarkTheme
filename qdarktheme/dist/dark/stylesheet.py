@@ -103,24 +103,24 @@ QStatusBar QWidget:disabled {
 QStatusBar QWidget:checked {
     background-color: rgba(79.000, 80.000, 84.000, 1.000);
 }
-QCheckBox:hover {
+QCheckBox,
+QRadioButton {
+    border-width: 2px 0;
+    border-style: solid;
+    border-color: transparent;
+}
+QCheckBox:hover,
+QRadioButton:hover {
     border-bottom: 2px solid rgba(138.000, 180.000, 247.000, 1.000);
 }
-QCheckBox::indicator {
+QCheckBox::indicator,
+QRadioButton::indicator {
     margin: 0 0 2 10;
     height: 18px;
     width: 18px;
 }
 QRadioButton {
     spacing: 8px;
-}
-QRadioButton:hover {
-    border-bottom: 2px solid rgba(138.000, 180.000, 247.000, 1.000);
-}
-QRadioButton::indicator {
-    margin: 0 0 2 10;
-    height: 18px;
-    width: 18px;
 }
 QRadioButton::indicator:unchecked {
     image: url(${path}/dist/dark/svg/radio_button_unchecked__icon-foreground__rotate-0.svg);
@@ -245,17 +245,16 @@ QMenu::right-arrow:disabled {
     image: url(${path}/dist/dark/svg/chevron_right__icon-foreground-disabled__rotate-0.svg);
 }
 QScrollBar:horizontal {
-    height: 12px;
-    margin: 0 12px;
+    height: 7px;
+    margin: 0 6px;
 }
 QScrollBar:vertical {
-    width: 12px;
-    margin: 12px 0;
+    width: 7px;
+    margin: 6px 0;
 }
 QScrollBar::handle {
     background-color: rgba(65.000, 66.000, 66.000, 1.000);
-    margin: 1px;
-    border-radius: 5px;
+    border-radius: 3px;
 }
 QScrollBar::handle:hover {
     background-color: rgba(94.000, 94.000, 94.000, 1.000);
@@ -386,6 +385,7 @@ QComboBox::item:selected {
     color: rgba(228.000, 231.000, 235.000, 1.000);
 }
 QComboBox QAbstractItemView {
+    margin: 0;
     border: 1px solid rgba(63.000, 64.000, 66.000, 1.000);
     selection-background-color: rgba(0.000, 72.000, 117.000, 1.000);
     selection-color: rgba(228.000, 231.000, 235.000, 1.000);
@@ -435,6 +435,9 @@ QSlider::handle:vertical {
 QTabWidget::pane {
     border: 1px solid rgba(63.000, 64.000, 66.000, 1.000);
     border-radius: 3px;
+}
+QTabBar {
+    qproperty-drawBase: 0;
 }
 QTabBar::close-button:selected {
     image: url(${path}/dist/dark/svg/close__icon-foreground__rotate-0.svg);
@@ -649,8 +652,12 @@ QTreeView::branch:!selected:hover {
 QAbstractItemView::item:selected:disabled {
     color: rgba(105.000, 113.000, 119.000, 1.000);
 }
-QAbstractItemView QLineEdit {
-    padding: 2px;
+QAbstractItemView QLineEdit,
+QAbstractItemView QAbstractSpinBox,
+QAbstractItemView QComboBox,
+QAbstractItemView QAbstractButton {
+    padding: 0px;
+    margin: 1px;
 }
 QTreeView::branch {
     border-image: url(${path}/dist/dark/svg/vertical_line__guides-stroke-inactive__rotate-0.svg) 0;
@@ -839,10 +846,29 @@ QDateTimeEdit QCalendarWidget QAbstractItemView {
     padding: -1px;
     border: none;
 }
+QFileDialog > QFrame QAbstractItemView {
+    border: none;
+}
+QFileDialog > QFrame > QFrame QFrame QFrame {
+    border: none;
+    padding: 0;
+}
+QFontDialog QListView {
+    min-height: 60px;
+}
+QFontDialog QScrollBar:vertical {
+    margin: 0;
+}
 QComboBox::indicator:checked,
 QMenu::indicator:checked {
-    width: 20px;
+    width: 18px;
     image: url(${path}/dist/dark/svg/check__icon-foreground__rotate-0.svg);
+}
+QMenu::indicator {
+    width: 18px;
+    background-color: rgba(72.000, 73.000, 75.000, 1.000);
+    border-radius: 4px;
+    margin-left: 3px;
 }
 QCheckBox {
     spacing: 8px;

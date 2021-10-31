@@ -254,6 +254,10 @@
         "link-visited": {
             "description": "A text color used for already visited hyperlinks",
             "$ref": "#/definitions/color_code"
+        },
+        "menu-checkbox": {
+            "description": "QMenu checkbox color",
+            "$ref": "#/definitions/color_code"
         }
     },
     "required": [
@@ -314,6 +318,7 @@
         "tableview",
         "tableview-gridline",
         "tableview-highlight-text",
-        "link-visited"
+        "link-visited",
+        "menu-checkbox"
     ]
 }

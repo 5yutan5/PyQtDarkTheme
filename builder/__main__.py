@@ -33,7 +33,7 @@ class Url:
 
 
 def remove_comment(stylesheet: str) -> str:
-    comment_pattern = re.compile(r"/\*[\s\S]*?\*/")
+    comment_pattern = re.compile(r" */\*[\s\S]*?\*/")
     match = comment_pattern.search(stylesheet)
     license_text = "/* MIT License */" if match is None else match.group()
     stylesheet_noncomment = comment_pattern.sub("", stylesheet)
@@ -160,7 +160,7 @@ if __name__ == "__main__":
                 subprocess.run(f"poetry run pyside6-rcc {qrc_file_path} -o {py_resource_file_path}".split())
             py_resource_text_converted = py_resource_file_path.read_text().replace("PySide6", "qdarktheme.qtpy")
             py_resource_file_path.write_text(py_resource_text_converted)
-            subprocess.run(f"poetry run black {py_resource_file_path}".split())
+            subprocess.run(f"poetry run black {py_resource_file_path} --line-length=119".split())
 
         # Refresh dist folder
         dist_folder_path = Path.cwd() / "qdarktheme" / "dist"

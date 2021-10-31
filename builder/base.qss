@@ -150,10 +150,18 @@ QStatusBar QWidget:checked {
 examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qcheckbox
 
 --------------------------------------------------------------------------- */
-QCheckBox:hover {
+QCheckBox,
+QRadioButton {
+    border-width: 2px 0;
+    border-style: solid;
+    border-color: transparent;
+}
+QCheckBox:hover,
+QRadioButton:hover {
     border-bottom: 2px solid $highlight;
 }
-QCheckBox::indicator {
+QCheckBox::indicator,
+QRadioButton::indicator {
     margin: 0 0 2 10;
     height: 18px;
     width: 18px;
@@ -161,14 +169,6 @@ QCheckBox::indicator {
 
 QRadioButton {
     spacing: 8px;
-}
-QRadioButton:hover {
-    border-bottom: 2px solid $highlight;
-}
-QRadioButton::indicator {
-    margin: 0 0 2 10;
-    height: 18px;
-    width: 18px;
 }
 QRadioButton::indicator:unchecked {
     image: $url{"icon": "radio_button_unchecked.svg", "id": "icon-foreground"};
@@ -325,17 +325,16 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qscrollbar
 
 --------------------------------------------------------------------------- */
 QScrollBar:horizontal {
-    height: 12px;
-    margin: 0 12px;
+    height: 7px;
+    margin: 0 6px;
 }
 QScrollBar:vertical {
-    width: 12px;
-    margin: 12px 0;
+    width: 7px;
+    margin: 6px 0;
 }
 QScrollBar::handle {
     background-color: $scrollbar-handle;
-    margin: 1px;
-    border-radius: 5px;
+    border-radius: 3px;
 }
 QScrollBar::handle:hover {
     background-color: $scrollbar-handle-hover;
@@ -499,6 +498,7 @@ QComboBox::item:selected {
 }
 
 QComboBox QAbstractItemView {
+    margin: 0;
     border: 1px solid $border;
     selection-background-color: $scrollarea-highlight;
     selection-color: $scrollarea-highlight-text;
@@ -561,7 +561,10 @@ QTabWidget::pane {
     border: 1px solid $border;
     border-radius: 3px;
 }
-
+QTabBar {
+    /* Not filling background color when drawBase property is true. So need to set drawBase to false. */
+    qproperty-drawBase: 0;
+}
 QTabBar::close-button:selected {
     image: $url{"icon": "close.svg", "id": "icon-foreground"};
 }
@@ -844,8 +847,12 @@ QAbstractItemView::item:selected:disabled {
     color: $text-disabled;
 }
 
-QAbstractItemView QLineEdit {
-    padding: 2px;
+QAbstractItemView QLineEdit,
+QAbstractItemView QAbstractSpinBox,
+QAbstractItemView QComboBox,
+QAbstractItemView QAbstractButton {
+    padding: 0px;
+    margin: 1px;
 }
 
 /* QListView QTreeView ---------------------------------------------------
@@ -1083,13 +1090,37 @@ QDateTimeEdit QCalendarWidget QAbstractItemView {
     border: none;
 }
 
+/* QFileDialog QFontDialog ---------------------------------------------------
+
+--------------------------------------------------------------------------- */
+QFileDialog > QFrame QAbstractItemView {
+    border: none;
+}
+QFileDialog > QFrame > QFrame QFrame QFrame {
+    border: none;
+    padding: 0;
+}
+
+QFontDialog QListView {
+    min-height: 60px;
+}
+QFontDialog QScrollBar:vertical {
+    margin: 0;
+}
+
 /* Check ------------------------------------------------------------------
 
 --------------------------------------------------------------------------- */
 QComboBox::indicator:checked,
 QMenu::indicator:checked {
-    width: 20px;
+    width: 18px;
     image: $url{"icon": "check.svg", "id": "icon-foreground"};
+}
+QMenu::indicator {
+    width: 18px;
+    background-color: $menu-checkbox;
+    border-radius: 4px;
+    margin-left: 3px;
 }
 
 /* Check indicator --------------------------------------------------------
