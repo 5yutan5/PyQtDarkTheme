@@ -94,11 +94,11 @@ jobs:
       if: runner.os == 'Linux'
       run: |
         sudo apt-get -q update && sudo apt-get -y install libdbus-1-3 libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0
-        poetry run pip install pytest-xvfb PyVirtualDisplay
+        poetry run pip install pytest-xvfb PyVirtualDisplay EasyProcess
 
     - name: Run pytest
       shell: bash
-      run: poetry run pytest --cov -v --cov-report=term-missing --cov-report=xml
+      run: poetry run pytest --cov -v tests --cov-report=term-missing --cov-report=xml
 
     - name: "Upload coverage to Codecov"
       uses: codecov/codecov-action@v2
