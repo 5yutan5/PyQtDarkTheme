@@ -385,6 +385,7 @@ QComboBox::item:selected {
     color: rgba(77.000, 81.000, 87.000, 1.000);
 }
 QComboBox QAbstractItemView {
+    margin: 0;
     border: 1px solid rgba(218.000, 220.000, 224.000, 1.000);
     selection-background-color: rgba(76.000, 166.000, 229.000, 1.000);
     selection-color: rgba(77.000, 81.000, 87.000, 1.000);

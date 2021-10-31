@@ -498,6 +498,7 @@ QComboBox::item:selected {
 }
 
 QComboBox QAbstractItemView {
+    margin: 0;
     border: 1px solid $border;
     selection-background-color: $scrollarea-highlight;
     selection-color: $scrollarea-highlight-text;
