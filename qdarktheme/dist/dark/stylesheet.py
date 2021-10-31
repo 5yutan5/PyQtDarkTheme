@@ -435,6 +435,9 @@ QTabWidget::pane {
     border: 1px solid rgba(63.000, 64.000, 66.000, 1.000);
     border-radius: 3px;
 }
+QTabBar {
+    qproperty-drawBase: 0;
+}
 QTabBar::close-button:selected {
     image: url(${path}/dist/dark/svg/close__icon-foreground__rotate-0.svg);
 }

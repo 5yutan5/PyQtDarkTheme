@@ -560,7 +560,12 @@ QTabWidget::pane {
     border: 1px solid $border;
     border-radius: 3px;
 }
-
+QTabBar {
+    /*
+    Not filling background color when drawBase property is true. So need to set drawBase to false.
+     */
+    qproperty-drawBase: 0;
+}
 QTabBar::close-button:selected {
     image: $url{"icon": "close.svg", "id": "icon-foreground"};
 }
