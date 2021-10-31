@@ -44,6 +44,8 @@ isort = "^5.9.3"
 pre-commit = "^2.15.0"
 pytest = "^6.2.5"
 click = "^8.0.3"
+pytest-cov = {version = "^3.0.0", extras = ["toml"]}
+pytest-qt = "^4.0.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -59,3 +61,15 @@ line-length = 119
 [tool.isort]
 profile = "black"
 line_length = 119
+
+[tool.coverage.run]
+# omit submodule
+omit = ["qdarktheme/qtpy/**"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if __name__ == .__main__.:",
+    "sys._MEIPASS",
+    "qt_version is None",
+]

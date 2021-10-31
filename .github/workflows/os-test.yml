@@ -1,10 +1,9 @@
-name: os-test
+name: tests
 on:
   push:
     paths:
       - "builder/**"
       - "qdarktheme/**"
-      - "tests/**"
       - ".gitmodules"
       - "poetry.lock"
       - "pyproject.toml"
@@ -15,7 +14,6 @@ on:
     paths:
       - "builder/**"
       - "qdarktheme/**"
-      - "tests/**"
       - ".gitmodules"
       - "poetry.lock"
       - "pyproject.toml"
@@ -24,7 +22,7 @@ on:
       - "!**.md"
 
 jobs:
-  test:
+  tests:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -96,13 +94,18 @@ jobs:
       if: runner.os == 'Linux'
       run: |
         sudo apt-get update -y
-        sudo apt-get install -y libxkbcommon-x11-0 x11-utils libopengl0
-        sudo apt-get install --no-install-recommends -y libyaml-dev libegl1-mesa libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0
+        sudo apt-get install -y libegl1-mesa
         poetry run pip install pytest-xvfb
 
     - name: Run pytest
       shell: bash
-      run: poetry run pytest tests -v
+      run: poetry run pytest --cov -v --cov-report=term-missing --cov-report=xml
+
+    - name: "Upload coverage to Codecov"
+      uses: codecov/codecov-action@v2
+      with:
+        fail_ci_if_error: true
+        token: ${{ secrets.CODECOV_TOKEN }}
 
     - name: Capture theme images
       if: runner.os != 'Linux'
