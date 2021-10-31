@@ -33,6 +33,8 @@ def test_wrong_theme() -> None:
 def test_qrc() -> None:
     from qdarktheme.qtpy import QtCore
 
+    if not hasattr(QtCore, "qRegisterResourceData"):
+        return
     temp_module = QtCore.qRegisterResourceData
 
     for theme in THEMES:
