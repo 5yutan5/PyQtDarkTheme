@@ -150,10 +150,18 @@ QStatusBar QWidget:checked {
 examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qcheckbox
 
 --------------------------------------------------------------------------- */
-QCheckBox:hover {
+QCheckBox,
+QRadioButton {
+    border-width: 2px 0;
+    border-style: solid;
+    border-color: transparent;
+}
+QCheckBox:hover,
+QRadioButton:hover {
     border-bottom: 2px solid $highlight;
 }
-QCheckBox::indicator {
+QCheckBox::indicator,
+QRadioButton::indicator {
     margin: 0 0 2 10;
     height: 18px;
     width: 18px;
@@ -161,14 +169,6 @@ QCheckBox::indicator {
 
 QRadioButton {
     spacing: 8px;
-}
-QRadioButton:hover {
-    border-bottom: 2px solid $highlight;
-}
-QRadioButton::indicator {
-    margin: 0 0 2 10;
-    height: 18px;
-    width: 18px;
 }
 QRadioButton::indicator:unchecked {
     image: $url{"icon": "radio_button_unchecked.svg", "id": "icon-foreground"};

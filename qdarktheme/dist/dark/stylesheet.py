@@ -103,24 +103,24 @@ QStatusBar QWidget:disabled {
 QStatusBar QWidget:checked {
     background-color: rgba(79.000, 80.000, 84.000, 1.000);
 }
-QCheckBox:hover {
+QCheckBox,
+QRadioButton {
+    border-width: 2px 0;
+    border-style: solid;
+    border-color: transparent;
+}
+QCheckBox:hover,
+QRadioButton:hover {
     border-bottom: 2px solid rgba(138.000, 180.000, 247.000, 1.000);
 }
-QCheckBox::indicator {
+QCheckBox::indicator,
+QRadioButton::indicator {
     margin: 0 0 2 10;
     height: 18px;
     width: 18px;
 }
 QRadioButton {
     spacing: 8px;
-}
-QRadioButton:hover {
-    border-bottom: 2px solid rgba(138.000, 180.000, 247.000, 1.000);
-}
-QRadioButton::indicator {
-    margin: 0 0 2 10;
-    height: 18px;
-    width: 18px;
 }
 QRadioButton::indicator:unchecked {
     image: url(${path}/dist/dark/svg/radio_button_unchecked__icon-foreground__rotate-0.svg);
