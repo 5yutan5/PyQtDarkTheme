@@ -654,7 +654,8 @@ QAbstractItemView::item:selected:disabled {
 }
 QAbstractItemView QLineEdit,
 QAbstractItemView QAbstractSpinBox,
-QAbstractItemView QComboBox {
+QAbstractItemView QComboBox,
+QAbstractItemView QAbstractButton {
     padding: 0px;
     margin: 1px;
 }
@@ -844,6 +845,19 @@ QDateTimeEdit QAbstractItemView {
 QDateTimeEdit QCalendarWidget QAbstractItemView {
     padding: -1px;
     border: none;
+}
+QFileDialog > QFrame QAbstractItemView {
+    border: none;
+}
+QFileDialog > QFrame > QFrame QFrame QFrame {
+    border: none;
+    padding: 0;
+}
+QFontDialog QListView {
+    min-height: 60px;
+}
+QFontDialog QScrollBar:vertical {
+    margin: 0;
 }
 QComboBox::indicator:checked,
 QMenu::indicator:checked {

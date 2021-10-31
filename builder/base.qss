@@ -849,7 +849,8 @@ QAbstractItemView::item:selected:disabled {
 
 QAbstractItemView QLineEdit,
 QAbstractItemView QAbstractSpinBox,
-QAbstractItemView QComboBox {
+QAbstractItemView QComboBox,
+QAbstractItemView QAbstractButton {
     padding: 0px;
     margin: 1px;
 }
@@ -1087,6 +1088,24 @@ Fix bug where the last line was off the calendar.
 QDateTimeEdit QCalendarWidget QAbstractItemView {
     padding: -1px;
     border: none;
+}
+
+/* QFileDialog QFontDialog ---------------------------------------------------
+
+--------------------------------------------------------------------------- */
+QFileDialog > QFrame QAbstractItemView {
+    border: none;
+}
+QFileDialog > QFrame > QFrame QFrame QFrame {
+    border: none;
+    padding: 0;
+}
+
+QFontDialog QListView {
+    min-height: 60px;
+}
+QFontDialog QScrollBar:vertical {
+    margin: 0;
 }
 
 /* Check ------------------------------------------------------------------
