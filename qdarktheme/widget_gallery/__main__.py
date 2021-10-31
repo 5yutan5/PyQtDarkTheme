@@ -7,7 +7,8 @@ import sys
 
 import qdarktheme
 from qdarktheme.qtpy.QtCore import QDir, Qt, Slot
-from qdarktheme.qtpy.QtWidgets import QApplication, QColorDialog, QFileDialog, QMainWindow
+from qdarktheme.qtpy.QtGui import QFont
+from qdarktheme.qtpy.QtWidgets import QApplication, QColorDialog, QFileDialog, QFontDialog, QMainWindow
 from qdarktheme.util import get_project_root_path
 from qdarktheme.widget_gallery.ui.main_ui import UI
 
@@ -26,6 +27,9 @@ class WidgetGallery(QMainWindow):
         )
         self._ui.action_open_color_dialog.triggered.connect(
             lambda: QColorDialog.getColor(parent=self, options=QColorDialog.ColorDialogOption.DontUseNativeDialog)
+        )
+        self._ui.action_open_font_dialog.triggered.connect(
+            lambda: QFontDialog.getFont(QFont(), parent=self, options=QFontDialog.FontDialogOption.DontUseNativeDialog)
         )
         self._ui.action_enable.triggered.connect(self._toggle_state)
         self._ui.action_disable.triggered.connect(self._toggle_state)

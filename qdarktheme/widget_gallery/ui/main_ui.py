@@ -25,6 +25,7 @@ class UI:
         self.action_change_dock = QAction(QIcon("icons:flip_to_front_24dp.svg"), "Move to dock")
         self.action_open_folder = QAction(QIcon("icons:folder_open_24dp.svg"), "Open folder dialog")
         self.action_open_color_dialog = QAction(QIcon("icons:palette_24dp.svg"), "Open color dialog")
+        self.action_open_font_dialog = QAction(QIcon("icons:font_download_24dp.svg"), "Open font dialog")
         self.action_enable = QAction(QIcon("icons:circle_24dp.svg"), "Enable")
         self.action_disable = QAction(QIcon("icons:clear_24dp.svg"), "Disable")
         self.actions_theme = [QAction(theme, main_win) for theme in ["dark", "light"]]
@@ -66,7 +67,7 @@ class UI:
         tool_btn_theme.setIcon(QIcon("icons:contrast_24dp.svg"))
         tool_btn_theme.setPopupMode(QToolButton.ToolButtonPopupMode.InstantPopup)
 
-        toolbar.addActions((self.action_open_folder, self.action_open_color_dialog))
+        toolbar.addActions((self.action_open_folder, self.action_open_color_dialog, self.action_open_font_dialog))
         toolbar.addSeparator()
         toolbar.addWidget(tool_btn_theme)
 
@@ -79,7 +80,7 @@ class UI:
         menu_theme = menubar.addMenu("&Theme")
         menu_theme.addActions(self.actions_theme)
         menu_dialog = menubar.addMenu("&Dialog")
-        menu_dialog.addActions((self.action_open_folder, self.action_open_color_dialog))
+        menu_dialog.addActions((self.action_open_folder, self.action_open_color_dialog, self.action_open_font_dialog))
 
         tool_btn_settings.setMenu(menu_toggle)
         tool_btn_theme.setMenu(menu_theme)

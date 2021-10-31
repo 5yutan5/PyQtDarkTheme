@@ -121,7 +121,7 @@ class _Group2(QGroupBox):
 
         spinbox, spinbox_suffix = QSpinBox(), QSpinBox()
         combobox, combobox_line_edit = QComboBox(), QComboBox()
-        lineedit, lineedit_warning, lineedit_error = QLineEdit(), QLineEdit(), QLineEdit()
+        lineedit = QLineEdit()
         date_time_edit, date_time_edit_calendar = QDateTimeEdit(), QDateTimeEdit()
 
         # Setup ui
@@ -132,15 +132,9 @@ class _Group2(QGroupBox):
         combobox_line_edit.addItems(("Item 1", "Item 2", "Item 3"))
         combobox_line_edit.setEditable(True)
 
-        lineedit.setPlaceholderText("Normal")
-        lineedit_warning.setPlaceholderText("Warning")
-        lineedit_error.setPlaceholderText("Error")
+        lineedit.setPlaceholderText("Placeholder text")
 
         date_time_edit_calendar.setCalendarPopup(True)
-
-        # Setup qss property
-        lineedit_warning.setProperty("state", "warning")
-        lineedit_error.setProperty("state", "error")
 
         # Layout
         v_layout_spin = QVBoxLayout()
@@ -155,8 +149,6 @@ class _Group2(QGroupBox):
 
         v_layout_lineedit = QVBoxLayout()
         v_layout_lineedit.addWidget(lineedit)
-        v_layout_lineedit.addWidget(lineedit_warning)
-        v_layout_lineedit.addWidget(lineedit_error)
         group_editable.setLayout(v_layout_lineedit)
 
         v_layout_date = QVBoxLayout()
