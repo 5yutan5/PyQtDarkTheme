@@ -29,7 +29,7 @@ classifiers = [
 python = "^3.7"
 
 [tool.poetry.dev-dependencies]
-black = "^21.9b0"
+black = "^21.10b0"
 flake8 = "^4.0.1"
 pyproject-flake8 = "^0.0.1-alpha.2"
 isort = "^5.9.3"
