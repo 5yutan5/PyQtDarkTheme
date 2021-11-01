@@ -174,7 +174,7 @@ class _TableModel(QAbstractTableModel):
         if role == Qt.ItemDataRole.CheckStateRole and index.column() == 1:
             return Qt.CheckState.Checked if index.row() % 2 == 0 else Qt.CheckState.Unchecked
         if role == Qt.ItemDataRole.EditRole and index.column() == 2:
-            return self._data[index.row()][index.column()]
+            return self._data[index.row()][index.column()]  # pragma: no cover
         return None
 
     def rowCount(self, index) -> int:
@@ -233,8 +233,8 @@ class _Group3(QGroupBox):
             tab_tree.insertTopLevelItem(i, item)
 
         # layout
-        tab_widget.addTab(tab_text_edit, "Text Edit")
         tab_widget.addTab(tab_table, "Table")
+        tab_widget.addTab(tab_text_edit, "Text Edit")
         tab_widget.addTab(tab_list, "List")
         tab_widget.addTab(tab_tree, "Tree")
 

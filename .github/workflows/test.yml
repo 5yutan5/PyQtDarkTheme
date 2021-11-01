@@ -1,30 +1,28 @@
-name: os-test
+name: tests
 on:
   push:
-    paths:
-      - "builder/**"
-      - "qdarktheme/**"
-      - "tests/**"
-      - ".gitmodules"
-      - "poetry.lock"
-      - "pyproject.toml"
-      - ".github/scripts/capture.py"
-      - ".github/workflows/os-test.yml"
-      - "!**.md"
+    paths-ignore:
+      - "**.md"
+      - ".gitignore"
+      - ".pre-commit-config.yaml"
+      - "LICENSE.txt"
+      - "NOTICE.md"
+      - "images/**"
+      - ".github/dependabot.yml"
+    branches:
+      - main
   pull_request:
-    paths:
-      - "builder/**"
-      - "qdarktheme/**"
-      - "tests/**"
-      - ".gitmodules"
-      - "poetry.lock"
-      - "pyproject.toml"
-      - ".github/scripts/capture.py"
-      - ".github/workflows/os-test.yml"
-      - "!**.md"
+    paths-ignore:
+      - "**.md"
+      - ".gitignore"
+      - ".pre-commit-config.yaml"
+      - "LICENSE.txt"
+      - "NOTICE.md"
+      - "images/**"
+      - ".github/dependabot.yml"
 
 jobs:
-  test:
+  tests:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -68,6 +66,11 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
+    - name: Get full Python version
+      id: full-python-version
+      shell: bash
+      run: echo ::set-output name=version::$(python -c "import sys; print('-'.join(str(v) for v in sys.version_info))")
+
     - name: Bootstrap poetry
       shell: bash
       run: curl -sL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python -
@@ -83,26 +86,35 @@ jobs:
       run: echo "$APPDATA\Python\Scripts" >> $GITHUB_PATH
 
     - name: Configure poetry
-      shell: bash
       run: poetry config virtualenvs.in-project true
 
+    - name: Set up cache
+      uses: actions/cache@v2
+      id: cache
+      with:
+        path: .venv
+        key: venv-${{ runner.os }}-${{ steps.full-python-version.outputs.version }}-${{ matrix.qt-version }}-${{ hashFiles('**/poetry.lock') }}
+
     - name: Install dependencies
-      shell: bash
       run: |
         poetry install
-        poetry run pip install ${{ matrix.qt-version }}
+        poetry run pip install -U ${{ matrix.qt-version }}
 
     - name: "Install Linux dependencies"
       if: runner.os == 'Linux'
       run: |
         sudo apt-get update -y
-        sudo apt-get install -y libxkbcommon-x11-0 x11-utils libopengl0
-        sudo apt-get install --no-install-recommends -y libyaml-dev libegl1-mesa libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0
-        poetry run pip install pytest-xvfb
+        sudo apt-get install --no-install-recommends -y libxkbcommon-x11-0 libopengl0 libyaml-dev libegl1-mesa libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0
 
     - name: Run pytest
       shell: bash
-      run: poetry run pytest tests -v
+      run: poetry run pytest --cov -v tests --cov-report=term-missing --cov-report=xml
+
+    - name: "Upload coverage to Codecov"
+      uses: codecov/codecov-action@v2
+      with:
+        fail_ci_if_error: true
+        token: ${{ secrets.CODECOV_TOKEN }}
 
     - name: Capture theme images
       if: runner.os != 'Linux'
