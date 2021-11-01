@@ -93,7 +93,8 @@ jobs:
     - name: "Install Linux dependencies"
       if: runner.os == 'Linux'
       run: |
-        sudo apt-get -q update && sudo apt-get -y install libegl1-mesa libopengl0 libgl1-mesa-dev
+        sudo apt-get -y update
+        sudo apt-get -y install libegl1-mesa
         poetry run pip install pytest-xvfb
 
     - name: Run pytest
