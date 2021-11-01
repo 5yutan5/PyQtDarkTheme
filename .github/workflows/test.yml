@@ -1,27 +1,23 @@
 name: tests
 on:
   push:
-    paths:
-      - "builder/**"
-      - "qdarktheme/**"
-      - ".gitmodules"
-      - "poetry.lock"
-      - "pyproject.toml"
-      - ".github/scripts/capture.py"
-      - ".github/workflows/os-test.yml"
-      - "!**.md"
+    paths-ignore:
+      - "**.md"
+      - ".gitignore"
+      - ".pre-commit-config.yaml"
+      - "LICENSE.txt"
+      - "NOTICE.md"
+      - "images/**"
     branches:
       - main
   pull_request:
-    paths:
-      - "builder/**"
-      - "qdarktheme/**"
-      - ".gitmodules"
-      - "poetry.lock"
-      - "pyproject.toml"
-      - ".github/scripts/capture.py"
-      - ".github/workflows/os-test.yml"
-      - "!**.md"
+    paths-ignore:
+      - "**.md"
+      - ".gitignore"
+      - ".pre-commit-config.yaml"
+      - "LICENSE.txt"
+      - "NOTICE.md"
+      - "images/**"
 
 jobs:
   tests:
