@@ -119,11 +119,9 @@ jobs:
         token: ${{ secrets.CODECOV_TOKEN }}
 
     - name: Capture theme images
-      if: runner.os != 'Linux'
       run: poetry run python ./.github/scripts/capture.py ${{runner.os}}-py${{matrix.python-version}}-${{matrix.qt-version}}
 
     - name: Archive theme images
-      if: runner.os != 'Linux'
       uses: actions/upload-artifact@v2
       with:
         name: widget-images
