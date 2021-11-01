@@ -115,9 +115,9 @@ palette.setColor(QPalette.ColorRole.Link, dark_palette.link().color())
 app.setPalette(palette)
 ```
 
-## Check theme
+## Example program
 
-To check dark and light theme, run:
+To check example program, run:
 
 ```plaintext
 python -m qdarktheme.widget_gallery
@@ -125,5 +125,4 @@ python -m qdarktheme.widget_gallery
 
 ## License
 
-PyQtDarkTheme incorporates image assets from external sources. The icons for the PyQtDarkTheme are derived [Material design icons](https://fonts.google.com/icons)(Apache License Version 2.0).
-Any file not listed in the [NOTICE.md](https://github.com/5yutan5/PyQtDarkTheme/blob/main/NOTICE.md) file is covered by PyQtDarkTheme's MIT license.
+The svg file for the PyQtDarkTheme are derived [Material design icons](https://fonts.google.com/icons)(Apache License Version 2.0). Qt stylesheets are originally fork of [QDarkStyleSheet](https://github.com/ColinDuquesnoy/QDarkStyleSheet)(MIT License). Other files are covered by PyQtDarkTheme's MIT license.

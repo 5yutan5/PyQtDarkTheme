@@ -7,17 +7,9 @@ license = "MIT"
 readme = "README.md"
 repository = "https://github.com/5yutan5/PyQtDarkTheme"
 homepage = "https://github.com/5yutan5/PyQtDarkTheme"
-packages = [
-    { include = "qdarktheme" }
-]
-include = ["NOTICE.md"]
+packages = [{ include = "qdarktheme" }]
 
-keywords = [
-    "qt",
-    "stylesheets",
-    "dark-theme",
-    "qt-designer"
-]
+keywords = ["qt", "stylesheets", "dark-theme", "qt-designer"]
 
 classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
@@ -30,12 +22,11 @@ classifiers = [
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10"
+    "Programming Language :: Python :: 3.10",
 ]
 
 [tool.poetry.dependencies]
 python = "^3.7"
-pytest-xvfb = "^2.0.0"
 
 [tool.poetry.dev-dependencies]
 black = "^21.9b0"
@@ -45,8 +36,9 @@ isort = "^5.9.3"
 pre-commit = "^2.15.0"
 pytest = "^6.2.5"
 click = "^8.0.3"
-pytest-cov = {version = "^3.0.0", extras = ["toml"]}
+pytest-cov = { version = "^3.0.0", extras = ["toml"] }
 pytest-qt = "^4.0.2"
+pytest-xvfb = "^2.0.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
