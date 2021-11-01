@@ -11,7 +11,7 @@ on:
       - ".github/workflows/os-test.yml"
       - "!**.md"
     branches:
-      - master
+      - main
   pull_request:
     paths:
       - "builder/**"
