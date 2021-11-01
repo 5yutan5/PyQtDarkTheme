@@ -10,6 +10,8 @@ on:
       - ".github/scripts/capture.py"
       - ".github/workflows/os-test.yml"
       - "!**.md"
+    branches:
+      - master
   pull_request:
     paths:
       - "builder/**"
