@@ -8,6 +8,7 @@ on:
       - "LICENSE.txt"
       - "NOTICE.md"
       - "images/**"
+      - ".github/dependabot.yml"
     branches:
       - main
   pull_request:
@@ -18,6 +19,7 @@ on:
       - "LICENSE.txt"
       - "NOTICE.md"
       - "images/**"
+      - ".github/dependabot.yml"
 
 jobs:
   tests:
