@@ -1,24 +1,33 @@
 PyQtDarkTheme
 =============
+
+## Project status
 [![PyPI Latest Release](https://img.shields.io/pypi/v/pyqtdarktheme.svg?color=orange)](https://pypi.org/project/pyqtdarktheme/)
 [![Python Versions](https://img.shields.io/pypi/pyversions/pyqtdarktheme.svg?color=blue)](https://www.python.org/downloads/)
 [![Qt Versions](https://img.shields.io/badge/Qt-5%20|%206-blue.svg?&logo=Qt&logoWidth=18&logoColor=white)](https://www.qt.io/qt-for-python)
 [![License](https://img.shields.io/github/license/5yutan5/PyQtDarkTheme.svg?color=green)](https://github.com/5yutan5/PyQtDarkTheme/blob/main/LICENSE.txt/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-black.svg)](https://github.com/python/black)
 
-[![Build Status](https://github.com/5yutan5/PyQtDarkTheme/workflows/os-test/badge.svg)](https://github.com/5yutan5/PyQtDarkTheme/actions/workflows/os-test.yml)
-[![CodeQL Status](https://github.com/5yutan5/PyQtDarkTheme/workflows/codeql/badge.svg)](https://github.com/5yutan5/PyQtDarkTheme/actions/workflows/code-quality.yml)
+## Tests
+[![tests](https://github.com/5yutan5/PyQtDarkTheme/actions/workflows/test.yml/badge.svg)](https://github.com/5yutan5/PyQtDarkTheme/actions/workflows/test.yml)
+[![codeql](https://github.com/5yutan5/PyQtDarkTheme/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/5yutan5/PyQtDarkTheme/actions/workflows/codeql-analysis.yml)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/5yutan5/PyQtDarkTheme.svg?logo=lgtm&logoWidth=18&color=success)](https://lgtm.com/projects/g/5yutan5/PyQtDarkTheme/alerts/)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/5yutan5/PyQtDarkTheme.svg?logo=lgtm&logoWidth=18&color=success)](https://lgtm.com/projects/g/5yutan5/PyQtDarkTheme/context:python)
 [![CodeFactor](https://www.codefactor.io/repository/github/5yutan5/pyqtdarktheme/badge)](https://www.codefactor.io/repository/github/5yutan5/pyqtdarktheme)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/5yutan5/PyQtDarkTheme/main.svg)](https://results.pre-commit.ci/latest/github/5yutan5/PyQtDarkTheme/main)
+[![codecov](https://codecov.io/gh/5yutan5/PyQtDarkTheme/branch/main/graph/badge.svg?token=RTS8O0V6SF)](https://codecov.io/gh/5yutan5/PyQtDarkTheme)
 
-Dark theme for PySide and PyQt.
+Dark and Light theme for PySide and PyQt.
 
-PyQtDarkTheme applies a flat dark theme to Qt applications(PySide6, PyQt6, PyQt5 and PySide2) using the qt stylesheets.
-There's a light theme too. Color and style balanced from a dark theme for easy viewing in daylight.
+PyQtDarkTheme applies a flat dark theme to PySide and PyQt. There's a light theme too. Color and style balanced from a dark theme for easy viewing in daylight.
 
-PyQtDarkTheme is easy to freeze with freezing library(PyInstaller, py2app, cx_freeze or etc..).
+#### Features:
+
+- A modern Dark and Light theme
+- Support PySide and PyQt(Qt5, Qt6)
+- Support some freezing library(PyInstaller, cx_freeze, py2app and etc...)
+- Resolve the differences of style between Qt versions.
+- QPalette of dark and light theme
 
 
 ### Dark Theme
@@ -59,9 +68,7 @@ main_win.setCentralWidget(push_button)
 
 # Default is dark theme
 app.setStyleSheet(qdarktheme.load_stylesheet())
-# You can input the theme name.
-#
-# app.setStyleSheet(qdarktheme.load_stylesheet("dark"))
+# qdarktheme.load_stylesheet("dark")
 
 main_win.show()
 
@@ -80,15 +87,13 @@ app.exec()
 app.setStyleSheet(qdarktheme.load_stylesheet("light"))
 ```
 
-## QPalette for this theme
+## QPalette of dark and light theme
 
-You can get color of this theme by loading QPalette.
+You can get color of dark and light theme by loading QPalette.
 To load palette, run:
 
 ```Python
 palette = qdarktheme.load_palette()
-# Support following commands.
-#
 # qdarktheme.load_palette("dark")
 # qdarktheme.load_palette("light")
 ```
@@ -112,7 +117,7 @@ app.setPalette(palette)
 
 ## Check theme
 
-You can check the theme by following command.
+To check dark and light theme, run:
 
 ```plaintext
 python -m qdarktheme.widget_gallery
