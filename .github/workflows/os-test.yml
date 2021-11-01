@@ -96,7 +96,7 @@ jobs:
       if: runner.os == 'Linux'
       run: |
         sudo apt-get -y update
-        sudo apt-get -y install libdbus-1-3 libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libopengl0 libgl1-mesa-dev
+        sudo apt-get -y install libxkbcommon-x11-0 x11-utils libopengl0 libgl1-mesa-dev
 
     - name: Run pytest
       shell: bash
