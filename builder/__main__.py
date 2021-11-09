@@ -8,12 +8,12 @@ from __future__ import annotations
 import json
 import re
 import shutil
-import subprocess
+import subprocess  # nosec
 from dataclasses import dataclass
 from importlib import resources
 from pathlib import Path
 from tempfile import NamedTemporaryFile, TemporaryDirectory
-from xml.etree import ElementTree as ET
+from xml.etree import ElementTree as ET  # nosec
 
 import click
 from defusedxml import defuse_stdlib
