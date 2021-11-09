@@ -70,7 +70,7 @@ def load_stylesheet(theme: str = "dark") -> str:
 
     try:
         if theme == "dark":
-            from qdarktheme.dist.dark import rc_icons  # noqa: F401
+            from qdarktheme.dist.dark import rc_icons  # nosec
         elif theme == "light":
             from qdarktheme.dist.light import rc_icons  # noqa: F401
         icon_path = ":qdarktheme"
