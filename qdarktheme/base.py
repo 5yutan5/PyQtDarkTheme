@@ -30,7 +30,7 @@ def _parse_env_patch(stylesheet: str) -> dict[str, str]:
     if qt_version is None:
         _logger.warning(
             "Failed to detect Qt version. -> Load stylesheet as the latest version."
-            + "\nMaybe you need to import qt-binding. Available Qt-binding packages: PySide6, PyQt6, PyQt5, PySide2."
+            + "\nMaybe you need to install qt-binding. Available Qt-binding packages: PySide6, PyQt6, PyQt5, PySide2."
         )
         qt_version = "10.0.0"  # Fairly future version for always setting latest version.
 
