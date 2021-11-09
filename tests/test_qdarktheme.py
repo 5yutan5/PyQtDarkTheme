@@ -1,5 +1,4 @@
 import sys
-from importlib import import_module
 
 import pytest
 
@@ -13,7 +12,7 @@ THEMES = ["dark", "light"]
 def test_load_palette() -> None:
     app = QApplication(sys.argv)
     if hasattr(Qt.ApplicationAttribute, "AA_UseHighDpiPixmaps"):
-        app.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)
+        app.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)  # type: ignore
 
     for theme in THEMES:
         app.setPalette(qdarktheme.load_palette(theme))
@@ -30,22 +29,6 @@ def test_wrong_theme() -> None:
         assert str(e.value) == "The argument [theme] can only be specified as 'dark' or 'light'."
 
 
-def test_qrc() -> None:
-    from qdarktheme.qtpy import QtCore
-
-    if not hasattr(QtCore, "qRegisterResourceData"):
-        return
-    temp_module = QtCore.qRegisterResourceData
-
-    for theme in THEMES:
-        del QtCore.qRegisterResourceData
-        qdarktheme.load_stylesheet(theme)
-        QtCore.qRegisterResourceData = temp_module
-
-        rc_icons = import_module(f"qdarktheme.dist.{theme}.rc_icons")
-        rc_icons.qCleanupResources()  # type: ignore
-
-
 def test_parse_env_patch() -> None:
     from qdarktheme.base import _parse_env_patch
 
@@ -53,3 +36,17 @@ def test_parse_env_patch() -> None:
         _parse_env_patch('$env_patch{"version": "^6.0.0", "value": "test"};')
 
     assert "invalid character in qualifier. Available qualifiers" in str(e.value)
+
+    # If Qt module not found
+    from qdarktheme import qtpy
+
+    temp_qt_version = qtpy.__version__
+    qtpy.__version__ = None
+    _parse_env_patch('$env_patch{"version": "==6.0.0", "value": "test"};')
+    qtpy.__version__ = temp_qt_version
+
+
+def test_meipass() -> None:
+    setattr(sys, "_MEIPASS", "testpath")
+    for theme in THEMES:
+        qdarktheme.load_stylesheet(theme)

@@ -40,6 +40,7 @@ pytest-cov = { version = "^3.0.0", extras = ["toml"] }
 pytest-qt = "^4.0.2"
 pytest-xvfb = "^2.0.0"
 pyinstaller = "^4.6"
+flake8-isort = "^4.1.1"
 
 [tool.poetry.plugins."pyinstaller40"]
 hook-dirs = "qdarktheme.__pyinstaller:get_hook_dirs"
@@ -66,7 +67,4 @@ omit = ["qdarktheme/qtpy/**"]
 [tool.coverage.report]
 exclude_lines = [
     "pragma: no cover",
-    "if __name__ == .__main__.:",
-    "sys._MEIPASS",
-    "qt_version is None",
 ]
