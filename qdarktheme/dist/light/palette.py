@@ -19,9 +19,9 @@ _palette.setColor(QPalette.ColorRole.LinkVisited, QColor(102, 0, 152, 255))
 _palette.setColor(QPalette.ColorRole.ToolTipText, QColor(255, 255, 255, 255))
 _palette.setColor(QPalette.ColorRole.ToolTipBase, QColor(77, 81, 87, 255))
 if hasattr(QPalette.ColorRole, "Foreground"):
-    _palette.setColor(QPalette.ColorRole.Foreground, QColor(77, 81, 87, 255))  # pragma: no cover
+    _palette.setColor(QPalette.ColorRole.Foreground, QColor(77, 81, 87, 255))
 if hasattr(QPalette.ColorRole, "PlaceholderText"):
-    _palette.setColor(QPalette.ColorRole.PlaceholderText, QColor(105, 106, 108, 255))  # pragma: no cover
+    _palette.setColor(QPalette.ColorRole.PlaceholderText, QColor(105, 106, 108, 255))
 
 _palette.setColor(QPalette.ColorRole.Light, QColor(218, 220, 224, 255))
 _palette.setColor(QPalette.ColorRole.Midlight, QColor(218, 220, 224, 255))

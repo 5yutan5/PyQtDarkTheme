@@ -25,6 +25,9 @@ def _compare_v(v1: str, operator: str, v2) -> bool:
 
 
 def _parse_env_patch(stylesheet: str) -> dict[str, str]:
+    from qdarktheme import qtpy
+
+    qtpy.__version__ = None
     from qdarktheme.qtpy import __version__ as qt_version
 
     if qt_version is None:
