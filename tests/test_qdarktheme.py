@@ -1,4 +1,5 @@
 import sys
+from importlib import import_module
 
 import pytest
 
@@ -29,6 +30,17 @@ def test_wrong_theme() -> None:
         assert str(e.value) == "The argument [theme] can only be specified as 'dark' or 'light'."
 
 
+def test_qrc() -> None:
+    from qdarktheme.qtpy import QtCore
+
+    if not hasattr(QtCore, "qRegisterResourceData"):
+        return
+
+    for theme in THEMES:
+        rc_icons = import_module(f"qdarktheme.dist.{theme}.rc_icons")
+        rc_icons.qCleanupResources()  # type: ignore
+
+
 def test_parse_env_patch() -> None:
     from qdarktheme.base import _parse_env_patch
 
@@ -44,9 +56,3 @@ def test_parse_env_patch() -> None:
     qtpy.__version__ = None
     _parse_env_patch('$env_patch{"version": "==6.0.0", "value": "test"};')
     qtpy.__version__ = temp_qt_version
-
-
-def test_meipass() -> None:
-    setattr(sys, "_MEIPASS", "testpath")
-    for theme in THEMES:
-        qdarktheme.load_stylesheet(theme)
