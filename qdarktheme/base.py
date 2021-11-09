@@ -63,17 +63,20 @@ def load_stylesheet(theme: str = "dark") -> str:
     replacements = _parse_env_patch(STYLE_SHEET)
     stylesheet = multireplace(STYLE_SHEET, replacements)
 
-    # Qt resource system has been removed in PyQt6.
-    # So in PyQt6, load the icon from a physical file.
+    from qdarktheme.qtpy import QtImportError
+
     try:
         if theme == "dark":
             from qdarktheme.dist.dark import rc_icons
         elif theme == "light":
             from qdarktheme.dist.light import rc_icons  # noqa: F401
         icon_path = ":qdarktheme"
-    except AttributeError:
-        if hasattr(sys, "_MEIPASS"):  # For PyInstaller --onefile
-            icon_path = Path(sys._MEIPASS / "qdarktheme").as_posix()  # type: ignore
+    except (AttributeError, QtImportError):
+        # Qt resource system has been removed in PyQt6. So in PyQt6, load the icon from a physical file.
+        # PyInstaller's onefile uses temp dir(_MEIPASS).
+        if hasattr(sys, "_MEIPASS"):
+            module_path = Path(sys._MEIPASS) / "qdarktheme"  # type: ignore
+            icon_path = module_path.as_posix()
         else:
             icon_path = get_project_root_path().as_posix()
     # Replace the ${path} variable by real path value
