@@ -1,7 +1,7 @@
-PyQtDarkTheme
-=============
+# PyQtDarkTheme
 
 ## Project status
+
 [![PyPI Latest Release](https://img.shields.io/pypi/v/pyqtdarktheme.svg?color=orange)](https://pypi.org/project/pyqtdarktheme/)
 [![Python Versions](https://img.shields.io/pypi/pyversions/pyqtdarktheme.svg?color=blue)](https://www.python.org/downloads/)
 [![Qt Versions](https://img.shields.io/badge/Qt-5%20|%206-blue.svg?&logo=Qt&logoWidth=18&logoColor=white)](https://www.qt.io/qt-for-python)
@@ -9,6 +9,7 @@ PyQtDarkTheme
 [![Code style: black](https://img.shields.io/badge/code%20style-black-black.svg)](https://github.com/python/black)
 
 ## Tests
+
 [![tests](https://github.com/5yutan5/PyQtDarkTheme/actions/workflows/test.yml/badge.svg)](https://github.com/5yutan5/PyQtDarkTheme/actions/workflows/test.yml)
 [![codeql](https://github.com/5yutan5/PyQtDarkTheme/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/5yutan5/PyQtDarkTheme/actions/workflows/codeql-analysis.yml)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/5yutan5/PyQtDarkTheme.svg?logo=lgtm&logoWidth=18&color=success)](https://lgtm.com/projects/g/5yutan5/PyQtDarkTheme/alerts/)
@@ -21,33 +22,37 @@ Dark and Light theme for PySide and PyQt.
 
 PyQtDarkTheme applies a flat dark theme to PySide and PyQt. There's a light theme too. Color and style balanced from a dark theme for easy viewing in daylight.
 
-#### Features:
+**Features:**
 
-- A modern Dark and Light theme
-- Support PySide and PyQt(Qt5, Qt6)
-- Support some freezing library(PyInstaller, cx_freeze, py2app and etc...)
-- Resolve the differences of style between Qt versions.
-- QPalette of dark and light theme
+-   A modern Dark and Light theme
+-   Support PySide and PyQt(Qt5, Qt6)
+-   Support some freezing library(PyInstaller, cx_freeze, py2app and etc...)
+-   Resolve the differences of style between Qt versions
+-   QPalette of dark and light theme
 
+## Dark Theme
 
-### Dark Theme
 ![widget_gallery_dark_theme](https://raw.githubusercontent.com/5yutan5/PyQtDarkTheme/main/images/widget_gallery_dark.png)
 
-### Light Theme
+## Light Theme
+
 ![widget_gallery_light_them](https://raw.githubusercontent.com/5yutan5/PyQtDarkTheme/main/images/widget_gallery_light.png)
 
 ## Requirements
 
-- [Python 3.7+](https://www.python.org/downloads/)
-- PySide6, PyQt6, PyQt5 or PySide2
+-   [Python 3.7+](https://www.python.org/downloads/)
+-   PySide6, PyQt6, PyQt5 or PySide2
 
 ## Installation Method
 
-- Last released version
+-   Last released version
+
    ```plaintext
    pip install pyqtdarktheme
    ```
-- Latest development version
+
+-   Latest development version
+
    ```plaintext
    pip install git+https://github.com/5yutan5/PyQtDarkTheme
    ```
@@ -77,6 +82,7 @@ app.exec()
 ```
 
 > ⚠ The image quality may be lower on Qt5(PyQt5, PySide2) due to the use of svg. You can add the following attribute to improve the quality of images.
+>
 > ```Python
 > app.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)
 > ```
@@ -115,9 +121,9 @@ palette.setColor(QPalette.ColorRole.Link, dark_palette.link().color())
 app.setPalette(palette)
 ```
 
-## Example program
+## Example
 
-To check example program, run:
+To check example app, run:
 
 ```plaintext
 python -m qdarktheme.widget_gallery

@@ -25,13 +25,13 @@ def _compare_v(v1: str, operator: str, v2) -> bool:
 
 
 def _parse_env_patch(stylesheet: str) -> dict[str, str]:
-    from qdarktheme import qtpy
-
-    qtpy.__version__ = None
     from qdarktheme.qtpy import __version__ as qt_version
 
     if qt_version is None:
-        _logger.warning("Failed to detect Qt version. -> Load stylesheet as the latest version.")
+        _logger.warning(
+            "Failed to detect Qt version. -> Load stylesheet as the latest version."
+            + "\nMaybe you need to import qt-binding. Available Qt-binding packages: PySide6, PyQt6, PyQt5, PySide2."
+        )
         qt_version = "10.0.0"  # Fairly future version for always setting latest version.
 
     replacements = {}
@@ -70,9 +70,9 @@ def load_stylesheet(theme: str = "dark") -> str:
 
     try:
         if theme == "dark":
-            from qdarktheme.dist.dark import rc_icons
+            from qdarktheme.dist.dark import rc_icons as _
         elif theme == "light":
-            from qdarktheme.dist.light import rc_icons  # noqa: F401
+            from qdarktheme.dist.light import rc_icons as _  # noqa: F401
         icon_path = ":qdarktheme"
     except (AttributeError, QtImportError):
         # Qt resource system has been removed in PyQt6. So in PyQt6, load the icon from a physical file.

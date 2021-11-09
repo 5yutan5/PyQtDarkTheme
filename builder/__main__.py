@@ -8,17 +8,21 @@ from __future__ import annotations
 import json
 import re
 import shutil
-import subprocess
+import subprocess  # nosec
 from dataclasses import dataclass
 from importlib import resources
 from pathlib import Path
 from tempfile import NamedTemporaryFile, TemporaryDirectory
-from xml.etree import ElementTree as ET
+from xml.etree import ElementTree as ET  # nosec
 
 import click
+from defusedxml import defuse_stdlib
 
 from builder.color import RGBA
 from qdarktheme.util import multireplace
+
+# Prevent Vulnerability of xml
+defuse_stdlib()
 
 
 @dataclass(unsafe_hash=True, frozen=True)
@@ -99,7 +103,7 @@ if __name__ == "__main__":
 
     # Install PySide6
     command = "poetry run pip install pyside6"
-    proc = subprocess.run(command.split(), capture_output=True)
+    proc = subprocess.run(command.split(), capture_output=True)  # nosec
     if proc.returncode == 1:
         click.secho(proc.stdout.decode() + proc.stderr.decode(), err=True, fg="red")
         raise RuntimeError(f"Failed to run '{command}'")
@@ -157,10 +161,10 @@ if __name__ == "__main__":
                 ET.ElementTree(main_tag).write(str(qrc_file_path), "utf-8")
 
                 py_resource_file_path = output_folder_path / "rc_icons.py"
-                subprocess.run(f"poetry run pyside6-rcc {qrc_file_path} -o {py_resource_file_path}".split())
+                subprocess.run(f"poetry run pyside6-rcc {qrc_file_path} -o {py_resource_file_path}".split())  # nosec
             py_resource_text_converted = py_resource_file_path.read_text().replace("PySide6", "qdarktheme.qtpy")
             py_resource_file_path.write_text(py_resource_text_converted)
-            subprocess.run(f"poetry run black {py_resource_file_path} --line-length=119".split())
+            subprocess.run(f"poetry run black {py_resource_file_path} --line-length=119".split())  # nosec
 
         # Refresh dist folder
         dist_folder_path = Path.cwd() / "qdarktheme" / "dist"
@@ -175,5 +179,5 @@ if __name__ == "__main__":
         + "\n"
     )
     if not is_installed:
-        subprocess.run("poetry run pip uninstall -y pyside6 shiboken6".split())
+        subprocess.run("poetry run pip uninstall -y pyside6 shiboken6".split())  # nosec
         click.echo("Install and uninstall PySide6")

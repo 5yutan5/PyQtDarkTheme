@@ -1,0 +1,35 @@
+{
+    "json.schemas": [
+        {
+            "fileMatch": [
+                "/builder/theme/*"
+            ],
+            "url": "/builder/theme/validate.json"
+        }
+    ],
+    "python.testing.pytestArgs": [
+        "tests"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "python.linting.flake8Path": "pflake8",
+    "cSpell.words": [
+        "MEIPASS",
+        "pyside",
+        "qdarktheme",
+        "qresource",
+        "qtpy",
+        "RGBA",
+        "RRGGBBAA",
+        "secho",
+        "shiboken"
+    ],
+    "markdownlint.config": {
+        "list-marker-space": {
+            "ul_single": 3,
+            "ol_single": 3,
+            "ul_multi": 3,
+            "ol_multi": 3
+        }
+    }
+}
