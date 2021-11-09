@@ -24,11 +24,11 @@ PyQtDarkTheme applies a flat dark theme to PySide and PyQt. There's a light them
 
 **Features:**
 
--  A modern Dark and Light theme
--  Support PySide and PyQt(Qt5, Qt6)
--  Support some freezing library(PyInstaller, cx_freeze, py2app and etc...)
--  Resolve the differences of style between Qt versions
--  QPalette of dark and light theme
+-   A modern Dark and Light theme
+-   Support PySide and PyQt(Qt5, Qt6)
+-   Support some freezing library(PyInstaller, cx_freeze, py2app and etc...)
+-   Resolve the differences of style between Qt versions
+-   QPalette of dark and light theme
 
 ## Dark Theme
 
@@ -40,18 +40,18 @@ PyQtDarkTheme applies a flat dark theme to PySide and PyQt. There's a light them
 
 ## Requirements
 
--  [Python 3.7+](https://www.python.org/downloads/)
--  PySide6, PyQt6, PyQt5 or PySide2
+-   [Python 3.7+](https://www.python.org/downloads/)
+-   PySide6, PyQt6, PyQt5 or PySide2
 
 ## Installation Method
 
--  Last released version
+-   Last released version
 
    ```plaintext
    pip install pyqtdarktheme
    ```
 
--  Latest development version
+-   Latest development version
 
    ```plaintext
    pip install git+https://github.com/5yutan5/PyQtDarkTheme

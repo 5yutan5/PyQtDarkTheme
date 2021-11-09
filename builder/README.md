@@ -32,20 +32,3 @@ dist
     └── svg
         └── ...
 ```
-
-## Use Json Schema for color map files
-
-For VS Code, see [document](https://code.visualstudio.com/docs/languages/json#_json-schemas-and-settings)
-
-To use the json schema, input following setting in `settings.json`.
-
-```Json
-"json.schemas": [
-    {
-        "fileMatch": [
-            "/builder/theme/*"
-        ],
-        "url": "/builder/theme/validate.json"
-    }
-]
-```
