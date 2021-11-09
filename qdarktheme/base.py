@@ -70,9 +70,9 @@ def load_stylesheet(theme: str = "dark") -> str:
 
     try:
         if theme == "dark":
-            from qdarktheme.dist.dark import rc_icons  # noqa: W612
+            from qdarktheme.dist.dark import rc_icons as _
         elif theme == "light":
-            from qdarktheme.dist.light import rc_icons  # noqa: F401
+            from qdarktheme.dist.light import rc_icons as _  # noqa: F401
         icon_path = ":qdarktheme"
     except (AttributeError, QtImportError):
         # Qt resource system has been removed in PyQt6. So in PyQt6, load the icon from a physical file.
