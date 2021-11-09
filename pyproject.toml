@@ -41,6 +41,7 @@ pytest-qt = "^4.0.2"
 pytest-xvfb = "^2.0.0"
 pyinstaller = "^4.6"
 flake8-isort = "^4.1.1"
+defusedxml = "^0.7.1"
 
 [tool.poetry.plugins."pyinstaller40"]
 hook-dirs = "qdarktheme.__pyinstaller:get_hook_dirs"

@@ -16,9 +16,13 @@ from tempfile import NamedTemporaryFile, TemporaryDirectory
 from xml.etree import ElementTree as ET
 
 import click
+from defusedxml import defuse_stdlib
 
 from builder.color import RGBA
 from qdarktheme.util import multireplace
+
+# Prevent Vulnerability of xml
+defuse_stdlib()
 
 
 @dataclass(unsafe_hash=True, frozen=True)

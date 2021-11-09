@@ -14,7 +14,15 @@
     "python.testing.pytestEnabled": true,
     "python.linting.flake8Path": "pflake8",
     "cSpell.words": [
-        "qdarktheme"
+        "MEIPASS",
+        "pyside",
+        "qdarktheme",
+        "qresource",
+        "qtpy",
+        "RGBA",
+        "RRGGBBAA",
+        "secho",
+        "shiboken"
     ],
     "markdownlint.config": {
         "list-marker-space": {
