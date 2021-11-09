@@ -26,7 +26,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = ">=3.7,<3.11"
 
 [tool.poetry.dev-dependencies]
 black = "^21.10b0"
@@ -39,6 +39,10 @@ click = "^8.0.3"
 pytest-cov = { version = "^3.0.0", extras = ["toml"] }
 pytest-qt = "^4.0.2"
 pytest-xvfb = "^2.0.0"
+pyinstaller = "^4.6"
+
+[tool.poetry.plugins."pyinstaller40"]
+hook-dirs = "qdarktheme.__pyinstaller:get_hook_dirs"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
