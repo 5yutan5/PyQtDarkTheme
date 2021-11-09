@@ -12,11 +12,12 @@
 
 [![tests](https://github.com/5yutan5/PyQtDarkTheme/actions/workflows/test.yml/badge.svg)](https://github.com/5yutan5/PyQtDarkTheme/actions/workflows/test.yml)
 [![codeql](https://github.com/5yutan5/PyQtDarkTheme/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/5yutan5/PyQtDarkTheme/actions/workflows/codeql-analysis.yml)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/5yutan5/PyQtDarkTheme/main.svg)](https://results.pre-commit.ci/latest/github/5yutan5/PyQtDarkTheme/main)
+[![codecov](https://codecov.io/gh/5yutan5/PyQtDarkTheme/branch/main/graph/badge.svg?token=RTS8O0V6SF)](https://codecov.io/gh/5yutan5/PyQtDarkTheme)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/5yutan5/PyQtDarkTheme.svg?logo=lgtm&logoWidth=18&color=success)](https://lgtm.com/projects/g/5yutan5/PyQtDarkTheme/alerts/)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/5yutan5/PyQtDarkTheme.svg?logo=lgtm&logoWidth=18&color=success)](https://lgtm.com/projects/g/5yutan5/PyQtDarkTheme/context:python)
 [![CodeFactor](https://www.codefactor.io/repository/github/5yutan5/pyqtdarktheme/badge)](https://www.codefactor.io/repository/github/5yutan5/pyqtdarktheme)
-[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/5yutan5/PyQtDarkTheme/main.svg)](https://results.pre-commit.ci/latest/github/5yutan5/PyQtDarkTheme/main)
-[![codecov](https://codecov.io/gh/5yutan5/PyQtDarkTheme/branch/main/graph/badge.svg?token=RTS8O0V6SF)](https://codecov.io/gh/5yutan5/PyQtDarkTheme)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/ab54addbd19d4fce95dc8e961789e48a)](https://www.codacy.com/gh/5yutan5/PyQtDarkTheme/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=5yutan5/PyQtDarkTheme&amp;utm_campaign=Badge_Grade)
 
 Dark and Light theme for PySide and PyQt.
 
@@ -93,7 +94,7 @@ app.exec()
 app.setStyleSheet(qdarktheme.load_stylesheet("light"))
 ```
 
-## QPalette of dark and light theme
+### Dark and Light palette
 
 You can get color of dark and light theme by loading QPalette.
 To load palette, run:
