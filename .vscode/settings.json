@@ -1,0 +1,27 @@
+{
+    "json.schemas": [
+        {
+            "fileMatch": [
+                "/builder/theme/*"
+            ],
+            "url": "/builder/theme/validate.json"
+        }
+    ],
+    "python.testing.pytestArgs": [
+        "tests"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "python.linting.flake8Path": "pflake8",
+    "cSpell.words": [
+        "qdarktheme"
+    ],
+    "markdownlint.config": {
+        "list-marker-space": {
+            "ul_single": 2,
+            "ol_single": 2,
+            "ul_multi": 2,
+            "ol_multi": 2
+        }
+    }
+}

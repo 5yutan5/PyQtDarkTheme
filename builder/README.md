@@ -1,4 +1,4 @@
-### Build resources
+# Build resources
 
 If you changed the contents in this folder, you need rebuild resources.
 
@@ -12,7 +12,7 @@ Build svg and stylesheet based on the color-map of the theme file.
 The resources are output to `qdarktheme/dist`.
 This program is not included in the built package.
 
-#### Output format
+## Output format
 
 ```Plaintext
 dist
@@ -33,9 +33,9 @@ dist
         └── ...
 ```
 
-#### Use Json Schema for color map files
+## Use Json Schema for color map files
 
-For VS Code, see https://code.visualstudio.com/docs/languages/json#_json-schemas-and-settings
+For VS Code, see [document](https://code.visualstudio.com/docs/languages/json#_json-schemas-and-settings)
 
 To use the json schema, input following setting in `settings.json`.
 
