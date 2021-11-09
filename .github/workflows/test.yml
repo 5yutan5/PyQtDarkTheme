@@ -9,6 +9,7 @@ on:
       - "NOTICE.md"
       - "images/**"
       - ".github/dependabot.yml"
+      - ".vscode/settings.json"
     branches:
       - main
   pull_request:
@@ -20,6 +21,7 @@ on:
       - "NOTICE.md"
       - "images/**"
       - ".github/dependabot.yml"
+      - ".vscode/settings.json"
 
 jobs:
   tests:
