@@ -39,7 +39,7 @@ click = "^8.0.3"
 pytest-cov = { version = "^3.0.0", extras = ["toml"] }
 pytest-qt = "^4.0.2"
 pytest-xvfb = "^2.0.0"
-pyinstaller = "^4.6"
+pyinstaller = "^4.7"
 flake8-isort = "^4.1.1"
 defusedxml = "^0.7.1"
 
