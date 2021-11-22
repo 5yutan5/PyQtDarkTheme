@@ -1,4 +1,12 @@
 repos:
+  - repo: local
+    hooks:
+      - id: build-resources
+        name: Build resources
+        entry: poetry run python -m builder
+        require_serial: true
+        language: system
+
   - repo: https://github.com/psf/black
     rev: 21.10b0
     hooks:
@@ -20,7 +28,6 @@ repos:
     rev: v4.0.1
     hooks:
       - id: trailing-whitespace
-        exclude: (?x)(^.*/.*\.md$)
       - id: end-of-file-fixer
         exclude: (?x)(^.*/.*\.svg$)
       - id: check-yaml
