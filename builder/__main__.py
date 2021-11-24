@@ -26,8 +26,8 @@ DIST_DIR_PATH = get_project_root_path() / "dist"
 
 
 @dataclass(unsafe_hash=True, frozen=True)
-class Url:
-    """A class that handle the properties of the $url{...} variable in the stylesheet template."""
+class _Url:
+    """Class handling the properties of the $url{...} variable in the stylesheet template."""
 
     icon: str
     color_id: str
@@ -36,7 +36,7 @@ class Url:
     file_name: str
 
 
-def remove_comment(stylesheet: str) -> str:
+def _remove_comment(stylesheet: str) -> str:
     comment_pattern = re.compile(r" */\*[\s\S]*?\*/")
     match = comment_pattern.search(stylesheet)
     license_text = "/* MIT License */" if match is None else match.group()
@@ -45,8 +45,8 @@ def remove_comment(stylesheet: str) -> str:
     return license_text + re.sub(r"\n\s*\n", "\n", stylesheet_noncomment)
 
 
-def parse_url(stylesheet: str) -> set[Url]:
-    """Parse $url{...} in template stylesheet."""
+def _parse_url(stylesheet: str) -> set[_Url]:
+    """Parse $url{...} simbol in template stylesheet."""
     urls = set()
     for match in re.finditer(r"\$url\{.+\}", stylesheet):
         match_text = match.group()
@@ -58,11 +58,11 @@ def parse_url(stylesheet: str) -> set[Url]:
         rotate = url_property.get("rotate", "0")
 
         file_name = f"{icon.replace('.svg', '')}__{color_id}__rotate-{rotate}.svg"
-        urls.add(Url(icon, color_id, rotate, match_text, file_name))
+        urls.add(_Url(icon, color_id, rotate, match_text, file_name))
     return urls
 
 
-def build_svg_file(urls: set[Url], colors: dict[str, RGBA], output_dir_path: Path) -> None:
+def _build_svg_file(urls: set[_Url], colors: dict[str, RGBA], output_dir_path: Path) -> None:
     svg_codes: dict[str, str] = {}  # {file name: svg code}
     for content in resources.contents("builder.svg"):
         if ".svg" not in content:  # Only svg file
@@ -83,7 +83,7 @@ def build_svg_file(urls: set[Url], colors: dict[str, RGBA], output_dir_path: Pat
             f.write(svg_code_converted)
 
 
-def build_palette_file(colors: dict[str, RGBA], output_dir_path: Path) -> None:
+def _build_palette_file(colors: dict[str, RGBA], output_dir_path: Path) -> None:
     def to_arg_text(rgba: RGBA) -> str:
         r, g, b, a = rgba
         return f"{r}, {g}, {b}, {a*255}"
@@ -94,7 +94,7 @@ def build_palette_file(colors: dict[str, RGBA], output_dir_path: Path) -> None:
         f.write(multireplace(palette_text, replacements))
 
 
-def compare_all_files(output_dir: Path, temp_dir: Path) -> list[str]:
+def _compare_all_files(output_dir: Path, temp_dir: Path) -> list[str]:
     target_files = set()
     for file in temp_dir.glob("**/*"):
         if not file.is_file():
@@ -105,7 +105,7 @@ def compare_all_files(output_dir: Path, temp_dir: Path) -> list[str]:
     return [str(Path(output_dir).relative_to(Path.cwd()) / file) for file in files_changed]
 
 
-def generate_qt_resource_file(svg_dir_path: Path, output_dir_path: Path, theme: str) -> None:
+def _generate_qt_resource_file(svg_dir_path: Path, output_dir_path: Path, theme: str) -> None:
     main_tag = ET.Element("RCC", {"version": "1.0"})
     qt_resource_tag = ET.SubElement(main_tag, "qresource", {"prefix": f"qdarktheme/dist/{theme}"})
 
@@ -123,7 +123,7 @@ def generate_qt_resource_file(svg_dir_path: Path, output_dir_path: Path, theme: 
     py_resource_file_path.write_text(py_resource_text_converted)
 
 
-def build_resources(root_path: Path, theme_file_path: Path, stylesheet: str, urls: set[Url]) -> None:
+def _build_resources(root_path: Path, theme_file_path: Path, stylesheet: str, urls: set[_Url]) -> None:
     theme = theme_file_path.stem
     output_dir_path = root_path / theme
     output_dir_path.mkdir()
@@ -135,10 +135,10 @@ def build_resources(root_path: Path, theme_file_path: Path, stylesheet: str, url
     # Build svg
     svg_dir_path = output_dir_path / "svg"
     svg_dir_path.mkdir()
-    build_svg_file(urls, rgba_colors, svg_dir_path)
+    _build_svg_file(urls, rgba_colors, svg_dir_path)
 
     # Build palette file
-    build_palette_file(rgba_colors, output_dir_path)
+    _build_palette_file(rgba_colors, output_dir_path)
 
     # Build template stylesheet
     url_replacements = {url.match_text: f"url(${{path}}/dist/{theme}/svg/{url.file_name})" for url in urls}
@@ -149,27 +149,28 @@ def build_resources(root_path: Path, theme_file_path: Path, stylesheet: str, url
 
     # Generate qt resource file
     dist_dir_rc_icons_path = DIST_DIR_PATH / theme / "rc_icons.py"
-    if compare_all_files(DIST_DIR_PATH / theme, output_dir_path):
-        generate_qt_resource_file(svg_dir_path, output_dir_path, theme)
+    if _compare_all_files(DIST_DIR_PATH / theme, output_dir_path):
+        _generate_qt_resource_file(svg_dir_path, output_dir_path, theme)
     elif not dist_dir_rc_icons_path.exists():
-        generate_qt_resource_file(svg_dir_path, output_dir_path, theme)
+        _generate_qt_resource_file(svg_dir_path, output_dir_path, theme)
     else:
         shutil.copy(dist_dir_rc_icons_path, output_dir_path / "rc_icons.py")
 
 
-def main() -> None:
+def _main() -> None:
     stylesheet = resources.read_text("builder", "base.qss")
-    stylesheet = remove_comment(stylesheet)
+    stylesheet = _remove_comment(stylesheet)
 
     with TemporaryDirectory() as temp_dir:
         temp_dir_path = Path(temp_dir)
         shutil.copy(Path(__file__).parent / "__init__.py", temp_dir_path / "__init__.py")
 
         for path in Path(__file__).parent.glob("theme/*.json"):
-            if "validate.json" != path.name:
-                build_resources(temp_dir_path, theme_file_path=path, stylesheet=stylesheet, urls=parse_url(stylesheet))
+            if "validate.json" == path.name:
+                return
+            _build_resources(temp_dir_path, theme_file_path=path, stylesheet=stylesheet, urls=_parse_url(stylesheet))
         # Refresh dist dir
-        changed_files = compare_all_files(DIST_DIR_PATH, temp_dir_path)
+        changed_files = _compare_all_files(DIST_DIR_PATH, temp_dir_path)
         if changed_files:
             shutil.rmtree(DIST_DIR_PATH, ignore_errors=True)
             shutil.copytree(temp_dir, DIST_DIR_PATH)
@@ -184,4 +185,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    _main()

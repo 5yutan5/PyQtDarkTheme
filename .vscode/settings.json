@@ -18,6 +18,7 @@
         "filecmp",
         "isort",
         "MEIPASS",
+        "pflake",
         "pformat",
         "pyproject",
         "pyside",

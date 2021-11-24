@@ -10,16 +10,31 @@ from functools import lru_cache
 
 
 class RGBA:
+    """Class handling RGBA color code."""
+
     def __init__(self, r: float, g: float, b: float, a: float = 1) -> None:
+        """Initialize rgba value.
+
+        Args:
+            r: Red(0~255).
+            g: Green(0~255).
+            b: Blue(0~255).
+            a: Alpha(0~1). Defaults to 1.
+        """
         self._r = min(255, max(0, r))
         self._g = min(255, max(0, g))
         self._b = min(255, max(0, b))
         self._a = max(min(1, a), 0)
 
     def __str__(self) -> str:
+        """Format RGBA class.
+
+        e.g. rgba(100, 100, 100, 0.5).
+        """
         return f"rgba({self._r:.3f}, {self._g:.3f}, {self._b:.3f}, {self._a:.3f})"
 
     def __getitem__(self, item: int) -> float:
+        """Unpack to (r, g, b, a)."""
         return [self._r, self._g, self._b, self._a][item]
 
     @staticmethod
