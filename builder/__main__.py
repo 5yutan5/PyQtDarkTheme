@@ -9,10 +9,10 @@ import json
 import pprint
 import re
 import shutil
-import subprocess  # nosec
+import sys
 from dataclasses import dataclass
 from filecmp import cmpfiles
-from importlib import resources
+from importlib import import_module, resources
 from pathlib import Path
 from tempfile import NamedTemporaryFile, TemporaryDirectory
 from xml.etree import ElementTree as ET  # nosec
@@ -116,9 +116,18 @@ def _generate_qt_resource_file(svg_dir_path: Path, output_dir_path: Path, theme:
     with NamedTemporaryFile(suffix=".qrc", dir=str(output_dir_path)) as f:
         qrc_file_path = output_dir_path / f.name
         ET.ElementTree(main_tag).write(str(qrc_file_path), "utf-8")
-
         py_resource_file_path = output_dir_path / "rc_icons.py"
-        subprocess.check_call(["pyside6-rcc", qrc_file_path, "-o", py_resource_file_path])  # nosec
+
+        # Patch PySide6.scripts.pyside_tool
+        temp_argv, temp_exit = sys.argv.copy(), sys.exit
+        sys.argv[1:] = [str(qrc_file_path), "-o", str(py_resource_file_path)]
+        # Not finish program with sys.exit()
+        sys.exit = lambda _: "dummy"
+
+        getattr(import_module("PySide6.scripts.pyside_tool"), "rcc")()
+        # Remove patch
+        sys.argv, sys.exit = temp_argv, temp_exit
+
     py_resource_text_converted = py_resource_file_path.read_text().replace("PySide6", "qdarktheme.qtpy")
     py_resource_file_path.write_text(py_resource_text_converted)
 
