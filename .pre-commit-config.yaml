@@ -3,9 +3,9 @@ repos:
     hooks:
       - id: build-resources
         name: Build resources
-        entry: poetry run python -m builder
+        entry: python -m builder
         language: python
-        additional_dependencies: ['poetry', 'click', 'pyside6']
+        additional_dependencies: ['click', 'pyside6']
         require_serial: true
 
   - repo: https://github.com/psf/black
