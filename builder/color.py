@@ -40,6 +40,14 @@ class RGBA:
     @staticmethod
     @lru_cache()
     def from_hex(color_hex: str) -> RGBA:
+        """Convert hex string to RGBA class.
+
+        Args:
+            color_hex: Color hex string.
+
+        Returns:
+            RGBA: RGBA class converted from hex.
+        """
         hex_ = color_hex.lstrip("#")
         r, g, b, a = 255, 0, 0, 1
         if len(hex_) == 3:  # RGB format
@@ -60,5 +68,13 @@ class RGBA:
     @staticmethod
     @lru_cache()
     def to_hex(rgba: RGBA) -> str:
+        """Convert RGBA class to hex string.
+
+        Args:
+            rgba: RGBA class.
+
+        Returns:
+            str: Hex string converted from RGBA class.
+        """
         r, g, b, a = rgba
         return f"{math.floor(r):x}{math.floor(g):x}{math.floor(b):x}{math.floor(a*255):02x}"
