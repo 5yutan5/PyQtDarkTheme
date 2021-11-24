@@ -125,7 +125,7 @@ def generate_qt_resource_file(svg_dir_path: Path, output_dir_path: Path, theme: 
     py_resource_file_path.write_text(py_resource_text_converted)
 
 
-def build_theme_resources(root_path: Path, theme_file_path: Path) -> None:
+def build_resources(root_path: Path, theme_file_path: Path, stylesheet: str, urls: set[Url]) -> None:
     theme = theme_file_path.stem
     output_dir_path = root_path / theme
     output_dir_path.mkdir()
@@ -159,10 +159,9 @@ def build_theme_resources(root_path: Path, theme_file_path: Path) -> None:
         shutil.copy(dist_dir_rc_icons_path, output_dir_path / "rc_icons.py")
 
 
-if __name__ == "__main__":
+def main() -> None:
     stylesheet = resources.read_text("builder", "base.qss")
     stylesheet = remove_comment(stylesheet)
-    urls = parse_url(stylesheet)
     is_installed_pyside6 = False
 
     # Install PySide6
@@ -177,7 +176,7 @@ if __name__ == "__main__":
 
         for path in Path(__file__).parent.glob("theme/*.json"):
             if "validate.json" != path.name:
-                build_theme_resources(temp_dir_path, theme_file_path=path)
+                build_resources(temp_dir_path, theme_file_path=path, stylesheet=stylesheet, urls=parse_url(stylesheet))
         # Refresh dist dir
         changed_files = compare_all_files(DIST_DIR_PATH, temp_dir_path)
         if changed_files:
@@ -193,3 +192,7 @@ if __name__ == "__main__":
         click.echo("There is no change")
     if not is_installed_pyside6:
         subprocess.check_call([python, "-m", "pip", "uninstall", "-y", "pyside6", "shiboken6"])  # nosec
+
+
+if __name__ == "__main__":
+    main()

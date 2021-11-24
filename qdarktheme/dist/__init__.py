@@ -1,5 +1,4 @@
-"""
-License Information
+"""License Information
 
 All svg files in PyQtDarktheme is from Material design icons(which uses an Apache 2.0 license).
 
