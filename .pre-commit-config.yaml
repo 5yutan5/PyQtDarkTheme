@@ -1,3 +1,5 @@
+ci:
+  autofix_prs: false
 repos:
   - repo: local
     hooks:
