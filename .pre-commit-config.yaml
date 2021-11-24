@@ -1,5 +1,5 @@
 ci:
-  autofix_prs: false
+  skip: ['build-resources']
 repos:
   - repo: local
     hooks:
