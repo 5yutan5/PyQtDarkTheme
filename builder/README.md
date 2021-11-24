@@ -1,6 +1,7 @@
 # Build resources
 
-If you changed the contents in this folder, you need rebuild resources.
+If you changed the contents in this folder, you need to rebuild resources.
+Resources rebuild automatically by pre-commit.
 
 To build resources, run:
 
@@ -10,7 +11,7 @@ poetry run python -m builder
 
 Build svg and stylesheet based on the color-map of the theme file.
 The resources are output to `qdarktheme/dist`.
-This program is not included in the built package.
+This folder is not included in the built package.
 
 ## Output format
 

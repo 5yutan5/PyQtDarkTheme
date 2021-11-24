@@ -1,4 +1,15 @@
+ci:
+  skip: ['build-resources']
 repos:
+  - repo: local
+    hooks:
+      - id: build-resources
+        name: Build resources
+        entry: python -m builder
+        language: python
+        additional_dependencies: ['click', 'pyside6']
+        require_serial: true
+
   - repo: https://github.com/psf/black
     rev: 21.10b0
     hooks:
@@ -20,7 +31,6 @@ repos:
     rev: v4.0.1
     hooks:
       - id: trailing-whitespace
-        exclude: (?x)(^.*/.*\.md$)
       - id: end-of-file-fixer
         exclude: (?x)(^.*/.*\.svg$)
       - id: check-yaml
