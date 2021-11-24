@@ -157,9 +157,8 @@ def _build_resources(root_path: Path, theme_file_path: Path, stylesheet: str, ur
         shutil.copy(dist_dir_rc_icons_path, output_dir_path / "rc_icons.py")
 
 
-def _main() -> None:
-    stylesheet = resources.read_text("builder", "base.qss")
-    stylesheet = _remove_comment(stylesheet)
+if __name__ == "__main__":
+    stylesheet = _remove_comment(resources.read_text("builder", "base.qss"))
 
     with TemporaryDirectory() as temp_dir:
         temp_dir_path = Path(temp_dir)
@@ -167,7 +166,7 @@ def _main() -> None:
 
         for path in Path(__file__).parent.glob("theme/*.json"):
             if "validate.json" == path.name:
-                return
+                continue
             _build_resources(temp_dir_path, theme_file_path=path, stylesheet=stylesheet, urls=_parse_url(stylesheet))
         # Refresh dist dir
         changed_files = _compare_all_files(DIST_DIR_PATH, temp_dir_path)
@@ -182,7 +181,3 @@ def _main() -> None:
         click.secho("]", fg="yellow")
     else:
         click.echo("There is no change")
-
-
-if __name__ == "__main__":
-    _main()
