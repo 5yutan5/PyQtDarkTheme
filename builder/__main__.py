@@ -5,7 +5,6 @@
 
 from __future__ import annotations
 
-import importlib.util
 import json
 import pprint
 import re
@@ -15,7 +14,6 @@ from dataclasses import dataclass
 from filecmp import cmpfiles
 from importlib import resources
 from pathlib import Path
-from sys import executable as python
 from tempfile import NamedTemporaryFile, TemporaryDirectory
 from xml.etree import ElementTree as ET  # nosec
 
@@ -162,13 +160,6 @@ def build_resources(root_path: Path, theme_file_path: Path, stylesheet: str, url
 def main() -> None:
     stylesheet = resources.read_text("builder", "base.qss")
     stylesheet = remove_comment(stylesheet)
-    is_installed_pyside6 = False
-
-    # Install PySide6
-    if importlib.util.find_spec("PySide6"):
-        is_installed_pyside6 = True
-    else:
-        subprocess.check_call([python, "-m", "pip", "install", "pyside6"])  # nosec
 
     with TemporaryDirectory() as temp_dir:
         temp_dir_path = Path(temp_dir)
@@ -190,8 +181,6 @@ def main() -> None:
         click.secho("]", fg="yellow")
     else:
         click.echo("There is no change")
-    if not is_installed_pyside6:
-        subprocess.check_call([python, "-m", "pip", "uninstall", "-y", "pyside6", "shiboken6"])  # nosec
 
 
 if __name__ == "__main__":

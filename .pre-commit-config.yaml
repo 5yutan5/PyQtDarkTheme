@@ -5,7 +5,7 @@ repos:
         name: Build resources
         entry: poetry run python -m builder
         language: python
-        additional_dependencies: ['poetry', 'click']
+        additional_dependencies: ['poetry', 'click', 'pyside6']
         require_serial: true
 
   - repo: https://github.com/psf/black
