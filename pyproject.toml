@@ -43,7 +43,6 @@ pytest-cov = { version = "^3.0.0", extras = ["toml"] }
 pytest-qt = "^4.0.2"
 pytest-xvfb = "^2.0.0"
 pyinstaller = "^4.7"
-qstylizer = "^0.2.1"
 bandit = "^1.7.1"
 
 [tool.poetry.plugins."pyinstaller40"]
