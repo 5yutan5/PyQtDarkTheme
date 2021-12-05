@@ -35,32 +35,24 @@ jobs:
       matrix:
         python-version: ['3.7', '3.8', '3.9', '3.10']
         os: [ubuntu-latest, macOS-latest, windows-latest]
-        qt-lib: [pyqt, pyside]
+        qt-lib: [PyQt5, PyQt6, PySide2, PySide6]
         include:
           - python-version: "3.7"
-            qt-lib: "pyqt"
-            qt-version: "PyQt5"
+            qt-lib: "PyQt5"
           - python-version: "3.7"
-            qt-lib: "pyside"
-            qt-version: "PySide2"
+            qt-lib: "PySide2"
           - python-version: "3.8"
-            qt-lib: "pyqt"
-            qt-version: "PyQt5"
+            qt-lib: "PyQt5"
           - python-version: "3.8"
-            qt-lib: "pyside"
-            qt-version: "PySide6"
+            qt-lib: "PySide6"
           - python-version: "3.9"
-            qt-lib: "pyqt"
-            qt-version: "PyQt6"
+            qt-lib: "PyQt6"
           - python-version: "3.9"
-            qt-lib: "pyside"
-            qt-version: "PySide6"
+            qt-lib: "PySide6"
           - python-version: "3.10"
-            qt-lib: "pyqt"
-            qt-version: "PyQt6"
+            qt-lib: "PyQt6"
           - python-version: "3.10"
-            qt-lib: "pyside"
-            qt-version: "PySide6"
+            qt-lib: "PySide6"
 
     steps:
     - uses: actions/checkout@v2
@@ -99,12 +91,12 @@ jobs:
       id: cache
       with:
         path: .venv
-        key: venv-${{ runner.os }}-${{ steps.full-python-version.outputs.version }}-${{ matrix.qt-version }}-${{ hashFiles('**/poetry.lock') }}
+        key: venv-${{ runner.os }}-${{ steps.full-python-version.outputs.version }}-${{ matrix.qt-lib }}-${{ hashFiles('**/poetry.lock') }}
 
     - name: Install dependencies
       run: |
         poetry install
-        poetry run pip install -U ${{ matrix.qt-version }}
+        poetry run pip install -U ${{ matrix.qt-lib }}
 
     - name: "Install Linux dependencies"
       if: runner.os == 'Linux'
@@ -127,7 +119,7 @@ jobs:
 
     - name: Capture theme images
       if: runner.os != 'Linux'
-      run: poetry run python ./.github/scripts/capture.py ${{runner.os}}-py${{matrix.python-version}}-${{matrix.qt-version}}
+      run: poetry run python ./.github/scripts/capture.py ${{runner.os}}-py${{matrix.python-version}}-${{matrix.qt-lib}}
 
     - name: Archive theme images
       if: runner.os != 'Linux'
