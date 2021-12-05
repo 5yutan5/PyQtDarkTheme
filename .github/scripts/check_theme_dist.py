@@ -13,6 +13,7 @@ def _main():
     stylesheet = resources.read_text("builder", "base.qss")
     color_schemes = [path for path in Path("builder").glob("theme/*.json") if path.name != "validate.json"]
     svg_dir_path = Path("builder") / "svg"
+    click.echo(Path.cwd())
 
     with TemporaryDirectory() as temp_dir:
         temp_dir_path = Path(temp_dir)
