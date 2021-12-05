@@ -1,11 +1,12 @@
 """Script checking if the commit need to change qdarktheme/dist."""
+import sys
 from importlib import resources
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
 import click
 
-click.echo(Path.cwd())
+sys.path.append("..")
 
 from builder.main import DIST_DIR_PATH, build_resources, compare_all_files  # noqa
 
