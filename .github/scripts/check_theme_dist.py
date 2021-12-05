@@ -6,7 +6,8 @@ from tempfile import TemporaryDirectory
 
 import click
 
-sys.path.append("..")
+sys.path.append(str(Path(__file__).parent.parent.parent))
+click.echo(sys.path)
 
 from builder.main import DIST_DIR_PATH, build_resources, compare_all_files  # noqa
 
