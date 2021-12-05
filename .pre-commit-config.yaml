@@ -17,7 +17,7 @@ repos:
         args: [--markdown-linebreak-ext=md]
       - id: end-of-file-fixer
         exclude: (?x)(^.*/.*\.svg$)
-      - id: check-yaml
+      - id: check-json
       - id: check-added-large-files
 
   - repo: https://github.com/asottile/pyupgrade

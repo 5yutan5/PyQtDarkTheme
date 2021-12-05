@@ -4,6 +4,7 @@
         "ms-python.python",
         "seanwu.vscode-qt-for-python",
         "streetsidesoftware.code-spell-checker",
-        "davidanson.vscode-markdownlint"
+        "davidanson.vscode-markdownlint",
+        "tamasfe.even-better-toml"
     ]
 }

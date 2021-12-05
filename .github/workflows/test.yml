@@ -9,6 +9,7 @@ on:
       - "NOTICE.md"
       - "images/**"
       - ".github/dependabot.yml"
+      - ".github/workflows/lint.yml"
       - ".vscode/settings.json"
     branches:
       - main
@@ -21,6 +22,7 @@ on:
       - "NOTICE.md"
       - "images/**"
       - ".github/dependabot.yml"
+      - ".github/workflows/lint.yml"
       - ".vscode/settings.json"
 
 jobs:

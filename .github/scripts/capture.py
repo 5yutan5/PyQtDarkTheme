@@ -1,3 +1,4 @@
+"""Script capturing the image of widget_gallery."""
 import sys
 from importlib import resources
 
