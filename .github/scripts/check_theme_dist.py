@@ -5,7 +5,9 @@ from tempfile import TemporaryDirectory
 
 import click
 
-from builder.main import DIST_DIR_PATH, build_resources, compare_all_files
+click.echo(Path.cwd())
+
+from builder.main import DIST_DIR_PATH, build_resources, compare_all_files  # noqa
 
 
 def _main():
@@ -13,7 +15,6 @@ def _main():
     stylesheet = resources.read_text("builder", "base.qss")
     color_schemes = [path for path in Path("builder").glob("theme/*.json") if path.name != "validate.json"]
     svg_dir_path = Path("builder") / "svg"
-    click.echo(Path.cwd())
 
     with TemporaryDirectory() as temp_dir:
         temp_dir_path = Path(temp_dir)
