@@ -14,5 +14,8 @@ jobs:
     - name: Setup Python
       uses: actions/setup-python@v2
 
+    - name: Install python dependencies
+      run: pip install pyside6 click
+
     - name: Check resources
       run: python .github/scripts/check_theme_dist.py
