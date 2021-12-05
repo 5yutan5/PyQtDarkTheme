@@ -1,5 +1,10 @@
 name: linter
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+    # Remove the line above to run when pushing to master
+  pull_request:
 
 jobs:
   build:
@@ -11,6 +16,7 @@ jobs:
       uses: github/super-linter@v4
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        DEFAULT_BRANCH: main
         VALIDATE_ALL_CODEBASE: false
         VALIDATE_JSON: true
         VALIDATE_MARKDOWN: true
