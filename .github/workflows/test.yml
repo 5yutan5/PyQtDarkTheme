@@ -10,6 +10,7 @@ on:
       - "images/**"
       - ".github/dependabot.yml"
       - ".github/workflows/lint.yml"
+      - ".github/workflows/check_resources.yml"
       - ".vscode/settings.json"
     branches:
       - main
@@ -23,6 +24,7 @@ on:
       - "images/**"
       - ".github/dependabot.yml"
       - ".github/workflows/lint.yml"
+      - ".github/workflows/check_resources.yml"
       - ".vscode/settings.json"
 
 jobs:
