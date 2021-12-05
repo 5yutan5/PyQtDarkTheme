@@ -193,7 +193,7 @@ class _TableModel(QAbstractTableModel):
 
     def headerData(self, section: int, orientation: Qt.Orientation, role: int = ...) -> Any:
         if role != Qt.ItemDataRole.DisplayRole:
-            return
+            return None
         if orientation == Qt.Orientation.Horizontal:
             return ["Normal", "Checkbox", "Spinbox", "LineEdit"][section]
         return super().headerData(section, orientation, role)

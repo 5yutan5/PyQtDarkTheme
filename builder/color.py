@@ -51,10 +51,10 @@ class RGBA:
         hex_ = color_hex.lstrip("#")
         r, g, b, a = 255, 0, 0, 1
         if len(hex_) == 3:  # RGB format
-            r, g, b = [int(char, 16) for char in hex_]
+            r, g, b = (int(char, 16) for char in hex_)
             r, g, b = 16 * r + r, 16 * g + g, 16 * b + b
         if len(hex_) == 4:  # RGBA format
-            r, g, b, a = [int(char, 16) for char in hex_]
+            r, g, b, a = (int(char, 16) for char in hex_)
             r, g, b = 16 * r + r, 16 * g + g, 16 * b + b
             a = (16 * a + a) / 255
         if len(hex_) == 6:  # RRGGBB format

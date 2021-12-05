@@ -7,7 +7,7 @@ THEMES = ["dark", "light"]
 
 
 def test_meipass() -> None:
-    setattr(sys, "_MEIPASS", "testpath")
+    sys._MEIPASS = "testpath"  # type: ignore
     for theme in THEMES:
         qdarktheme.load_stylesheet(theme)
     del sys._MEIPASS  # type: ignore

@@ -4,7 +4,6 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-      time: "09:00"
     ignore:
       - dependency-name: "python"
 
@@ -12,5 +11,3 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-      time: "09:00"
-      day: "saturday"
