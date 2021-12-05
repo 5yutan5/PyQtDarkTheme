@@ -108,6 +108,9 @@ jobs:
         sudo apt-get update -y
         sudo apt-get install --no-install-recommends -y libxkbcommon-x11-0 libopengl0 libyaml-dev libegl1-mesa libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0
 
+    - name: Install pytest plugin
+      run: poetry run pip install pytest-github-actions-annotate-failures
+
     - name: Run pytest
       shell: bash
       run: poetry run pytest --cov -v tests --cov-report=term-missing --cov-report=xml
