@@ -15,4 +15,4 @@ jobs:
       uses: actions/setup-python@v2
 
     - name: Check resources
-      uses: python .github/scripts/check_theme_dist.py
+      run: python .github/scripts/check_theme_dist.py
