@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - main
-    # Remove the line above to run when pushing to master
   pull_request:
 
 jobs:

@@ -51,14 +51,6 @@
         "virtualenvs",
         "xinerama"
     ],
-    "markdownlint.config": {
-        "list-marker-space": {
-            "ul_single": 3,
-            "ol_single": 3,
-            "ul_multi": 3,
-            "ol_multi": 3
-        }
-    },
     "python.linting.banditEnabled": true,
     "python.linting.flake8Enabled": true,
     "python.analysis.typeCheckingMode": "basic",
