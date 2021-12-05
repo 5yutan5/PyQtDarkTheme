@@ -12,12 +12,13 @@ import shutil
 import sys
 from dataclasses import dataclass
 from filecmp import cmpfiles
-from importlib import import_module, resources
+from importlib import resources
 from pathlib import Path
 from tempfile import NamedTemporaryFile, TemporaryDirectory
 from xml.etree import ElementTree as ET  # nosec
 
 import click
+from PySide6.scripts.pyside_tool import rcc
 
 from builder.color import RGBA
 from qdarktheme.util import get_project_root_path, multireplace
@@ -123,8 +124,7 @@ def _generate_qt_resource_file(svg_dir_path: Path, output_dir_path: Path, theme:
         sys.argv[1:] = [str(qrc_file_path), "-o", str(py_resource_file_path)]
         # Not finish program with sys.exit()
         sys.exit = lambda _: "dummy"
-
-        getattr(import_module("PySide6.scripts.pyside_tool"), "rcc")()
+        rcc()
         # Remove patch
         sys.argv, sys.exit = temp_argv, temp_exit
 
@@ -158,9 +158,7 @@ def _build_resources(root_path: Path, theme_file_path: Path, stylesheet: str, ur
 
     # Generate qt resource file
     dist_dir_rc_icons_path = DIST_DIR_PATH / theme / "rc_icons.py"
-    if _compare_all_files(DIST_DIR_PATH / theme, output_dir_path):
-        _generate_qt_resource_file(svg_dir_path, output_dir_path, theme)
-    elif not dist_dir_rc_icons_path.exists():
+    if _compare_all_files(DIST_DIR_PATH / theme, output_dir_path) or not dist_dir_rc_icons_path.exists():
         _generate_qt_resource_file(svg_dir_path, output_dir_path, theme)
     else:
         shutil.copy(dist_dir_rc_icons_path, output_dir_path / "rc_icons.py")
@@ -174,7 +172,7 @@ if __name__ == "__main__":
         shutil.copy(Path(__file__).parent / "__init__.py", temp_dir_path / "__init__.py")
 
         for path in Path(__file__).parent.glob("theme/*.json"):
-            if "validate.json" == path.name:
+            if path.name == "validate.json":
                 continue
             _build_resources(temp_dir_path, theme_file_path=path, stylesheet=stylesheet, urls=_parse_url(stylesheet))
         # Refresh dist dir

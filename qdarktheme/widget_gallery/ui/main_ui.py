@@ -40,7 +40,7 @@ class UI:
         toolbar = QToolBar("Toolbar")
         statusbar = QStatusBar()
         menubar = QMenuBar()
-        tool_btn_settings, tool_btn_theme, tool_btn_enable, tool_btn_disable = [QToolButton() for _ in range(4)]
+        tool_btn_settings, tool_btn_theme, tool_btn_enable, tool_btn_disable = (QToolButton() for _ in range(4))
 
         spacer = QToolButton()
 
