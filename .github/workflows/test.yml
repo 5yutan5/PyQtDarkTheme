@@ -9,6 +9,8 @@ on:
       - "NOTICE.md"
       - "images/**"
       - ".github/dependabot.yml"
+      - ".github/workflows/lint.yml"
+      - ".github/workflows/check_resources.yml"
       - ".vscode/settings.json"
     branches:
       - main
@@ -21,6 +23,8 @@ on:
       - "NOTICE.md"
       - "images/**"
       - ".github/dependabot.yml"
+      - ".github/workflows/lint.yml"
+      - ".github/workflows/check_resources.yml"
       - ".vscode/settings.json"
 
 jobs:
@@ -107,6 +111,9 @@ jobs:
       run: |
         sudo apt-get update -y
         sudo apt-get install --no-install-recommends -y libxkbcommon-x11-0 libopengl0 libyaml-dev libegl1-mesa libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0
+
+    - name: Install pytest plugin
+      run: poetry run pip install pytest-github-actions-annotate-failures
 
     - name: Run pytest
       shell: bash

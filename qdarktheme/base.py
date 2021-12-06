@@ -20,7 +20,7 @@ _OPERATORS = {"==": ope.eq, "!=": ope.ne, ">=": ope.ge, "<=": ope.le, ">": ope.g
 
 
 def _compare_v(v1: str, operator: str, v2) -> bool:
-    v1_tuple, v2_tuple = [tuple(map(int, (v.split(".")))) for v in (v1, v2)]
+    v1_tuple, v2_tuple = (tuple(map(int, (v.split(".")))) for v in (v1, v2))
     return _OPERATORS[operator](v1_tuple, v2_tuple)
 
 
@@ -55,12 +55,13 @@ def _parse_env_patch(stylesheet: str) -> dict[str, str]:
 def load_stylesheet(theme: str = "dark") -> str:
     """Load the style sheet which looks like flat design. There are two themes, dark theme and light theme."""
 
+    if theme not in ["dark", "light"]:
+        raise TypeError("The argument [theme] can only be specified as 'dark' or 'light'.") from None
+
     if theme == "dark":
         from qdarktheme.dist.dark.stylesheet import STYLE_SHEET
-    elif theme == "light":
-        from qdarktheme.dist.light.stylesheet import STYLE_SHEET
     else:
-        raise TypeError("The argument [theme] can only be specified as 'dark' or 'light'.") from None
+        from qdarktheme.dist.light.stylesheet import STYLE_SHEET
 
     # Append Qt version patches
     replacements = _parse_env_patch(STYLE_SHEET)
@@ -89,10 +90,11 @@ def load_stylesheet(theme: str = "dark") -> str:
 def load_palette(theme: str = "dark"):
     """Load the QPalette for the dark or light theme"""
 
+    if theme not in ["dark", "light"]:
+        raise TypeError("The argument [theme] can only be specified as 'dark' or 'light'.") from None
+
     if theme == "dark":
         from qdarktheme.dist.dark.palette import PALETTE
-    elif theme == "light":
-        from qdarktheme.dist.light.palette import PALETTE
     else:
-        raise TypeError("The argument [theme] can only be specified as 'dark' or 'light'.") from None
+        from qdarktheme.dist.light.palette import PALETTE
     return PALETTE

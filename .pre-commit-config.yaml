@@ -10,28 +10,40 @@ repos:
         additional_dependencies: ['click', 'pyside6']
         require_serial: true
 
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.0.1
+    hooks:
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+      - id: end-of-file-fixer
+        exclude: (?x)(^.*/.*\.svg$)
+      - id: check-json
+      - id: check-added-large-files
+
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v2.29.1
+    hooks:
+    -   id: pyupgrade
+        args: [--py37-plus]
+
   - repo: https://github.com/psf/black
     rev: 21.10b0
     hooks:
       - id: black
-
-  - repo: https://github.com/PyCQA/flake8
-    rev: 4.0.1
-    hooks:
-      - id: flake8
-        entry: pflake8
-        additional_dependencies: [pyproject-flake8]
 
   - repo: https://github.com/PyCQA/isort
     rev: 5.10.1
     hooks:
       - id: isort
 
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1
+  - repo: https://github.com/PyCQA/flake8
+    rev: 4.0.1
     hooks:
-      - id: trailing-whitespace
-      - id: end-of-file-fixer
-        exclude: (?x)(^.*/.*\.svg$)
-      - id: check-yaml
-      - id: check-added-large-files
+      - id: flake8
+        entry: pflake8
+        additional_dependencies:
+          - pyproject-flake8
+          - flake8-print
+          - flake8-return
+          - flake8-simplify
+          - flake8-bugbear

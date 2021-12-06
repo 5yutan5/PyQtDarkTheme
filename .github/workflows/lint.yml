@@ -1,0 +1,21 @@
+name: linter
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  lint-markdown-yaml:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Lint Code Base
+      uses: github/super-linter@v4
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        DEFAULT_BRANCH: main
+        VALIDATE_ALL_CODEBASE: false
+        VALIDATE_YAML: true
+        VALIDATE_MARKDOWN: true
