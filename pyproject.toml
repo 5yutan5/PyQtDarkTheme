@@ -42,7 +42,7 @@ pytest-cov = { version = "^3.0.0", extras = ["toml"] }
 pytest-qt = "^4.0.2"
 pytest-xvfb = "^2.0.0"
 
-black = "^21.11b1"
+black = "^21.12b0"
 isort = "^5.10.1"
 bandit = "^1.7.1"
 pre-commit = "^2.15.0"
