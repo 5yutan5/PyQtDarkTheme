@@ -5,6 +5,7 @@ updates:
     schedule:
       interval: "weekly"
       time: "18:00"
+      day: "monday"
     ignore:
       - dependency-name: "python"
 
@@ -13,3 +14,4 @@ updates:
     schedule:
       interval: "weekly"
       time: "18:00"
+      day: "monday"
