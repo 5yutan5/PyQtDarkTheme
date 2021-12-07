@@ -1,8 +1,3 @@
-# ---------------------------------------------------------------------------------------------
-#  Copyright (c) Yunosuke Ohsugi. All rights reserved.
-#  Licensed under the MIT License. See License.txt in the project root for license information.
-# --------------------------------------------------------------------------------------------*/
-
 from typing import Any
 
 from qdarktheme.qtpy.QtCore import QAbstractTableModel, QModelIndex, Qt

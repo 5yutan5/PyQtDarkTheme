@@ -1,8 +1,3 @@
-# ---------------------------------------------------------------------------------------------
-#  Copyright (c) Yunosuke Ohsugi. All rights reserved.
-#  Licensed under the MIT License. See License.txt in the project root for license information.
-# --------------------------------------------------------------------------------------------*/
-
 from qdarktheme.qtpy.QtCore import Qt
 from qdarktheme.qtpy.QtGui import QAction, QActionGroup, QIcon
 from qdarktheme.qtpy.QtWidgets import (
