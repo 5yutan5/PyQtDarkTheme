@@ -1,3 +1,4 @@
+"""Module loading QPalette."""
 from qdarktheme.qtpy.QtGui import QColor, QPalette
 
 _palette = QPalette()

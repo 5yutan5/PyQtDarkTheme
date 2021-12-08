@@ -1,3 +1,4 @@
+"""Module for color code."""
 from __future__ import annotations
 
 import math

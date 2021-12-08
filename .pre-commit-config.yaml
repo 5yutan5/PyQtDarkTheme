@@ -47,3 +47,5 @@ repos:
           - flake8-return
           - flake8-simplify
           - flake8-bugbear
+          - flake8-docstrings
+          - flake8-comprehensions

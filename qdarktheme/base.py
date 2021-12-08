@@ -1,3 +1,4 @@
+"""Main file of qdarktheme."""
 from __future__ import annotations
 
 import json
@@ -6,20 +7,41 @@ import re
 import sys
 from pathlib import Path
 
-from qdarktheme.util import create_logger, get_project_root_path, multireplace
+from qdarktheme.util import get_logger, get_qdarktheme_root_path, multireplace
 
-_logger = create_logger(__name__)
+_logger = get_logger(__name__)
 
 # greater_equal and less_equal must be evaluated before greater and less.
 _OPERATORS = {"==": ope.eq, "!=": ope.ne, ">=": ope.ge, "<=": ope.le, ">": ope.gt, "<": ope.lt}
 
+THEMES = ("dark", "light")
+
 
 def _compare_v(v1: str, operator: str, v2) -> bool:
-    v1_tuple, v2_tuple = (tuple(map(int, (v.split(".")))) for v in (v1, v2))
-    return _OPERATORS[operator](v1_tuple, v2_tuple)
+    """Comparing two versions."""
+    v1_list, v2_list = (v.split(".") for v in (v1, v2))
+    return _OPERATORS[operator](v1_list, v2_list)
 
 
 def _parse_env_patch(stylesheet: str) -> dict[str, str]:
+    """Parse `$env_patch{...}` symbol in template stylesheet.
+
+    Template stylesheet has `$env_patch{...}` symbol.
+    This symbol has json string and resolve the differences of the style between qt versions.
+    The json keys:
+        * version - the qt version and qualifier. Available qualifiers: [==, !=, >=, <=, >, <].
+        * value - the qt stylesheet string
+
+    Args:
+        stylesheet: The qt stylesheet string.
+
+    Raises:
+        SyntaxError: If the version operator in version key of `$env_patch{...}` is wrong.
+
+    Returns:
+        The dictionary. Key is the text of $env_patch{...} symbol.
+        Value is the value of the `value` key in $env_patch.
+    """
     from qdarktheme.qtpy import __version__ as qt_version
 
     if qt_version is None:
@@ -48,9 +70,18 @@ def _parse_env_patch(stylesheet: str) -> dict[str, str]:
 
 
 def load_stylesheet(theme: str = "dark") -> str:
-    """Load the style sheet which looks like flat design. There are two themes, dark theme and light theme."""
+    """Load the style sheet which looks like flat design. There are two themes, dark theme and light theme.
 
-    if theme not in ["dark", "light"]:
+    Args:
+        theme: The name of the theme. Available theme are "dark" and "light". Defaults to "dark".
+
+    Raises:
+        TypeError: If the arg of theme name is wrong.
+
+    Returns:
+        The stylesheet string for the given theme.
+    """
+    if theme not in ("dark", "light"):
         raise TypeError("The argument [theme] can only be specified as 'dark' or 'light'.") from None
 
     if theme == "dark":
@@ -77,15 +108,24 @@ def load_stylesheet(theme: str = "dark") -> str:
             module_path = Path(sys._MEIPASS) / "qdarktheme"  # type: ignore
             icon_path = module_path.as_posix()
         else:
-            icon_path = get_project_root_path().as_posix()
+            icon_path = get_qdarktheme_root_path().as_posix()
     # Replace the ${path} variable by real path value
     return stylesheet.replace("${path}", icon_path)
 
 
 def load_palette(theme: str = "dark"):
-    """Load the QPalette for the dark or light theme"""
+    """Load the QPalette for the dark or light theme.
 
-    if theme not in ["dark", "light"]:
+    Args:
+        theme: The name of the theme. Available theme are "dark" and "light". Defaults to "dark".
+
+    Raises:
+        TypeError: If the arg name of theme is wrong.
+
+    Returns:
+        QPalette: The QPalette for the given theme.
+    """
+    if theme not in ("dark", "light"):
         raise TypeError("The argument [theme] can only be specified as 'dark' or 'light'.") from None
 
     if theme == "dark":

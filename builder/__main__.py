@@ -1,3 +1,4 @@
+"""Module allowing for `python -m builder`."""
 from __future__ import annotations
 
 import pprint
