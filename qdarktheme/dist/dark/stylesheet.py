@@ -1,3 +1,5 @@
+"""Contents that define stylesheet for dark theme."""
+
 STYLE_SHEET = """
 /* ==========================================================================================
  * PyQtDarkTheme.

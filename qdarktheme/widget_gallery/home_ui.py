@@ -1,8 +1,4 @@
-# ---------------------------------------------------------------------------------------------
-#  Copyright (c) Yunosuke Ohsugi. All rights reserved.
-#  Licensed under the MIT License. See License.txt in the project root for license information.
-# --------------------------------------------------------------------------------------------*/
-
+"""Module setting up ui of home window."""
 from typing import Any
 
 from qdarktheme.qtpy.QtCore import QAbstractTableModel, QModelIndex, Qt
@@ -12,14 +8,12 @@ from qdarktheme.qtpy.QtWidgets import (
     QComboBox,
     QDateTimeEdit,
     QDial,
-    QDockWidget,
     QGridLayout,
     QGroupBox,
     QLabel,
     QLCDNumber,
     QLineEdit,
     QListWidget,
-    QMainWindow,
     QProgressBar,
     QPushButton,
     QRadioButton,
@@ -124,7 +118,7 @@ class _Group2(QGroupBox):
         lineedit = QLineEdit()
         date_time_edit, date_time_edit_calendar = QDateTimeEdit(), QDateTimeEdit()
 
-        # Setup ui
+        # Setup widgets
         self.setCheckable(True)
         spinbox_suffix.setSuffix(" m")
 
@@ -210,7 +204,7 @@ class _Group3(QGroupBox):
         tab_list = QListWidget()
         tab_tree = QTreeWidget()
 
-        # Setup ui
+        # Setup widgets
         self.setCheckable(True)
         tab_widget.setTabsClosable(True)
         tab_widget.setMovable(True)
@@ -252,7 +246,7 @@ class _Group4(QGroupBox):
         progressbar = QProgressBar()
         lcd_number = QLCDNumber()
 
-        # Setup ui
+        # Setup widgets
         self.setCheckable(True)
         toolbox.addItem(slider, "Slider")
         toolbox.addItem(dial_ticks, "Dial")
@@ -270,11 +264,14 @@ class _Group4(QGroupBox):
 
 
 class HomeUI:
+    """The ui class of Home window."""
+
     def setup_ui(self, win: QWidget) -> None:
+        """Set up ui."""
         # Widgets
         h_splitter_1, h_splitter_2 = QSplitter(Qt.Orientation.Horizontal), QSplitter(Qt.Orientation.Horizontal)
 
-        # Setup ui
+        # Setup widgets
         h_splitter_1.setMinimumHeight(350)  # Fix bug layout crush
 
         # Layout
@@ -294,32 +291,3 @@ class HomeUI:
 
         v_main_layout = QVBoxLayout(win)
         v_main_layout.addWidget(scroll_area)
-
-
-class DockUI:
-    def setup_ui(self, main_win: QMainWindow) -> None:
-        # Attribute
-        left_dock = QDockWidget("Left dock")
-        right_dock = QDockWidget("Right dock")
-        top_dock = QDockWidget("Top dock")
-        bottom_dock = QDockWidget("Bottom dock")
-
-        # Setup ui
-        left_dock.setWidget(QTextEdit("This is the left widget."))
-        right_dock.setWidget(QTextEdit("This is the right widget."))
-        top_dock.setWidget(QTextEdit("This is the top widget."))
-        bottom_dock.setWidget(QTextEdit("This is the bottom widget."))
-        for dock in (left_dock, right_dock, top_dock, bottom_dock):
-            dock.setAllowedAreas(
-                Qt.DockWidgetArea.LeftDockWidgetArea
-                | Qt.DockWidgetArea.RightDockWidgetArea
-                | Qt.DockWidgetArea.BottomDockWidgetArea
-                | Qt.DockWidgetArea.TopDockWidgetArea
-            )
-
-        # Layout
-        main_win.setCentralWidget(QTextEdit("This is the central widget."))
-        main_win.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, left_dock)
-        main_win.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, right_dock)
-        main_win.addDockWidget(Qt.DockWidgetArea.TopDockWidgetArea, top_dock)
-        main_win.addDockWidget(Qt.DockWidgetArea.BottomDockWidgetArea, bottom_dock)

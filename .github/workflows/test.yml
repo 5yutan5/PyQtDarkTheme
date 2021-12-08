@@ -134,5 +134,5 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: widget-images
-        path: ./*.jpg
+        path: ./*.png
         retention-days: 2

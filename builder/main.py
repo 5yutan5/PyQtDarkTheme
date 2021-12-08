@@ -1,3 +1,4 @@
+"""The main module of build resources program."""
 from __future__ import annotations
 
 import json
@@ -14,9 +15,9 @@ from xml.etree import ElementTree as ET  # nosec
 from PySide6.scripts.pyside_tool import rcc
 
 from builder.color import RGBA
-from qdarktheme.util import get_project_root_path, multireplace
+from qdarktheme.util import get_qdarktheme_root_path, multireplace
 
-DIST_DIR_PATH = get_project_root_path() / "dist"
+DIST_DIR_PATH = get_qdarktheme_root_path() / "dist"
 
 
 @dataclass(unsafe_hash=True, frozen=True)
@@ -31,6 +32,7 @@ class _Url:
 
 
 def _remove_comment(stylesheet: str) -> str:
+    """Remove comment from the stylesheet string."""
     comment_pattern = re.compile(r" */\*[\s\S]*?\*/")
     match = comment_pattern.search(stylesheet)
     license_text = "/* MIT License */" if match is None else match.group()
@@ -54,6 +56,11 @@ def _parse_url(stylesheet: str) -> set[_Url]:
         file_name = f"{icon.replace('.svg', '')}__{color_id}__rotate-{rotate}.svg"
         urls.add(_Url(icon, color_id, rotate, match_text, file_name))
     return urls
+
+
+def _build_init_file(theme: str, output_dir_path: Path) -> None:
+    contents = f'"""Package containing the resources for {theme} theme."""\n'
+    (output_dir_path / "__init__.py").write_text(contents)
 
 
 def _build_svg_file(urls: set[_Url], colors: dict[str, RGBA], svg_dir_path: Path, output_dir_path: Path) -> None:
@@ -94,6 +101,7 @@ def _build_template_stylesheet(
     colors_converted = {f"${color_id}": str(rgba) for color_id, rgba in colors.items()}
     template_stylesheet = multireplace(stylesheet, {**url_replacements, **colors_converted})
     with (output_dir_path / "stylesheet.py").open("w") as f:
+        f.write(f'"""Contents that define stylesheet for {theme} theme."""\n\n')
         f.write(f'STYLE_SHEET = """\n{template_stylesheet}\n"""\n')
 
 
@@ -119,11 +127,14 @@ def _generate_qt_resource_file(svg_dir_path: Path, output_dir_path: Path, theme:
         # Remove patch
         sys.argv, sys.exit = temp_argv, temp_exit
 
-    py_resource_text_converted = py_resource_file_path.read_text().replace("PySide6", "qdarktheme.qtpy")
-    py_resource_file_path.write_text(py_resource_text_converted)
+    resource_code = py_resource_file_path.read_text()
+    resource_code = resource_code.replace("PySide6", "qdarktheme.qtpy")
+    resource_code = '"""Module for qt resources system."""\n' + resource_code
+    py_resource_file_path.write_text(resource_code)
 
 
 def build_resources(build_path: Path, theme_file_paths: list[Path], stylesheet: str, svg_dir_path: Path) -> None:
+    """Build resources for qdarktheme module."""
     shutil.copy(Path(__file__).parent / "__init__.py", build_path / "__init__.py")
     stylesheet = _remove_comment(stylesheet)
     urls = _parse_url(stylesheet)
@@ -131,20 +142,27 @@ def build_resources(build_path: Path, theme_file_paths: list[Path], stylesheet: 
         theme = theme_file_path.stem
         output_dir_path = build_path / theme
         output_dir_path.mkdir()
-        (output_dir_path / "__init__.py").touch()
 
         hex_colors = json.loads(theme_file_path.read_bytes())
         rgba_colors = {color_id: RGBA.from_hex(color_hex) for color_id, color_hex in hex_colors.items()}
 
-        # Build contents
+        _build_init_file(theme, output_dir_path)
         _build_svg_file(urls, rgba_colors, svg_dir_path, output_dir_path / "svg")
         _build_palette_file(rgba_colors, output_dir_path)
         _build_template_stylesheet(theme, stylesheet, urls, rgba_colors, output_dir_path)
-        # Generate qt resource file
         _generate_qt_resource_file(output_dir_path / "svg", output_dir_path, theme)
 
 
 def compare_all_files(dir1: Path, dir2: Path) -> list[str]:
+    """Check if the contents of the files with the same name in the two directories are the same.
+
+    Args:
+        dir1: The directory containing files.
+        dir2: The directory containing files.
+
+    Returns:
+        list[str]: A list of file names with different contents。
+    """
     target_files = set()
     for file in dir2.glob("**/*"):
         if not file.is_file():

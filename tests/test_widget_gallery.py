@@ -1,3 +1,4 @@
+"""Test WidgetGallery."""
 import pytest
 
 from qdarktheme.qtpy.QtCore import QTimer
@@ -6,6 +7,7 @@ from qdarktheme.widget_gallery.__main__ import WidgetGallery
 
 @pytest.fixture
 def widget_gallery(qtbot) -> WidgetGallery:
+    """Create test instance of WidgetGallery."""
     widget_gallery = WidgetGallery()
     qtbot.add_widget(widget_gallery)
     widget_gallery.show()

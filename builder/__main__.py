@@ -1,8 +1,4 @@
-# ---------------------------------------------------------------------------------------------
-#  Copyright (c) Yunosuke Ohsugi. All rights reserved.
-#  Licensed under the MIT License. See License.txt in the project root for license information.
-# --------------------------------------------------------------------------------------------*/
-
+"""Module allowing for `python -m builder`."""
 from __future__ import annotations
 
 import pprint
