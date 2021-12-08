@@ -918,6 +918,9 @@ QMenu {
 QComboBox QAbstractItemView {
     $env_patch{"version": ">=6.0.0", "value": "border-radius: 0; margin: 0"};
 }
+QStatusBar > QMenu {
+    $env_patch{"version": ">=6.0.0", "value": "border-radius: 0; margin: 0"};
+}
 PlotWidget {
     padding: 0px;
 }
