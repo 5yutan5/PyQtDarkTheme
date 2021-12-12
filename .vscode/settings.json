@@ -57,5 +57,6 @@
     "python.linting.banditEnabled": true,
     "python.linting.flake8Enabled": true,
     "python.analysis.typeCheckingMode": "basic",
-    "python.formatting.provider": "black"
+    "python.formatting.provider": "black",
+    "restructuredtext.confPath": "${workspaceFolder}/docs/source"
 }

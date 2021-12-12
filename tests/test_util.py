@@ -1,12 +1,12 @@
 """Test utility methods in qdarktheme/util.py."""
-from qdarktheme.util import multireplace
+from qdarktheme.util import multi_replace
 
 
-def test_multireplace() -> None:
-    """Test `multireplace()`."""
+def test_multi_replace() -> None:
+    """Test `multi_replace()`."""
     TARGET = "Dark theme for PySide and PyQt."
     EMPTY = {}
-    multireplace(TARGET, EMPTY)
+    multi_replace(TARGET, EMPTY)
 
     REPLACEMENTS = {"Dark": "Light", "PySide": "PyQt", "PyQt": "PySide"}
-    multireplace(TARGET, REPLACEMENTS)
+    multi_replace(TARGET, REPLACEMENTS)

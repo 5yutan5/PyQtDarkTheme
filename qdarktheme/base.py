@@ -7,7 +7,7 @@ import re
 import sys
 from pathlib import Path
 
-from qdarktheme.util import get_logger, get_qdarktheme_root_path, multireplace
+from qdarktheme.util import get_logger, get_qdarktheme_root_path, multi_replace
 
 _logger = get_logger(__name__)
 
@@ -73,15 +73,29 @@ def load_stylesheet(theme: str = "dark") -> str:
     """Load the style sheet which looks like flat design. There are two themes, dark theme and light theme.
 
     Args:
-        theme: The name of the theme. Available theme are "dark" and "light". Defaults to "dark".
+        theme: The name of the theme. Available theme are "dark" and "light".
 
     Raises:
         TypeError: If the arg of theme name is wrong.
 
     Returns:
         The stylesheet string for the given theme.
+
+    Examples:
+        Set stylesheet to your Qt application.
+
+        1. Dark Theme::
+
+            app = QApplication([])
+            app.setStyleSheet(qdarktheme.load_stylesheet())
+            # app.setStyleSheet(qdarktheme.load_stylesheet("dark"))
+
+        2. Light Theme::
+
+            app = QApplication([])
+            app.setStyleSheet(qdarktheme.load_stylesheet("light"))
     """
-    if theme not in ("dark", "light"):
+    if theme not in THEMES:
         raise TypeError("The argument [theme] can only be specified as 'dark' or 'light'.") from None
 
     if theme == "dark":
@@ -91,7 +105,7 @@ def load_stylesheet(theme: str = "dark") -> str:
 
     # Append Qt version patches
     replacements = _parse_env_patch(STYLE_SHEET)
-    stylesheet = multireplace(STYLE_SHEET, replacements)
+    stylesheet = multi_replace(STYLE_SHEET, replacements)
 
     from qdarktheme.qtpy import QtImportError
 
@@ -103,7 +117,7 @@ def load_stylesheet(theme: str = "dark") -> str:
         icon_path = ":qdarktheme"
     except (AttributeError, QtImportError):
         # Qt resource system has been removed in PyQt6. So in PyQt6, load the icon from a physical file.
-        # PyInstaller's onefile uses temp dir(_MEIPASS).
+        # PyInstaller's one file option uses temp dir(_MEIPASS).
         if hasattr(sys, "_MEIPASS"):
             module_path = Path(sys._MEIPASS) / "qdarktheme"  # type: ignore
             icon_path = module_path.as_posix()
@@ -117,15 +131,29 @@ def load_palette(theme: str = "dark"):
     """Load the QPalette for the dark or light theme.
 
     Args:
-        theme: The name of the theme. Available theme are "dark" and "light". Defaults to "dark".
+        theme: The name of the theme. Available theme are "dark" and "light".
 
     Raises:
         TypeError: If the arg name of theme is wrong.
 
     Returns:
         QPalette: The QPalette for the given theme.
+
+    Examples:
+        Set QPalette to your Qt application.
+
+        1. Dark Theme::
+
+            app = QApplication([])
+            app.setPalette(qdarktheme.load_palette())
+            # app.setStyleSheet(qdarktheme.load_palette("dark"))
+
+        2. Light Theme::
+
+            app = QApplication([])
+            app.setPalette(qdarktheme.load_palette("light"))
     """
-    if theme not in ("dark", "light"):
+    if theme not in THEMES:
         raise TypeError("The argument [theme] can only be specified as 'dark' or 'light'.") from None
 
     if theme == "dark":
