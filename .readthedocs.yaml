@@ -7,3 +7,7 @@ python:
 
     - method: pip
       path: .
+
+submodules:
+  include: all
+  recursive: true
