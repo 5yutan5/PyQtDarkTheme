@@ -1,6 +1,7 @@
 API Reference
 ==================
 
+.. currentmodule:: qdarktheme
 
 .. autofunction:: qdarktheme.load_stylesheet
 
