@@ -8,7 +8,6 @@ PyQtDarkTheme documentation
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
 
    Introduction<introduction.rst>
    How to use PyQtDarkTheme<how_to_use.rst>
