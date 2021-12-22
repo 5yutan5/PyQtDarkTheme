@@ -150,7 +150,7 @@ You can easily switch between light and dark theme.
     app.exec()
 
 On some operating systems we can detect if a dark or light mode is selected system-wide.
-By using `darkdetect <https://github.com/albertosottile/darkdetect>`_, You can easily sync your application theme with this operating system mode.
+By using `darkdetect <https://github.com/albertosottile/darkdetect>`_, You can easily sync your application theme with this operating system theme.
 
 .. code-block:: python
 
@@ -169,7 +169,7 @@ By using `darkdetect <https://github.com/albertosottile/darkdetect>`_, You can e
     main_win.setCentralWidget(theme_label)
 
 
-    @Slot(str)
+    @Slot()
     def sync_theme_with_system() -> None:
         theme = darkdetect.theme().lower()
         theme_label.setText(f"Theme: {theme}")

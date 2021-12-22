@@ -32,6 +32,7 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx.ext.todo",
     "sphinx.ext.napoleon",
+    "sphinx_panels",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -55,7 +56,11 @@ html_theme = "pydata_sphinx_theme"
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
 
+html_css_files = [
+    "installation_guide.css",
+    "pyqtdarktheme.css",
+]
+
 html_theme_options = {
     "github_url": "https://github.com/5yutan5/PyQtDarkTheme",
-    "collapse_navigation": True,
 }
