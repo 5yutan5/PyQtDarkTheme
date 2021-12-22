@@ -119,6 +119,10 @@ palette.setColor(QPalette.ColorRole.Link, dark_palette.link().color())
 app.setPalette(palette)
 ```
 
+Further information can be found in our docs:
+
+- [Usage documentation](https://pyqtdarktheme.readthedocs.io/en/latest/how_to_use.html)
+
 ## Example
 
 To check example app, run:
@@ -130,3 +134,13 @@ python -m qdarktheme.widget_gallery
 ## License
 
 The svg file for the PyQtDarkTheme are derived [Material design icons](https://fonts.google.com/icons)(Apache License Version 2.0). Qt stylesheets are originally fork of [QDarkStyleSheet](https://github.com/ColinDuquesnoy/QDarkStyleSheet)(MIT License). Other files are covered by PyQtDarkTheme's MIT license.
+
+## Contributing
+
+All contributions, bug reports, bug fixes, documentation improvements, enhancements, and ideas are welcome. You can get started by reading this:
+
+- [Contributing documentation](https://pyqtdarktheme.readthedocs.io/en/latest/contributing.html)
+
+## Change log
+
+See [Releases](https://github.com/5yutan5/PyQtDarkTheme/releases).
