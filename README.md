@@ -2,6 +2,8 @@
 
 PyQtDarkTheme applies a flat dark theme to QtWidgets application(PySide and PyQt). There's a light theme too. Color and style balanced from a dark theme for easy viewing in daylight.
 
+Check out the [complete documentation](pyqtdarktheme.readthedocs.io).
+
 **Project status**  
 [![PyPI Latest Release](https://img.shields.io/pypi/v/pyqtdarktheme.svg?color=orange)](https://pypi.org/project/pyqtdarktheme/)
 [![Python Versions](https://img.shields.io/pypi/pyversions/pyqtdarktheme.svg?color=blue)](https://www.python.org/downloads/)
@@ -14,6 +16,7 @@ PyQtDarkTheme applies a flat dark theme to QtWidgets application(PySide and PyQt
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/5yutan5/PyQtDarkTheme/main.svg)](https://results.pre-commit.ci/latest/github/5yutan5/PyQtDarkTheme/main)
 [![codecov](https://codecov.io/gh/5yutan5/PyQtDarkTheme/branch/main/graph/badge.svg?token=RTS8O0V6SF)](https://codecov.io/gh/5yutan5/PyQtDarkTheme)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/5yutan5/PyQtDarkTheme.svg?logo=lgtm&logoWidth=18&color=success)](https://lgtm.com/projects/g/5yutan5/PyQtDarkTheme/alerts/)
+[![Documentation Status](https://readthedocs.org/projects/pyqtdarktheme/badge/?version=latest)](https://pyqtdarktheme.readthedocs.io/en/latest/?badge=latest)
 
 ## Features
 
@@ -49,7 +52,7 @@ PyQtDarkTheme applies a flat dark theme to QtWidgets application(PySide and PyQt
 - Latest development version
 
    ```plaintext
-   pip install git+https://github.com/5yutan5/PyQtDarkTheme
+   pip install git+https://github.com/5yutan5/PyQtDarkTheme.git@main
    ```
 
 ## Usage
@@ -116,6 +119,10 @@ palette.setColor(QPalette.ColorRole.Link, dark_palette.link().color())
 app.setPalette(palette)
 ```
 
+Further information can be found in our docs:
+
+- [Usage documentation](https://pyqtdarktheme.readthedocs.io/en/latest/how_to_use.html)
+
 ## Example
 
 To check example app, run:
@@ -127,3 +134,13 @@ python -m qdarktheme.widget_gallery
 ## License
 
 The svg file for the PyQtDarkTheme are derived [Material design icons](https://fonts.google.com/icons)(Apache License Version 2.0). Qt stylesheets are originally fork of [QDarkStyleSheet](https://github.com/ColinDuquesnoy/QDarkStyleSheet)(MIT License). Other files are covered by PyQtDarkTheme's MIT license.
+
+## Contributing
+
+All contributions, bug reports, bug fixes, documentation improvements, enhancements, and ideas are welcome. You can get started by reading this:
+
+- [Contributing documentation](https://pyqtdarktheme.readthedocs.io/en/latest/contributing.html)
+
+## Change log
+
+See [Releases](https://github.com/5yutan5/PyQtDarkTheme/releases).

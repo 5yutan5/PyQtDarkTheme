@@ -15,7 +15,7 @@ from xml.etree import ElementTree as ET  # nosec
 from PySide6.scripts.pyside_tool import rcc
 
 from builder.color import RGBA
-from qdarktheme.util import get_qdarktheme_root_path, multireplace
+from qdarktheme.util import get_qdarktheme_root_path, multi_replace
 
 DIST_DIR_PATH = get_qdarktheme_root_path() / "dist"
 
@@ -36,13 +36,16 @@ def _remove_comment(stylesheet: str) -> str:
     comment_pattern = re.compile(r" */\*[\s\S]*?\*/")
     match = comment_pattern.search(stylesheet)
     license_text = "/* MIT License */" if match is None else match.group()
-    stylesheet_noncomment = comment_pattern.sub("", stylesheet)
+    # Remove qss comment
+    stylesheet = comment_pattern.sub("", stylesheet)
+    # Change blank lines to one blank line
+    stylesheet = re.sub(r"\n\s*\n", "\n", stylesheet)
 
-    return license_text + re.sub(r"\n\s*\n", "\n", stylesheet_noncomment)
+    return license_text + stylesheet
 
 
 def _parse_url(stylesheet: str) -> set[_Url]:
-    """Parse $url{...} simbol in template stylesheet."""
+    """Parse $url{...} symbol in template stylesheet."""
     urls = set()
     for match in re.finditer(r"\$url\{.+\}", stylesheet):
         match_text = match.group()
@@ -91,7 +94,7 @@ def _build_palette_file(colors: dict[str, RGBA], output_dir_path: Path) -> None:
     replacements = {f'"${color_id}"': to_arg_text(rgba) for color_id, rgba in colors.items()}
     palette_text = resources.read_text("builder", "palette.txt.py")
     with (output_dir_path / "palette.py").open("w") as f:
-        f.write(multireplace(palette_text, replacements))
+        f.write(multi_replace(palette_text, replacements))
 
 
 def _build_template_stylesheet(
@@ -99,7 +102,7 @@ def _build_template_stylesheet(
 ) -> None:
     url_replacements = {url.match_text: f"url(${{path}}/dist/{theme}/svg/{url.file_name})" for url in urls}
     colors_converted = {f"${color_id}": str(rgba) for color_id, rgba in colors.items()}
-    template_stylesheet = multireplace(stylesheet, {**url_replacements, **colors_converted})
+    template_stylesheet = multi_replace(stylesheet, {**url_replacements, **colors_converted})
     with (output_dir_path / "stylesheet.py").open("w") as f:
         f.write(f'"""Contents that define stylesheet for {theme} theme."""\n\n')
         f.write(f'STYLE_SHEET = """\n{template_stylesheet}\n"""\n')

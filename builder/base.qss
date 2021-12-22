@@ -79,7 +79,7 @@ QCommandLinkButton {
 
 /* QMainWindow ------------------------------------------------------------
 
-This adjusts the splitter in the dock widget, not qsplitter
+This adjusts the splitter in the dock widget, not QSplitter
 examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qmainwindow
 
 --------------------------------------------------------------------------- */
@@ -657,7 +657,7 @@ QTabBar::tab:right:selected:disabled {
     border-color: $highlight-disabled;
 }
 
-/* QDockWiget -------------------------------------------------------------
+/* QDockWidget -------------------------------------------------------------
 
 --------------------------------------------------------------------------- */
 QDockWidget {
@@ -672,7 +672,7 @@ QDockWidget::title {
     background-color: $dockwidget-titlebar;
 }
 /*
-Hover is already set in the QToolbutton:hover, but it is not worked in
+Hover is already set in the QToolButton:hover, but it is not worked in
 QDockWidget::title. Therefore, we need to set it again here.
 */
 QDockWidget::close-button:hover,

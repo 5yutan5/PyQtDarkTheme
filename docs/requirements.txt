@@ -1,0 +1,3 @@
+pydata_sphinx_theme
+PySide6
+sphinx-panels
