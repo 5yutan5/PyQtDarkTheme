@@ -9,6 +9,10 @@
 
 import os
 import sys
+import time
+from datetime import datetime
+
+import qdarktheme
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -21,6 +25,11 @@ sys.path.insert(0, os.path.abspath("../.."))
 project = "PyQtDarkTheme"
 copyright = "2021, Yunosuke Ohsugi"
 author = "Yunosuke Ohsugi"
+
+now = datetime.utcfromtimestamp(int(os.environ.get("SOURCE_DATE_EPOCH", time.time())))
+
+version = qdarktheme.__version__
+release = version
 
 # -- General configuration ---------------------------------------------------
 
