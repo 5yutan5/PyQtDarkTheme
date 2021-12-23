@@ -18,19 +18,26 @@ These are the basic steps needed to start developing on PyQtDarkTheme.
 #. Install Poetry
     You will need Poetry to start contributing on the PyQtDarkTheme codebase. Refer to the `Poetry documentation <https://python-poetry.org/docs/#installation>`__ to start using Poetry.
 #. Create a virtual environment
-    Now, you will need to install the required dependency for Poetry and be sure that the current tests are passing on your machine:
+    Now, you will need to install the required dependency for PyQtDarkTheme with Poetry and install Qt bindings(PySide or PyQt) with pip.
 
     .. code-block:: bash
 
         $ poetry install
-        $ poetry run pytest tests/
+        $ poetry run pip install PySide6
+
+#. Run Pytest
+    You need to be sure that the current tests are passing on your machine:
+
+    .. code-block:: bash
+
+        $ poetry run pytest tests
 #. Setup pre-commit
     To make sure that you don't accidentally commit code that does not follow the coding style, you can install a pre-commit hook that will check that everything is in order:
 
     .. code-block:: bash
 
         $ poetry run pre-commit install
-#. Check dark theme
+#. Check Qt theme
     You can check dark/light theme with example app.
 
     .. code-block:: bash

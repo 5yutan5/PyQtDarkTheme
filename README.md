@@ -2,7 +2,7 @@
 
 PyQtDarkTheme applies a flat dark theme to QtWidgets application(PySide and PyQt). There's a light theme too. Color and style balanced from a dark theme for easy viewing in daylight.
 
-Check out the [complete documentation](pyqtdarktheme.readthedocs.io).
+Check out the [complete documentation](https://pyqtdarktheme.readthedocs.io).
 
 **Project status**  
 [![PyPI Latest Release](https://img.shields.io/pypi/v/pyqtdarktheme.svg?color=orange)](https://pypi.org/project/pyqtdarktheme/)
@@ -121,7 +121,7 @@ app.setPalette(palette)
 
 Further information can be found in our docs:
 
-- [Usage documentation](https://pyqtdarktheme.readthedocs.io/en/latest/how_to_use.html)
+- [Usage Guide](https://pyqtdarktheme.readthedocs.io/en/latest/how_to_use.html)
 
 ## Example
 
@@ -139,7 +139,7 @@ The svg file for the PyQtDarkTheme are derived [Material design icons](https://f
 
 All contributions, bug reports, bug fixes, documentation improvements, enhancements, and ideas are welcome. You can get started by reading this:
 
-- [Contributing documentation](https://pyqtdarktheme.readthedocs.io/en/latest/contributing.html)
+- [Contributing Guide](https://pyqtdarktheme.readthedocs.io/en/latest/contributing.html)
 
 ## Change log
 

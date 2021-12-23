@@ -15,7 +15,7 @@ Installation
     :column: col-lg-6 col-md-6 col-sm-6 col-xs-12 d-flex
 
     PyPi
-    ^^^
+    ^^^^
 
     PyQtDarkTheme can be installed via pip from `PyPI <https://pypi.org/project/pyqtdarktheme/>`__. The most common way to install PyQtDarkTheme is with pip.
 
