@@ -12,7 +12,7 @@ import sys
 import time
 from datetime import datetime
 
-import qdarktheme
+from importlib_metadata import version as package_version
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -28,7 +28,7 @@ author = "Yunosuke Ohsugi"
 
 now = datetime.utcfromtimestamp(int(os.environ.get("SOURCE_DATE_EPOCH", time.time())))
 
-version = qdarktheme.__version__
+version = package_version("pyqtdarktheme")
 release = version
 
 # -- General configuration ---------------------------------------------------

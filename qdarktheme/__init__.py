@@ -4,5 +4,3 @@
 - Documentation: https://pyqtdarktheme.readthedocs.io
 """
 from qdarktheme.base import THEMES, load_palette, load_stylesheet
-
-__version__ = "0.1.9"

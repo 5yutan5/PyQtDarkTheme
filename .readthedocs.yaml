@@ -1,13 +1,11 @@
 version: 2
 
 python:
-  version: 3
   install:
-    - requirements: docs/requirements.txt
-
     - method: pip
       path: .
+      extra_requirements:
+        - docs
 
 submodules:
   include: all
-  recursive: true

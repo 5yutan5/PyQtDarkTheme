@@ -28,6 +28,8 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = ">=3.7,<3.11"
+pydata-sphinx-theme = {version = "^0.7.2", optional = true}
+sphinx-panels = {version = "^0.6.0", optional = true}
 
 [tool.poetry.dev-dependencies]
 # flake8
@@ -59,6 +61,9 @@ bandit = "^1.7.1"
 pre-commit = "^2.16.0"
 click = "^8.0.3"
 pyinstaller = "^4.7"
+
+[tool.poetry.extras]
+docs = ["pydata-sphinx-theme", "sphinx-panels"]
 
 [tool.poetry.plugins."pyinstaller40"]
 hook-dirs = "qdarktheme.__pyinstaller:get_hook_dirs"
