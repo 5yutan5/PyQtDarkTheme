@@ -12,6 +12,8 @@ on:
       - ".github/workflows/lint.yml"
       - ".github/workflows/check_resources.yml"
       - ".vscode/settings.json"
+      - "docs/**"
+      - ".readthedocs.yml"
     branches:
       - main
   pull_request:
@@ -26,6 +28,8 @@ on:
       - ".github/workflows/lint.yml"
       - ".github/workflows/check_resources.yml"
       - ".vscode/settings.json"
+      - "docs/**"
+      - ".readthedocs.yml"
 
 jobs:
   tests:
