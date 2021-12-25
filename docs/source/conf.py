@@ -11,8 +11,7 @@ import os
 import sys
 import time
 from datetime import datetime
-
-from importlib_metadata import version as package_version
+from importlib.metadata import version as package_version
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
