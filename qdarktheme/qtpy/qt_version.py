@@ -1,3 +1,4 @@
+"""Module for detecting Qt version."""
 from typing import Optional
 
 from .qt_compat import QT_API

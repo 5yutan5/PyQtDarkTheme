@@ -1,7 +1,11 @@
-from .qt_compat import QtImportError  # noqa: F401
-from .qt_version import __version__  # noqa: F401
+"""Package containing Qt compat."""
+from .qt_compat import QtImportError
+from .qt_version import __version__
 
 try:
-    from . import QtCore, QtGui, QtSvg, QtWidgets  # noqa: F401
+    from . import QtCore, QtGui, QtSvg, QtWidgets
 except ImportError:
-    pass
+    from qdarktheme.util import get_logger as __get_logger
+
+    __logger = __get_logger(__name__)
+    __logger.warn("Cannot load QtCore, QtGui, QtSvg and QtWidgets.")

@@ -11,6 +11,26 @@ import click
 
 from builder.main import DIST_DIR_PATH, build_resources, compare_all_files
 
+ROOT_INIT_DOC = '''"""License Information.
+
+All svg files in PyQtDarkTheme is from Material design icons(which uses an Apache 2.0 license).
+
+
+Material design icons
+
+- Author: Google
+- Site: https://fonts.google.com/icons
+- Source: https://github.com/google/material-design-icons
+- License: Apache License Version 2.0 | https://www.apache.org/licenses/LICENSE-2.0.txt
+
+Modifications made to each files to change the icon color and angle.
+
+The current Material design icons license summary can be viewed at:
+https://github.com/google/material-design-icons/blob/master/LICENSE
+
+"""
+'''
+
 
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="This program generates resources for Qt Applications.")
@@ -32,12 +52,10 @@ def _list_contents(contents: list) -> None:
 def _main(only_check: bool = False) -> None:
     if only_check:
         click.echo("Checking if this commit need to change qdarktheme/dist...")
-    package_root_path = Path(__file__).parent
-    color_schemes = [path for path in package_root_path.glob("theme/*.json") if path.name != "validate.json"]
-    svg_dir_path = package_root_path / "svg"
+    color_schemes = [path for path in Path(__file__).parent.glob("theme/*.json") if path.name != "validate.json"]
 
     with TemporaryDirectory() as temp_dir:
-        build_resources(Path(temp_dir), color_schemes, svg_dir_path)
+        build_resources(Path(temp_dir), color_schemes, ROOT_INIT_DOC)
         # Refresh dist dir
         changed_files = compare_all_files(DIST_DIR_PATH, Path(temp_dir))
         if not changed_files:

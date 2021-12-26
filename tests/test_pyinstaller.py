@@ -8,7 +8,7 @@ import qdarktheme
 def test_meipass() -> None:
     """Verify that we use `sys._MEIPASS` correctly when `sys._MEIPASS` is exist."""
     sys._MEIPASS = "testpath"  # type: ignore
-    for theme in qdarktheme.THEMES:
+    for theme in qdarktheme.get_themes():
         qdarktheme.load_stylesheet(theme)
     del sys._MEIPASS  # type: ignore
 

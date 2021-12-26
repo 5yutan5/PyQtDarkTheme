@@ -1,3 +1,4 @@
+"""Module for Qt compat."""
 import os
 import sys
 from typing import Optional
@@ -38,12 +39,10 @@ _ENV_TO_MODULE = {
 
 
 def _get_loaded_api() -> Optional[str]:
-    """Return which API is loaded, if any
+    """Return which API is loaded.
+
     If this returns anything besides None,
     importing any other Qt-binding is unsafe.
-    Returns
-    -------
-    None, 'PySide6', 'PyQt6', 'PyQt5', 'PySide2'
     """
     for api in _API_LIST:
         if sys.modules.get(f"{api}.QtCore"):
@@ -59,12 +58,7 @@ def _get_loaded_api() -> Optional[str]:
 
 
 def _get_installed_api() -> Optional[str]:
-    """Return which API is installed.
-
-    Returns
-    -------
-    None, 'PySide6', 'PyQt6', 'PyQt5', 'PySide2'
-    """
+    """Return which API is installed."""
     # Fix [AttributeError: module 'importlib' has no attribute 'util']
     # See https://stackoverflow.com/a/39661116/13452582
     from importlib import util

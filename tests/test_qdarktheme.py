@@ -15,7 +15,7 @@ def test_load_palette() -> None:
     if hasattr(Qt.ApplicationAttribute, "AA_UseHighDpiPixmaps"):
         app.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)  # type: ignore
 
-    for theme in qdarktheme.THEMES:
+    for theme in qdarktheme.get_themes():
         app.setPalette(qdarktheme.load_palette(theme))
 
 
@@ -38,7 +38,7 @@ def test_qrc() -> None:
     if not hasattr(QtCore, "qRegisterResourceData"):
         return
 
-    for theme in qdarktheme.THEMES:
+    for theme in qdarktheme.get_themes():
         rc_icons = import_module(f"qdarktheme.dist.{theme}.rc_icons")
         rc_icons.qCleanupResources()  # type: ignore
 

@@ -134,17 +134,17 @@ def _generate_root_init_file(output_dir_path: Path, themes: list[str], doc_strin
     with (output_dir_path / "__init__.py").open("w") as f:
         if len(doc_string) != 0:
             f.write(doc_string + "\n")
-        f.write(f"THEMES = {themes}\n".replace("'", '"'))
+        f.write(f"THEMES = {themes}\n".replace("'", '"').replace("[", "(").replace("]", ")"))
         if len(source) != 0:
             f.write(source + "\n")
 
 
-def build_resources(build_path: Path, theme_file_paths: list[Path], svg_dir_path: Path) -> None:
+def build_resources(build_path: Path, theme_file_paths: list[Path], root_init_file_doc: str) -> None:
     """Build resources for qdarktheme module."""
-    stylesheet = resources.read_text("builder", "base.qss")
-    stylesheet = _remove_comment(stylesheet)
+    stylesheet = _remove_comment(resources.read_text("builder", "base.qss"))
     urls = _parse_url(stylesheet)
     palette_template = resources.read_text("builder", "palette.template.py")
+    svg_dir_path = Path(__file__).parent / "svg"
     themes = []
 
     for theme_file_path in theme_file_paths:
@@ -162,7 +162,7 @@ def build_resources(build_path: Path, theme_file_paths: list[Path], svg_dir_path
         _build_template_stylesheet(theme, stylesheet, urls, rgba_colors, output_dir_path)
         _generate_qt_resource_file(output_dir_path / "svg", output_dir_path, theme)
 
-    _generate_root_init_file(build_path, themes)
+    _generate_root_init_file(build_path, themes, root_init_file_doc)
 
 
 def compare_all_files(dir1: Path, dir2: Path) -> list[str]:

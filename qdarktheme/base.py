@@ -14,20 +14,16 @@ _logger = get_logger(__name__)
 # greater_equal and less_equal must be evaluated before greater and less.
 _OPERATORS = {"==": ope.eq, "!=": ope.ne, ">=": ope.ge, "<=": ope.le, ">": ope.gt, "<": ope.lt}
 
-THEMES = ("dark", "light")
 
+def get_themes() -> tuple[str, ...]:
+    """Return available theme list.
 
-def get_themes() -> list[str]:
-    """Return available theme list."""
-    themes = []
-    for path in (get_qdarktheme_root_path() / "dist").iterdir():
-        if not path.is_dir():
-            continue
-        for child_path in path.iterdir():
-            if child_path.name == "__init__.py":
-                themes.append(path.name)
-                break
-    return themes
+    Returns:
+        Available themes.
+    """
+    from qdarktheme.dist import THEMES
+
+    return THEMES
 
 
 def _compare_v(v1: str, operator: str, v2) -> bool:
@@ -108,7 +104,7 @@ def load_stylesheet(theme: str = "dark") -> str:
             app = QApplication([])
             app.setStyleSheet(qdarktheme.load_stylesheet("light"))
     """
-    if theme not in THEMES:
+    if theme not in get_themes():
         raise TypeError("The argument [theme] can only be specified as 'dark' or 'light'.") from None
 
     if theme == "dark":
@@ -166,7 +162,7 @@ def load_palette(theme: str = "dark"):
             app = QApplication([])
             app.setPalette(qdarktheme.load_palette("light"))
     """
-    if theme not in THEMES:
+    if theme not in get_themes():
         raise TypeError("The argument [theme] can only be specified as 'dark' or 'light'.") from None
 
     if theme == "dark":

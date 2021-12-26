@@ -85,10 +85,6 @@ line-length = 119
 profile = "black"
 line_length = 119
 
-[tool.coverage.run]
-# omit submodule
-omit = ["qdarktheme/qtpy/**"]
-
 [tool.coverage.report]
 exclude_lines = [
     "pragma: no cover",
