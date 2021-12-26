@@ -7,8 +7,8 @@ import shutil
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-
 import click
+
 from builder.main import DIST_DIR_PATH, build_resources, compare_all_files
 
 

@@ -5,12 +5,14 @@ from typing import Optional
 
 class QtImportError(ImportError):
     """Error raise if no bindings could be selected."""
+
     pass
 
 
 qt_import_error = QtImportError(
     "Failed to import qt-binding. Check packages(pip list)."
-    "\n\tAvailable Qt-binding packages: PySide6, PyQt6, PyQt5, PySide2.")
+    "\n\tAvailable Qt-binding packages: PySide6, PyQt6, PyQt5, PySide2."
+)
 
 
 # Qt6

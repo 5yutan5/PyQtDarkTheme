@@ -23,11 +23,11 @@ sys.path.insert(0, os.path.abspath("../.."))
 # -- Project information -----------------------------------------------------
 project = "PyQtDarkTheme"
 copyright = f"2021, {package_metadata(project)['author']}"
-author = package_metadata(project)['author']
+author = package_metadata(project)["author"]
 
 now = datetime.utcfromtimestamp(int(os.environ.get("SOURCE_DATE_EPOCH", time.time())))
 
-version = package_metadata(project)['version']
+version = package_metadata(project)["version"]
 release = version
 
 # -- General configuration ---------------------------------------------------
