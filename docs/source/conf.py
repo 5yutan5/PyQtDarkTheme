@@ -11,7 +11,7 @@ import os
 import sys
 import time
 from datetime import datetime
-from importlib.metadata import version as package_version
+from importlib.metadata import metadata as package_metadata
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -22,12 +22,12 @@ sys.path.insert(0, os.path.abspath("../.."))
 
 # -- Project information -----------------------------------------------------
 project = "PyQtDarkTheme"
-copyright = "2021, Yunosuke Ohsugi"
-author = "Yunosuke Ohsugi"
+copyright = f"2021, {package_metadata(project)['author']}"
+author = package_metadata(project)['author']
 
 now = datetime.utcfromtimestamp(int(os.environ.get("SOURCE_DATE_EPOCH", time.time())))
 
-version = package_version("pyqtdarktheme")
+version = package_metadata(project)['version']
 release = version
 
 # -- General configuration ---------------------------------------------------
@@ -70,5 +70,5 @@ html_css_files = [
 ]
 
 html_theme_options = {
-    "github_url": "https://github.com/5yutan5/PyQtDarkTheme",
+    "github_url": package_metadata(project)["home-page"],
 }

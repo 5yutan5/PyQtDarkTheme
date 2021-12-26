@@ -1,0 +1,23 @@
+# Compiled python files
+*.py[oc]
+
+# Compiled dirs
+__pycache__/
+
+# VSCode workspace identity file
+*.code-workspace
+
+# VSCode setting folder
+*.vscode
+
+# Virtual env
+.venv/
+
+# Pytest cache
+.pytest_cache
+
+# Pycharm setting folder
+.idea
+
+# System information folder for mac
+.DS_Store

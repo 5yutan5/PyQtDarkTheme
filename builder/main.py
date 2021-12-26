@@ -3,14 +3,12 @@ from __future__ import annotations
 
 import json
 import re
-import shutil
 import sys
 from dataclasses import dataclass
 from filecmp import cmpfiles
 from importlib import resources
 from pathlib import Path
 from tempfile import NamedTemporaryFile
-from xml.etree import ElementTree as ET  # nosec
 
 from PySide6.scripts.pyside_tool import rcc
 
@@ -51,7 +49,7 @@ def _parse_url(stylesheet: str) -> set[_Url]:
         match_text = match.group()
         json_text = match_text.replace("$url", "")
 
-        url_property = json.loads(json_text)
+        url_property: dict[str, str] = json.loads(json_text)
         icon = url_property["icon"]
         color_id = url_property["id"]
         rotate = url_property.get("rotate", "0")
@@ -86,15 +84,14 @@ def _build_svg_file(urls: set[_Url], colors: dict[str, RGBA], svg_dir_path: Path
             f.write(svg_code_converted)
 
 
-def _build_palette_file(colors: dict[str, RGBA], output_dir_path: Path) -> None:
+def _build_palette_file(colors: dict[str, RGBA], output_dir_path: Path, palette_template: str) -> None:
     def to_arg_text(rgba: RGBA) -> str:
         r, g, b, a = rgba
         return f"{r}, {g}, {b}, {a*255}"
 
     replacements = {f'"${color_id}"': to_arg_text(rgba) for color_id, rgba in colors.items()}
-    palette_text = resources.read_text("builder", "palette.txt.py")
     with (output_dir_path / "palette.py").open("w") as f:
-        f.write(multi_replace(palette_text, replacements))
+        f.write(multi_replace(palette_template, replacements))
 
 
 def _build_template_stylesheet(
@@ -109,16 +106,14 @@ def _build_template_stylesheet(
 
 
 def _generate_qt_resource_file(svg_dir_path: Path, output_dir_path: Path, theme: str) -> None:
-    main_tag = ET.Element("RCC", {"version": "1.0"})
-    qt_resource_tag = ET.SubElement(main_tag, "qresource", {"prefix": f"qdarktheme/dist/{theme}"})
-
+    qrc = f'<RCC version="1.0"><qresource prefix="qdarktheme/dist/{theme}">'
     for file in svg_dir_path.iterdir():
-        file_tag = ET.SubElement(qt_resource_tag, "file")
-        file_tag.text = f"{svg_dir_path.name}/{file.name}"
+        qrc += f"<file>{svg_dir_path.name}/{file.name}</file>"
+    qrc += "</qresource></RCC>"
 
     with NamedTemporaryFile(suffix=".qrc", dir=str(output_dir_path)) as f:
         qrc_file_path = output_dir_path / f.name
-        ET.ElementTree(main_tag).write(str(qrc_file_path), "utf-8")
+        qrc_file_path.write_text(qrc, "utf-8")
         py_resource_file_path = output_dir_path / "rc_icons.py"
 
         # Patch PySide6.scripts.pyside_tool
@@ -130,19 +125,31 @@ def _generate_qt_resource_file(svg_dir_path: Path, output_dir_path: Path, theme:
         # Remove patch
         sys.argv, sys.exit = temp_argv, temp_exit
 
-    resource_code = py_resource_file_path.read_text()
-    resource_code = resource_code.replace("PySide6", "qdarktheme.qtpy")
+    resource_code = py_resource_file_path.read_text().replace("PySide6", "qdarktheme.qtpy")
     resource_code = '"""Module for qt resources system."""\n' + resource_code
     py_resource_file_path.write_text(resource_code)
 
 
-def build_resources(build_path: Path, theme_file_paths: list[Path], stylesheet: str, svg_dir_path: Path) -> None:
+def _generate_root_init_file(output_dir_path: Path, themes: list[str], doc_string: str = "", source: str = "") -> None:
+    with (output_dir_path / "__init__.py").open("w") as f:
+        if len(doc_string) != 0:
+            f.write(doc_string + "\n")
+        f.write(f"THEMES = {themes}\n".replace("'", '"'))
+        if len(source) != 0:
+            f.write(source + "\n")
+
+
+def build_resources(build_path: Path, theme_file_paths: list[Path], svg_dir_path: Path) -> None:
     """Build resources for qdarktheme module."""
-    shutil.copy(Path(__file__).parent / "__init__.py", build_path / "__init__.py")
+    stylesheet = resources.read_text("builder", "base.qss")
     stylesheet = _remove_comment(stylesheet)
     urls = _parse_url(stylesheet)
+    palette_template = resources.read_text("builder", "palette.template.py")
+    themes = []
+
     for theme_file_path in theme_file_paths:
         theme = theme_file_path.stem
+        themes.append(theme)
         output_dir_path = build_path / theme
         output_dir_path.mkdir()
 
@@ -151,9 +158,11 @@ def build_resources(build_path: Path, theme_file_paths: list[Path], stylesheet: 
 
         _build_init_file(theme, output_dir_path)
         _build_svg_file(urls, rgba_colors, svg_dir_path, output_dir_path / "svg")
-        _build_palette_file(rgba_colors, output_dir_path)
+        _build_palette_file(rgba_colors, output_dir_path, palette_template)
         _build_template_stylesheet(theme, stylesheet, urls, rgba_colors, output_dir_path)
         _generate_qt_resource_file(output_dir_path / "svg", output_dir_path, theme)
+
+    _generate_root_init_file(build_path, themes)
 
 
 def compare_all_files(dir1: Path, dir2: Path) -> list[str]:

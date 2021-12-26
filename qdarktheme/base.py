@@ -17,6 +17,19 @@ _OPERATORS = {"==": ope.eq, "!=": ope.ne, ">=": ope.ge, "<=": ope.le, ">": ope.g
 THEMES = ("dark", "light")
 
 
+def get_themes() -> list[str]:
+    """Return available theme list."""
+    themes = []
+    for path in (get_qdarktheme_root_path() / "dist").iterdir():
+        if not path.is_dir():
+            continue
+        for child_path in path.iterdir():
+            if child_path.name == "__init__.py":
+                themes.append(path.name)
+                break
+    return themes
+
+
 def _compare_v(v1: str, operator: str, v2) -> bool:
     """Comparing two versions."""
     v1_list, v2_list = (v.split(".") for v in (v1, v2))

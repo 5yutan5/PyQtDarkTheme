@@ -68,8 +68,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      with:
-        submodules: 'true'
 
     - name: Setup Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
