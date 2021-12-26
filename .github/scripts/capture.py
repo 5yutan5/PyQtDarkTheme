@@ -12,7 +12,7 @@ if __name__ == "__main__":
     if hasattr(Qt.ApplicationAttribute, "AA_UseHighDpiPixmaps"):
         app.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)
 
-    for theme in qdarktheme.THEMES:
+    for theme in qdarktheme.get_themes():
         app.setStyleSheet(qdarktheme.load_stylesheet(theme))
         save_file_name = f"{sys.argv[1]}-{theme}.png" if len(sys.argv) >= 2 else f"{theme}.png"
 
