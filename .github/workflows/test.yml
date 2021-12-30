@@ -50,7 +50,7 @@ jobs:
           - {python: '3.10', qt-lib: 'pyqt', qt-version: 'PyQt6'}
           - {python: '3.10', qt-lib: 'pyside', qt-version: 'PySide6'}
           - {python: '3.10', qt-lib: 'none', qt-version: 'none'}
-    runs-on: ${{ runner.os }}
+    runs-on: ${{ matrix.os }}
     name: ${{ runner.os }} python-${{ matrix.python }} ${{ matrix.qt-version }}
 
     steps:
