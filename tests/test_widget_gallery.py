@@ -1,4 +1,6 @@
 """Test WidgetGallery."""
+import sys
+
 import pytest
 
 from qdarktheme.widget_gallery.__main__ import WidgetGallery
@@ -18,7 +20,7 @@ def test_widget_gallery() -> None:
     from qdarktheme.qtpy.QtCore import Qt, QTimer
     from qdarktheme.qtpy.QtWidgets import QApplication
 
-    app = QApplication([])
+    app = QApplication.instance() if QApplication.instance() else QApplication(sys.argv)
     if hasattr(Qt.ApplicationAttribute, "AA_UseHighDpiPixmaps"):  # Enable High DPI display with Qt5
         app.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)
     win = WidgetGallery()
