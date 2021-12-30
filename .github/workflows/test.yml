@@ -92,7 +92,7 @@ jobs:
       run: poetry install
 
     - name: Install Qt lib
-        if: matrix.qt-version != 'none'
+        if: ${{ matrix.qt-version }} != 'none'
         run: poetry run pip install -U ${{ matrix.qt-version }}
 
     - name: "Install Linux dependencies"
