@@ -51,7 +51,7 @@ jobs:
           - {python: '3.10', qt-lib: 'pyside', qt-version: 'PySide6'}
           - {python: '3.10', qt-lib: 'none', qt-version: 'none'}
     runs-on: ${{ matrix.os }}
-    name: ${{ runner.os }} python-${{ matrix.python }} ${{ matrix.qt-version }}
+    name: ${{ matrix.os }} python-${{ matrix.python }} ${{ matrix.qt-version }}
 
     steps:
     - uses: actions/checkout@v2
