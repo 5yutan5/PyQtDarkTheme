@@ -36,8 +36,7 @@ def _get_loaded_api() -> Optional[str]:
     for api in _API_LIST:
         if sys.modules.get(f"{api}.QtCore"):
             return api
-    else:
-        return None
+    return None
 
 
 def _get_environ_api() -> Optional[str]:
