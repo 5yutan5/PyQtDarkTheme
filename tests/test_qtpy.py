@@ -20,6 +20,7 @@ def test_environment_variable() -> None:
     if _temp_environ_qt_api is None:
         os.environ["QT_API"] = "PySide2" if installed_qt_api == "PySide6" else "PySide6"
 
+    sys.modules.pop(f"{installed_qt_api}.QtCore", None)
     _clear_importing_qdarktheme()
     from qdarktheme.qtpy.qt_compat import QT_API
 
