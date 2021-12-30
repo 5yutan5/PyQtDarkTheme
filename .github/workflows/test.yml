@@ -108,7 +108,7 @@ jobs:
     - name: Run pytest without qt
       if: matrix.qt-version == 'none'
       run: |
-        poetry run pip uninstall pytest-qt
+        poetry run pip uninstall -y pytest-qt
         poetry run pytest tests --cov -v --cov-report=term-missing --cov-report=xml --ignore=tests/test_widget_gallery.py -m "not available_qt"
 
     - name: "Upload coverage to Codecov"
