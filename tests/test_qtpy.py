@@ -35,11 +35,10 @@ def test_environment_variable() -> None:
 
 def test_wrong_QT_API() -> None:
     """Ensure if raise correct error when setting wrong qt-binding to QT_API."""
-    from qdarktheme.qtpy.qt_compat import _get_environ_api, _get_installed_api
+    from qdarktheme.qtpy.qt_compat import _get_installed_api
 
     if _get_installed_api() is not None:
         return
-    _temp_environ_qt_api = _get_environ_api()
     os.environ["QT_API"] = "wrong_qt_api"
 
     _clear_importing_qdarktheme()
@@ -48,10 +47,7 @@ def test_wrong_QT_API() -> None:
 
     assert e.type is KeyError
 
-    if _temp_environ_qt_api is None:
-        del os.environ["QT_API"]
-    else:
-        os.environ["QT_API"] = _temp_environ_qt_api
+    del os.environ["QT_API"]
 
 
 def test_qt_import_error() -> None:
