@@ -22,7 +22,8 @@
         "**/Thumbs.db": true,
         "**/.pytest_cache": true,
         "**/__pycache__": true,
-        "**/.coverage": true
+        "**/.coverage": true,
+        "**/coverage.xml": true
     },
     "cSpell.words": [
         "APPDATA",
