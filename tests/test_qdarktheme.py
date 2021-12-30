@@ -5,12 +5,14 @@ from importlib import import_module
 import pytest
 
 import qdarktheme
-from qdarktheme.qtpy.QtCore import Qt
-from qdarktheme.qtpy.QtWidgets import QApplication
 
 
+@pytest.mark.available_qt
 def test_load_palette() -> None:
     """Ensure `load_palette()` load QPalette without error."""
+    from qdarktheme.qtpy.QtCore import Qt
+    from qdarktheme.qtpy.QtWidgets import QApplication
+
     app = QApplication(sys.argv)
     if hasattr(Qt.ApplicationAttribute, "AA_UseHighDpiPixmaps"):
         app.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)  # type: ignore
@@ -31,6 +33,7 @@ def test_wrong_theme() -> None:
         assert str(e.value) == "The argument [theme] can only be specified as 'dark' or 'light'."
 
 
+@pytest.mark.available_qt
 def test_qrc() -> None:
     """Test the qt resource files."""
     from qdarktheme.qtpy import QtCore

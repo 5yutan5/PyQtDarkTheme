@@ -28,8 +28,8 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = ">=3.7,<3.11"
-pydata-sphinx-theme = {version = "^0.7.2", optional = true}
-sphinx-panels = {version = "^0.6.0", optional = true}
+pydata-sphinx-theme = { version = "^0.7.2", optional = true }
+sphinx-panels = { version = "^0.6.0", optional = true }
 
 [tool.poetry.dev-dependencies]
 # flake8
@@ -47,6 +47,7 @@ pytest = "^6.2.5"
 pytest-cov = { version = "^3.0.0", extras = ["toml"] }
 pytest-qt = "^4.0.2"
 pytest-xvfb = "^2.0.0"
+pytest-github-actions-annotate-failures = "^0.1.6"
 
 # sphinx
 Sphinx = "^4.3.1"
@@ -86,7 +87,9 @@ profile = "black"
 line_length = 119
 
 [tool.coverage.report]
-exclude_lines = [
-    "pragma: no cover",
-    "if __name__ == .__main__.:",
+exclude_lines = ["if __name__ == .__main__.:"]
+
+[tool.pytest.ini_options]
+markers = [
+    "available_qt: marks tests as test to do only when there is qt-binding"
 ]

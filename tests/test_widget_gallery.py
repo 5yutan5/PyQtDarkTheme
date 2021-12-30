@@ -1,7 +1,6 @@
 """Test WidgetGallery."""
 import pytest
 
-from qdarktheme.qtpy.QtCore import QTimer
 from qdarktheme.widget_gallery.__main__ import WidgetGallery
 
 
@@ -16,6 +15,8 @@ def widget_gallery(qtbot) -> WidgetGallery:
 
 def test_widget_gallery_init(widget_gallery: WidgetGallery) -> None:
     """Ensure the widget gallery opens without error."""
+    from qdarktheme.qtpy.QtCore import QTimer
+
     QTimer.singleShot(2000, widget_gallery.close)
 
 

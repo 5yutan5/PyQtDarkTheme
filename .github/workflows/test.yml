@@ -10,7 +10,6 @@ on:
       - "images/**"
       - ".github/dependabot.yml"
       - ".github/workflows/lint.yml"
-      - ".github/workflows/check_resources.yml"
       - ".vscode/settings.json"
       - "docs/**"
       - ".readthedocs.yml"
@@ -26,53 +25,35 @@ on:
       - "images/**"
       - ".github/dependabot.yml"
       - ".github/workflows/lint.yml"
-      - ".github/workflows/check_resources.yml"
       - ".vscode/settings.json"
       - "docs/**"
       - ".readthedocs.yml"
 
 jobs:
   tests:
-    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.7', '3.8', '3.9', '3.10']
         os: [ubuntu-latest, macOS-latest, windows-latest]
-        qt-lib: [pyqt, pyside]
         include:
-          - python-version: "3.7"
-            qt-lib: "pyqt"
-            qt-version: "PyQt5"
-          - python-version: "3.7"
-            qt-lib: "pyside"
-            qt-version: "PySide2"
-          - python-version: "3.8"
-            qt-lib: "pyqt"
-            qt-version: "PyQt5"
-          - python-version: "3.8"
-            qt-lib: "pyside"
-            qt-version: "PySide6"
-          - python-version: "3.9"
-            qt-lib: "pyqt"
-            qt-version: "PyQt6"
-          - python-version: "3.9"
-            qt-lib: "pyside"
-            qt-version: "PySide6"
-          - python-version: "3.10"
-            qt-lib: "pyqt"
-            qt-version: "PyQt6"
-          - python-version: "3.10"
-            qt-lib: "pyside"
-            qt-version: "PySide6"
+          - {python: '3.7', qt-lib: 'PyQt5'}
+          - {python: '3.7', qt-lib: 'PySide2'}
+          - {python: '3.8', qt-lib: 'PyQt5'}
+          - {python: '3.8', qt-lib: 'PySide6'}
+          - {python: '3.9', qt-lib: 'PyQt6'}
+          - {python: '3.9', qt-lib: 'PySide6'}
+          - {python: '3.10', qt-lib: 'PyQt6'}
+          - {python: '3.10', qt-lib: 'PySide6'}
+    runs-on: ${{ matrix.os }}
+    name: ${{ matrix.os }} ${{ matrix.python }} ${{ matrix.qt-lib }}
 
     steps:
     - uses: actions/checkout@v2
 
-    - name: Setup Python ${{ matrix.python-version }}
+    - name: Setup Python ${{ matrix.python }}
       uses: actions/setup-python@v2
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: ${{ matrix.python }}
 
     - name: Get full Python version
       id: full-python-version
@@ -101,21 +82,18 @@ jobs:
       id: cache
       with:
         path: .venv
-        key: venv-${{ runner.os }}-${{ steps.full-python-version.outputs.version }}-${{ matrix.qt-version }}-${{ hashFiles('**/poetry.lock') }}
+        key: venv-${{ runner.os }}-${{ steps.full-python-version.outputs.version }}-${{ matrix.qt-lib }}-${{ hashFiles('**/poetry.lock') }}
 
     - name: Install dependencies
       run: |
         poetry install
-        poetry run pip install -U ${{ matrix.qt-version }}
+        poetry run pip install -U ${{ matrix.qt-lib }}
 
     - name: "Install Linux dependencies"
       if: runner.os == 'Linux'
       run: |
         sudo apt-get update -y
         sudo apt-get install --no-install-recommends -y libxkbcommon-x11-0 libopengl0 libyaml-dev libegl1-mesa libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0
-
-    - name: Install pytest plugin
-      run: poetry run pip install pytest-github-actions-annotate-failures
 
     - name: Run pytest
       shell: bash
@@ -129,7 +107,7 @@ jobs:
 
     - name: Capture theme images
       if: runner.os != 'Linux'
-      run: poetry run python ./.github/scripts/capture.py ${{runner.os}}-py${{matrix.python-version}}-${{matrix.qt-version}}
+      run: poetry run python ./.github/scripts/capture.py ${{runner.os}}-py${{matrix.python}}-${{matrix.qt-lib}}
 
     - name: Archive theme images
       if: runner.os != 'Linux'

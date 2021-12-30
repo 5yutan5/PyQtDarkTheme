@@ -13,3 +13,8 @@ elif QT_API == "PyQt5":
 elif QT_API == "PySide2":
     from PySide2.QtGui import *  # noqa: F403
     from PySide2.QtWidgets import QAction, QActionGroup, QShortcut  # noqa: F403
+
+if QT_API in ["PyQt5", "PySide2"]:
+    QAction = QAction
+    QActionGroup = QActionGroup
+    QShortcut = QShortcut
