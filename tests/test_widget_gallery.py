@@ -13,6 +13,20 @@ def widget_gallery(qtbot) -> WidgetGallery:
     return widget_gallery
 
 
+def test_widget_gallery() -> None:
+    """Test WidgetGallery."""
+    from qdarktheme.qtpy.QtCore import Qt, QTimer
+    from qdarktheme.qtpy.QtWidgets import QApplication
+
+    app = QApplication([])
+    if hasattr(Qt.ApplicationAttribute, "AA_UseHighDpiPixmaps"):  # Enable High DPI display with Qt5
+        app.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)
+    win = WidgetGallery()
+    win.show()
+    QTimer.singleShot(10, app.exit)
+    app.exec()
+
+
 def test_widget_gallery_init(widget_gallery: WidgetGallery) -> None:
     """Ensure the widget gallery opens without error."""
     from qdarktheme.qtpy.QtCore import QTimer

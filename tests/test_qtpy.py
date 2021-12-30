@@ -11,14 +11,18 @@ def _clear_importing_qdarktheme() -> None:
     sys.modules.pop("qdarktheme.qtpy.qt_compat", None)
 
 
+def test_version() -> None:
+    """Test `__version__`."""
+    _clear_importing_qdarktheme()
+    from qdarktheme.qtpy import __version__  # noqa: #401
+
+
 def test_environment_variable() -> None:
     """Test QT_API of environment variable."""
-    from qdarktheme.qtpy.qt_compat import _get_environ_api, _get_installed_api
+    from qdarktheme.qtpy.qt_compat import _get_installed_api
 
     installed_qt_api = _get_installed_api()
-    _temp_environ_qt_api = _get_environ_api()
-    if _temp_environ_qt_api is None:
-        os.environ["QT_API"] = "PySide2" if installed_qt_api == "PySide6" else "PySide6"
+    os.environ["QT_API"] = "PySide2" if installed_qt_api == "PySide6" else "PySide6"
 
     sys.modules.pop(f"{installed_qt_api}.QtCore", None)
     _clear_importing_qdarktheme()
@@ -26,10 +30,7 @@ def test_environment_variable() -> None:
 
     assert QT_API == os.environ["QT_API"]
 
-    if _temp_environ_qt_api is None:
-        del os.environ["QT_API"]
-    else:
-        os.environ["QT_API"] = _temp_environ_qt_api
+    del os.environ["QT_API"]
 
 
 def test_wrong_QT_API() -> None:
