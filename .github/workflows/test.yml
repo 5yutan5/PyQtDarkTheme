@@ -6,7 +6,6 @@ on:
       - ".gitignore"
       - ".pre-commit-config.yaml"
       - "LICENSE.txt"
-      - "NOTICE.md"
       - "images/**"
       - ".github/dependabot.yml"
       - ".github/workflows/lint.yml"
@@ -21,7 +20,6 @@ on:
       - ".gitignore"
       - ".pre-commit-config.yaml"
       - "LICENSE.txt"
-      - "NOTICE.md"
       - "images/**"
       - ".github/dependabot.yml"
       - ".github/workflows/lint.yml"
@@ -101,7 +99,7 @@ jobs:
       if: runner.os == 'Linux'
       run: |
         sudo apt-get update -y
-        sudo apt-get install --no-install-recommends -y libxkbcommon-x11-0 libopengl0 libyaml-dev libegl1-mesa libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0
+        sudo apt-get install --no-install-recommends -y libdbus-1-3 libxkbcommon-x11-0 libopengl0 libyaml-dev libegl1-mesa libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0
 
     - name: Run pytest
       if: matrix.qt != 'none'
