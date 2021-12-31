@@ -82,7 +82,7 @@ jobs:
       run: poetry install
 
     - name: Install Qt lib
-      if: ${{ matrix.qt }} != 'none'
+      if: matrix.qt != 'none'
       run: poetry run pip install -U ${{ matrix.qt }}
 
     - name: Install Linux dependencies
@@ -92,11 +92,11 @@ jobs:
         sudo apt-get install --no-install-recommends -y libxkbcommon-x11-0 libopengl0 libyaml-dev libegl1-mesa libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0
 
     - name: Run pytest
-      if: ${{ matrix.qt }} != 'none'
+      if: matrix.qt != 'none'
       run: poetry run pytest --cov -v tests --cov-report=term-missing --cov-report=xml
 
     - name: Run pytest without qt
-      if: ${{ matrix.qt }} == 'none'
+      if: matrix.qt == 'none'
       run: |
         poetry run pip uninstall -y pytest-qt
         poetry run pytest tests --cov -v --cov-report=term-missing --cov-report=xml --ignore=tests/test_widget_gallery.py -m "not available_qt"
@@ -108,11 +108,11 @@ jobs:
         token: ${{ secrets.CODECOV_TOKEN }}
 
     - name: Capture theme images
-      if: ${{ matrix.qt }} != 'none'
+      if: matrix.qt != 'none'
       run: poetry run python ./.github/scripts/capture.py -i ${{runner.os}}-py${{matrix.py}}-${{matrix.qt}} -d ${{ env.TEST_IMG_OUTPUT_PATH}}
 
     - name: Archive theme images
-      if: ${{ matrix.qt }} != 'none'
+      if: matrix.qt != 'none'
       uses: actions/upload-artifact@v2
       with:
         name: widget-img
