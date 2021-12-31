@@ -31,6 +31,8 @@ on:
 
 jobs:
   tests:
+    env:
+      TEST_IMG_OUTPUT_PATH: 'widget-gallery_img'
     strategy:
       fail-fast: false
       matrix:
@@ -38,31 +40,31 @@ jobs:
         python: ['3.7', '3.8', '3.9', '3.10']
         qt-lib: ['pyqt', 'pyside', 'none']
         include:
-          - {python: '3.7', qt-lib: 'pyqt', qt-version: 'PyQt5'}
-          - {python: '3.7', qt-lib: 'pyside', qt-version: 'PySide2'}
-          - {python: '3.7', qt-lib: 'none', qt-version: 'none'}
-          - {python: '3.8', qt-lib: 'pyqt', qt-version: 'PyQt5'}
-          - {python: '3.8', qt-lib: 'pyside', qt-version: 'PySide6'}
-          - {python: '3.8', qt-lib: 'none', qt-version: 'none'}
-          - {python: '3.9', qt-lib: 'pyqt', qt-version: 'PyQt6'}
-          - {python: '3.9', qt-lib: 'pyside', qt-version: 'PySide6'}
-          - {python: '3.9', qt-lib: 'none', qt-version: 'none'}
-          - {python: '3.10', qt-lib: 'pyqt', qt-version: 'PyQt6'}
-          - {python: '3.10', qt-lib: 'pyside', qt-version: 'PySide6'}
-          - {python: '3.10', qt-lib: 'none', qt-version: 'none'}
+          - {py: '3.7', qt-lib: 'pyqt', qt: 'PyQt5'}
+          - {py: '3.7', qt-lib: 'pyside', qt: 'PySide2'}
+          - {py: '3.7', qt-lib: 'none', qt: 'none'}
+          - {py: '3.8', qt-lib: 'pyqt', qt: 'PyQt5'}
+          - {py: '3.8', qt-lib: 'pyside', qt: 'PySide6'}
+          - {py: '3.8', qt-lib: 'none', qt: 'none'}
+          - {py: '3.9', qt-lib: 'pyqt', qt: 'PyQt6'}
+          - {py: '3.9', qt-lib: 'pyside', qt: 'PySide6'}
+          - {py: '3.9', qt-lib: 'none', qt: 'none'}
+          - {py: '3.10', qt-lib: 'pyqt', qt: 'PyQt6'}
+          - {py: '3.10', qt-lib: 'pyside', qt: 'PySide6'}
+          - {py: '3.10', qt-lib: 'none', qt: 'none'}
     runs-on: ${{ matrix.os }}
-    name: ${{ matrix.os }} python-${{ matrix.python }} ${{ matrix.qt-version }}
+    name: ${{ matrix.os }} py-${{ matrix.py }} qt-${{ matrix.qt }}
 
     steps:
     - uses: actions/checkout@v2
 
-    - name: Setup Python ${{ matrix.python }}
+    - name: Setup Python ${{ matrix.py }}
       uses: actions/setup-python@v2
       with:
-        python-version: ${{ matrix.python }}
+        python-version: ${{ matrix.py }}
 
     - name: Get full Python version
-      id: full-python-version
+      id: full-py-version
       run: echo ::set-output name=version::$(python -c "import sys; print('-'.join(str(v) for v in sys.version_info))")
 
     - name: Bootstrap poetry
@@ -86,14 +88,14 @@ jobs:
       id: cache
       with:
         path: .venv
-        key: venv-${{ runner.os }}-${{ steps.full-python-version.outputs.version }}-${{ matrix.qt-version }}-${{ hashFiles('**/poetry.lock') }}
+        key: venv-${{ runner.os }}-${{ steps.full-py-version.outputs.version }}-${{ matrix.qt }}-${{ hashFiles('**/poetry.lock') }}
 
     - name: Install dependencies
       run: poetry install
 
     - name: Install Qt lib
-      if: ${{ matrix.qt-version }} != 'none'
-      run: poetry run pip install -U ${{ matrix.qt-version }}
+      if: ${{ matrix.qt }} != 'none'
+      run: poetry run pip install -U ${{ matrix.qt }}
 
     - name: "Install Linux dependencies"
       if: runner.os == 'Linux'
@@ -102,11 +104,11 @@ jobs:
         sudo apt-get install --no-install-recommends -y libxkbcommon-x11-0 libopengl0 libyaml-dev libegl1-mesa libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0
 
     - name: Run pytest
-      if: matrix.qt-version != 'none'
+      if: matrix.qt != 'none'
       run: poetry run pytest --cov -v tests --cov-report=term-missing --cov-report=xml
 
     - name: Run pytest without qt
-      if: matrix.qt-version == 'none'
+      if: matrix.qt == 'none'
       run: |
         poetry run pip uninstall -y pytest-qt
         poetry run pytest tests --cov -v --cov-report=term-missing --cov-report=xml --ignore=tests/test_widget_gallery.py -m "not available_qt"
@@ -118,12 +120,12 @@ jobs:
         token: ${{ secrets.CODECOV_TOKEN }}
 
     - name: Capture theme images
-      if: runner.os != 'Linux' && matrix.qt-version != 'none'
-      run: poetry run python ./.github/scripts/capture.py ${{runner.os}}-py${{matrix.python}}-${{matrix.qt-version}}
+      if: matrix.qt != 'none'
+      run: poetry run python ./.github/scripts/capture.py -i ${{runner.os}}-py${{matrix.py}}-${{matrix.qt}} -d ${{ env.TEST_IMG_OUTPUT_PATH}}
 
     - name: Archive theme images
-      if: runner.os != 'Linux'
+      if: matrix.qt != 'none'
       uses: actions/upload-artifact@v2
       with:
-        name: widget-images
-        path: ./*.png
+        name: widget-img
+        path: ./${{ env.TEST_IMG_OUTPUT_PATH}}/*.png

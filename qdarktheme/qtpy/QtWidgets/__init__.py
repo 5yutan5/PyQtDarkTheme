@@ -1,4 +1,8 @@
 """Module for QtWidgets."""
+from __future__ import annotations
+
+from typing import Sequence
+
 from ..qt_compat import QT_API
 from ..QtCore import Qt
 from ..QtGui import QPalette
@@ -15,6 +19,10 @@ elif QT_API == "PySide2":
 
 class Application(QApplication):  # noqa: F405
     """Override QApplication."""
+
+    def __init__(self, args: Sequence[str] = None) -> None:
+        """Override QApplication method."""
+        super().__init__(args)
 
     def exec(self) -> int:
         """Override QApplication method."""

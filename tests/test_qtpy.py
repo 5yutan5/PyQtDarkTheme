@@ -11,12 +11,6 @@ def _clear_importing_qdarktheme() -> None:
     sys.modules.pop("qdarktheme.qtpy.qt_compat", None)
 
 
-def test_version() -> None:
-    """Test `__version__`."""
-    _clear_importing_qdarktheme()
-    from qdarktheme.qtpy import __version__  # noqa: #401
-
-
 def test_environment_variable() -> None:
     """Test QT_API of environment variable."""
     from qdarktheme.qtpy.qt_compat import _get_installed_api
