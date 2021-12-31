@@ -52,12 +52,13 @@ jobs:
           - {py: '3.10', qt-lib: 'none', qt: 'none'}
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.os }} py-${{ matrix.py }} qt-${{ matrix.qt }}
+    defaults:
+      run:
+        shell: bash
 
     steps:
     - uses: actions/checkout@v2
-
-    - name: Setup Python ${{ matrix.py }}
-      uses: actions/setup-python@v2
+    - uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.py }}
 
@@ -65,24 +66,10 @@ jobs:
       id: full-py-version
       run: echo ::set-output name=version::$(python -c "import sys; print('-'.join(str(v) for v in sys.version_info))")
 
-    - name: Set up poetry
-      shell: bash
-      run: |
-        curl -sL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python -
-        echo "${HOME}/.poetry/bin" >> $GITHUB_PATH
-
-    # - name: Update PATH
-    #   if: runner.os != 'Windows'
-    #   shell: bash
-    #   run: echo "${HOME}/.poetry/bin" >> $GITHUB_PATH
-
-    # - name: Update PATH for Windows
-    #   shell: bash
-    #   if: runner.os == 'Windows'
-    #   run: echo "$APPDATA\Python\Scripts" >> $GITHUB_PATH
-
-    - name: Configure poetry
-      run: poetry config virtualenvs.in-project true
+    - name: Set up Poetry
+      uses: snok/install-poetry@v1
+      with:
+        virtualenvs-in-project: true
 
     - name: Set up cache
       uses: actions/cache@v2
@@ -98,34 +85,34 @@ jobs:
       if: ${{ matrix.qt }} != 'none'
       run: poetry run pip install -U ${{ matrix.qt }}
 
-    - name: "Install Linux dependencies"
+    - name: Install Linux dependencies
       if: runner.os == 'Linux'
       run: |
         sudo apt-get update -y
         sudo apt-get install --no-install-recommends -y libxkbcommon-x11-0 libopengl0 libyaml-dev libegl1-mesa libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0
 
     - name: Run pytest
-      if: matrix.qt != 'none'
+      if: ${{ matrix.qt }} != 'none'
       run: poetry run pytest --cov -v tests --cov-report=term-missing --cov-report=xml
 
     - name: Run pytest without qt
-      if: matrix.qt == 'none'
+      if: ${{ matrix.qt }} == 'none'
       run: |
         poetry run pip uninstall -y pytest-qt
         poetry run pytest tests --cov -v --cov-report=term-missing --cov-report=xml --ignore=tests/test_widget_gallery.py -m "not available_qt"
 
-    - name: "Upload coverage to Codecov"
+    - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v2
       with:
         fail_ci_if_error: true
         token: ${{ secrets.CODECOV_TOKEN }}
 
     - name: Capture theme images
-      if: matrix.qt != 'none'
+      if: ${{ matrix.qt }} != 'none'
       run: poetry run python ./.github/scripts/capture.py -i ${{runner.os}}-py${{matrix.py}}-${{matrix.qt}} -d ${{ env.TEST_IMG_OUTPUT_PATH}}
 
     - name: Archive theme images
-      if: matrix.qt != 'none'
+      if: ${{ matrix.qt }} != 'none'
       uses: actions/upload-artifact@v2
       with:
         name: widget-img
