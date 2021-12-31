@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import argparse
+import os
+import platform
 import sys
 from pathlib import Path
 
@@ -30,8 +32,8 @@ def _parse_args() -> argparse.Namespace:
 class _Application(QApplication):
     def __init__(self, img_dir_path: str | None, img_identifier: str | None) -> None:
         super().__init__(sys.argv)
-        self._img_dir_path = Path("widget-gallery_img" if img_dir_path is None else img_dir_path)
-        self._img_dir_path.mkdir()
+        self._img_dir_path = Path("dist" if img_dir_path is None else img_dir_path)
+        self._img_dir_path.mkdir(exist_ok=True)
         self._img_identifier = img_identifier
 
         if hasattr(Qt.ApplicationAttribute, "AA_UseHighDpiPixmaps"):
@@ -53,6 +55,8 @@ class _Application(QApplication):
 
 
 if __name__ == "__main__":
+    if platform.system() == "Linux":
+        os.environ["QT_QPA_PLATFORM"] = "offscreen"
     args = _parse_args()
 
     app = _Application(args.dir, args.identifier)

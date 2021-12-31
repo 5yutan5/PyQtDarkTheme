@@ -30,12 +30,12 @@ on:
 jobs:
   tests:
     env:
-      TEST_IMG_OUTPUT_PATH: 'widget-gallery_img'
+      TEST_IMG_OUTPUT_PATH: 'dist'
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macOS-latest, windows-latest]
-        python: ['3.7', '3.8', '3.9', '3.10']
+        py: ['3.7', '3.8', '3.9', '3.10']
         qt-lib: ['pyqt', 'pyside', 'none']
         include:
           - {py: '3.7', qt-lib: 'pyqt', qt: 'PyQt5'}
@@ -99,7 +99,7 @@ jobs:
       if: runner.os == 'Linux'
       run: |
         sudo apt-get update -y
-        sudo apt-get install --no-install-recommends -y libdbus-1-3 libxkbcommon-x11-0 libopengl0 libyaml-dev libegl1-mesa libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0
+        sudo apt-get install --no-install-recommends -y libxkbcommon-x11-0 libopengl0 libyaml-dev libegl1-mesa libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0
 
     - name: Run pytest
       if: matrix.qt != 'none'
