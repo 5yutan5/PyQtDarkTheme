@@ -5,7 +5,8 @@ on:
     branches: [main]
 
 jobs:
-  markdown yaml py-type:
+  lint:
+    name: markdown yaml py-type
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
