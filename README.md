@@ -71,7 +71,6 @@ main_win.setCentralWidget(push_button)
 
 # Default is dark theme
 app.setStyleSheet(qdarktheme.load_stylesheet())
-# qdarktheme.load_stylesheet("dark")
 
 main_win.show()
 
@@ -98,8 +97,8 @@ To load palette, run:
 
 ```Python
 palette = qdarktheme.load_palette()
-# qdarktheme.load_palette("dark")
-# qdarktheme.load_palette("light")
+# or
+palette = qdarktheme.load_palette("light")
 ```
 
 For example, you can apply a link color to your application.
