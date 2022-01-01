@@ -1,4 +1,6 @@
 """Module setting up ui of home window."""
+from __future__ import annotations
+
 from typing import Any
 
 from qdarktheme.qtpy.QtCore import QAbstractTableModel, QModelIndex, Qt

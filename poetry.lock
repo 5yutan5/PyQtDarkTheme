@@ -350,6 +350,17 @@ pycodestyle = "*"
 six = "*"
 
 [[package]]
+name = "flake8-pytest-style"
+version = "1.6.0"
+description = "A flake8 plugin checking common style issues or inconsistencies with pytest-based tests."
+category = "dev"
+optional = false
+python-versions = ">=3.6.2,<4.0.0"
+
+[package.dependencies]
+flake8-plugin-utils = ">=1.3.2,<2.0.0"
+
+[[package]]
 name = "flake8-return"
 version = "1.1.3"
 description = "Flake8 plugin that checks return values"
@@ -453,7 +464,7 @@ optional = false
 python-versions = ">=3.6"
 
 [package.dependencies]
-typing-extensions = {version = ">=3.6.4", markers = "python_version < \"3.8\""}
+-extensions = {version = ">=3.6.4", markers = "python_version < \"3.8\""}
 zipp = ">=0.5"
 
 [package.extras]
@@ -1243,7 +1254,7 @@ docs = ["pydata-sphinx-theme", "sphinx-panels"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7,<3.11"
-content-hash = "c1bc80651b2b57c4293ca7a6cbec94b974ccbd2934805813510ac19b7bb1d10a"
+content-hash = "49cdbca784937768be800f7d95806da056828e3cd6c4d2807475a82d839b5235"
 
 [metadata.files]
 alabaster = [
@@ -1411,6 +1422,10 @@ flake8-plugin-utils = [
 flake8-print = [
     {file = "flake8-print-4.0.0.tar.gz", hash = "sha256:5afac374b7dc49aac2c36d04b5eb1d746d72e6f5df75a6ecaecd99e9f79c6516"},
     {file = "flake8_print-4.0.0-py3-none-any.whl", hash = "sha256:6c0efce658513169f96d7a24cf136c434dc711eb00ebd0a985eb1120103fe584"},
+]
+flake8-pytest-style = [
+    {file = "flake8-pytest-style-1.6.0.tar.gz", hash = "sha256:c1175713e9e11b78cd1a035ed0bca0d1e41d09c4af329a952750b61d4194ddac"},
+    {file = "flake8_pytest_style-1.6.0-py3-none-any.whl", hash = "sha256:5fedb371a950e9fe0e0e6bfc854be7d99151271208f34cd2cc517681ece27780"},
 ]
 flake8-return = [
     {file = "flake8-return-1.1.3.tar.gz", hash = "sha256:13a31edeb0c6157dd4f77166cdaa6141703d2b8b24def5558ae659852a003cb4"},

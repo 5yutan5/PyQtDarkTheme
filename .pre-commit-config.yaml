@@ -1,4 +1,6 @@
 ci:
+  # Replace use some hooks of pre-commit.ci with our own github actions.
+  # See https://github.com/pre-commit-ci/issues/issues/55.
   skip: ['build-resources', 'pyright']
 repos:
   - repo: local
@@ -52,6 +54,7 @@ repos:
           - flake8-comprehensions
           - flake8-eradicate
           - flake8-rst-docstrings
+          - flake8-pytest-style
 
   - repo: local
     hooks:

@@ -7,7 +7,7 @@ import pytest
 import qdarktheme
 
 
-@pytest.mark.available_qt
+@pytest.mark.available_qt()
 def test_load_palette() -> None:
     """Ensure `load_palette()` load QPalette without error."""
     from qdarktheme.qtpy.QtCore import Qt
@@ -33,7 +33,7 @@ def test_wrong_theme() -> None:
         assert str(e.value) == "The argument [theme] can only be specified as 'dark' or 'light'."
 
 
-@pytest.mark.available_qt
+@pytest.mark.available_qt()
 def test_qrc() -> None:
     """Test the qt resource files."""
     from qdarktheme.qtpy import QtCore

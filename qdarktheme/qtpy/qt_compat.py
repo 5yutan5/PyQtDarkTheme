@@ -1,7 +1,8 @@
 """Module for Qt compat."""
+from __future__ import annotations
+
 import os
 import sys
-from typing import Optional
 
 
 class QtImportError(ImportError):
@@ -27,7 +28,7 @@ _QT_API_PYSIDE2 = "PySide2"
 _API_LIST = [_QT_API_PYSIDE6, _QT_API_PYQT6, _QT_API_PYQT5, _QT_API_PYSIDE2]
 
 
-def _get_loaded_api() -> Optional[str]:
+def _get_loaded_api() -> str | None:
     """Return which API is loaded.
 
     If this returns anything besides None,
@@ -39,7 +40,7 @@ def _get_loaded_api() -> Optional[str]:
     return None
 
 
-def _get_environ_api() -> Optional[str]:
+def _get_environ_api() -> str | None:
     """Return which API is specified in environ."""
     _qt_api_env = os.environ.get("QT_API")
     if _qt_api_env is not None:
@@ -62,7 +63,7 @@ def _get_environ_api() -> Optional[str]:
         ) from None
 
 
-def _get_installed_api() -> Optional[str]:
+def _get_installed_api() -> str | None:
     """Return which API is installed."""
     # Fix [AttributeError: module 'importlib' has no attribute 'util']
     # See https://stackoverflow.com/a/39661116/13452582
