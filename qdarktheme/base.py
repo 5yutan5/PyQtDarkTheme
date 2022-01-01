@@ -97,7 +97,8 @@ def load_stylesheet(theme: str = "dark") -> str:
 
             app = QApplication([])
             app.setStyleSheet(qdarktheme.load_stylesheet())
-            # app.setStyleSheet(qdarktheme.load_stylesheet("dark"))
+            # or
+            app.setStyleSheet(qdarktheme.load_stylesheet("dark"))
 
         2. Light Theme::
 
@@ -155,7 +156,8 @@ def load_palette(theme: str = "dark"):
 
             app = QApplication([])
             app.setPalette(qdarktheme.load_palette())
-            # app.setStyleSheet(qdarktheme.load_palette("dark"))
+            # or
+            app.setPalette(qdarktheme.load_palette("dark"))
 
         2. Light Theme::
 

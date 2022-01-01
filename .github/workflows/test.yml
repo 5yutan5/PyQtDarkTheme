@@ -57,12 +57,14 @@ jobs:
     - name: Cache ${{ steps.poetry-home.outputs.path }}
       uses: actions/cache@v2
       with:
-        path: ${{  steps.poetry-home.outputs.path }}
+        path: ${{ steps.poetry-home.outputs.path }}
         key: poetry-${{ runner.os }}-${{ steps.full-py-version.outputs.version }}
 
     - uses: snok/install-poetry@v1
       with:
         virtualenvs-in-project: true
+      env:
+        POETRY_HOME: ${{ steps.poetry-home.outputs.path }}
 
     - name: Cache ./.venv
       uses: actions/cache@v2
