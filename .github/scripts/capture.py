@@ -37,7 +37,7 @@ class _Application(QApplication):
         self._img_identifier = img_identifier
 
         if hasattr(Qt.ApplicationAttribute, "AA_UseHighDpiPixmaps"):
-            self.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)
+            self.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)  # type: ignore
 
         self._gallery = WidgetGallery()
         self._gallery.show()

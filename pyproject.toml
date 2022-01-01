@@ -41,6 +41,7 @@ flake8-bugbear = "^21.11.29"
 flake8-simplify = "^0.14.2"
 flake8-comprehensions = "^3.7.0"
 flake8-eradicate = "^1.2.0"
+flake8-rst-docstrings = "^0.2.5"
 pyproject-flake8 = "^0.0.1-alpha.2"
 
 # pytest
@@ -65,6 +66,7 @@ click = "^8.0.3"
 pyinstaller = "^4.7"
 
 [tool.poetry.extras]
+# See https://github.com/readthedocs/readthedocs.org/issues/4912#issuecomment-664002569
 docs = ["pydata-sphinx-theme", "sphinx-panels"]
 
 [tool.poetry.plugins."pyinstaller40"]
@@ -79,6 +81,9 @@ max-line-length = 119
 max-complexity = 10
 docstring-convention = "google"
 per-file-ignores = ["**/__init__.py:F401", "**/rc_icons.py:D103"]
+
+# See https://github.com/peterjc/flake8-rst-docstrings#configuration
+extend-ignore = ["RST201", "RST203", "RST301"]
 
 [tool.black]
 line-length = 119

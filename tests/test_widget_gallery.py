@@ -21,19 +21,13 @@ def test_widget_gallery() -> None:
     from qdarktheme.qtpy.QtWidgets import QApplication
 
     app = QApplication.instance() if QApplication.instance() else QApplication(sys.argv)
-    if hasattr(Qt.ApplicationAttribute, "AA_UseHighDpiPixmaps"):  # Enable High DPI display with Qt5
-        app.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)
+    # Enable High DPI display in Qt5
+    if hasattr(Qt.ApplicationAttribute, "AA_UseHighDpiPixmaps"):
+        app.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)  # type: ignore
     win = WidgetGallery()
     win.show()
     QTimer.singleShot(10, app.exit)
     app.exec()
-
-
-def test_widget_gallery_init(widget_gallery: WidgetGallery) -> None:
-    """Ensure the widget gallery opens without error."""
-    from qdarktheme.qtpy.QtCore import QTimer
-
-    QTimer.singleShot(2000, widget_gallery.close)
 
 
 def test_change_page(widget_gallery: WidgetGallery) -> None:

@@ -10,7 +10,7 @@ from importlib import resources
 from pathlib import Path
 from tempfile import NamedTemporaryFile
 
-from PySide6.scripts.pyside_tool import rcc
+from PySide6.scripts.pyside_tool import rcc  # type: ignore
 
 from builder.color import RGBA
 from qdarktheme.util import get_qdarktheme_root_path, multi_replace
@@ -126,6 +126,16 @@ def _generate_qt_resource_file(svg_dir_path: Path, output_dir_path: Path, theme:
         sys.argv, sys.exit = temp_argv, temp_exit
 
     resource_code = py_resource_file_path.read_text().replace("PySide6", "qdarktheme.qtpy")
+    result1 = re.search(r"QtCore\.qRegisterResourceData\(.+\)", resource_code)
+    result2 = re.search(r"QtCore\.qUnregisterResourceData\(.+\)", resource_code)
+    if result1 is None or result2 is None:
+        raise RuntimeError(
+            f"""
+            Cannot find QtCore.qRegisterResourceData() or QtCore.qUnregisterResourceData() in {py_resource_file_path}
+            """
+        )
+    resource_code = resource_code.replace(result1.group(), f"{result1.group()}  # type: ignore")
+    resource_code = resource_code.replace(result2.group(), f"{result2.group()}  # type: ignore")
     resource_code = '"""Module for qt resources system."""\n' + resource_code
     py_resource_file_path.write_text(resource_code)
 

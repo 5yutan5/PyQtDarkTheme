@@ -166,12 +166,12 @@ class WidgetGallery(QMainWindow):
 
     @Slot()
     def _change_page(self) -> None:
-        action_name: str = self.sender().text()
+        action_name: str = self.sender().text()  # type: ignore
         self._ui.stack_widget.setCurrentIndex(0 if action_name == "Move to home" else 1)
 
     @Slot()
     def _toggle_state(self) -> None:
-        state: str = self.sender().text()
+        state: str = self.sender().text()  # type: ignore
         self._ui.central_window.centralWidget().setEnabled(state == "Enable")
         self._ui.action_enable.setEnabled(state == "Disable")
         self._ui.action_disable.setEnabled(state == "Enable")
@@ -179,5 +179,5 @@ class WidgetGallery(QMainWindow):
 
     @Slot()
     def _change_theme(self) -> None:
-        theme: str = self.sender().text()
+        theme: str = self.sender().text()  # type: ignore
         QApplication.instance().setStyleSheet(qdarktheme.load_stylesheet(theme))
