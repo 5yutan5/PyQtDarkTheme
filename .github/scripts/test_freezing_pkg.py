@@ -1,6 +1,7 @@
 """Test freezing-package."""
 import subprocess
 from pathlib import Path
+from time import sleep
 
 import click
 import PyInstaller.__main__ as pyinstaller  # type: ignore
@@ -51,6 +52,7 @@ def _check_output(output: str) -> None:
         click.echo(output)
 
     if "qt.svg: Cannot open file" in output:
+        sleep(0.5)
         raise SvgFileNotFoundError("QtSvg module cannot open svg files, because: No such file or directory")
     for ignore_image in IGNORE_MESSAGES:
         if ignore_image in output:
@@ -59,6 +61,8 @@ def _check_output(output: str) -> None:
     result = output.replace("\n", "")
     if result == "":
         _print_successfull_message()
+        return
+    sleep(0.5)
     raise RuntimeError("There is unexpected output")
 
 

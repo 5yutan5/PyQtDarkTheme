@@ -19,7 +19,7 @@ def _main() -> None:
     app.setStyleSheet(qdarktheme.load_stylesheet())
 
     main_win.show()
-    QTimer.singleShot(10, app.exit)
+    QTimer.singleShot(1000, app.exit)
 
     app.exec()
 
