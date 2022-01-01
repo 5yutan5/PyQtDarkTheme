@@ -61,6 +61,7 @@
         "RRGGBBAA",
         "secho",
         "shiboken",
+        "snok",
         "venv",
         "virtualenvs",
         "xinerama"

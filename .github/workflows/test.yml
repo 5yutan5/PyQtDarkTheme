@@ -117,5 +117,5 @@ jobs:
         path: ./${{ env.TEST_IMG_OUTPUT_PATH}}/*.png
 
     - name: Test freezing-pkg(PyInstaller)
-      if: matrix.qt != 'none'
+      if: matrix.qt != 'none' $$ runner.os != ubuntu-latest
       run: poetry run python ./.github/scripts/test_freezing_pkg.py
