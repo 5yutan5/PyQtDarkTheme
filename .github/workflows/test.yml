@@ -55,31 +55,35 @@ jobs:
       run: echo ::set-output name=version::$(python -c "import sys; print('-'.join(str(v) for v in sys.version_info))")
 
     - name: Cache ${{ steps.poetry-home.outputs.path }}
+      id: cache-poetry
       uses: actions/cache@v2
       with:
         path: ${{ steps.poetry-home.outputs.path }}
         key: poetry-${{ runner.os }}-${{ steps.full-py-version.outputs.version }}
 
     - uses: snok/install-poetry@v1
+      if: steps.cache-poetry.outputs.cache-hit != 'true'
       with:
         virtualenvs-in-project: true
       env:
         POETRY_HOME: ${{ steps.poetry-home.outputs.path }}
 
     - name: Cache ./.venv
+      id: cache-venv
       uses: actions/cache@v2
       with:
         path: .venv
         key: venv-${{ runner.os }}-${{ steps.full-py-version.outputs.version }}-${{ matrix.qt }}-${{ hashFiles('**/poetry.lock') }}
 
     - name: Install dependencies
+      if: steps.cache-venv.outputs.cache-hit != 'true'
       run: |
         # See https://github.com/python-poetry/poetry/issues/4524
         # poetry self update
         poetry install
 
     - name: Install Qt lib
-      if: matrix.qt != 'none'
+      if: matrix.qt != 'none' && steps.cache-venv.outputs.cache-hit != 'true'
       run: poetry run pip install -U ${{ matrix.qt }}
 
     - name: Install Linux dependencies
