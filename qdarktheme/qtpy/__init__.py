@@ -1,9 +1,9 @@
 """Package containing Qt compat."""
-from .qt_compat import QtImportError
-from .qt_version import __version__
+from qdarktheme.qtpy.qt_compat import QtImportError
+from qdarktheme.qtpy.qt_version import __version__
 
 try:
-    from . import QtCore, QtGui, QtSvg, QtWidgets
+    from qdarktheme.qtpy import QtCore, QtGui, QtSvg, QtWidgets
 except ImportError:
     from qdarktheme.util import get_logger as __get_logger
 

@@ -23,7 +23,9 @@
         "**/coverage.xml": true
     },
     "cSpell.words": [
+        "absolufy",
         "APPDATA",
+        "backticks",
         "cmpfiles",
         "codecov",
         "docstrings",
@@ -38,6 +40,7 @@
         "libxkbcommon",
         "libyaml",
         "linebreak",
+        "maxdepth",
         "MEIPASS",
         "pflake",
         "pformat",
@@ -62,9 +65,11 @@
         "secho",
         "shiboken",
         "snok",
+        "toctree",
         "venv",
         "virtualenvs",
-        "xinerama"
+        "xinerama",
+        "yesqa"
     ],
     "python.linting.flake8Enabled": true,
     "python.formatting.provider": "black",

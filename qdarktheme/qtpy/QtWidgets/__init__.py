@@ -3,9 +3,9 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 
-from ..qt_compat import QT_API
-from ..QtCore import Qt
-from ..QtGui import QPalette
+from qdarktheme.qtpy.qt_compat import QT_API
+from qdarktheme.qtpy.QtCore import Qt
+from qdarktheme.qtpy.QtGui import QPalette
 
 if QT_API == "PySide6":
     from PySide6.QtWidgets import *  # type: ignore  # noqa: F403

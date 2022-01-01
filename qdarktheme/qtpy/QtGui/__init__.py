@@ -1,5 +1,5 @@
 """Module for QtGui."""
-from ..qt_compat import QT_API, qt_import_error
+from qdarktheme.qtpy.qt_compat import QT_API, qt_import_error
 
 if QT_API is None:
     raise qt_import_error
@@ -12,7 +12,7 @@ elif QT_API == "PyQt5":
     from PyQt5.QtWidgets import QAction, QActionGroup, QShortcut  # type: ignore
 elif QT_API == "PySide2":
     from PySide2.QtGui import *  # type: ignore  # noqa: F403
-    from PySide2.QtWidgets import QAction, QActionGroup, QShortcut  # type: ignore  # noqa: F403
+    from PySide2.QtWidgets import QAction, QActionGroup, QShortcut  # type: ignore
 
 if QT_API in ["PyQt5", "PySide2"]:
     QAction = QAction  # type: ignore

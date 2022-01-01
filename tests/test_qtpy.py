@@ -54,7 +54,7 @@ def test_qt_import_error() -> None:
     from qdarktheme import qtpy
 
     with pytest.raises(qtpy.QtImportError) as e_core:
-        import qdarktheme.qtpy.QtCore  # noqa: F401
+        import qdarktheme.qtpy.QtCore
     with pytest.raises(qtpy.QtImportError) as e_gui:
         import qdarktheme.qtpy.QtGui
     with pytest.raises(qtpy.QtImportError) as e_svg:
