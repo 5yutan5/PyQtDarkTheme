@@ -6,7 +6,7 @@ if QT_API is None:
 if QT_API == "PySide6":
     from PySide6.QtCore import *  # type: ignore  # noqa: F403
 elif QT_API == "PyQt6":
-    from PyQt6.QtCore import *  # noqa: F403
+    from PyQt6.QtCore import *  # type: ignore  # noqa: F403
 
     Slot = pyqtSlot  # noqa: F405
     Signal = pyqtSignal  # noqa: F405

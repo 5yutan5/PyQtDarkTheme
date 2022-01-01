@@ -6,7 +6,7 @@ if QT_API is None:
 if QT_API == "PySide6":
     from PySide6.QtSvg import *  # type: ignore  # noqa: F403
 elif QT_API == "PyQt6":
-    from PyQt6.QtSvg import *  # noqa: F403
+    from PyQt6.QtSvg import *  # type: ignore  # noqa: F403
 elif QT_API == "PyQt5":
     from PyQt5.QtSvg import *  # type: ignore  # noqa: F403
 elif QT_API == "PySide2":

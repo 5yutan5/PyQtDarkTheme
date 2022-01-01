@@ -10,7 +10,7 @@ from ..QtGui import QPalette
 if QT_API == "PySide6":
     from PySide6.QtWidgets import *  # type: ignore  # noqa: F403
 elif QT_API == "PyQt6":
-    from PyQt6.QtWidgets import *  # noqa: F403
+    from PyQt6.QtWidgets import *  # type: ignore  # noqa: F403
 elif QT_API == "PyQt5":
     from PyQt5.QtWidgets import *  # type: ignore # noqa: F403
 elif QT_API == "PySide2":

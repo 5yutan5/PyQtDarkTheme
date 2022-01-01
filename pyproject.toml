@@ -57,11 +57,9 @@ Sphinx = "^4.3.1"
 sphinx-panels = "^0.6.0"
 rstcheck = "^3.3.1"
 pydata-sphinx-theme = "^0.7.2"
-snooty-lextudio = "^1.11.5"
 
 black = "^21.12b0"
 isort = "^5.10.1"
-bandit = "^1.7.1"
 pre-commit = "^2.16.0"
 click = "^8.0.3"
 pyinstaller = "^4.7"
@@ -100,3 +98,6 @@ exclude_lines = ["if __name__ == .__main__.:"]
 markers = [
     "available_qt: marks tests as test to do only when there is qt-binding"
 ]
+
+[tool.pyright]
+typeCheckingMode = "basic"
