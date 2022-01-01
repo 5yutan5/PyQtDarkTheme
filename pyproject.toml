@@ -40,6 +40,7 @@ flake8-docstrings = "^1.6.0"
 flake8-bugbear = "^21.11.29"
 flake8-simplify = "^0.14.2"
 flake8-comprehensions = "^3.7.0"
+flake8-eradicate = "^1.2.0"
 pyproject-flake8 = "^0.0.1-alpha.2"
 
 # pytest
