@@ -55,14 +55,12 @@ jobs:
       run: echo ::set-output name=version::$(python -c "import sys; print('-'.join(str(v) for v in sys.version_info))")
 
     - name: Cache ${{ steps.poetry-home.outputs.path }}
-      id: cache-poetry
       uses: actions/cache@v2
       with:
         path: ${{ steps.poetry-home.outputs.path }}
         key: poetry-${{ runner.os }}-${{ steps.full-py-version.outputs.version }}
 
     - uses: snok/install-poetry@v1
-      if: steps.cache-poetry.outputs.cache-hit != 'true'
       with:
         virtualenvs-in-project: true
       env:
