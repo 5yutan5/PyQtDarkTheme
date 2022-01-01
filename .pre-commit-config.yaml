@@ -12,12 +12,6 @@ repos:
         additional_dependencies: ['click', 'pyside6']
         pass_filenames: false
 
-  - repo: https://github.com/python-poetry/poetry
-    rev: "2fa6c17a71f085507156d5d9c4f570246741914c"
-    hooks:
-      - id: poetry-check
-      - id: poetry-lock
-
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.0.1
     hooks:
