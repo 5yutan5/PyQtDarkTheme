@@ -1,9 +1,8 @@
 name: theme resources checker
 on:
-  push:
-    branches:
-      - main
   pull_request:
+  push:
+    branches: [main]
 
 jobs:
   build:

@@ -1,5 +1,5 @@
 ci:
-  skip: ['build-resources']
+  skip: ['build-resources', 'pyright']
 repos:
   - repo: local
     hooks:
