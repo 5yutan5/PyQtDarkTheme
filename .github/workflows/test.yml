@@ -74,7 +74,8 @@ jobs:
 
     - name: Install dependencies
       run: |
-        poetry self update
+        # See https://github.com/python-poetry/poetry/issues/4524
+        # poetry self update
         poetry install
 
     - name: Install Qt lib
