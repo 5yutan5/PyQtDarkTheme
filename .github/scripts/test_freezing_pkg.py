@@ -76,6 +76,8 @@ def _test_freezing_lib(lib: _Library) -> str:
         ]
     elif lib is _Library.CX_FREEZE:
         command = [
+            "poetry",
+            "run",
             "cxfreeze",
             "--target-name",
             app_name,
