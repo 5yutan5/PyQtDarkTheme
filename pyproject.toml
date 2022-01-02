@@ -56,19 +56,20 @@ pytest-github-actions-annotate-failures = "^0.1.6"
 Sphinx = "^4.3.1"
 sphinx-panels = "^0.6.0"
 pydata-sphinx-theme = "^0.7.2"
+rstcheck = "^3.3.1"
 
 black = "^21.12b0"
 isort = "^5.10.1"
 pre-commit = "^2.16.0"
-click = "^8.0.3"
 pyinstaller = "^4.7"
-rstcheck = "^3.3.1"
+rich = "^10.16.1"
 
 [tool.poetry.extras]
 # See https://github.com/readthedocs/readthedocs.org/issues/4912#issuecomment-664002569
 docs = ["pydata-sphinx-theme", "sphinx-panels"]
 
 [tool.poetry.plugins."pyinstaller40"]
+# See https://pyinstaller.readthedocs.io/en/stable/hooks.html#providing-pyinstaller-hooks-with-your-package
 hook-dirs = "qdarktheme.__pyinstaller:get_hook_dirs"
 
 [build-system]
@@ -101,3 +102,5 @@ markers = [
 
 [tool.pyright]
 typeCheckingMode = "basic"
+# Build app with cx_Freeze include pyi file
+ignore = ["dist"]

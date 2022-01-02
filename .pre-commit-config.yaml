@@ -9,7 +9,7 @@ repos:
         name: Build resources
         entry: python -m builder
         language: python
-        additional_dependencies: ['click', 'pyside6']
+        additional_dependencies: ['rich', 'pyside6']
         pass_filenames: false
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -91,4 +91,4 @@ repos:
         language: python
         pass_filenames: false
         types: [python]
-        additional_dependencies: ['pyright', 'PyQt6', 'click', 'pytest']
+        additional_dependencies: ['pyright', 'PyQt6', 'rich', 'pytest']

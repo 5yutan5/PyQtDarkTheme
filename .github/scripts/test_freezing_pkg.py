@@ -1,15 +1,16 @@
 """Test freezing-package."""
+import shutil
 import subprocess
 from pathlib import Path
-from time import sleep
 
-import click
 import PyInstaller.__main__ as pyinstaller  # type: ignore
+from rich.console import Console
 
 IGNORE_MESSAGES = (
     "Unable to create basic Accelerated OpenGL renderer.",
     "Core Image is now using the software OpenGL renderer. This will be slow.",
 )
+_console = Console(force_terminal=True)
 
 
 class SvgFileNotFoundError(FileNotFoundError):
@@ -19,58 +20,86 @@ class SvgFileNotFoundError(FileNotFoundError):
 
 
 def _print_successfull_message() -> None:
-    click.secho("Build finished successfully!", fg="green")
+    _console.log("Build finished successfully!", style="green")
 
 
-def _create_app_with_pyinstaller(target: Path) -> Path:
+def _test_freezing_pkg(pkg_name: str) -> str:
+    if pkg_name not in ["PyInstaller", "cx_Freeze"]:
+        raise RuntimeError(f"invalid package name: {pkg_name}")
+
+    demo_app_src_path = Path(__file__).absolute().parent / "demo_app.py"
     app_name = "app"
-    app_path = Path(__file__).parent.parent.parent / "dist" / app_name
-    if app_path.exists():
-        app_path.unlink()
-    pyinstaller.run(["--clean", "-y", str(target), "-n", app_name, "--onefile"])
-    return app_path
+    output_path = Path(__file__).absolute().parent.parent.parent / "dist" / pkg_name
 
+    _console.log(f"Building app with {pkg_name}...")
+    if output_path.exists():
+        _console.log(f"Removing {output_path}")
+        shutil.rmtree(output_path)
+        output_path.mkdir()
 
-def _test_pyinstaller() -> str:
-    click.echo("================================")
-    click.echo("Building app with PyInstaller...")
-    click.echo("================================")
-    demo_app_src_path = Path(__file__).parent / "demo_app.py"
-    demo_app_path = _create_app_with_pyinstaller(demo_app_src_path)
-    return subprocess.check_output([str(demo_app_path)], stderr=subprocess.STDOUT, encoding="utf-8")
+    _console.print()
+    _console.print("------------------------")
+    _console.print(f"Outputs from {pkg_name}")
+    _console.print("------------------------")
+    if pkg_name == "PyInstaller":
+        pyinstaller.run(
+            ["--clean", "-y", str(demo_app_src_path), "-n", app_name, "--distpath", str(output_path), "--onefile"]
+        )
+    elif pkg_name == "cx_Freeze":
+        subprocess.run(
+            [
+                "poetry",
+                "run",
+                "cxfreeze",
+                "--target-name",
+                app_name,
+                "-c",
+                str(demo_app_src_path),
+                "--target-dir",
+                str(output_path),
+            ]
+        )
+
+    _console.print()
+    app_path = output_path / app_name
+    _console.log(f"Opening {app_path}...")
+    return subprocess.check_output([str(app_path)], stderr=subprocess.STDOUT, encoding="utf-8")
 
 
 def _check_output(output: str) -> None:
     if output == "":
-        click.echo("There is no output from demo app")
+        _console.log("There is no output from demo app")
         _print_successfull_message()
         return
     else:
-        click.echo("----------------")
-        click.echo("Demo app outputs")
-        click.echo("----------------")
-        click.echo(output)
+        _console.log("There is some outputs from demo app\n")
+        _console.print("----------------")
+        _console.print("Demo app outputs")
+        _console.print("----------------")
+        _console.print(output)
 
     if "qt.svg: Cannot open file" in output:
-        sleep(0.5)
         raise SvgFileNotFoundError("QtSvg module cannot open svg files, because: No such file or directory")
-    for ignore_image in IGNORE_MESSAGES:
-        if ignore_image in output:
-            click.echo(f"Ignore: {ignore_image}")
-            output = output.replace(ignore_image, "")
+    for message in IGNORE_MESSAGES:
+        if message in output:
+            _console.log(f"Ignore: {message}")
+            output = output.replace(message, "")
     result = output.replace("\n", "")
     if result == "":
         _print_successfull_message()
         return
-    sleep(0.5)
     raise RuntimeError("There is unexpected output")
 
 
 def _main() -> None:
-    click.echo("Build start")
-    output = _test_pyinstaller()
-    _check_output(output)
+    _console.log("Build start", style="yellow")
+    for pkg_name in ["cx_Freeze", "PyInstaller"]:
+        output = _test_freezing_pkg(pkg_name)
+        _check_output(output)
 
 
 if __name__ == "__main__":
-    _main()
+    try:
+        _main()
+    except Exception:
+        _console.print_exception()
