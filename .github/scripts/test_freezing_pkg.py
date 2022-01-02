@@ -3,7 +3,6 @@ import shutil
 import subprocess
 from pathlib import Path
 
-import PyInstaller.__main__ as pyinstaller  # type: ignore
 from rich.console import Console
 
 IGNORE_MESSAGES = (
@@ -38,12 +37,10 @@ def _test_freezing_pkg(pkg_name: str) -> str:
     _console.log(f"Creating {output_path}...")
     output_path.mkdir()
 
-    _console.print()
-    _console.print("------------------------")
-    _console.print(f"Outputs from {pkg_name}")
-    _console.print("------------------------")
+    command = []
     if pkg_name == "PyInstaller":
         command = [
+            "pyinstaller",
             "--clean",
             "-y",
             str(demo_app_src_path),
@@ -53,8 +50,6 @@ def _test_freezing_pkg(pkg_name: str) -> str:
             str(output_path),
             "--onefile",
         ]
-        _console.log(f"Run: {command}")
-        pyinstaller.run(command)
     elif pkg_name == "cx_Freeze":
         command = [
             "poetry",
@@ -67,8 +62,13 @@ def _test_freezing_pkg(pkg_name: str) -> str:
             "--target-dir",
             str(output_path),
         ]
-        _console.log(f"Run: {command}")
-        subprocess.run(command)
+    _console.log(f"Running: {command}")
+
+    _console.print()
+    _console.print("------------------------")
+    _console.print(f"Outputs from {pkg_name}")
+    _console.print("------------------------")
+    subprocess.run(command)
 
     _console.print()
     app_path = output_path / app_name
@@ -103,7 +103,7 @@ def _check_output(output: str) -> None:
 
 def _main() -> None:
     _console.log("Build start", style="yellow")
-    for pkg_name in ["PyInstaller"]:
+    for pkg_name in ["PyInstaller", "cx_Freeze"]:
         output = _test_freezing_pkg(pkg_name)
         _check_output(output)
 
