@@ -107,7 +107,7 @@ jobs:
 
     - name: Capture img of WidgetGallery
       if: matrix.qt != 'none'
-      run: poetry run python ./.github/scripts/capture.py -i ${{runner.os}}-py${{matrix.py}}-${{matrix.qt}} -d ${{ env.TEST_IMG_OUTPUT_PATH}}
+      run: poetry run python ./tools/capture.py -i ${{runner.os}}-py${{matrix.py}}-${{matrix.qt}} -d ${{ env.TEST_IMG_OUTPUT_PATH}}
 
     - name: Archive img of WidgetGallery
       if: matrix.qt != 'none'
@@ -120,4 +120,4 @@ jobs:
       if: matrix.qt != 'none' && runner.os != 'Linux'
       run: |
         poetry run pip install -U cx_Freeze
-        poetry run python ./.github/scripts/test_freezing_pkg.py --cx_Freeze
+        poetry run python ./tools/test_freezer/test_freezing_pkg.py --PyInstaller --cx_Freeze

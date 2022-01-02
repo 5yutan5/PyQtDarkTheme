@@ -6,11 +6,11 @@ Resources rebuild automatically by pre-commit.
 To build resources, run:
 
 ```Plaintext
-poetry run python -m builder
+poetry run python -m tools.build_resources
 ```
 
 Build svg and stylesheet based on the color-map of the theme file.
-The resources are output to `qdarktheme/dist`.
+The resources are output to `./qdarktheme/dist`.
 This folder is not included in the built package.
 
 ## Output format

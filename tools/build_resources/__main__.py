@@ -1,4 +1,4 @@
-"""Module allowing for `python -m builder`."""
+"""Module allowing for `python -m tools.build_resources`."""
 from __future__ import annotations
 
 import argparse
@@ -8,7 +8,7 @@ from tempfile import TemporaryDirectory
 
 from rich.console import Console
 
-from builder.main import DIST_DIR_PATH, build_resources, compare_all_files
+from tools.build_resources.main import DIST_DIR_PATH, build_resources, compare_all_files
 
 ROOT_INIT_DOC = '''"""License Information.
 
@@ -58,9 +58,10 @@ def _main(only_check: bool = False) -> None:
         if only_check:
             _console.log("You can change following files: ", changed_files)
             raise Exception(
-                """You need to change 'qdarktheme/dist' directory. You can use pre-commit command or run 'builder/__main__.py' file
+                """You need to change 'qdarktheme/dist' directory. You can use pre-commit command or run
+                'tools/build_resources/__main__.py' file
             pre-commit    : Run 'pre-commit install' and commit the changes
-            python script : Run 'poetry run python builder''"""
+            python script : Run 'poetry run python -m tools.build_resources''"""
             ) from None
         shutil.rmtree(DIST_DIR_PATH, ignore_errors=True)
         shutil.copytree(temp_dir, DIST_DIR_PATH)

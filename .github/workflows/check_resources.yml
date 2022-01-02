@@ -17,4 +17,4 @@ jobs:
       run: pip install . pyside6 rich
 
     - name: Check resources
-      run: python -m builder --check
+      run: python -m tools.build_resources --check

@@ -12,8 +12,8 @@ from tempfile import NamedTemporaryFile
 
 from PySide6.scripts.pyside_tool import rcc  # type: ignore
 
-from builder.color import RGBA
 from qdarktheme.util import get_qdarktheme_root_path, multi_replace
+from tools.build_resources.color import RGBA
 
 DIST_DIR_PATH = get_qdarktheme_root_path() / "dist"
 
@@ -151,9 +151,9 @@ def _generate_root_init_file(output_dir_path: Path, themes: list[str], doc_strin
 
 def build_resources(build_path: Path, theme_file_paths: list[Path], root_init_file_doc: str) -> None:
     """Build resources for qdarktheme module."""
-    stylesheet = _remove_comment(resources.read_text("builder", "base.qss"))
+    stylesheet = _remove_comment(resources.read_text("tools.build_resources", "base.qss"))
     urls = _parse_url(stylesheet)
-    palette_template = resources.read_text("builder", "palette.template.py")
+    palette_template = resources.read_text("tools.build_resources", "palette.template.py")
     svg_dir_path = Path(__file__).parent / "svg"
     themes = []
 
