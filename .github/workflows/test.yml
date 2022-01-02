@@ -117,13 +117,13 @@ jobs:
         path: ./${{ env.TEST_IMG_OUTPUT_PATH}}/*.png
 
     - name: Test freezing-pkg(PyInstaller & cx_Freeze)
-      if: matrix.qt != 'none' && runner.os != 'Linux'
+      if: matrix.qt != 'none' && runner.os != 'Linux' && runner.os != 'Windows'
       run: |
         pip install -U cx_Freeze
-        poetry run python ./.github/scripts/test_freezing_pkg.py --PyInstaller --cx_Freeze
+        poetry run python ./.github/scripts/test_freezing_pkg.py --cx_Freeze
 
     - name: Archive
-      if: matrix.qt != 'none'
+      if: matrix.qt != 'none' && runner.os != 'Linux' && runner.os != 'Windows' && matrix.qt == 'PyQt6' && matrix.py == '3.9'
       uses: actions/upload-artifact@v2
       with:
         name: test
