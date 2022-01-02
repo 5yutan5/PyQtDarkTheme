@@ -93,13 +93,10 @@ def _check_output(output: str) -> None:
 
 def _main() -> None:
     _console.log("Build start", style="yellow")
-    for pkg_name in ["cx_Freeze", "PyInstaller"]:
+    for pkg_name in ["PyInstaller"]:
         output = _test_freezing_pkg(pkg_name)
         _check_output(output)
 
 
 if __name__ == "__main__":
-    try:
-        _main()
-    except Exception:
-        _console.print_exception()
+    _main()
