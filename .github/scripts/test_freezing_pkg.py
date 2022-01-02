@@ -35,30 +35,40 @@ def _test_freezing_pkg(pkg_name: str) -> str:
     if output_path.exists():
         _console.log(f"Removing {output_path}")
         shutil.rmtree(output_path)
-        output_path.mkdir()
+    _console.log(f"Creating {output_path}...")
+    output_path.mkdir()
 
     _console.print()
     _console.print("------------------------")
     _console.print(f"Outputs from {pkg_name}")
     _console.print("------------------------")
     if pkg_name == "PyInstaller":
-        pyinstaller.run(
-            ["--clean", "-y", str(demo_app_src_path), "-n", app_name, "--distpath", str(output_path), "--onefile"]
-        )
+        command = [
+            "--clean",
+            "-y",
+            str(demo_app_src_path),
+            "-n",
+            app_name,
+            "--distpath",
+            str(output_path),
+            "--onefile",
+        ]
+        _console.log(f"Run: {command}")
+        pyinstaller.run(command)
     elif pkg_name == "cx_Freeze":
-        subprocess.run(
-            [
-                "poetry",
-                "run",
-                "cxfreeze",
-                "--target-name",
-                app_name,
-                "-c",
-                str(demo_app_src_path),
-                "--target-dir",
-                str(output_path),
-            ]
-        )
+        command = [
+            "poetry",
+            "run",
+            "cxfreeze",
+            "--target-name",
+            app_name,
+            "-c",
+            str(demo_app_src_path),
+            "--target-dir",
+            str(output_path),
+        ]
+        _console.log(f"Run: {command}")
+        subprocess.run(command)
 
     _console.print()
     app_path = output_path / app_name
