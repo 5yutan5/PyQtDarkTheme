@@ -1,7 +1,6 @@
 """Test module for freezing-package."""
 import sys
 
-import qdarktheme
 from qdarktheme.qtpy.QtCore import QTimer
 from qdarktheme.qtpy.QtWidgets import QApplication, QCheckBox, QMainWindow, QVBoxLayout, QWidget
 
@@ -15,8 +14,6 @@ def _main() -> None:
     v_layout = QVBoxLayout(central_widget)
     v_layout.addWidget(push_button)
     main_win.setCentralWidget(central_widget)
-
-    app.setStyleSheet(qdarktheme.load_stylesheet())
 
     main_win.show()
     QTimer.singleShot(1000, app.exit)
