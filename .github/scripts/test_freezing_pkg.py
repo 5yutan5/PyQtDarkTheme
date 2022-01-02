@@ -76,8 +76,6 @@ def _test_freezing_lib(lib: _Library) -> str:
         ]
     elif lib is _Library.CX_FREEZE:
         command = [
-            "poetry",
-            "run",
             "cxfreeze",
             "--target-name",
             app_name,
@@ -145,7 +143,4 @@ def _main() -> None:
 
 
 if __name__ == "__main__":
-    try:
-        _main()
-    except subprocess.CalledProcessError:
-        _console.log("skip error")
+    _main()
