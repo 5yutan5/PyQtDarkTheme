@@ -143,4 +143,7 @@ def _main() -> None:
 
 
 if __name__ == "__main__":
-    _main()
+    try:
+        _main()
+    except subprocess.CalledProcessError:
+        _console.log("skip error")

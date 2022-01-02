@@ -121,3 +121,10 @@ jobs:
       run: |
         pip install -U cx_Freeze
         poetry run python ./.github/scripts/test_freezing_pkg.py --PyInstaller --cx_Freeze
+
+    - name: Archive
+      if: matrix.qt != 'none'
+      uses: actions/upload-artifact@v2
+      with:
+        name: test
+        path: ./dist/cx_Freeze/**
