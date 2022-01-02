@@ -119,7 +119,9 @@ jobs:
     - name: Test freezing-pkg(PyInstaller & cx_Freeze)
       if: matrix.qt != 'none' && runner.os != 'Linux' && runner.os != 'Windows'
       run: |
-        pip install -U cx_Freeze
+        pip -V
+        poetry run pip -V
+        poetry run pip install -U cx_Freeze
         poetry run python ./.github/scripts/test_freezing_pkg.py --cx_Freeze
 
     - name: Archive
