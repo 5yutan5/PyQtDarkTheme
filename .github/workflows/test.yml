@@ -116,8 +116,8 @@ jobs:
         name: widget-img
         path: ./${{ env.TEST_IMG_OUTPUT_PATH}}/*.png
 
-    - name: Test freezing-pkg(PyInstaller)
+    - name: Test freezing-pkg(PyInstaller & cx_Freeze)
       if: matrix.qt != 'none' && runner.os != 'Linux'
       run: |
         pip install -U cx_Freeze
-        poetry run python ./.github/scripts/test_freezing_pkg.py
+        poetry run python ./.github/scripts/test_freezing_pkg.py --PyInstaller --cx_Freeze

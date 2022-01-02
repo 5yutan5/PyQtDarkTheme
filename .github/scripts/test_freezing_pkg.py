@@ -1,6 +1,10 @@
-"""Test freezing-package."""
+"""Test freezing-library."""
+from __future__ import annotations
+
+import argparse
 import shutil
 import subprocess
+from enum import Enum
 from pathlib import Path
 
 from rich.console import Console
@@ -12,25 +16,45 @@ IGNORE_MESSAGES = (
 _console = Console(force_terminal=True)
 
 
+class _Library(Enum):
+    PYINSTALLER = "PyInstaller"
+    CX_FREEZE = "cx_Freeze"
+
+
 class SvgFileNotFoundError(FileNotFoundError):
     """Error raise if cannot open svg file."""
 
     pass
 
 
+def _parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="This program test freezing-library.")
+    parser.add_argument(
+        f"--{_Library.PYINSTALLER.value}",
+        help=f"Test {_Library.PYINSTALLER.value}",
+        action="store_true",
+    )
+    parser.add_argument(
+        f"--{_Library.CX_FREEZE.value}",
+        help=f"Test {_Library.CX_FREEZE.value}",
+        action="store_true",
+    )
+    return parser.parse_args()
+
+
 def _print_successfull_message() -> None:
     _console.log("Build finished successfully!", style="green")
 
 
-def _test_freezing_pkg(pkg_name: str) -> str:
-    if pkg_name not in ["PyInstaller", "cx_Freeze"]:
-        raise RuntimeError(f"invalid package name: {pkg_name}")
+def _test_freezing_lib(lib: _Library) -> str:
+    if lib not in _Library:
+        raise RuntimeError(f"invalid library name: {lib}")
 
     demo_app_src_path = Path(__file__).absolute().parent / "demo_app.py"
     app_name = "app"
-    output_path = Path(__file__).absolute().parent.parent.parent / "dist" / pkg_name
+    output_path = Path(__file__).absolute().parent.parent.parent / "dist" / lib.value
 
-    _console.log(f"Building app with {pkg_name}...")
+    _console.log(f"Building app with {lib}...")
     if output_path.exists():
         _console.log(f"Removing {output_path}")
         shutil.rmtree(output_path)
@@ -38,7 +62,7 @@ def _test_freezing_pkg(pkg_name: str) -> str:
     output_path.mkdir()
 
     command = []
-    if pkg_name == "PyInstaller":
+    if lib is _Library.PYINSTALLER:
         command = [
             "pyinstaller",
             "--clean",
@@ -50,10 +74,8 @@ def _test_freezing_pkg(pkg_name: str) -> str:
             str(output_path),
             "--onefile",
         ]
-    elif pkg_name == "cx_Freeze":
+    elif lib is _Library.CX_FREEZE:
         command = [
-            "poetry",
-            "run",
             "cxfreeze",
             "--target-name",
             app_name,
@@ -65,15 +87,16 @@ def _test_freezing_pkg(pkg_name: str) -> str:
     _console.log(f"Running: {command}")
 
     _console.print()
-    _console.print("------------------------")
-    _console.print(f"Outputs from {pkg_name}")
-    _console.print("------------------------")
+    _console.print("-------------" + "-" * len(lib.value))
+    _console.print(f"Outputs from {lib.value}")
+    _console.print("-------------" + "-" * len(lib.value))
     subprocess.run(command)
 
     _console.print()
     app_path = output_path / app_name
     _console.log(f"Opening {app_path}...")
-    return subprocess.check_output([str(app_path)], stderr=subprocess.STDOUT, encoding="utf-8")
+    result = subprocess.check_output([str(app_path)], stderr=subprocess.STDOUT)
+    return result.decode("utf-8")
 
 
 def _check_output(output: str) -> None:
@@ -102,10 +125,21 @@ def _check_output(output: str) -> None:
 
 
 def _main() -> None:
+    args = _parse_args()
+
     _console.log("Build start", style="yellow")
-    for pkg_name in ["PyInstaller", "cx_Freeze"]:
-        output = _test_freezing_pkg(pkg_name)
+
+    if args.PyInstaller:
+        output = _test_freezing_lib(_Library.PYINSTALLER)
         _check_output(output)
+    else:
+        _console.log(f"Skip {_Library.PYINSTALLER.value} test")
+
+    if args.cx_Freeze:
+        output = _test_freezing_lib(_Library.CX_FREEZE)
+        _check_output(output)
+    else:
+        _console.log(f"Skip {_Library.CX_FREEZE.value} test")
 
 
 if __name__ == "__main__":
