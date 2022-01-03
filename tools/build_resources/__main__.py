@@ -45,8 +45,8 @@ def _parse_args() -> argparse.Namespace:
 
 def _main(only_check: bool = False) -> None:
     if only_check:
-        _console.log("Checking if this commit need to change qdarktheme/dist...")
-    color_schemes = [path for path in Path(__file__).parent.glob("theme/*.json") if path.name != "validate.json"]
+        _console.log("Checking if this commit need to change qdarktheme/themes...")
+    color_schemes = [path for path in Path(__file__).parent.glob("themes/*.json") if path.name != "validate.json"]
 
     with TemporaryDirectory() as temp_dir:
         build_resources(Path(temp_dir), color_schemes, ROOT_INIT_DOC)
@@ -58,7 +58,7 @@ def _main(only_check: bool = False) -> None:
         if only_check:
             _console.log("You can change following files: ", changed_files)
             raise Exception(
-                """You need to change 'qdarktheme/dist' directory. You can use pre-commit command or run
+                """You need to change 'qdarktheme/themes' directory. You can use pre-commit command or run
                 'tools/build_resources/__main__.py' file
             pre-commit    : Run 'pre-commit install' and commit the changes
             python script : Run 'poetry run python -m tools.build_resources''"""

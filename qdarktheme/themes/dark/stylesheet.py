@@ -41,28 +41,28 @@ QWidget:disabled {
     selection-color: rgba(105.000, 113.000, 119.000, 1.000);
 }
 QWidget {
-    backward-icon: url(${path}/dist/dark/svg/arrow_upward__icon-foreground__rotate-270.svg);
-    forward-icon: url(${path}/dist/dark/svg/arrow_upward__icon-foreground__rotate-90.svg);
-    leftarrow-icon: url(${path}/dist/dark/svg/arrow_upward__icon-foreground__rotate-270.svg);
-    rightarrow-icon: url(${path}/dist/dark/svg/arrow_upward__icon-foreground__rotate-90.svg);
-    dialog-ok-icon: url(${path}/dist/dark/svg/check__icon-foreground__rotate-0.svg);
-    dialog-cancel-icon: url(${path}/dist/dark/svg/close__icon-foreground__rotate-0.svg);
-    dialog-yes-icon: url(${path}/dist/dark/svg/check_circle__icon-foreground__rotate-0.svg);
-    dialog-no-icon: url(${path}/dist/dark/svg/cancel__icon-foreground__rotate-0.svg);
-    dialog-apply-icon: url(${path}/dist/dark/svg/check__icon-foreground__rotate-0.svg);
-    dialog-reset-icon: url(${path}/dist/dark/svg/restart_alt__icon-foreground__rotate-0.svg);
-    dialog-save-icon: url(${path}/dist/dark/svg/save__icon-foreground__rotate-0.svg);
-    dialog-discard-icon: url(${path}/dist/dark/svg/delete__icon-foreground__rotate-0.svg);
-    dialog-close-icon: url(${path}/dist/dark/svg/close__icon-foreground__rotate-0.svg);
-    dialog-open-icon: url(${path}/dist/dark/svg/folder_open__icon-foreground__rotate-0.svg);
-    dialog-help-icon: url(${path}/dist/dark/svg/help__icon-foreground__rotate-0.svg);
-    filedialog-parent-directory-icon: url(${path}/dist/dark/svg/arrow_upward__icon-foreground__rotate-0.svg);
-    filedialog-new-directory-icon: url(${path}/dist/dark/svg/create_new_folder__icon-foreground__rotate-0.svg);
-    titlebar-close-icon: url(${path}/dist/dark/svg/close__icon-foreground__rotate-0.svg);
-    titlebar-normal-icon: url(${path}/dist/dark/svg/flip_to_front__icon-foreground__rotate-0.svg);
+    backward-icon: url(${path}/themes/dark/svg/arrow_upward__icon-foreground__rotate-270.svg);
+    forward-icon: url(${path}/themes/dark/svg/arrow_upward__icon-foreground__rotate-90.svg);
+    leftarrow-icon: url(${path}/themes/dark/svg/arrow_upward__icon-foreground__rotate-270.svg);
+    rightarrow-icon: url(${path}/themes/dark/svg/arrow_upward__icon-foreground__rotate-90.svg);
+    dialog-ok-icon: url(${path}/themes/dark/svg/check__icon-foreground__rotate-0.svg);
+    dialog-cancel-icon: url(${path}/themes/dark/svg/close__icon-foreground__rotate-0.svg);
+    dialog-yes-icon: url(${path}/themes/dark/svg/check_circle__icon-foreground__rotate-0.svg);
+    dialog-no-icon: url(${path}/themes/dark/svg/cancel__icon-foreground__rotate-0.svg);
+    dialog-apply-icon: url(${path}/themes/dark/svg/check__icon-foreground__rotate-0.svg);
+    dialog-reset-icon: url(${path}/themes/dark/svg/restart_alt__icon-foreground__rotate-0.svg);
+    dialog-save-icon: url(${path}/themes/dark/svg/save__icon-foreground__rotate-0.svg);
+    dialog-discard-icon: url(${path}/themes/dark/svg/delete__icon-foreground__rotate-0.svg);
+    dialog-close-icon: url(${path}/themes/dark/svg/close__icon-foreground__rotate-0.svg);
+    dialog-open-icon: url(${path}/themes/dark/svg/folder_open__icon-foreground__rotate-0.svg);
+    dialog-help-icon: url(${path}/themes/dark/svg/help__icon-foreground__rotate-0.svg);
+    filedialog-parent-directory-icon: url(${path}/themes/dark/svg/arrow_upward__icon-foreground__rotate-0.svg);
+    filedialog-new-directory-icon: url(${path}/themes/dark/svg/create_new_folder__icon-foreground__rotate-0.svg);
+    titlebar-close-icon: url(${path}/themes/dark/svg/close__icon-foreground__rotate-0.svg);
+    titlebar-normal-icon: url(${path}/themes/dark/svg/flip_to_front__icon-foreground__rotate-0.svg);
 }
 QCommandLinkButton {
-    qproperty-icon: url(${path}/dist/dark/svg/east__highlight__rotate-0.svg);
+    qproperty-icon: url(${path}/themes/dark/svg/east__highlight__rotate-0.svg);
 }
 QMainWindow::separator {
     width: 4px;
@@ -126,16 +126,16 @@ QRadioButton {
     spacing: 8px;
 }
 QRadioButton::indicator:unchecked {
-    image: url(${path}/dist/dark/svg/radio_button_unchecked__icon-foreground__rotate-0.svg);
+    image: url(${path}/themes/dark/svg/radio_button_unchecked__icon-foreground__rotate-0.svg);
 }
 QRadioButton::indicator:unchecked:disabled {
-    image: url(${path}/dist/dark/svg/radio_button_unchecked__icon-foreground-disabled__rotate-0.svg);
+    image: url(${path}/themes/dark/svg/radio_button_unchecked__icon-foreground-disabled__rotate-0.svg);
 }
 QRadioButton::indicator:checked {
-    image: url(${path}/dist/dark/svg/radio_button_checked__highlight__rotate-0.svg);
+    image: url(${path}/themes/dark/svg/radio_button_checked__highlight__rotate-0.svg);
 }
 QRadioButton::indicator:checked:disabled {
-    image: url(${path}/dist/dark/svg/radio_button_checked__icon-foreground-disabled__rotate-0.svg);
+    image: url(${path}/themes/dark/svg/radio_button_checked__icon-foreground-disabled__rotate-0.svg);
 }
 QGroupBox {
     font-weight: bold;
@@ -180,11 +180,11 @@ QToolBar {
 }
 QToolBar::handle:horizontal {
     width: 20px;
-    image: url(${path}/dist/dark/svg/drag_indicator_horizontal__icon-foreground__rotate-0.svg);
+    image: url(${path}/themes/dark/svg/drag_indicator_horizontal__icon-foreground__rotate-0.svg);
 }
 QToolBar::handle:vertical {
     height: 20px;
-    image: url(${path}/dist/dark/svg/drag_indicator_horizontal__icon-foreground__rotate-90.svg);
+    image: url(${path}/themes/dark/svg/drag_indicator_horizontal__icon-foreground__rotate-90.svg);
 }
 QToolBar::separator {
     background-color: rgba(63.000, 64.000, 66.000, 1.000);
@@ -212,10 +212,10 @@ QToolBar > QToolButton:checked {
     background-color: rgba(79.000, 80.000, 84.000, 1.000);
 }
 QToolBar > QToolButton#qt_toolbar_ext_button {
-    image: url(${path}/dist/dark/svg/double_arrow__icon-foreground__rotate-0.svg);
+    image: url(${path}/themes/dark/svg/double_arrow__icon-foreground__rotate-0.svg);
 }
 QToolBar > QToolButton#qt_toolbar_ext_button:disabled {
-    image: url(${path}/dist/dark/svg/double_arrow__icon-foreground-disabled__rotate-0.svg);
+    image: url(${path}/themes/dark/svg/double_arrow__icon-foreground-disabled__rotate-0.svg);
 }
 QMenu {
     background-color: rgba(41.000, 42.000, 45.000, 1.000);
@@ -242,10 +242,10 @@ QMenu::right-arrow {
     padding-left: 12px;
     height: 20px;
     width: 20px;
-    image: url(${path}/dist/dark/svg/chevron_right__icon-foreground__rotate-0.svg);
+    image: url(${path}/themes/dark/svg/chevron_right__icon-foreground__rotate-0.svg);
 }
 QMenu::right-arrow:disabled {
-    image: url(${path}/dist/dark/svg/chevron_right__icon-foreground-disabled__rotate-0.svg);
+    image: url(${path}/themes/dark/svg/chevron_right__icon-foreground-disabled__rotate-0.svg);
 }
 QScrollBar:horizontal {
     height: 7px;
@@ -346,10 +346,10 @@ QToolButton::menu-indicator {
     width: 18px;
     top: 6px;
     left: 3px;
-    image: url(${path}/dist/dark/svg/expand_less__icon-foreground__rotate-180.svg);
+    image: url(${path}/themes/dark/svg/expand_less__icon-foreground__rotate-180.svg);
 }
 QToolButton::menu-indicator:disabled {
-    image: url(${path}/dist/dark/svg/expand_less__icon-foreground-disabled__rotate-180.svg);
+    image: url(${path}/themes/dark/svg/expand_less__icon-foreground-disabled__rotate-180.svg);
 }
 QToolButton::menu-arrow {
     height: 8px;
@@ -377,10 +377,10 @@ QComboBox::drop-down {
 QComboBox::down-arrow {
     height: 23px;
     width: 23px;
-    image: url(${path}/dist/dark/svg/expand_less__icon-foreground__rotate-180.svg);
+    image: url(${path}/themes/dark/svg/expand_less__icon-foreground__rotate-180.svg);
 }
 QComboBox::down-arrow:disabled {
-    image: url(${path}/dist/dark/svg/expand_less__icon-foreground-disabled__rotate-180.svg);
+    image: url(${path}/themes/dark/svg/expand_less__icon-foreground-disabled__rotate-180.svg);
 }
 QComboBox::item:selected {
     border: none;
@@ -443,13 +443,13 @@ QTabBar {
     qproperty-drawBase: 0;
 }
 QTabBar::close-button:selected {
-    image: url(${path}/dist/dark/svg/close__icon-foreground__rotate-0.svg);
+    image: url(${path}/themes/dark/svg/close__icon-foreground__rotate-0.svg);
 }
 QTabBar::close-button:!selected {
-    image: url(${path}/dist/dark/svg/close__tabbar-button-inselected__rotate-0.svg)
+    image: url(${path}/themes/dark/svg/close__tabbar-button-inselected__rotate-0.svg)
 }
 QTabBar::close-button:disabled {
-    image: url(${path}/dist/dark/svg/close__icon-foreground-disabled__rotate-0.svg);
+    image: url(${path}/themes/dark/svg/close__icon-foreground-disabled__rotate-0.svg);
 }
 QTabBar::close-button:hover {
     background-color: rgba(85.000, 128.000, 173.000, 1.000);
@@ -591,17 +591,17 @@ QSplitter::handle:hover {
 }
 QSplitter::handle:horizontal {
     width: 5px;
-    image: url(${path}/dist/dark/svg/horizontal_rule__icon-foreground__rotate-90.svg);
+    image: url(${path}/themes/dark/svg/horizontal_rule__icon-foreground__rotate-90.svg);
 }
 QSplitter::handle:horizontal:disabled {
-    image: url(${path}/dist/dark/svg/horizontal_rule__icon-foreground-disabled__rotate-90.svg);
+    image: url(${path}/themes/dark/svg/horizontal_rule__icon-foreground-disabled__rotate-90.svg);
 }
 QSplitter::handle:vertical {
     height: 5px;
-    image: url(${path}/dist/dark/svg/horizontal_rule__icon-foreground__rotate-0.svg);
+    image: url(${path}/themes/dark/svg/horizontal_rule__icon-foreground__rotate-0.svg);
 }
 QSplitter::handle:vertical:disabled {
-    image: url(${path}/dist/dark/svg/horizontal_rule__icon-foreground-disabled__rotate-0.svg);
+    image: url(${path}/themes/dark/svg/horizontal_rule__icon-foreground-disabled__rotate-0.svg);
 }
 QSplitterHandle::item:hover {}
 QAbstractScrollArea {
@@ -663,13 +663,13 @@ QAbstractItemView QAbstractButton {
     margin: 1px;
 }
 QTreeView::branch {
-    border-image: url(${path}/dist/dark/svg/vertical_line__guides-stroke-inactive__rotate-0.svg) 0;
+    border-image: url(${path}/themes/dark/svg/vertical_line__guides-stroke-inactive__rotate-0.svg) 0;
 }
 QTreeView::branch:active {
-    border-image: url(${path}/dist/dark/svg/vertical_line__icon-foreground__rotate-0.svg) 0;
+    border-image: url(${path}/themes/dark/svg/vertical_line__icon-foreground__rotate-0.svg) 0;
 }
 QTreeView::branch:disabled {
-    border-image: url(${path}/dist/dark/svg/vertical_line__icon-foreground-disabled__rotate-0.svg) 0;
+    border-image: url(${path}/themes/dark/svg/vertical_line__icon-foreground-disabled__rotate-0.svg) 0;
 }
 QTreeView::branch:has-siblings:adjoins-item,
 QTreeView::branch:!has-children:!has-siblings:adjoins-item {
@@ -678,20 +678,20 @@ QTreeView::branch:!has-children:!has-siblings:adjoins-item {
 QTreeView::branch:has-children:!has-siblings:closed,
 QTreeView::branch:closed:has-children:has-siblings {
     border-image: none;
-    image: url(${path}/dist/dark/svg/chevron_right__icon-foreground__rotate-0.svg);
+    image: url(${path}/themes/dark/svg/chevron_right__icon-foreground__rotate-0.svg);
 }
 QTreeView::branch:has-children:!has-siblings:closed:disabled,
 QTreeView::branch:closed:has-children:has-siblings:disabled {
-    image: url(${path}/dist/dark/svg/chevron_right__icon-foreground-disabled__rotate-0.svg);
+    image: url(${path}/themes/dark/svg/chevron_right__icon-foreground-disabled__rotate-0.svg);
 }
 QTreeView::branch:open:has-children:!has-siblings,
 QTreeView::branch:open:has-children:has-siblings  {
     border-image: none;
-    image: url(${path}/dist/dark/svg/expand_less__icon-foreground__rotate-180.svg);
+    image: url(${path}/themes/dark/svg/expand_less__icon-foreground__rotate-180.svg);
 }
 QTreeView::branch:open:has-children:!has-siblings:disabled,
 QTreeView::branch:open:has-children:has-siblings:disabled  {
-    image: url(${path}/dist/dark/svg/expand_less__icon-foreground-disabled__rotate-180.svg);
+    image: url(${path}/themes/dark/svg/expand_less__icon-foreground-disabled__rotate-180.svg);
 }
 QTableView {
     gridline-color: rgba(88.000, 89.000, 92.000, 1.000);
@@ -744,16 +744,16 @@ QHeaderView::section::only-one {
     margin: 0;
 }
 QHeaderView::down-arrow {
-    image: url(${path}/dist/dark/svg/expand_less__icon-foreground__rotate-180.svg);
+    image: url(${path}/themes/dark/svg/expand_less__icon-foreground__rotate-180.svg);
 }
 QHeaderView::down-arrow:disabled {
-    image: url(${path}/dist/dark/svg/expand_less__icon-foreground-disabled__rotate-180.svg);
+    image: url(${path}/themes/dark/svg/expand_less__icon-foreground-disabled__rotate-180.svg);
 }
 QHeaderView::up-arrow {
-    image: url(${path}/dist/dark/svg/expand_less__icon-foreground__rotate-0.svg);
+    image: url(${path}/themes/dark/svg/expand_less__icon-foreground__rotate-0.svg);
 }
 QHeaderView::up-arrow:disabled {
-    image: url(${path}/dist/dark/svg/expand_less__icon-foreground-disabled__rotate-0.svg);
+    image: url(${path}/themes/dark/svg/expand_less__icon-foreground-disabled__rotate-0.svg);
 }
 QHeaderView::down-arrow::horizontal,
 QHeaderView::up-arrow::horizontal {
@@ -812,10 +812,10 @@ QAbstractSpinBox::up-button {
 QAbstractSpinBox::up-arrow {
     height: 23px;
     width: 23px;
-    image: url(${path}/dist/dark/svg/arrow_drop_up__icon-foreground__rotate-0.svg);
+    image: url(${path}/themes/dark/svg/arrow_drop_up__icon-foreground__rotate-0.svg);
 }
 QAbstractSpinBox::up-arrow:disabled {
-    image: url(${path}/dist/dark/svg/arrow_drop_up__icon-foreground-disabled__rotate-0.svg);
+    image: url(${path}/themes/dark/svg/arrow_drop_up__icon-foreground-disabled__rotate-0.svg);
 }
 QAbstractSpinBox::down-button {
     subcontrol-position: bottom right;
@@ -824,20 +824,20 @@ QAbstractSpinBox::down-button {
 QAbstractSpinBox::down-arrow {
     height: 23px;
     width: 23px;
-    image: url(${path}/dist/dark/svg/arrow_drop_up__icon-foreground__rotate-180.svg);
+    image: url(${path}/themes/dark/svg/arrow_drop_up__icon-foreground__rotate-180.svg);
 }
 QAbstractSpinBox::down-arrow:disabled {
-    image: url(${path}/dist/dark/svg/arrow_drop_up__icon-foreground-disabled__rotate-180.svg);
+    image: url(${path}/themes/dark/svg/arrow_drop_up__icon-foreground-disabled__rotate-180.svg);
 }
 QDateTimeEdit::drop-down {
     subcontrol-position: center right;
     border: none;
     padding-right: 4px;
     width: 16px;
-    image: url(${path}/dist/dark/svg/calendar_today__icon-foreground__rotate-0.svg);
+    image: url(${path}/themes/dark/svg/calendar_today__icon-foreground__rotate-0.svg);
 }
 QDateTimeEdit::drop-down:disabled {
-    image: url(${path}/dist/dark/svg/calendar_today__icon-foreground-disabled__rotate-0.svg);
+    image: url(${path}/themes/dark/svg/calendar_today__icon-foreground-disabled__rotate-0.svg);
 }
 QDateTimeEdit::down-arrow[calendarPopup="true"] {
     image: none;
@@ -865,7 +865,7 @@ QFontDialog QScrollBar:vertical {
 QComboBox::indicator:checked,
 QMenu::indicator:checked {
     width: 18px;
-    image: url(${path}/dist/dark/svg/check__icon-foreground__rotate-0.svg);
+    image: url(${path}/themes/dark/svg/check__icon-foreground__rotate-0.svg);
 }
 QMenu::indicator {
     width: 18px;
@@ -887,30 +887,30 @@ QAbstractItemView::indicator {
 QCheckBox::indicator:unchecked,
 QGroupBox::indicator:unchecked,
 QAbstractItemView::indicator:unchecked {
-    image: url(${path}/dist/dark/svg/check_box_outline_blank__icon-foreground__rotate-0.svg);
+    image: url(${path}/themes/dark/svg/check_box_outline_blank__icon-foreground__rotate-0.svg);
 }
 QCheckBox::indicator:unchecked:disabled,
 QGroupBox::indicator:unchecked:disabled,
 QAbstractItemView::indicator:unchecked:disabled {
-    image: url(${path}/dist/dark/svg/check_box_outline_blank__icon-foreground-disabled__rotate-0.svg);
+    image: url(${path}/themes/dark/svg/check_box_outline_blank__icon-foreground-disabled__rotate-0.svg);
 }
 QCheckBox::indicator:checked,
 QGroupBox::indicator:checked,
 QAbstractItemView::indicator:checked {
-    image: url(${path}/dist/dark/svg/check_box__highlight__rotate-0.svg);
+    image: url(${path}/themes/dark/svg/check_box__highlight__rotate-0.svg);
 }
 QCheckBox::indicator:checked:disabled,
 QGroupBox::indicator:checked:disabled,
 QAbstractItemView::indicator:checked:disabled {
-    image: url(${path}/dist/dark/svg/check_box__icon-foreground-disabled__rotate-0.svg);
+    image: url(${path}/themes/dark/svg/check_box__icon-foreground-disabled__rotate-0.svg);
 }
 QCheckBox::indicator:indeterminate,
 QAbstractItemView::indicator:indeterminate {
-    image: url(${path}/dist/dark/svg/indeterminate_check_box__highlight__rotate-0.svg);
+    image: url(${path}/themes/dark/svg/indeterminate_check_box__highlight__rotate-0.svg);
 }
 QCheckBox::indicator:indeterminate:disabled,
 QAbstractItemView::indicator:indeterminate:disabled {
-    image: url(${path}/dist/dark/svg/indeterminate_check_box__icon-foreground-disabled__rotate-0.svg);
+    image: url(${path}/themes/dark/svg/indeterminate_check_box__icon-foreground-disabled__rotate-0.svg);
 }
 QMenu {
     $env_patch{"version": "<6.0.0", "value": "border-radius: 8px"};

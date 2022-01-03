@@ -57,7 +57,7 @@ def _test_freezing_lib(lib: _Library) -> str:
 
     demo_app_src_path = Path(__file__).absolute().parent / "demo_app.py"
     app_name = "app"
-    output_path = Path(__file__).absolute().parent.parent.parent / "dist" / lib.value
+    output_path = get_project_root_path() / "dist" / lib.value
 
     _console.log(f"Building app with {lib} ...")
     if output_path.exists():

@@ -42,7 +42,7 @@ def test_qrc() -> None:
         return
 
     for theme in qdarktheme.get_themes():
-        rc_icons = import_module(f"qdarktheme.dist.{theme}.rc_icons")
+        rc_icons = import_module(f"qdarktheme.themes.{theme}.rc_icons")
         rc_icons.qCleanupResources()  # type: ignore
 
 

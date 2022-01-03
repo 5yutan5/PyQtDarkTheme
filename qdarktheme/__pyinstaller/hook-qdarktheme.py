@@ -8,4 +8,4 @@ if QT_API == "PyQt6":
 
     datas = []
     for theme in ["dark", "light"]:
-        datas += [(str(qdarktheme_path / "dist" / theme / "svg"), f"qdarktheme/dist/{theme}/svg")]
+        datas += [(str(qdarktheme_path / "themes" / theme / "svg"), f"qdarktheme/themes/{theme}/svg")]

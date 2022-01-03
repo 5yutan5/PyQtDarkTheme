@@ -10,13 +10,13 @@ poetry run python -m tools.build_resources
 ```
 
 Build svg and stylesheet based on the color-map of the theme file.
-The resources are output to `./qdarktheme/dist`.
+The resources are output to `./qdarktheme/themes`.
 This folder is not included in the built package.
 
 ## Output format
 
 ```Plaintext
-dist
+themes
 ├── __init__.py
 ├── dark
 │   ├── __init__.py

@@ -15,7 +15,7 @@ from PySide6.scripts.pyside_tool import rcc  # type: ignore
 from qdarktheme.util import get_qdarktheme_root_path, multi_replace
 from tools.build_resources.color import RGBA
 
-DIST_DIR_PATH = get_qdarktheme_root_path() / "dist"
+DIST_DIR_PATH = get_qdarktheme_root_path() / "themes"
 
 
 @dataclass(unsafe_hash=True, frozen=True)
@@ -97,7 +97,7 @@ def _build_palette_file(colors: dict[str, RGBA], output_dir_path: Path, palette_
 def _build_template_stylesheet(
     theme: str, stylesheet: str, urls: set[_Url], colors: dict[str, RGBA], output_dir_path: Path
 ) -> None:
-    url_replacements = {url.match_text: f"url(${{path}}/dist/{theme}/svg/{url.file_name})" for url in urls}
+    url_replacements = {url.match_text: f"url(${{path}}/themes/{theme}/svg/{url.file_name})" for url in urls}
     colors_converted = {f"${color_id}": str(rgba) for color_id, rgba in colors.items()}
     template_stylesheet = multi_replace(stylesheet, {**url_replacements, **colors_converted})
     with (output_dir_path / "stylesheet.py").open("w") as f:
@@ -106,7 +106,7 @@ def _build_template_stylesheet(
 
 
 def _generate_qt_resource_file(svg_dir_path: Path, output_dir_path: Path, theme: str) -> None:
-    qrc = f'<RCC version="1.0"><qresource prefix="qdarktheme/dist/{theme}">'
+    qrc = f'<RCC version="1.0"><qresource prefix="qdarktheme/themes/{theme}">'
     for file in svg_dir_path.iterdir():
         qrc += f"<file>{svg_dir_path.name}/{file.name}</file>"
     qrc += "</qresource></RCC>"

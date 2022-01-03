@@ -21,7 +21,7 @@ def get_themes() -> tuple[str, ...]:
     Returns:
         Available themes.
     """
-    from qdarktheme.dist import THEMES
+    from qdarktheme.themes import THEMES
 
     return THEMES
 
@@ -109,9 +109,9 @@ def load_stylesheet(theme: str = "dark") -> str:
         raise TypeError("The argument [theme] can only be specified as 'dark' or 'light'.") from None
 
     if theme == "dark":
-        from qdarktheme.dist.dark.stylesheet import STYLE_SHEET
+        from qdarktheme.themes.dark.stylesheet import STYLE_SHEET
     else:
-        from qdarktheme.dist.light.stylesheet import STYLE_SHEET
+        from qdarktheme.themes.light.stylesheet import STYLE_SHEET
 
     # Append Qt version patches
     replacements = _parse_env_patch(STYLE_SHEET)
@@ -121,9 +121,9 @@ def load_stylesheet(theme: str = "dark") -> str:
 
     try:
         if theme == "dark":
-            from qdarktheme.dist.dark import rc_icons as _
+            from qdarktheme.themes.dark import rc_icons as _
         elif theme == "light":
-            from qdarktheme.dist.light import rc_icons as _  # noqa: F401
+            from qdarktheme.themes.light import rc_icons as _  # noqa: F401
         icon_path = ":qdarktheme"
     except (AttributeError, QtImportError):
         # Qt resource system has been removed in PyQt6. So in PyQt6, load the icon from a physical file.
@@ -168,7 +168,7 @@ def load_palette(theme: str = "dark"):
         raise TypeError("The argument [theme] can only be specified as 'dark' or 'light'.") from None
 
     if theme == "dark":
-        from qdarktheme.dist.dark.palette import PALETTE
+        from qdarktheme.themes.dark.palette import PALETTE
     else:
-        from qdarktheme.dist.light.palette import PALETTE
+        from qdarktheme.themes.light.palette import PALETTE
     return PALETTE
