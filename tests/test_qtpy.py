@@ -25,6 +25,7 @@ def test_environment_variable() -> None:
     assert QT_API == os.environ["QT_API"]
 
     del os.environ["QT_API"]
+    _clear_importing_qdarktheme()
 
 
 def test_wrong_QT_API() -> None:
@@ -64,3 +65,4 @@ def test_qt_import_error() -> None:
 
     for e in [e_core, e_gui, e_svg, e_widgets]:
         assert e.type is qtpy.QtImportError
+    _clear_importing_qdarktheme()
