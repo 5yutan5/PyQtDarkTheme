@@ -96,6 +96,9 @@ line_length = 119
 [tool.coverage.report]
 exclude_lines = ["pragma: no cover", "if __name__ == .__main__.:"]
 
+[tool.coverage.run]
+omit = ["qdarktheme/qtpy/**"]
+
 [tool.pytest.ini_options]
 markers = [
     "available_qt: marks tests as test to do only when there is qt-binding",
@@ -105,6 +108,3 @@ markers = [
 typeCheckingMode = "basic"
 # Build app with cx_Freeze include pyi file
 ignore = ["dist"]
-
-[tool.coverage.run]
-omit = ["qdarktheme/qtpy/**"]

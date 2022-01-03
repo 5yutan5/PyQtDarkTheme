@@ -93,7 +93,7 @@ jobs:
 
     - name: Run pytest
       if: matrix.qt != 'none'
-      run: poetry run pytest --cov tests --cov-report=term-missing --cov-report=xml
+      run: poetry run pytest --cov --cov-report=term-missing --cov-report=xml
       env:
         PY_COLORS: 1  # For log color
 
@@ -101,7 +101,7 @@ jobs:
       if: matrix.qt == 'none'
       run: |
         poetry run pip uninstall -y pytest-qt
-        poetry run pytest tests --cov --cov-report=term-missing --cov-report=xml --ignore=tests/test_widget_gallery.py -m "not available_qt"
+        poetry run pytest --cov --cov-report=term-missing --cov-report=xml --ignore=tests/test_widget_gallery.py -m "not available_qt"
       env:
         PY_COLORS: 1  # For log color
 
