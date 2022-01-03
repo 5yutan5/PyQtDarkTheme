@@ -90,14 +90,10 @@ def _test_freezing_lib(lib: _Library) -> str:
             str(output_path),
         ]
     _console.log(f"Running: {command}")
-
-    _console.print()
-    _console.print("-------------" + "-" * len(lib.value))
-    _console.print(f"Outputs from {lib.value}")
-    _console.print("-------------" + "-" * len(lib.value))
+    _console.print(Panel.fit(f"Outputs from {lib.value}"))
     subprocess.run(command)
-
     _console.print()
+
     app_path = output_path / app_name
     _console.log(f"Opening {app_path}...")
     result = subprocess.check_output([str(app_path)], stderr=subprocess.STDOUT)
@@ -110,11 +106,7 @@ def _check_output(output: str) -> None:
         _print_successfull_message()
         return
     else:
-        _console.log("There is some outputs from demo app\n")
-        _console.print("----------------")
-        _console.print("Demo app outputs")
-        _console.print("----------------")
-        _console.print(output)
+        _console.print(Panel.fit(output, title="Demo app outputs"))
 
     if "qt.svg: Cannot open file" in output:
         raise SvgFileNotFoundError("QtSvg module cannot open svg files, because: No such file or directory")

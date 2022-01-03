@@ -54,8 +54,9 @@ def _parse_url(stylesheet: str) -> set[_Url]:
         color_id = url_property["id"]
         rotate = url_property.get("rotate", "0")
 
-        file_name = f"{icon.replace('.svg', '')}__{color_id}__rotate-{rotate}.svg"
-        urls.add(_Url(icon, color_id, rotate, match_text, file_name))
+        file_name = f"{icon.replace('.svg', '')}__{color_id}"
+        file_name += "" if rotate == "0" else f"__rotate-{rotate}"
+        urls.add(_Url(icon, color_id, rotate, match_text, f"{file_name}.svg"))
     return urls
 
 
@@ -78,7 +79,8 @@ def _build_svg_file(urls: set[_Url], colors: dict[str, RGBA], svg_dir_path: Path
     for url in urls:
         rgba = colors[url.color_id]
         # Change color and rotate. See https://stackoverflow.com/a/15139069/13452582
-        new_contents = f'{to_svg_color_format(rgba)} transform="rotate({url.rotate}, 12, 12)"'
+        new_contents = to_svg_color_format(rgba)
+        new_contents += "" if url.rotate == "0" else f' transform="rotate({url.rotate}, 12, 12)"'
         svg_code_converted = svg_codes[url.icon].replace('fill="#FFFFFF"', new_contents)
         with (output_dir_path / url.file_name).open("w") as f:
             f.write(svg_code_converted)
