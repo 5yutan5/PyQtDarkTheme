@@ -132,7 +132,7 @@ You can easily switch between light and dark theme.
         QApplication.instance().setStyleSheet(stylesheet)
 
 
-    combobox.addItems(["dark", "light"])
+    combobox.addItems(qdarktheme.get_themes())
     combobox.currentTextChanged.connect(toggle_theme)
 
     layout = QHBoxLayout()
@@ -179,6 +179,53 @@ By using `darkdetect <https://github.com/albertosottile/darkdetect>`_, You can e
 
     app.paletteChanged.connect(sync_theme_with_system)
     sync_theme_with_system()
+
+    main_win.show()
+
+    app.exec()
+
+
+Toggle dark/light Theme with pyqtgraph
+--------------------------------------
+
+You can also switch between light and dark theme with pyqtgraph.
+
+.. code-block:: python
+
+    import sys
+
+    import pyqtgraph as pg
+    from PySide6.QtCore import Slot
+    from PySide6.QtWidgets import QApplication, QComboBox, QMainWindow, QVBoxLayout, QWidget
+
+    import qdarktheme
+
+    app = QApplication(sys.argv)
+    main_win = QMainWindow()
+    combobox = QComboBox()
+    plot_widget = pg.PlotWidget()
+
+
+    @Slot(str)
+    def toggle_theme(theme) -> None:
+        stylesheet = qdarktheme.load_stylesheet(theme)
+        QApplication.instance().setStyleSheet(stylesheet)
+        plot_widget.setBackground("k" if theme == "dark" else "w")
+
+
+    combobox.addItems(qdarktheme.get_themes())
+    combobox.currentTextChanged.connect(toggle_theme)
+
+    layout = QVBoxLayout()
+    layout.addWidget(combobox)
+    layout.addWidget(plot_widget)
+
+    central_widget = QWidget()
+    central_widget.setLayout(layout)
+    main_win.setCentralWidget(central_widget)
+
+    # Apply dark theme
+    app.setStyleSheet(qdarktheme.load_stylesheet())
 
     main_win.show()
 

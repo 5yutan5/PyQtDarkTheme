@@ -26,4 +26,4 @@ https://github.com/google/material-design-icons/blob/master/LICENSE
 
 """
 
-THEMES = ("light", "dark")
+THEMES = ("dark", "light")

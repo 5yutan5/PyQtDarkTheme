@@ -164,6 +164,7 @@ def build_resources(build_path: Path, theme_file_paths: list[Path], root_init_fi
         _build_template_stylesheet(theme, stylesheet, urls, rgba_colors, output_dir_path)
         _generate_qt_resource_file(output_dir_path / "svg", output_dir_path, theme)
 
+    themes.sort()
     _generate_root_init_file(build_path, themes, root_init_file_doc)
 
 
