@@ -1,18 +1,24 @@
 name: linter
 on:
-  push:
-    branches:
-      - main
   pull_request:
+  push:
+    branches: [main]
 
 jobs:
-  lint-markdown-yaml:
+  lint:
+    name: markdown yaml py-type
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
 
-    - name: Lint Code Base
-      uses: github/super-linter@v4
+    - name: Lint python type
+      uses: pre-commit/action@v2.0.3
+      with:
+        extra_args: pyright
+
+    - name: Lint yaml and markdown
+      uses: github/super-linter/slim@v4
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         DEFAULT_BRANCH: main

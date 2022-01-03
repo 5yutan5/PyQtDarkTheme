@@ -1,8 +1,3 @@
-.. PyQtDarkTheme documentation master file, created by
-   sphinx-quickstart on Sun Dec 12 15:16:11 2021.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 PyQtDarkTheme documentation
 ===========================
 
@@ -25,7 +20,7 @@ Dark      Light
 
 * A flat Dark and Light theme
 * Support PySide and PyQt
-* Support some freezing library(PyInstaller, cx_freeze, py2app and etc...)
+* Support some freezing library(PyInstaller, cx_Freeze and etc...)
 * Resolve the differences of style between Qt versions
 * QPalette of dark and light theme
 

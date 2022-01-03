@@ -1,142 +1,127 @@
 name: tests
 on:
-  push:
-    paths-ignore:
-      - "**.md"
-      - ".gitignore"
-      - ".pre-commit-config.yaml"
-      - "LICENSE.txt"
-      - "NOTICE.md"
-      - "images/**"
-      - ".github/dependabot.yml"
-      - ".github/workflows/lint.yml"
-      - ".github/workflows/check_resources.yml"
-      - ".vscode/settings.json"
-      - "docs/**"
-      - ".readthedocs.yml"
-    branches:
-      - main
   pull_request:
-    paths-ignore:
-      - "**.md"
-      - ".gitignore"
-      - ".pre-commit-config.yaml"
-      - "LICENSE.txt"
-      - "NOTICE.md"
-      - "images/**"
-      - ".github/dependabot.yml"
-      - ".github/workflows/lint.yml"
-      - ".github/workflows/check_resources.yml"
-      - ".vscode/settings.json"
-      - "docs/**"
-      - ".readthedocs.yml"
+  push:
+    branches: [main]
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  TEST_IMG_OUTPUT_PATH: 'dist'
+  PYTHONIOENCODING: 'utf-8'  # For log color
+  PY_COLORS: 1  # For log color with pytest
 
 jobs:
   tests:
-    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.7', '3.8', '3.9', '3.10']
         os: [ubuntu-latest, macOS-latest, windows-latest]
-        qt-lib: [pyqt, pyside]
+        py: ['3.7', '3.8', '3.9', '3.10']
+        qt-lib: ['pyqt', 'pyside', 'none']
         include:
-          - python-version: "3.7"
-            qt-lib: "pyqt"
-            qt-version: "PyQt5"
-          - python-version: "3.7"
-            qt-lib: "pyside"
-            qt-version: "PySide2"
-          - python-version: "3.8"
-            qt-lib: "pyqt"
-            qt-version: "PyQt5"
-          - python-version: "3.8"
-            qt-lib: "pyside"
-            qt-version: "PySide6"
-          - python-version: "3.9"
-            qt-lib: "pyqt"
-            qt-version: "PyQt6"
-          - python-version: "3.9"
-            qt-lib: "pyside"
-            qt-version: "PySide6"
-          - python-version: "3.10"
-            qt-lib: "pyqt"
-            qt-version: "PyQt6"
-          - python-version: "3.10"
-            qt-lib: "pyside"
-            qt-version: "PySide6"
+          - {py: '3.7', qt-lib: 'pyqt', qt: 'PyQt5~=5.11.0'}
+          - {py: '3.7', qt-lib: 'pyside', qt: 'PySide2'}
+          - {py: '3.7', qt-lib: 'none', qt: 'none'}
+          - {py: '3.8', qt-lib: 'pyqt', qt: 'PyQt5'}
+          - {py: '3.8', qt-lib: 'pyside', qt: 'PySide6'}
+          - {py: '3.8', qt-lib: 'none', qt: 'none'}
+          - {py: '3.9', qt-lib: 'pyqt', qt: 'PyQt6'}
+          - {py: '3.9', qt-lib: 'pyside', qt: 'PySide6'}
+          - {py: '3.9', qt-lib: 'none', qt: 'none'}
+          - {py: '3.10', qt-lib: 'pyqt', qt: 'PyQt6'}
+          - {py: '3.10', qt-lib: 'pyside', qt: 'PySide6'}
+          - {py: '3.10', qt-lib: 'none', qt: 'none'}
+    runs-on: ${{ matrix.os }}
+    name: ${{ matrix.os }} py-${{ matrix.py }} qt-${{ matrix.qt }}
 
     steps:
     - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
       with:
-        submodules: 'true'
+        python-version: ${{ matrix.py }}
 
-    - name: Setup Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
+    - name: Get Poetry home path
+      id: poetry-home
+      run: |
+        if [ ${{ runner.os }} == "ubuntu-latest" ]; then
+          path="C:/Users/runneradmin/AppData/Roaming/Python/Scripts"
+        else
+          path="$HOME/.local/"
+        fi
+        echo ::set-output name=path::$path
 
     - name: Get full Python version
-      id: full-python-version
-      shell: bash
+      id: full-py-version
       run: echo ::set-output name=version::$(python -c "import sys; print('-'.join(str(v) for v in sys.version_info))")
 
-    - name: Bootstrap poetry
-      shell: bash
-      run: curl -sL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python -
-
-    - name: Update PATH
-      if: runner.os != 'Windows'
-      shell: bash
-      run: echo "$HOME/.local/bin" >> $GITHUB_PATH
-
-    - name: Update PATH for Windows
-      if: runner.os == 'Windows'
-      shell: bash
-      run: echo "$APPDATA\Python\Scripts" >> $GITHUB_PATH
-
-    - name: Configure poetry
-      run: poetry config virtualenvs.in-project true
-
-    - name: Set up cache
+    - name: Cache ${{ steps.poetry-home.outputs.path }}
       uses: actions/cache@v2
-      id: cache
+      with:
+        path: ${{ steps.poetry-home.outputs.path }}
+        key: poetry-${{ runner.os }}-${{ steps.full-py-version.outputs.version }}
+
+    - uses: snok/install-poetry@v1
+      with:
+        virtualenvs-in-project: true
+      env:
+        POETRY_HOME: ${{ steps.poetry-home.outputs.path }}
+
+    - name: Cache ./.venv
+      id: cache-venv
+      uses: actions/cache@v2
       with:
         path: .venv
-        key: venv-${{ runner.os }}-${{ steps.full-python-version.outputs.version }}-${{ matrix.qt-version }}-${{ hashFiles('**/poetry.lock') }}
+        key: venv-${{ runner.os }}-${{ steps.full-py-version.outputs.version }}-${{ matrix.qt }}-${{ hashFiles('**/poetry.lock') }}
 
     - name: Install dependencies
+      if: steps.cache-venv.outputs.cache-hit != 'true'
       run: |
+        # See https://github.com/python-poetry/poetry/issues/4524
+        # poetry self update
         poetry install
-        poetry run pip install -U ${{ matrix.qt-version }}
 
-    - name: "Install Linux dependencies"
+    - name: Install Qt lib
+      if: matrix.qt != 'none' && steps.cache-venv.outputs.cache-hit != 'true'
+      run: poetry run pip install -U ${{ matrix.qt }}
+
+    - name: Install Linux dependencies
       if: runner.os == 'Linux'
       run: |
         sudo apt-get update -y
         sudo apt-get install --no-install-recommends -y libxkbcommon-x11-0 libopengl0 libyaml-dev libegl1-mesa libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0
 
-    - name: Install pytest plugin
-      run: poetry run pip install pytest-github-actions-annotate-failures
-
     - name: Run pytest
-      shell: bash
-      run: poetry run pytest --cov -v tests --cov-report=term-missing --cov-report=xml
+      if: matrix.qt != 'none'
+      run: poetry run pytest --cov --cov-report=term-missing --cov-report=xml
 
-    - name: "Upload coverage to Codecov"
+    - name: Run pytest without Qt lib
+      if: matrix.qt == 'none'
+      run: |
+        poetry run pip uninstall -y pytest-qt
+        poetry run pytest --cov --cov-report=term-missing --cov-report=xml --ignore=tests/test_widget_gallery.py -m "not available_qt"
+
+    - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v2
       with:
         fail_ci_if_error: true
         token: ${{ secrets.CODECOV_TOKEN }}
 
-    - name: Capture theme images
-      if: runner.os != 'Linux'
-      run: poetry run python ./.github/scripts/capture.py ${{runner.os}}-py${{matrix.python-version}}-${{matrix.qt-version}}
+    - name: Capture img of WidgetGallery
+      if: matrix.qt != 'none'
+      run: poetry run python ./tools/capture.py -i ${{runner.os}}-py${{matrix.py}}-${{matrix.qt}} -d ${{ env.TEST_IMG_OUTPUT_PATH}}
 
-    - name: Archive theme images
-      if: runner.os != 'Linux'
+    - name: Archive img of WidgetGallery
+      if: matrix.qt != 'none'
       uses: actions/upload-artifact@v2
       with:
-        name: widget-images
-        path: ./*.png
-        retention-days: 2
+        name: widget-img
+        path: ./${{ env.TEST_IMG_OUTPUT_PATH}}/*.png
+
+    - name: Test freezing-pkg(PyInstaller & cx_Freeze)
+      if: matrix.qt != 'none' && runner.os != 'Linux'
+      run: |
+        poetry run pip install -U cx_Freeze
+        poetry run python -m tools.test_freezing_lib --PyInstaller --cx_Freeze

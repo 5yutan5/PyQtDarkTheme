@@ -1,14 +1,16 @@
 ci:
-  skip: ['build-resources']
+  # Replace use some hooks of pre-commit.ci with our own github actions.
+  # See https://github.com/pre-commit-ci/issues/issues/55.
+  skip: ['build-resources', 'pyright']
 repos:
   - repo: local
     hooks:
       - id: build-resources
         name: Build resources
-        entry: python -m builder
+        entry: python -m tools.build_resources
         language: python
-        additional_dependencies: ['click', 'pyside6']
-        require_serial: true
+        additional_dependencies: ['rich', 'pyside6']
+        pass_filenames: false
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.0.1
@@ -18,18 +20,30 @@ repos:
       - id: end-of-file-fixer
         exclude: (?x)(^.*/.*\.svg$)
       - id: check-json
+      - id: check-toml
       - id: check-added-large-files
 
   - repo: https://github.com/asottile/pyupgrade
     rev: v2.29.1
     hooks:
-    -   id: pyupgrade
+      - id: pyupgrade
         args: [--py37-plus]
+
+  - repo: https://github.com/MarcoGorelli/absolufy-imports
+    rev: v0.3.0
+    hooks:
+      - id: absolufy-imports
 
   - repo: https://github.com/psf/black
     rev: 21.12b0
     hooks:
       - id: black
+
+  - repo: https://github.com/asottile/blacken-docs
+    rev: v1.12.0
+    hooks:
+      - id: blacken-docs
+        additional_dependencies: [black]
 
   - repo: https://github.com/PyCQA/isort
     rev: 5.10.1
@@ -41,7 +55,7 @@ repos:
     hooks:
       - id: flake8
         entry: pflake8
-        additional_dependencies:
+        additional_dependencies: &flake8_dependencies
           - pyproject-flake8
           - flake8-print
           - flake8-return
@@ -49,3 +63,32 @@ repos:
           - flake8-bugbear
           - flake8-docstrings
           - flake8-comprehensions
+          - flake8-eradicate
+          - flake8-rst-docstrings
+          - flake8-pytest-style
+
+  - repo: https://github.com/asottile/yesqa
+    rev: v1.3.0
+    hooks:
+      - id: yesqa
+        additional_dependencies: *flake8_dependencies
+
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.9.0
+    hooks:
+      - id: rst-backticks
+      - id: rst-directive-colons
+      - id: rst-inline-touching-normal
+      - id: python-no-eval
+      - id: python-no-log-warn
+      - id: python-use-type-annotations
+
+  - repo: local
+    hooks:
+      - id: pyright
+        name: pyright
+        entry: pyright
+        language: python
+        pass_filenames: false
+        types: [python]
+        additional_dependencies: ['pyright', 'PyQt6', 'rich', 'pytest']

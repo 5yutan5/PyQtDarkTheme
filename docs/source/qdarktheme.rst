@@ -7,4 +7,4 @@ API Reference
 
 .. autofunction:: qdarktheme.load_palette
 
-.. autodata:: qdarktheme.THEMES
+.. autofunction:: qdarktheme.get_themes

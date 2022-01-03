@@ -1,22 +1,16 @@
 """Test WidgetGallery."""
 import pytest
 
-from qdarktheme.qtpy.QtCore import QTimer
 from qdarktheme.widget_gallery.__main__ import WidgetGallery
 
 
-@pytest.fixture
+@pytest.fixture()
 def widget_gallery(qtbot) -> WidgetGallery:
     """Create test instance of WidgetGallery."""
     widget_gallery = WidgetGallery()
     qtbot.add_widget(widget_gallery)
     widget_gallery.show()
     return widget_gallery
-
-
-def test_widget_gallery_init(widget_gallery: WidgetGallery) -> None:
-    """Ensure the widget gallery opens without error."""
-    QTimer.singleShot(2000, widget_gallery.close)
 
 
 def test_change_page(widget_gallery: WidgetGallery) -> None:

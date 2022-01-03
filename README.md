@@ -22,7 +22,7 @@ Check out the [complete documentation](https://pyqtdarktheme.readthedocs.io).
 
 - A flat Dark and Light theme
 - Support PySide and PyQt
-- Support some freezing library(PyInstaller, cx_freeze, py2app and etc...)
+- Support some freezing library(PyInstaller, cx_Freeze and etc...)
 - Resolve the differences of style between Qt versions
 - QPalette of dark and light theme
 
@@ -39,6 +39,7 @@ Check out the [complete documentation](https://pyqtdarktheme.readthedocs.io).
 ## Requirements
 
 - [Python 3.7+](https://www.python.org/downloads/)
+- Qt 5.11+
 - PySide6, PyQt6, PyQt5 or PySide2
 
 ## Installation Method
@@ -71,7 +72,6 @@ main_win.setCentralWidget(push_button)
 
 # Default is dark theme
 app.setStyleSheet(qdarktheme.load_stylesheet())
-# qdarktheme.load_stylesheet("dark")
 
 main_win.show()
 
@@ -98,8 +98,8 @@ To load palette, run:
 
 ```Python
 palette = qdarktheme.load_palette()
-# qdarktheme.load_palette("dark")
-# qdarktheme.load_palette("light")
+# or
+palette = qdarktheme.load_palette("light")
 ```
 
 For example, you can apply a link color to your application.

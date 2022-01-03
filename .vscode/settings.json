@@ -2,22 +2,36 @@
     "json.schemas": [
         {
             "fileMatch": [
-                "/builder/theme/*"
+                "/tools/build_resources/theme/*"
             ],
-            "url": "/builder/theme/validate.json"
+            "url": "/tools/build_resources/theme/validate.json"
         }
-    ],
-    "python.testing.pytestArgs": [
-        "tests"
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
     "python.linting.flake8Path": "pflake8",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/.pytest_cache": true,
+        "**/__pycache__": true,
+        "**/.coverage": true,
+        "**/coverage.xml": true
+    },
     "cSpell.words": [
+        "absolufy",
         "APPDATA",
+        "backticks",
         "cmpfiles",
         "codecov",
+        "cxfreeze",
+        "datas",
         "docstrings",
+        "Dont",
         "filecmp",
         "icccm",
         "isort",
@@ -28,16 +42,20 @@
         "libxkbcommon",
         "libyaml",
         "linebreak",
+        "maxdepth",
         "MEIPASS",
         "pflake",
         "pformat",
         "Pixmaps",
+        "pydata",
         "pyinstaller",
         "pyproject",
         "pyqt",
         "pyqtdarktheme",
+        "pyright",
         "pyside",
         "pytest",
+        "PYTHONIOENCODING",
         "pyupgrade",
         "qdarktheme",
         "QLCD",
@@ -50,13 +68,16 @@
         "RRGGBBAA",
         "secho",
         "shiboken",
+        "snok",
+        "toctree",
         "venv",
         "virtualenvs",
-        "xinerama"
+        "xinerama",
+        "yesqa"
     ],
-    "python.linting.banditEnabled": true,
     "python.linting.flake8Enabled": true,
-    "python.analysis.typeCheckingMode": "basic",
     "python.formatting.provider": "black",
-    "restructuredtext.confPath": "${workspaceFolder}/docs/source"
+    "restructuredtext.confPath": "${workspaceFolder}/docs/source",
+    "restructuredtext.languageServer.disabled": true,
+    "commentTranslate.hover.enabled": true
 }

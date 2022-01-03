@@ -1,9 +1,8 @@
 name: theme resources checker
 on:
-  push:
-    branches:
-      - main
   pull_request:
+  push:
+    branches: [main]
 
 jobs:
   build:
@@ -15,7 +14,7 @@ jobs:
       uses: actions/setup-python@v2
 
     - name: Install python dependencies
-      run: pip install . pyside6 click
+      run: pip install . pyside6 rich
 
     - name: Check resources
-      run: python .github/scripts/check_theme_dist.py
+      run: python -m tools.build_resources --check

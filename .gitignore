@@ -145,8 +145,8 @@ cython_debug/
 # VSCode
 *.code-workspace
 
+# Pycharm
+.idea
+
 # System information folder for mac
 *.DS_Store
-
-# Ignore
-!qdarktheme/dist/
