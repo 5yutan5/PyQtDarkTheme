@@ -170,7 +170,7 @@ class _TableModel(QAbstractTableModel):
         if role == Qt.ItemDataRole.CheckStateRole and index.column() == 1:
             return Qt.CheckState.Checked if index.row() % 2 == 0 else Qt.CheckState.Unchecked
         if role == Qt.ItemDataRole.EditRole and index.column() == 2:
-            return self._data[index.row()][index.column()]
+            return self._data[index.row()][index.column()]  # pragma: no cover
         return None
 
     def rowCount(self, index) -> int:
@@ -217,9 +217,6 @@ class _Group3(QGroupBox):
 
         tab_table.setModel(_TableModel())
         tab_table.setSortingEnabled(True)
-        index = tab_table.model().index(0, 2)
-        tab_table.setCurrentIndex(index)
-        tab_table.edit(index)
 
         tab_list.addItems([f"Item {i+1}" for i in range(30)])
         tab_list.setAlternatingRowColors(True)

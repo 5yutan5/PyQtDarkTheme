@@ -45,7 +45,7 @@ def _walk_directory(directory: Path, tree: Tree, ignore_hiddenfile: bool, level:
         if path.is_dir() and show_dir_contents:
             style = "dim" if path.name.startswith("__") else ""
             branch = tree.add(
-                f"[bold magenta]:open_file_folder: [link file://{path}]{escape(path.name)}",
+                f"[bold magenta]:open_file_folder: {escape(path.name)}",
                 style=style,
                 guide_style=style,
             )
@@ -78,7 +78,7 @@ def get_file_tree(directory: Path, ignore_hiddenfile: bool = False, level: int =
         Tree: The tree object of rich lib.
     """
     tree = Tree(
-        f":open_file_folder: [link file://{directory}]{directory}",
+        f":open_file_folder: {directory}",
         guide_style="bold bright_blue",
     )
     _walk_directory(Path(directory), tree, ignore_hiddenfile, level)

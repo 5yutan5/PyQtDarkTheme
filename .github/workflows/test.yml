@@ -10,7 +10,6 @@ defaults:
 
 env:
   TEST_IMG_OUTPUT_PATH: 'dist'
-  PY_COLORS: 1
 
 jobs:
   tests:
@@ -95,12 +94,16 @@ jobs:
     - name: Run pytest
       if: matrix.qt != 'none'
       run: poetry run pytest --cov tests --cov-report=term-missing --cov-report=xml
+      env:
+        PY_COLORS: 1  # For log color
 
     - name: Run pytest without Qt lib
       if: matrix.qt == 'none'
       run: |
         poetry run pip uninstall -y pytest-qt
         poetry run pytest tests --cov --cov-report=term-missing --cov-report=xml --ignore=tests/test_widget_gallery.py -m "not available_qt"
+      env:
+        PY_COLORS: 1  # For log color
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v2
@@ -124,3 +127,5 @@ jobs:
       run: |
         poetry run pip install -U cx_Freeze
         poetry run python -m tools.test_freezing_lib --PyInstaller --cx_Freeze
+      env:
+        PYTHONIOENCODING: 'utf-8'  # For rich

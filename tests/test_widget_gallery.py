@@ -1,6 +1,4 @@
 """Test WidgetGallery."""
-import sys
-
 import pytest
 
 from qdarktheme.widget_gallery.__main__ import WidgetGallery
@@ -13,20 +11,6 @@ def widget_gallery(qtbot) -> WidgetGallery:
     qtbot.add_widget(widget_gallery)
     widget_gallery.show()
     return widget_gallery
-
-
-def test_widget_gallery() -> None:
-    """Test WidgetGallery."""
-    from qdarktheme.qtpy.QtCore import Qt, QTimer
-    from qdarktheme.qtpy.QtWidgets import QApplication
-
-    app = QApplication.instance() if QApplication.instance() else QApplication(sys.argv)
-    if hasattr(Qt.ApplicationAttribute, "AA_UseHighDpiPixmaps"):
-        app.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)  # type: ignore
-    win = WidgetGallery()
-    win.show()
-    QTimer.singleShot(10, app.exit)
-    app.exec()
 
 
 def test_change_page(widget_gallery: WidgetGallery) -> None:

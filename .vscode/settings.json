@@ -54,6 +54,7 @@
         "pyright",
         "pyside",
         "pytest",
+        "PYTHONIOENCODING",
         "pyupgrade",
         "qdarktheme",
         "QLCD",

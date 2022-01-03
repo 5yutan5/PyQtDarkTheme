@@ -94,11 +94,11 @@ profile = "black"
 line_length = 119
 
 [tool.coverage.report]
-exclude_lines = ["if __name__ == .__main__.:"]
+exclude_lines = ["pragma: no cover", "if __name__ == .__main__.:"]
 
 [tool.pytest.ini_options]
 markers = [
-    "available_qt: marks tests as test to do only when there is qt-binding"
+    "available_qt: marks tests as test to do only when there is qt-binding",
 ]
 
 [tool.pyright]
