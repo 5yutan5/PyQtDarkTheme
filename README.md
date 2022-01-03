@@ -39,6 +39,7 @@ Check out the [complete documentation](https://pyqtdarktheme.readthedocs.io).
 ## Requirements
 
 - [Python 3.7+](https://www.python.org/downloads/)
+- Qt 5.12+
 - PySide6, PyQt6, PyQt5 or PySide2
 
 ## Installation Method
