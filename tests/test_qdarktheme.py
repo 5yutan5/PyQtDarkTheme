@@ -48,7 +48,7 @@ def test_qrc() -> None:
 
 def test_parse_env_patch() -> None:
     """Test `parse_env_patch()`."""
-    from qdarktheme.base import _parse_env_patch
+    from qdarktheme.main import _parse_env_patch
 
     with pytest.raises(SyntaxError) as e:
         _parse_env_patch('$env_patch{"version": "^6.0.0", "value": "test"};')

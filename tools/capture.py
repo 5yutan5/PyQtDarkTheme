@@ -34,6 +34,8 @@ class _Application(QApplication):
         super().__init__(sys.argv)
         self._img_dir_path = Path("dist" if img_dir_path is None else img_dir_path)
         self._img_dir_path.mkdir(exist_ok=True)
+        if img_identifier is not None:
+            img_identifier = img_identifier.replace("~=", "-")
         self._img_identifier = img_identifier
 
         if hasattr(Qt.ApplicationAttribute, "AA_UseHighDpiPixmaps"):
