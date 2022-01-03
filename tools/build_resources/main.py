@@ -3,14 +3,12 @@ from __future__ import annotations
 
 import json
 import re
-import sys
+import subprocess
 from dataclasses import dataclass
 from filecmp import cmpfiles
 from importlib import resources
 from pathlib import Path
 from tempfile import NamedTemporaryFile
-
-from PySide6.scripts.pyside_tool import rcc  # type: ignore
 
 from qdarktheme.util import get_qdarktheme_root_path, multi_replace
 from tools.build_resources.color import RGBA
@@ -117,15 +115,7 @@ def _generate_qt_resource_file(svg_dir_path: Path, output_dir_path: Path, theme:
         qrc_file_path = output_dir_path / f.name
         qrc_file_path.write_text(qrc, "utf-8")
         py_resource_file_path = output_dir_path / "rc_icons.py"
-
-        # Patch PySide6.scripts.pyside_tool
-        temp_argv, temp_exit = sys.argv.copy(), sys.exit
-        sys.argv[1:] = [str(qrc_file_path), "-o", str(py_resource_file_path)]
-        # Not finish program with sys.exit()
-        sys.exit = lambda _: "dummy"
-        rcc()
-        # Remove patch
-        sys.argv, sys.exit = temp_argv, temp_exit
+        subprocess.run(["pyside6-rcc", str(qrc_file_path), "-o", str(py_resource_file_path)])
 
     resource_code = py_resource_file_path.read_text().replace("PySide6", "qdarktheme.qtpy")
     result1 = re.search(r"QtCore\.qRegisterResourceData\(.+\)", resource_code)
