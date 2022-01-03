@@ -21,7 +21,6 @@ def test_widget_gallery() -> None:
     from qdarktheme.qtpy.QtWidgets import QApplication
 
     app = QApplication.instance() if QApplication.instance() else QApplication(sys.argv)
-    # Enable High DPI display in Qt5
     if hasattr(Qt.ApplicationAttribute, "AA_UseHighDpiPixmaps"):
         app.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)  # type: ignore
     win = WidgetGallery()

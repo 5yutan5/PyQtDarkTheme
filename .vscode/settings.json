@@ -76,5 +76,6 @@
     "python.linting.flake8Enabled": true,
     "python.formatting.provider": "black",
     "restructuredtext.confPath": "${workspaceFolder}/docs/source",
-    "restructuredtext.languageServer.disabled": true
+    "restructuredtext.languageServer.disabled": true,
+    "commentTranslate.hover.enabled": true
 }

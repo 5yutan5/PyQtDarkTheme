@@ -13,7 +13,7 @@ def test_load_palette() -> None:
     from qdarktheme.qtpy.QtCore import Qt
     from qdarktheme.qtpy.QtWidgets import QApplication
 
-    app = QApplication(sys.argv)
+    app = app = QApplication.instance() if QApplication.instance() else QApplication(sys.argv)
     if hasattr(Qt.ApplicationAttribute, "AA_UseHighDpiPixmaps"):
         app.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)  # type: ignore
 

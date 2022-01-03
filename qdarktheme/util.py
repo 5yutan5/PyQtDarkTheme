@@ -1,4 +1,4 @@
-"""Utility methods for PyQtDarkTheme."""
+"""Utility methods for qdarktheme."""
 from __future__ import annotations
 
 import inspect

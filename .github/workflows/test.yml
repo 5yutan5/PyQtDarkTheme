@@ -4,10 +4,16 @@ on:
   push:
     branches: [main]
 
+defaults:
+  run:
+    shell: bash
+
+env:
+  TEST_IMG_OUTPUT_PATH: 'dist'
+  PY_COLORS: 1
+
 jobs:
   tests:
-    env:
-      TEST_IMG_OUTPUT_PATH: 'dist'
     strategy:
       fail-fast: false
       matrix:
@@ -29,9 +35,6 @@ jobs:
           - {py: '3.10', qt-lib: 'none', qt: 'none'}
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.os }} py-${{ matrix.py }} qt-${{ matrix.qt }}
-    defaults:
-      run:
-        shell: bash
 
     steps:
     - uses: actions/checkout@v2
@@ -120,4 +123,4 @@ jobs:
       if: matrix.qt != 'none' && runner.os != 'Linux'
       run: |
         poetry run pip install -U cx_Freeze
-        poetry run python ./tools/test_freezer/test_freezing_pkg.py --PyInstaller --cx_Freeze
+        poetry run python -m tools.test_freezing_lib --PyInstaller --cx_Freeze

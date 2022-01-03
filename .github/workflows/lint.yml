@@ -15,7 +15,7 @@ jobs:
     - name: Lint python type
       uses: pre-commit/action@v2.0.3
       with:
-        extra_args: pyright --all-files
+        extra_args: pyright
 
     - name: Lint yaml and markdown
       uses: github/super-linter/slim@v4

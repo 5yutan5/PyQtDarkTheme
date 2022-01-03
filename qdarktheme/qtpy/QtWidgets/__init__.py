@@ -26,9 +26,9 @@ class Application(QApplication):  # type: ignore  # noqa: F405
 
     def exec(self) -> int:
         """Override QApplication method."""
-        if hasattr(super(), "exec_"):
-            return super().exec_()
-        return super().exec()
+        if hasattr(super(), "exec"):
+            return super().exec()
+        return super().exec_()
 
     def exit(self, returnCode: int = 0) -> None:
         """Override QApplication method."""

@@ -7,12 +7,17 @@ import subprocess
 from enum import Enum
 from pathlib import Path
 
-from rich.console import Console
+from rich.console import Console, Group, RenderableType
+from rich.panel import Panel
+from rich.text import Text
+
+from tools.util import get_file_tree, get_project_root_path
 
 IGNORE_MESSAGES = (
     "Unable to create basic Accelerated OpenGL renderer.",
     "Core Image is now using the software OpenGL renderer. This will be slow.",
 )
+
 _console = Console(force_terminal=True)
 
 
@@ -54,11 +59,11 @@ def _test_freezing_lib(lib: _Library) -> str:
     app_name = "app"
     output_path = Path(__file__).absolute().parent.parent.parent / "dist" / lib.value
 
-    _console.log(f"Building app with {lib}...")
+    _console.log(f"Building app with {lib} ...")
     if output_path.exists():
         _console.log(f"Removing {output_path}")
         shutil.rmtree(output_path)
-    _console.log(f"Creating {output_path}...")
+    _console.log(f"Creating {output_path} ...")
     output_path.mkdir()
 
     command = []
@@ -124,23 +129,60 @@ def _check_output(output: str) -> None:
     raise RuntimeError("There is unexpected output")
 
 
-def _main() -> None:
+def main() -> int:
+    """The main method of this package."""
     args = _parse_args()
+    pass_count, error_count, skip_count = 0, 0, 0
+    dist_path = get_project_root_path() / "dist"
+    errors: dict[str, Exception] = {}
 
-    _console.log("Build start", style="yellow")
+    _console.log("Freezing-lib test session start", style="yellow")
 
-    if args.PyInstaller:
-        output = _test_freezing_lib(_Library.PYINSTALLER)
-        _check_output(output)
-    else:
-        _console.log(f"Skip {_Library.PYINSTALLER.value} test")
+    if not dist_path.exists():
+        _console.log(f"Creating {dist_path} ...")
 
-    if args.cx_Freeze:
-        output = _test_freezing_lib(_Library.CX_FREEZE)
-        _check_output(output)
-    else:
-        _console.log(f"Skip {_Library.CX_FREEZE.value} test")
+    for library in _Library:
+        if not getattr(args, library.value):
+            # if library.value not in (args.PyInstaller, args.cx_Freeze):
+            _console.log(f"Skip {library.value} test")
+            skip_count += 1
+            continue
 
+        try:
+            output = _test_freezing_lib(library)
+            _check_output(output)
+        except Exception as e:
+            _console.print_exception()
+            errors[library.value] = e
+            error_count += 1
+        else:
+            pass_count += 1
 
-if __name__ == "__main__":
-    _main()
+    # Create report
+    report: list[RenderableType] = []
+    report.append(
+        Panel(
+            f"{error_count} failed, {pass_count} passed, {skip_count} skipped",
+            style="green" if error_count == 0 else "red",
+        )
+    )
+
+    if error_count != 0:
+        error_report: list[RenderableType] = []
+        for lib_name, error in errors.items():
+            error_report.append(f"{lib_name}\n{len(lib_name)*'-'}")
+            error_report.append(f"{error}\n")
+        report.append(Panel(Group(*error_report), title="FAILURES", style="red"))
+
+    report.append(Panel(get_file_tree(dist_path, level=3), title=f"Contents of {dist_path}"))
+
+    _console.print(
+        Panel(
+            renderable=Group(*report),
+            title=Text("Test summary info"),
+        )
+    )
+
+    if error_count != 0:
+        return 1
+    return 0
