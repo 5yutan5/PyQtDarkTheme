@@ -10,7 +10,16 @@ from rich.console import Console
 
 from tools.build_resources.main import DIST_DIR_PATH, build_resources, compare_all_files
 
-ROOT_INIT_DOC = '''"""License Information.
+ROOT_INIT_DOC = '''"""Package including resources.
+
+Warning.
+--------
+This package created programmatically. All changes made in this file will be lost!
+Created by the `qdarktheme/tools/build_resources`.
+
+
+License Information
+-------------------
 
 All svg files in PyQtDarkTheme is from Material design icons(which uses an Apache 2.0 license).
 
