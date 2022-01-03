@@ -3,10 +3,14 @@ from __future__ import annotations
 
 import inspect
 import logging
+import operator as ope
 import re
 from pathlib import Path
 
 import qdarktheme
+
+# greater_equal and less_equal must be evaluated before greater and less.
+OPERATORS = {"==": ope.eq, "!=": ope.ne, ">=": ope.ge, "<=": ope.le, ">": ope.gt, "<": ope.lt}
 
 
 def multi_replace(target: str, replacements: dict[str, str]) -> str:
@@ -54,3 +58,9 @@ def get_qdarktheme_root_path() -> Path:
         qdarktheme package root path.
     """
     return Path(inspect.getfile(qdarktheme)).parent
+
+
+def compare_v(v1: str, operator: str, v2: str) -> bool:
+    """Comparing two versions."""
+    v1_list, v2_list = (v.split(".") for v in (v1, v2))
+    return OPERATORS[operator](v1_list, v2_list)

@@ -29,6 +29,7 @@
         "cmpfiles",
         "codecov",
         "cxfreeze",
+        "datas",
         "docstrings",
         "Dont",
         "filecmp",

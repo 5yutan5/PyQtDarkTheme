@@ -2,17 +2,18 @@
 from __future__ import annotations
 
 import json
-import operator as ope
 import re
 import sys
 from pathlib import Path
 
-from qdarktheme.util import get_logger, get_qdarktheme_root_path, multi_replace
+from qdarktheme.util import OPERATORS, compare_v, get_logger, get_qdarktheme_root_path, multi_replace
 
 _logger = get_logger(__name__)
 
-# greater_equal and less_equal must be evaluated before greater and less.
-_OPERATORS = {"==": ope.eq, "!=": ope.ne, ">=": ope.ge, "<=": ope.le, ">": ope.gt, "<": ope.lt}
+
+class _SvgFileNotFoundError(FileNotFoundError):
+
+    pass
 
 
 def get_themes() -> tuple[str, ...]:
@@ -26,10 +27,16 @@ def get_themes() -> tuple[str, ...]:
     return THEMES
 
 
-def _compare_v(v1: str, operator: str, v2) -> bool:
-    """Comparing two versions."""
-    v1_list, v2_list = (v.split(".") for v in (v1, v2))
-    return _OPERATORS[operator](v1_list, v2_list)
+def _get_qt_version() -> str:
+    from qdarktheme.qtpy import __version__ as qt_version
+
+    if qt_version is None:
+        _logger.warning(
+            "Failed to detect Qt version. -> Load stylesheet as the latest version."
+            + "\nMaybe you need to install qt-binding. Available Qt-binding packages: PySide6, PyQt6, PyQt5, PySide2."
+        )
+        return "10.0.0"  # Fairly future version for always setting latest version.
+    return qt_version
 
 
 def _parse_env_patch(stylesheet: str) -> dict[str, str]:
@@ -51,29 +58,21 @@ def _parse_env_patch(stylesheet: str) -> dict[str, str]:
         The dictionary. Key is the text of $env_patch{...} symbol.
         Value is the value of the `value` key in $env_patch.
     """
-    from qdarktheme.qtpy import __version__ as qt_version
-
-    if qt_version is None:
-        _logger.warning(
-            "Failed to detect Qt version. -> Load stylesheet as the latest version."
-            + "\nMaybe you need to install qt-binding. Available Qt-binding packages: PySide6, PyQt6, PyQt5, PySide2."
-        )
-        qt_version = "10.0.0"  # Fairly future version for always setting latest version.
-
     replacements = {}
     for match in re.finditer(r"\$env_patch\{[\s\S]*?\}", stylesheet):
         match_text = match.group()
         json_text = match_text.replace("$env_patch", "")
         env_property: dict[str, str] = json.loads(json_text)
 
-        for operator in _OPERATORS.keys():
+        for operator in OPERATORS.keys():
             if operator in env_property["version"]:
                 version = env_property["version"].replace(operator, "")
-                replacements[match_text] = env_property["value"] if _compare_v(qt_version, operator, version) else ""
+                qt_version = _get_qt_version()
+                replacements[match_text] = env_property["value"] if compare_v(qt_version, operator, version) else ""
                 break
         else:
             raise SyntaxError(
-                f"invalid character in qualifier. Available qualifiers {list(_OPERATORS.keys())}"
+                f"invalid character in qualifier. Available qualifiers {list(OPERATORS.keys())}"
             ) from None
     return replacements
 
@@ -119,13 +118,19 @@ def load_stylesheet(theme: str = "dark") -> str:
 
     from qdarktheme.qtpy import QtImportError
 
+    qt_version = _get_qt_version()
+
     try:
+        # In mac os, if the qt version is 5.13 or lower, the svg icon of Qt resource file cannot be read correctly.
+        if compare_v(qt_version, "<", "5.13.0"):
+            raise _SvgFileNotFoundError()
+
         if theme == "dark":
             from qdarktheme.themes.dark import rc_icons as _
         elif theme == "light":
             from qdarktheme.themes.light import rc_icons as _  # noqa: F401
         icon_path = ":qdarktheme"
-    except (AttributeError, QtImportError):
+    except (AttributeError, QtImportError, _SvgFileNotFoundError):
         # Qt resource system has been removed in PyQt6. So in PyQt6, load the icon from a physical file.
         # PyInstaller's one file option uses temp dir(_MEIPASS).
         if hasattr(sys, "_MEIPASS"):
