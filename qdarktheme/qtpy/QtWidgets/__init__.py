@@ -17,7 +17,7 @@ elif QT_API == "PySide2":
     from PySide2.QtWidgets import *  # type: ignore  # noqa: F403
 
 
-class Application(QApplication):  # type: ignore  # noqa: F405  # pragma: no cover
+class Application(QApplication):  # type: ignore  # noqa: F405
     """Override QApplication."""
 
     def __init__(self, args: Sequence[str] = None) -> None:

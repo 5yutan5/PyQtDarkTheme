@@ -105,3 +105,6 @@ markers = [
 typeCheckingMode = "basic"
 # Build app with cx_Freeze include pyi file
 ignore = ["dist"]
+
+[tool.coverage.run]
+omit = ["qdarktheme/qtpy/**"]
