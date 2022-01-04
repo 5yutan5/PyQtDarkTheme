@@ -6,6 +6,7 @@ import shutil
 import subprocess
 from enum import Enum
 from pathlib import Path
+from time import sleep
 
 from rich.console import Console, Group, RenderableType
 from rich.panel import Panel
@@ -96,6 +97,9 @@ def _test_freezing_lib(lib: _Library) -> str:
 
     app_path = output_path / app_name
     _console.log(f"Opening {app_path}...")
+    # Wait for building an app. Sometimes
+    # Sometimes this program try to open an app before it finishes building.
+    sleep(2)
     result = subprocess.check_output([str(app_path)], stderr=subprocess.STDOUT)
     return result.decode("utf-8")
 
