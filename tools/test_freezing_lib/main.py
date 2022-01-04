@@ -6,7 +6,6 @@ import shutil
 import subprocess
 from enum import Enum
 from pathlib import Path
-from time import sleep
 
 from rich.console import Console, Group, RenderableType
 from rich.panel import Panel
@@ -97,10 +96,18 @@ def _test_freezing_lib(lib: _Library) -> str:
 
     app_path = output_path / app_name
     _console.log(f"Opening {app_path}...")
-    # Wait for building an app. Sometimes
-    # Sometimes this program try to open an app before it finishes building.
-    sleep(2)
-    result = subprocess.check_output([str(app_path)], stderr=subprocess.STDOUT)
+    try:
+        result = subprocess.check_output([str(app_path)], stderr=subprocess.STDOUT)
+    except FileNotFoundError:
+        # In GitHub action, There are times when the program sleeps in favor of other processes.
+        # The PyInstaller sub-process has a timeout of 60 seconds, which often results in a timeout error.
+        # Therefore, if the executable cannot be created successfully due to a timeout, it will try to create it again.
+        _console.log(f"Re running: {command}")
+        _console.print(Panel.fit(f"Outputs from {lib.value}"))
+        subprocess.run(command)
+        _console.print()
+        _console.log(f"Opening {app_path}")
+        result = subprocess.check_output([str(app_path)], stderr=subprocess.STDOUT)
     return result.decode("utf-8")
 
 
