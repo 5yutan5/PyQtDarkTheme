@@ -14,7 +14,7 @@ STYLE_SHEET = """
  * The MIT License (MIT)
  *
  * Copyright (c) 2013-2014 Colin Duquesnoy
- * Copyright (c) 2021- Yunosuke Ohsugi
+ * Copyright (c) 2021-2022 Yunosuke Ohsugi
  * ==========================================================================================
  */
 * {

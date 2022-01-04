@@ -22,7 +22,7 @@ sys.path.insert(0, os.path.abspath("../.."))
 
 # -- Project information -----------------------------------------------------
 project = "PyQtDarkTheme"
-copyright = f"2021, {package_metadata(project)['author']}"
+copyright = f"2021-2022, {package_metadata(project)['author']}"
 author = package_metadata(project)["author"]
 
 now = datetime.utcfromtimestamp(int(os.environ.get("SOURCE_DATE_EPOCH", time.time())))
