@@ -49,7 +49,7 @@ jobs:
     - name: Test testPyPI package
       run: |
         pip install -i https://test.pypi.org/simple/ pyqtdarktheme
-        python tools/check_build_package.py --tag-version ${{ steps.tag.outputs.name }}
+        python tools/check_build_package.py --tag-version ${{ steps.tag.outputs.version }}
 
     - name: Create Release
       uses: ncipollo/release-action@v1
