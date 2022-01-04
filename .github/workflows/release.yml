@@ -35,7 +35,7 @@ jobs:
       run: |
         python -m pip install ${{ steps.wheel-file-path.outputs.path }}
         python tools/check_build_package.py --tag-version ${{ steps.tag.outputs.version }}
-        python -m pip uninstall pyqtdarktheme
+        python -m pip uninstall -y pyqtdarktheme
 
     - name: Publish to testPyPI
       run: |
