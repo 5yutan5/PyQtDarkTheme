@@ -196,6 +196,8 @@ def compare_all_files(dir1: Path, dir2: Path) -> list[str]:
 
     # Exclude rc_icon.py when the text other than random hash is the same
     for rc_path in [file for file in files_changed if "rc_icons.py" in file]:
+        import difflib
+
         from rich.console import Console
 
         console = Console(force_terminal=True)
@@ -208,6 +210,8 @@ def compare_all_files(dir1: Path, dir2: Path) -> list[str]:
         console.print("target2")
         console.print(target2)
         console.log(target1 == target2)
+        for i in difflib.unified_diff(target1, target2, fromfile="target1", tofile="target2"):
+            console.print(i, end="")
         if target1 == target2:
             files_changed.remove(rc_path)
             console.log(rc_path)
