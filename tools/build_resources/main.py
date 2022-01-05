@@ -196,11 +196,20 @@ def compare_all_files(dir1: Path, dir2: Path) -> list[str]:
 
     # Exclude rc_icon.py when the text other than random hash is the same
     for rc_path in [file for file in files_changed if "rc_icons.py" in file]:
+        from rich.console import Console
+
+        console = Console(force_terminal=True)
         resource_code_1 = (dir1 / rc_path).read_text()
         resource_code_2 = (dir2 / rc_path).read_text()
         target1 = re.sub(r"qt_resource_struct = b\"[\s\S]*?\"\n", "", resource_code_1)
         target2 = re.sub(r"qt_resource_struct = b\"[\s\S]*?\"\n", "", resource_code_2)
+        console.print("target1")
+        console.print(target1)
+        console.print("target2")
+        console.print(target2)
+        console.log(target1 == target2)
         if target1 == target2:
             files_changed.remove(rc_path)
+            console.log(rc_path)
 
     return [str(dir1.relative_to(Path.cwd()) / file) for file in files_changed]
