@@ -68,7 +68,9 @@ def _parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def _main(only_check: bool = False) -> None:
+def _main() -> None:
+    args = _parse_args()
+    only_check = args.check
     if only_check:
         _console.log("Checking if this commit need to change qdarktheme/themes...")
     color_schemes = [path for path in Path(__file__).parent.glob("themes/*.json") if path.name != "validate.json"]
@@ -86,7 +88,7 @@ def _main(only_check: bool = False) -> None:
                 """You need to change 'qdarktheme/themes' directory. You can use pre-commit command or run
                 'tools/build_resources/__main__.py' file
             pre-commit    : Run 'pre-commit install' and commit the changes
-            python script : Run 'poetry run python -m tools.build_resources''"""
+            python script : Run 'poetry run python -m tools.build_resources'"""
             ) from None
         shutil.rmtree(DIST_DIR_PATH, ignore_errors=True)
         shutil.copytree(temp_dir, DIST_DIR_PATH)
@@ -96,6 +98,4 @@ def _main(only_check: bool = False) -> None:
 
 
 if __name__ == "__main__":
-    args = _parse_args()
-    only_check = args.check
-    _main(only_check)
+    _main()

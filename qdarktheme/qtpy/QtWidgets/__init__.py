@@ -30,19 +30,19 @@ class Application(QApplication):  # type: ignore  # noqa: F405
             return super().exec()
         return super().exec_()
 
-    def exit(self, returnCode: int = 0) -> None:
+    def exit(self, returnCode: int = 0) -> None:  # noqa: N803
         """Override QApplication method."""
         return super().exit(returnCode)
 
-    def setStyleSheet(self, sheet: str) -> None:
+    def setStyleSheet(self, sheet: str) -> None:  # noqa: N802
         """Override QApplication method."""
         return super().setStyleSheet(sheet)
 
-    def setAttribute(self, attribute: Qt.ApplicationAttribute, on: bool = True) -> None:
+    def setAttribute(self, attribute: Qt.ApplicationAttribute, on: bool = True) -> None:  # noqa: N802
         """Override QApplication method."""
         super().setAttribute(attribute, on)
 
-    def setPalette(self, palette: QPalette, className: str = None) -> None:
+    def setPalette(self, palette: QPalette, className: str = None) -> None:  # noqa: N802, N803
         """Override QApplication method."""
         super().setPalette(palette, className)
 

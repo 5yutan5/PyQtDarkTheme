@@ -64,6 +64,7 @@ isort = "^5.10.1"
 pre-commit = "^2.16.0"
 pyinstaller = "^4.7"
 rich = "^10.16.1"
+pep8-naming = "^0.12.1"
 
 [tool.poetry.extras]
 # See https://github.com/readthedocs/readthedocs.org/issues/4912#issuecomment-664002569

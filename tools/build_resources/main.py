@@ -107,7 +107,7 @@ def _build_template_stylesheet(
 
 def _generate_qt_resource_file(svg_dir_path: Path, output_dir_path: Path, theme: str) -> None:
     qrc = f'<RCC version="1.0"><qresource prefix="qdarktheme/themes/{theme}">'
-    for file in svg_dir_path.iterdir():
+    for file in sorted(file for file in svg_dir_path.iterdir()):
         qrc += f"<file>{svg_dir_path.name}/{file.name}</file>"
     qrc += "</qresource></RCC>"
 
@@ -117,19 +117,26 @@ def _generate_qt_resource_file(svg_dir_path: Path, output_dir_path: Path, theme:
         py_resource_file_path = output_dir_path / "rc_icons.py"
         subprocess.run(["pyside6-rcc", str(qrc_file_path), "-o", str(py_resource_file_path)])
 
-    resource_code = py_resource_file_path.read_text().replace("PySide6", "qdarktheme.qtpy")
-    result1 = re.search(r"QtCore\.qRegisterResourceData\(.+\)", resource_code)
-    result2 = re.search(r"QtCore\.qUnregisterResourceData\(.+\)", resource_code)
-    if result1 is None or result2 is None:
+    resource_code = py_resource_file_path.read_text()
+    replacements: dict[str, str] = {}
+    replacements["PySide6"] = "qdarktheme.qtpy"
+    target1 = re.search(r"QtCore\.qRegisterResourceData\(.+\)", resource_code)
+    target2 = re.search(r"QtCore\.qUnregisterResourceData\(.+\)", resource_code)
+    target3 = re.search(r"qt_resource_struct = b\"[\s\S]*?\"\n", resource_code)
+    if target1 is None or target2 is None or target3 is None:
         raise RuntimeError(
             f"""
             Cannot find QtCore.qRegisterResourceData() or QtCore.qUnregisterResourceData() in {py_resource_file_path}
             """
         )
-    resource_code = resource_code.replace(result1.group(), f"{result1.group()}  # type: ignore")
-    resource_code = resource_code.replace(result2.group(), f"{result2.group()}  # type: ignore")
-    resource_code = '"""Module for qt resources system."""\n' + resource_code
-    py_resource_file_path.write_text(resource_code)
+    for target in (target1, target2):
+        replacements[target.group()] = f"{target.group()}  # type: ignore\n"
+    replacements[target3.group()] = f"{target3.group()}\n"
+    replacements["qInitResources():"] = "qInitResources():  # noqa: N802"
+    replacements["qCleanupResources():"] = "qCleanupResources():  # noqa: N802"
+
+    resource_code = multi_replace(resource_code, replacements)
+    py_resource_file_path.write_text('"""Module for qt resources system."""\n' + resource_code)
 
 
 def _generate_root_init_file(output_dir_path: Path, themes: list[str], doc_string: str = "", source: str = "") -> None:
@@ -184,7 +191,16 @@ def compare_all_files(dir1: Path, dir2: Path) -> list[str]:
             continue
         target_files.add(str(file).replace(str(dir2), "")[1:])
     _, mismatch, err = cmpfiles(dir1, dir2, target_files)
+
     files_changed = mismatch + err
-    if not [file for file in files_changed if "rc_icons.py" not in file]:
-        return []
-    return [str(Path(dir1).relative_to(Path.cwd()) / file) for file in files_changed]
+
+    # Exclude rc_icon.py when the text other than random hash is the same
+    for rc_path in [file for file in files_changed if "rc_icons.py" in file]:
+        resource_code_1 = (dir1 / rc_path).read_text()
+        resource_code_2 = (dir2 / rc_path).read_text()
+        target1 = re.sub(r"qt_resource_struct = b\"[\s\S]*?\"\n", "", resource_code_1)
+        target2 = re.sub(r"qt_resource_struct = b\"[\s\S]*?\"\n", "", resource_code_2)
+        if target1 == target2:
+            files_changed.remove(rc_path)
+
+    return [str(dir1.relative_to(Path.cwd()) / file) for file in files_changed]

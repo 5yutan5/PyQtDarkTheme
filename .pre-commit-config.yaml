@@ -29,11 +29,6 @@ repos:
       - id: pyupgrade
         args: [--py37-plus]
 
-  - repo: https://github.com/MarcoGorelli/absolufy-imports
-    rev: v0.3.0
-    hooks:
-      - id: absolufy-imports
-
   - repo: https://github.com/psf/black
     rev: 21.12b0
     hooks:
@@ -44,6 +39,11 @@ repos:
     hooks:
       - id: blacken-docs
         additional_dependencies: [black]
+
+  - repo: https://github.com/MarcoGorelli/absolufy-imports
+    rev: v0.3.0
+    hooks:
+      - id: absolufy-imports
 
   - repo: https://github.com/PyCQA/isort
     rev: 5.10.1
@@ -57,6 +57,7 @@ repos:
         entry: pflake8
         additional_dependencies: &flake8_dependencies
           - pyproject-flake8
+          - pep8-naming
           - flake8-print
           - flake8-return
           - flake8-simplify
