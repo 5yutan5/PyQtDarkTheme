@@ -111,9 +111,9 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qsizegrip
 
 --------------------------------------------------------------------------- */
 QSizeGrip {
-  width: 0;
-  height: 0;
-  image: none;
+    width: 0;
+    height: 0;
+    image: none;
 }
 
 /* QStatusBar -------------------------------------------------------------
@@ -788,6 +788,14 @@ QAbstractScrollArea {
 }
 QAbstractScrollArea:disabled {
     selection-background-color: $scrollarea-highlight-disabled;
+}
+
+/* Fix a bug where widgets in scroll area would hide the scroll area border. */
+QAbstractScrollArea > .QWidget {
+    background-color: transparent;
+}
+QAbstractScrollArea > .QWidget > .QWidget {
+    background-color: transparent;
 }
 
 /* QTextEdit QPlainTextEdit------------------------------------------------
