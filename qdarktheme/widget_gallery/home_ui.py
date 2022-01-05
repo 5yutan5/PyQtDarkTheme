@@ -173,10 +173,10 @@ class _TableModel(QAbstractTableModel):
             return self._data[index.row()][index.column()]  # pragma: no cover
         return None
 
-    def rowCount(self, index) -> int:
+    def rowCount(self, index) -> int:  # noqa: N802
         return len(self._data)
 
-    def columnCount(self, index) -> int:
+    def columnCount(self, index) -> int:  # noqa: N802
         return len(self._data[0])
 
     def flags(self, index: QModelIndex) -> Qt.ItemFlag:
@@ -187,7 +187,7 @@ class _TableModel(QAbstractTableModel):
             flag |= Qt.ItemFlag.ItemIsEditable
         return flag  # type: ignore
 
-    def headerData(self, section: int, orientation: Qt.Orientation, role: int = ...) -> Any:
+    def headerData(self, section: int, orientation: Qt.Orientation, role: int = ...) -> Any:  # noqa: N802
         if role != Qt.ItemDataRole.DisplayRole:
             return None
         if orientation == Qt.Orientation.Horizontal:
