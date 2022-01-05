@@ -2,9 +2,9 @@
     "json.schemas": [
         {
             "fileMatch": [
-                "/tools/build_resources/theme/*"
+                "/tools/build_resources/themes/*"
             ],
-            "url": "/tools/build_resources/theme/validate.json"
+            "url": "/tools/build_resources/themes/validate.json"
         }
     ],
     "python.testing.unittestEnabled": false,
