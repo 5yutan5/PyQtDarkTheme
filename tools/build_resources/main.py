@@ -135,7 +135,7 @@ def _generate_qt_resource_file(svg_dir_path: Path, output_dir_path: Path, theme:
 
     resource_code = multi_replace(resource_code, replacements)
     py_resource_file_path.write_text('"""Module for qt resources system."""\n' + resource_code)
-    subprocess.run(["black", str(py_resource_file_path)])
+    subprocess.run(["black", str(py_resource_file_path), "-l", "119"])
 
 
 def _generate_root_init_file(output_dir_path: Path, themes: list[str], doc_string: str = "", source: str = "") -> None:
