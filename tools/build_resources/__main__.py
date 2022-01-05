@@ -68,7 +68,9 @@ def _parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def _main(only_check: bool = False) -> None:
+def _main() -> None:
+    args = _parse_args()
+    only_check = args.check
     if only_check:
         _console.log("Checking if this commit need to change qdarktheme/themes...")
     color_schemes = [path for path in Path(__file__).parent.glob("themes/*.json") if path.name != "validate.json"]
@@ -80,6 +82,11 @@ def _main(only_check: bool = False) -> None:
         if not changed_files:
             _console.log("There is no change")
             return
+        for file in changed_files:
+            _console.print(str(DIST_DIR_PATH))
+            _console.print((DIST_DIR_PATH / file).read_text())
+            _console.print(str(temp_dir))
+            _console.print((Path(temp_dir) / file).read_text())
         if only_check:
             _console.log("You can change following files: ", changed_files)
             raise Exception(
@@ -96,6 +103,4 @@ def _main(only_check: bool = False) -> None:
 
 
 if __name__ == "__main__":
-    args = _parse_args()
-    only_check = args.check
-    _main(only_check)
+    _main()
