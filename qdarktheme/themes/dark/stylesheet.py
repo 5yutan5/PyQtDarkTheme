@@ -79,9 +79,9 @@ QToolTip {
     border: 1px solid rgba(63.000, 64.000, 66.000, 1.000);
 }
 QSizeGrip {
-  width: 0;
-  height: 0;
-  image: none;
+    width: 0;
+    height: 0;
+    image: none;
 }
 QStatusBar {
     background-color: rgba(42.000, 43.000, 46.000, 1.000);
@@ -611,6 +611,12 @@ QAbstractScrollArea {
 }
 QAbstractScrollArea:disabled {
     selection-background-color: rgba(228.000, 231.000, 235.000, 1.000);
+}
+QAbstractScrollArea > .QWidget {
+    background-color: transparent;
+}
+QAbstractScrollArea > .QWidget > .QWidget {
+    background-color: transparent;
 }
 QTextEdit, QPlainTextEdit {
     background-color: rgba(30.000, 29.000, 30.000, 1.000);
