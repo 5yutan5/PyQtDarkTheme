@@ -86,7 +86,7 @@ def _main(only_check: bool = False) -> None:
                 """You need to change 'qdarktheme/themes' directory. You can use pre-commit command or run
                 'tools/build_resources/__main__.py' file
             pre-commit    : Run 'pre-commit install' and commit the changes
-            python script : Run 'poetry run python -m tools.build_resources''"""
+            python script : Run 'poetry run python -m tools.build_resources'"""
             ) from None
         shutil.rmtree(DIST_DIR_PATH, ignore_errors=True)
         shutil.copytree(temp_dir, DIST_DIR_PATH)

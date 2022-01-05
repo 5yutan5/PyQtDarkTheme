@@ -122,20 +122,21 @@ def _generate_qt_resource_file(svg_dir_path: Path, output_dir_path: Path, theme:
     replacements["PySide6"] = "qdarktheme.qtpy"
     target1 = re.search(r"QtCore\.qRegisterResourceData\(.+\)", resource_code)
     target2 = re.search(r"QtCore\.qUnregisterResourceData\(.+\)", resource_code)
-    if target1 is None or target2 is None:
+    target3 = re.search(r"qt_resource_struct = b\"[\s\S]*?\"", resource_code)
+    if target1 is None or target2 is None or target3 is None:
         raise RuntimeError(
             f"""
             Cannot find QtCore.qRegisterResourceData() or QtCore.qUnregisterResourceData() in {py_resource_file_path}
             """
         )
     for target in (target1, target2):
-        replacements[target.group()] = f"{target.group()}  # type: ignore"
+        replacements[target.group()] = f"{target.group()}  # type: ignore\n"
+    replacements[target3.group()] = f"{target3.group()}\n"
     replacements["qInitResources():"] = "qInitResources():  # noqa: N802"
     replacements["qCleanupResources():"] = "qCleanupResources():  # noqa: N802"
 
     resource_code = multi_replace(resource_code, replacements)
     py_resource_file_path.write_text('"""Module for qt resources system."""\n' + resource_code)
-    subprocess.run(["black", str(py_resource_file_path), "-l", "119"])
 
 
 def _generate_root_init_file(output_dir_path: Path, themes: list[str], doc_string: str = "", source: str = "") -> None:
