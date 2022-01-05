@@ -84,9 +84,9 @@ def _main() -> None:
             return
         for file in changed_files:
             _console.print(str(DIST_DIR_PATH))
-            _console.print((DIST_DIR_PATH / file).read_text())
+            _console.print((DIST_DIR_PATH.parent.parent / file).read_text())
             _console.print(str(temp_dir))
-            _console.print((Path(temp_dir) / file).read_text())
+            _console.print((Path(temp_dir).parent.parent / file).read_text())
         if only_check:
             _console.log("You can change following files: ", changed_files)
             raise Exception(
