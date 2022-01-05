@@ -107,9 +107,8 @@ def _build_template_stylesheet(
 
 def _generate_qt_resource_file(svg_dir_path: Path, output_dir_path: Path, theme: str) -> None:
     qrc = f'<RCC version="1.0"><qresource prefix="qdarktheme/themes/{theme}">'
-    svg_files = sorted(str(file) for file in svg_dir_path.iterdir())
-    for file in svg_files:
-        qrc += f"<file>{svg_dir_path.name}/{Path(file).name}</file>"
+    for file in sorted(file for file in svg_dir_path.iterdir()):
+        qrc += f"<file>{svg_dir_path.name}/{file.name}</file>"
     qrc += "</qresource></RCC>"
 
     with NamedTemporaryFile(suffix=".qrc", dir=str(output_dir_path)) as f:
@@ -123,7 +122,7 @@ def _generate_qt_resource_file(svg_dir_path: Path, output_dir_path: Path, theme:
     replacements["PySide6"] = "qdarktheme.qtpy"
     target1 = re.search(r"QtCore\.qRegisterResourceData\(.+\)", resource_code)
     target2 = re.search(r"QtCore\.qUnregisterResourceData\(.+\)", resource_code)
-    target3 = re.search(r"qt_resource_struct = b\"[\s\S]*?\"", resource_code)
+    target3 = re.search(r"qt_resource_struct = b\"[\s\S]*?\"\n", resource_code)
     if target1 is None or target2 is None or target3 is None:
         raise RuntimeError(
             f"""
