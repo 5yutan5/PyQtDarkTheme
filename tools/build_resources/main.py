@@ -107,8 +107,9 @@ def _build_template_stylesheet(
 
 def _generate_qt_resource_file(svg_dir_path: Path, output_dir_path: Path, theme: str) -> None:
     qrc = f'<RCC version="1.0"><qresource prefix="qdarktheme/themes/{theme}">'
-    for file in svg_dir_path.iterdir():
-        qrc += f"<file>{svg_dir_path.name}/{file.name}</file>"
+    svg_files = sorted(str(file) for file in svg_dir_path.iterdir())
+    for file in svg_files:
+        qrc += f"<file>{svg_dir_path.name}/{Path(file).name}</file>"
     qrc += "</qresource></RCC>"
 
     with NamedTemporaryFile(suffix=".qrc", dir=str(output_dir_path)) as f:
@@ -196,24 +197,11 @@ def compare_all_files(dir1: Path, dir2: Path) -> list[str]:
 
     # Exclude rc_icon.py when the text other than random hash is the same
     for rc_path in [file for file in files_changed if "rc_icons.py" in file]:
-        import difflib
-
-        from rich.console import Console
-
-        console = Console(force_terminal=True)
         resource_code_1 = (dir1 / rc_path).read_text()
         resource_code_2 = (dir2 / rc_path).read_text()
         target1 = re.sub(r"qt_resource_struct = b\"[\s\S]*?\"\n", "", resource_code_1)
         target2 = re.sub(r"qt_resource_struct = b\"[\s\S]*?\"\n", "", resource_code_2)
-        console.print("target1")
-        console.print(target1)
-        console.print("target2")
-        console.print(target2)
-        console.log(target1 == target2)
-        for i in difflib.unified_diff(target1, target2, fromfile="target1", tofile="target2"):
-            console.print(i, end="")
         if target1 == target2:
             files_changed.remove(rc_path)
-            console.log(rc_path)
 
     return [str(dir1.relative_to(Path.cwd()) / file) for file in files_changed]
