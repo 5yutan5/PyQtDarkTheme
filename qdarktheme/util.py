@@ -62,5 +62,5 @@ def get_qdarktheme_root_path() -> Path:
 
 def compare_v(v1: str, operator: str, v2: str) -> bool:
     """Comparing two versions."""
-    v1_list, v2_list = (v.split(".") for v in (v1, v2))
+    v1_list, v2_list = (tuple(map(int, (v.split(".")))) for v in (v1, v2))
     return OPERATORS[operator](v1_list, v2_list)
