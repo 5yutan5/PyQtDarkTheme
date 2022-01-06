@@ -9,6 +9,7 @@ from filecmp import cmpfiles
 from importlib import resources
 from pathlib import Path
 from tempfile import NamedTemporaryFile
+from typing import Sequence
 
 from qdarktheme.util import get_qdarktheme_root_path, multi_replace
 from tools.build_resources.color import RGBA
@@ -175,6 +176,26 @@ def build_resources(build_path: Path, theme_file_paths: list[Path], root_init_fi
     _generate_root_init_file(build_path, themes, root_init_file_doc)
 
 
+def compare_rc_files(dirs: Sequence[Path]) -> list[str]:
+    """Check if the contents of the qt resource files with the same name in the two directories are the same.
+
+    Args:
+        dirs: The directories.
+
+    Returns:
+        list[str]: A list of file names with different contents.
+    """
+    rc_files_changed: list[str] = []
+    exclude_pattern = re.compile(r"qt_resource_struct = b\"[\s\S]*?\"\n")
+    # Exclude rc_icon.py when the text other than random hash is the same
+    for rc_path in dirs[1].glob("**/rc_icons.py"):
+        rc_path = str(rc_path).replace(str(dirs[1]), "")[1:]
+        targets = {exclude_pattern.sub("", (dir / rc_path).read_text()) for dir in dirs}
+        if len(targets) != 1:
+            rc_files_changed.append(rc_path)
+    return rc_files_changed
+
+
 def compare_all_files(dir1: Path, dir2: Path) -> list[str]:
     """Check if the contents of the files with the same name in the two directories are the same.
 
@@ -183,7 +204,7 @@ def compare_all_files(dir1: Path, dir2: Path) -> list[str]:
         dir2: The directory containing files.
 
     Returns:
-        list[str]: A list of file names with different contents。
+        list[str]: A list of file names with different contents.
     """
     target_files = set()
     for file in dir2.glob("**/*"):
@@ -193,14 +214,13 @@ def compare_all_files(dir1: Path, dir2: Path) -> list[str]:
     _, mismatch, err = cmpfiles(dir1, dir2, target_files)
 
     files_changed = mismatch + err
+    rc_files_removed: list[str] = []
 
-    # Exclude rc_icon.py when the text other than random hash is the same
-    for rc_path in [file for file in files_changed if "rc_icons.py" in file]:
-        resource_code_1 = (dir1 / rc_path).read_text()
-        resource_code_2 = (dir2 / rc_path).read_text()
-        target1 = re.sub(r"qt_resource_struct = b\"[\s\S]*?\"\n", "", resource_code_1)
-        target2 = re.sub(r"qt_resource_struct = b\"[\s\S]*?\"\n", "", resource_code_2)
-        if target1 == target2:
-            files_changed.remove(rc_path)
+    rc_files_changed = compare_rc_files((dir1, dir2))
+    for rc_file in [file for file in files_changed if "rc_icons.py" in file]:
+        if rc_file in rc_files_changed:
+            continue
+        files_changed.remove(rc_file)
+        rc_files_removed.append(rc_file)
 
-    return [str(dir1.relative_to(Path.cwd()) / file) for file in files_changed]
+    return [str(file) for file in files_changed]
