@@ -325,13 +325,14 @@ QMenu::right-arrow:disabled {
 examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qscrollbar
 
 --------------------------------------------------------------------------- */
+QScrollBar {
+    background-color: transparent;
+}
 QScrollBar:horizontal {
     height: 7px;
-    margin: 0 6px;
 }
 QScrollBar:vertical {
     width: 7px;
-    margin: 6px 0;
 }
 QScrollBar::handle {
     background-color: $scrollbar-handle;
@@ -339,6 +340,9 @@ QScrollBar::handle {
 }
 QScrollBar::handle:hover {
     background-color: $scrollbar-handle-hover;
+}
+QScrollBar::handle:pressed {
+    background-color: $scrollbar-handle-pressed;
 }
 QScrollBar::handle:horizontal {
     min-width: 8px;

@@ -247,20 +247,24 @@ QMenu::right-arrow {
 QMenu::right-arrow:disabled {
     image: url(${path}/themes/light/svg/chevron_right__icon-foreground-disabled.svg);
 }
+QScrollBar {
+    background-color: transparent;
+}
 QScrollBar:horizontal {
     height: 7px;
-    margin: 0 6px;
 }
 QScrollBar:vertical {
     width: 7px;
-    margin: 6px 0;
 }
 QScrollBar::handle {
-    background-color: rgba(155.000, 155.000, 157.000, 1.000);
+    background-color: rgba(155.000, 155.000, 157.000, 0.737);
     border-radius: 3px;
 }
 QScrollBar::handle:hover {
-    background-color: rgba(117.000, 117.000, 119.000, 1.000);
+    background-color: rgba(117.000, 117.000, 119.000, 0.827);
+}
+QScrollBar::handle:pressed {
+    background-color: rgba(96.000, 96.000, 98.000, 0.933);
 }
 QScrollBar::handle:horizontal {
     min-width: 8px;
