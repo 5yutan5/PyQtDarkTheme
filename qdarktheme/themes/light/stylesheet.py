@@ -728,7 +728,6 @@ QHeaderView {
 QHeaderView::section {
     background-color: rgba(218.000, 220.000, 224.000, 1.000);
     text-align: left;
-    font-size: 13px;
     padding: 0 4px;
     border: none;
 }
