@@ -945,7 +945,6 @@ QHeaderView {
 QHeaderView::section {
     background-color: $headerview-section;
     text-align: left;
-    font-size: 13px;
     padding: 0 4px;
     border: none;
 }
