@@ -8,7 +8,7 @@ from tempfile import TemporaryDirectory
 
 from rich.console import Console
 
-from tools.build_resources.main import DIST_DIR_PATH, build_resources, compare_all_files
+from tools.build_resources.main import DIST_DIR_PATH, build_resources, compare_all_files, compare_rc_files
 
 ROOT_INIT_DOC = '''"""Package including resources.
 
@@ -78,23 +78,32 @@ def _main() -> None:
     with TemporaryDirectory() as temp_dir:
         build_resources(Path(temp_dir), color_schemes, ROOT_INIT_DOC)
         # Refresh dist dir
-        changed_files = compare_all_files(DIST_DIR_PATH, Path(temp_dir))
-        if not changed_files:
+        files_changed = compare_all_files(DIST_DIR_PATH, Path(temp_dir))
+        if not files_changed:
             _console.log("There is no change")
             return
         if only_check:
-            _console.log("You can change following files: ", changed_files)
+            _console.log("You should change following files: ", files_changed)
             raise Exception(
-                """You need to change 'qdarktheme/themes' directory. You can use pre-commit command or run
-                'tools/build_resources/__main__.py' file
+                """You can change './qdarktheme/themes' directory, by running pre-commit command or tools.build_resources
             pre-commit    : Run 'pre-commit install' and commit the changes
             python script : Run 'poetry run python -m tools.build_resources'"""
             ) from None
+
+        rc_files_changed = compare_rc_files((DIST_DIR_PATH, Path(temp_dir)))
+        for rc_file in [file for file in files_changed if "rc_icons.py" in file]:
+            if rc_file in rc_files_changed:
+                continue
+            temp_rc_file = Path(temp_dir) / rc_file
+            dist_rc_file = DIST_DIR_PATH / rc_file
+            temp_rc_file.write_text(dist_rc_file.read_text())
+            files_changed.remove(rc_file)
+
         shutil.rmtree(DIST_DIR_PATH, ignore_errors=True)
         shutil.copytree(temp_dir, DIST_DIR_PATH)
 
     _console.log("Build finished!", style="green")
-    _console.log("Changed contents: ", changed_files)
+    _console.log("Changed contents: ", files_changed)
 
 
 if __name__ == "__main__":
