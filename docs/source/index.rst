@@ -20,8 +20,8 @@ Dark      Light
 
 * A flat Dark and Light theme
 * Support PySide and PyQt
-* Support some freezing library(PyInstaller, cx_Freeze and etc...)
-* Resolve the differences of style between Qt versions
+* Support some freezing library(PyInstaller, cx_Freeze)
+* Resolve the style differences between Qt versions
 * QPalette of dark and light theme
 
 

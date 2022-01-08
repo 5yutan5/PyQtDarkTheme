@@ -20,10 +20,10 @@ Check out the [complete documentation](https://pyqtdarktheme.readthedocs.io).
 
 ## Features
 
-- A flat Dark and Light theme
+- A flat dark and light theme
 - Support PySide and PyQt
-- Support some freezing library(PyInstaller, cx_Freeze and etc...)
-- Resolve the differences of style between Qt versions
+- Support some freezing library(PyInstaller, cx_Freeze)
+- Resolve the style differences between Qt versions
 - QPalette of dark and light theme
 
 ## Themes
@@ -70,7 +70,7 @@ main_win = QMainWindow()
 push_button = QPushButton("PyQtDarkTheme!!")
 main_win.setCentralWidget(push_button)
 
-# Default is dark theme
+# Apply dark theme to Qt application
 app.setStyleSheet(qdarktheme.load_stylesheet())
 
 main_win.show()
@@ -107,8 +107,8 @@ For example, you can apply a link color to your application.
 ```Python
 import sys
 
-from PyQt6.QtGui import QPalette
-from PyQt6.QtWidgets import QApplication
+from PyQt5.QtGui import QPalette
+from PyQt5.QtWidgets import QApplication
 
 import qdarktheme
 
@@ -117,6 +117,7 @@ dark_palette = qdarktheme.load_palette()
 palette = app.palette()
 palette.setColor(QPalette.ColorRole.Link, dark_palette.link().color())
 app.setPalette(palette)
+
 ```
 
 Further information can be found in our docs:
@@ -133,7 +134,7 @@ python -m qdarktheme.widget_gallery
 
 ## License
 
-The svg file for the PyQtDarkTheme are derived [Material design icons](https://fonts.google.com/icons)(Apache License Version 2.0). Qt stylesheets are originally fork of [QDarkStyleSheet](https://github.com/ColinDuquesnoy/QDarkStyleSheet)(MIT License). Other files are covered by PyQtDarkTheme's MIT license.
+The svg files for the PyQtDarkTheme are derived [Material design icons](https://fonts.google.com/icons)(Apache License Version 2.0). Qt stylesheets are originally fork of [QDarkStyleSheet](https://github.com/ColinDuquesnoy/QDarkStyleSheet)(MIT License). Other files are covered by PyQtDarkTheme's MIT license.
 
 ## Contributing
 
