@@ -1,4 +1,4 @@
-"""Module setting up ui of home window."""
+"""Module setting up ui of widgets window."""
 from __future__ import annotations
 
 from typing import Any
@@ -37,7 +37,7 @@ from qdarktheme.qtpy.QtWidgets import (
 
 class _Group1(QGroupBox):
     def __init__(self) -> None:
-        super().__init__("Group 1")
+        super().__init__("Buttons")
 
         # Widgets
         group_push = QGroupBox("Push Button")
@@ -108,7 +108,7 @@ class _Group1(QGroupBox):
 
 class _Group2(QGroupBox):
     def __init__(self) -> None:
-        super().__init__("Group 2")
+        super().__init__("Line boxes")
         # Widgets
         group_spinbox = QGroupBox("Spinbox")
         group_combobox = QGroupBox("Combobox")
@@ -129,7 +129,6 @@ class _Group2(QGroupBox):
         combobox_line_edit.setEditable(True)
 
         lineedit.setPlaceholderText("Placeholder text")
-
         date_time_edit_calendar.setCalendarPopup(True)
 
         # Layout
@@ -197,7 +196,7 @@ class _TableModel(QAbstractTableModel):
 
 class _Group3(QGroupBox):
     def __init__(self) -> None:
-        super().__init__("Group 3")
+        super().__init__("Scroll area and QTabWidget (QGroupBox.flat = True)")
 
         # Widgets
         tab_widget = QTabWidget()
@@ -208,6 +207,7 @@ class _Group3(QGroupBox):
 
         # Setup widgets
         self.setCheckable(True)
+        self.setFlat(True)
         tab_widget.setTabsClosable(True)
         tab_widget.setMovable(True)
         tab_text_edit.append("<b>PyQtDarkTheme</b>")
@@ -240,7 +240,7 @@ class _Group3(QGroupBox):
 
 class _Group4(QGroupBox):
     def __init__(self) -> None:
-        super().__init__("Group 4")
+        super().__init__("QToolBox")
         # Widgets
         toolbox = QToolBox()
         slider = QSlider(Qt.Orientation.Horizontal)
@@ -265,8 +265,8 @@ class _Group4(QGroupBox):
         v_layout.addWidget(toolbox)
 
 
-class HomeUI:
-    """The ui class of Home window."""
+class WidgetsUI:
+    """The ui class of widgets window."""
 
     def setup_ui(self, win: QWidget) -> None:
         """Set up ui."""
@@ -282,14 +282,13 @@ class HomeUI:
         h_splitter_2.addWidget(_Group3())
         h_splitter_2.addWidget(_Group4())
 
-        v_layout = QVBoxLayout()
+        widget_container = QWidget()
+        v_layout = QVBoxLayout(widget_container)
         v_layout.addWidget(h_splitter_1)
         v_layout.addWidget(h_splitter_2)
 
-        widget = QWidget()
-        widget.setLayout(v_layout)
         scroll_area = QScrollArea()
-        scroll_area.setWidget(widget)
+        scroll_area.setWidget(widget_container)
 
         v_main_layout = QVBoxLayout(win)
         v_main_layout.addWidget(scroll_area)
