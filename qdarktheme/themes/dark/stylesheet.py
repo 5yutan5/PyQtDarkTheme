@@ -311,7 +311,8 @@ QPushButton:pressed,
 QPushButton[flat=true]:pressed {
     background-color: rgba(46.000, 70.000, 94.000, 1.000);
 }
-QPushButton:checked {
+QPushButton:checked,
+QPushButton[flat=true]:checked {
     border-color: rgba(138.000, 180.000, 247.000, 1.000);
 }
 QPushButton:disabled {
@@ -319,8 +320,6 @@ QPushButton:disabled {
 }
 QPushButton[flat=true] {
     background-color: transparent;
-}
-QPushButton[flat=true]:!checked {
     border-color: transparent;
 }
 QDialogButtonBox QPushButton {

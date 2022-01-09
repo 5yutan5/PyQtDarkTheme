@@ -404,7 +404,8 @@ QPushButton:pressed,
 QPushButton[flat=true]:pressed {
     background-color: $button-pressed;
 }
-QPushButton:checked {
+QPushButton:checked,
+QPushButton[flat=true]:checked {
     border-color: $highlight;
 }
 QPushButton:disabled {
@@ -413,8 +414,6 @@ QPushButton:disabled {
 
 QPushButton[flat=true] {
     background-color: transparent;
-}
-QPushButton[flat=true]:!checked {
     border-color: transparent;
 }
 
