@@ -581,6 +581,12 @@ $env_patch{"version": ">=6.0.0", "value": "frameShape=NoFrame"}
     border-color: transparent;
     padding: 0;
 }
+.QFrame[
+$env_patch{"version": "<6.0.0", "value": "frameShape=\\\"0\\\""}
+$env_patch{"version": ">=6.0.0", "value": "frameShape=NoFrame"}
+] {
+    border: none;
+}
 QFrame[
 $env_patch{"version": "<6.0.0", "value": "frameShape=\\\"2\\\""}
 $env_patch{"version": ">=6.0.0", "value": "frameShape=Panel"}
