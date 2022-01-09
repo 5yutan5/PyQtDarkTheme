@@ -591,7 +591,7 @@ QFrame[
 $env_patch{"version": "<6.0.0", "value": "frameShape=\\\"2\\\""}
 $env_patch{"version": ">=6.0.0", "value": "frameShape=Panel"}
 ] {
-    border: transparent;
+    border-color: rgba(225.000, 229.000, 234.000, 1.000);
     background-color: rgba(225.000, 229.000, 234.000, 1.000);
 }
 QFrame[

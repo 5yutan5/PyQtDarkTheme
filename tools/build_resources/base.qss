@@ -736,7 +736,7 @@ QFrame[
 $env_patch{"version": "<6.0.0", "value": "frameShape=\\\"2\\\""}
 $env_patch{"version": ">=6.0.0", "value": "frameShape=Panel"}
 ] {
-    border: transparent;
+    border-color: $panel;
     background-color: $panel;
 }
 /* HLine */
