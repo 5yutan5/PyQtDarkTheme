@@ -111,6 +111,7 @@ QRadioButton {
     border-width: 2px 0;
     border-style: solid;
     border-color: transparent;
+    background-color: transparent;
 }
 QCheckBox:hover,
 QRadioButton:hover {
@@ -151,6 +152,10 @@ QGroupBox::title {
     top: 2px;
     spacing: 6px;
     margin: 0 2px 0 2px;
+}
+QGroupBox[flat=true] {
+    border-color: transparent;
+    padding: 2px 0 0 0;
 }
 QMenuBar {
     background-color: rgba(248.000, 249.000, 250.000, 1.000);
@@ -298,25 +303,30 @@ QPushButton {
     border-radius: 4px;
     color: rgba(0.000, 129.000, 219.000, 1.000);
 }
-QPushButton:hover {
+QPushButton:hover,
+QPushButton[flat=true]:hover {
     background-color: rgba(226.000, 234.000, 251.000, 1.000);
 }
-QPushButton:pressed {
+QPushButton:pressed,
+QPushButton[flat=true]:pressed {
     background-color: rgba(181.000, 202.000, 244.000, 1.000);
 }
-QPushButton:checked {
+QPushButton:checked,
+QPushButton[flat=true]:checked {
     border-color: rgba(0.000, 129.000, 219.000, 1.000);
 }
 QPushButton:disabled {
     border-color: rgba(218.000, 220.000, 224.000, 1.000);
 }
-QPushButton[flat=true]:!checked {
+QPushButton[flat=true] {
+    background-color: transparent;
     border-color: transparent;
 }
 QDialogButtonBox QPushButton {
     min-width: 65px;
 }
 QToolButton {
+    background-color: transparent;
     padding: 5px;
     border-radius: 2px;
     spacing: 2px;
@@ -392,11 +402,18 @@ QComboBox::item:selected {
     color: rgba(77.000, 81.000, 87.000, 1.000);
 }
 QComboBox QAbstractItemView {
+    background-color: rgba(255.000, 255.000, 255.000, 1.000);
     margin: 0;
     border: 1px solid rgba(218.000, 220.000, 224.000, 1.000);
     selection-background-color: rgba(76.000, 166.000, 229.000, 1.000);
     selection-color: rgba(77.000, 81.000, 87.000, 1.000);
     padding: 2px;
+}
+QComboBox QAbstractItemView[
+$env_patch{"version": "<6.0.0", "value": "frameShape=\\\"0\\\""}
+$env_patch{"version": ">=6.0.0", "value": "frameShape=NoFrame"}
+] {
+    border-color: rgba(218.000, 220.000, 224.000, 1.000);
 }
 QSlider {
     padding: 2px 0;
@@ -549,12 +566,48 @@ QDockWidget::title {
 QDockWidget::close-button:hover,
 QDockWidget::float-button:hover {
     background-color: rgba(226.000, 234.000, 251.000, 1.000);
-    border-radius: 2px
+    border-radius: 2px;
 }
 QFrame {
     border: 1px solid rgba(218.000, 220.000, 224.000, 1.000);
     padding: 1px;
     border-radius: 4px;
+}
+QFrame[
+$env_patch{"version": "<6.0.0", "value": "frameShape=\\\"0\\\""}
+$env_patch{"version": ">=6.0.0", "value": "frameShape=NoFrame"}
+] {
+    border-color: transparent;
+    padding: 0;
+}
+.QFrame[
+$env_patch{"version": "<6.0.0", "value": "frameShape=\\\"0\\\""}
+$env_patch{"version": ">=6.0.0", "value": "frameShape=NoFrame"}
+] {
+    border: none;
+}
+QFrame[
+$env_patch{"version": "<6.0.0", "value": "frameShape=\\\"2\\\""}
+$env_patch{"version": ">=6.0.0", "value": "frameShape=Panel"}
+] {
+    border-color: rgba(225.000, 229.000, 234.000, 1.000);
+    background-color: rgba(225.000, 229.000, 234.000, 1.000);
+}
+QFrame[
+$env_patch{"version": "<6.0.0", "value": "frameShape=\\\"4\\\""}
+$env_patch{"version": ">=6.0.0", "value": "frameShape=HLine"}
+] {
+    max-height: 2px;
+    border: none;
+    background-color: rgba(218.000, 220.000, 224.000, 1.000);
+}
+QFrame[
+$env_patch{"version": "<6.0.0", "value": "frameShape=\\\"5\\\""}
+$env_patch{"version": ">=6.0.0", "value": "frameShape=VLine"}
+] {
+    max-width: 2px;
+    border: none;
+    background-color: rgba(218.000, 220.000, 224.000, 1.000);
 }
 QLCDNumber {
     color: rgba(77.000, 81.000, 87.000, 1.000);
@@ -669,7 +722,7 @@ QAbstractItemView QLineEdit,
 QAbstractItemView QAbstractSpinBox,
 QAbstractItemView QComboBox,
 QAbstractItemView QAbstractButton {
-    padding: 0px;
+    padding: 0;
     margin: 1px;
 }
 QTreeView::branch {
@@ -771,7 +824,7 @@ QHeaderView::up-arrow::horizontal {
 }
 QHeaderView::down-arrow::vertical,
 QHeaderView::up-arrow::vertical {
-    height: 0px;
+    height: 0;
 }
 QTreeView[sortingEnabled="false"] QHeaderView::down-arrow,
 QTreeView[sortingEnabled="false"] QHeaderView::up-arrow,
@@ -931,7 +984,7 @@ QStatusBar > QMenu {
     $env_patch{"version": ">=6.0.0", "value": "border-radius: 0; margin: 0"};
 }
 PlotWidget {
-    padding: 0px;
+    padding: 0;
 }
 
 """

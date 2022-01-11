@@ -212,15 +212,4 @@ def compare_all_files(dir1: Path, dir2: Path) -> list[str]:
             continue
         target_files.add(str(file).replace(str(dir2), "")[1:])
     _, mismatch, err = cmpfiles(dir1, dir2, target_files)
-
-    files_changed = mismatch + err
-    rc_files_removed: list[str] = []
-
-    rc_files_changed = compare_rc_files((dir1, dir2))
-    for rc_file in [file for file in files_changed if "rc_icons.py" in file]:
-        if rc_file in rc_files_changed:
-            continue
-        files_changed.remove(rc_file)
-        rc_files_removed.append(rc_file)
-
-    return [str(file) for file in files_changed]
+    return [str(file) for file in mismatch + err]

@@ -47,6 +47,10 @@
             "description": "Border color",
             "$ref": "#/definitions/color_code"
         },
+        "panel": {
+            "description": "Panel background color",
+            "$ref": "#/definitions/color_code"
+        },
         "popup": {
             "description": "Pop-up color",
             "$ref": "#/definitions/color_code"
@@ -274,6 +278,7 @@
         "highlight-text",
         "text-disabled",
         "border",
+        "panel",
         "popup",
         "popup-text",
         "popup-item-selected",

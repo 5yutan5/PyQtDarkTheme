@@ -156,6 +156,7 @@ QRadioButton {
     border-width: 2px 0;
     border-style: solid;
     border-color: transparent;
+    background-color: transparent;
 }
 QCheckBox:hover,
 QRadioButton:hover {
@@ -204,6 +205,11 @@ QGroupBox::title {
     top: 2px;
     spacing: 6px;
     margin: 0 2px 0 2px;
+}
+
+QGroupBox[flat=true] {
+    border-color: transparent;
+    padding: 2px 0 0 0;
 }
 
 /* QMenuBar ---------------------------------------------------------------
@@ -390,20 +396,24 @@ QPushButton {
     border-radius: 4px;
     color: $highlight;
 }
-QPushButton:hover {
+QPushButton:hover,
+QPushButton[flat=true]:hover {
     background-color: $button-hover;
 }
-QPushButton:pressed {
+QPushButton:pressed,
+QPushButton[flat=true]:pressed {
     background-color: $button-pressed;
 }
-QPushButton:checked {
+QPushButton:checked,
+QPushButton[flat=true]:checked {
     border-color: $highlight;
 }
 QPushButton:disabled {
     border-color: $button-disabled;
 }
 
-QPushButton[flat=true]:!checked {
+QPushButton[flat=true] {
+    background-color: transparent;
     border-color: transparent;
 }
 
@@ -420,6 +430,7 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtoolbutto
 
 --------------------------------------------------------------------------- */
 QToolButton {
+    background-color: transparent;
     padding: 5px;
     border-radius: 2px;
     spacing: 2px;
@@ -462,7 +473,9 @@ QToolButton::menu-arrow {
     height: 8px;
     width: 8px;
 }
-QToolButton[popupMode="1"] { /* MenuButtonPopup */
+
+/* MenuButtonPopup */
+QToolButton[popupMode="1"] {
     padding-right: 14px;
 }
 
@@ -497,17 +510,25 @@ QComboBox::down-arrow:disabled {
 }
 /* Setting color background color of selected item when editable is false. */
 QComboBox::item:selected {
-    border: none;  /* With this setting, the indicator border disappears. */
+    border: none;  /* This setting remove the border of indicator. */
     background-color: $scrollarea-highlight;
     color: $scrollarea-highlight-text;
 }
 
 QComboBox QAbstractItemView {
+    background-color: $popup;
     margin: 0;
     border: 1px solid $border;
     selection-background-color: $scrollarea-highlight;
     selection-color: $scrollarea-highlight-text;
     padding: 2px;
+}
+/* QAbstractItemView of QComboBox is NoFrame. Override default settings and show border. */
+QComboBox QAbstractItemView[
+$env_patch{"version": "<6.0.0", "value": "frameShape=\\\"0\\\""}
+$env_patch{"version": ">=6.0.0", "value": "frameShape=NoFrame"}
+] {
+    border-color: $border;
 }
 
 /* QSlider ----------------------------------------------------------------
@@ -682,7 +703,7 @@ QDockWidget::title. Therefore, we need to set it again here.
 QDockWidget::close-button:hover,
 QDockWidget::float-button:hover {
     background-color: $button-hover;
-    border-radius: 2px
+    border-radius: 2px;
 }
 
 /* QFrame -----------------------------------------------------------------
@@ -695,7 +716,46 @@ QFrame {
     padding: 1px;
     border-radius: 4px;
 }
-
+/* NoFrame */
+QFrame[
+$env_patch{"version": "<6.0.0", "value": "frameShape=\\\"0\\\""}
+$env_patch{"version": ">=6.0.0", "value": "frameShape=NoFrame"}
+] {
+    border-color: transparent;
+    padding: 0;
+}
+.QFrame[
+$env_patch{"version": "<6.0.0", "value": "frameShape=\\\"0\\\""}
+$env_patch{"version": ">=6.0.0", "value": "frameShape=NoFrame"}
+] {
+    border: none;
+}
+/* Panel */
+QFrame[
+$env_patch{"version": "<6.0.0", "value": "frameShape=\\\"2\\\""}
+$env_patch{"version": ">=6.0.0", "value": "frameShape=Panel"}
+] {
+    border-color: $panel;
+    background-color: $panel;
+}
+/* HLine */
+QFrame[
+$env_patch{"version": "<6.0.0", "value": "frameShape=\\\"4\\\""}
+$env_patch{"version": ">=6.0.0", "value": "frameShape=HLine"}
+] {
+    max-height: 2px;
+    border: none;
+    background-color: $border;
+}
+/* VLine */
+QFrame[
+$env_patch{"version": "<6.0.0", "value": "frameShape=\\\"5\\\""}
+$env_patch{"version": ">=6.0.0", "value": "frameShape=VLine"}
+] {
+    max-width: 2px;
+    border: none;
+    background-color: $border;
+}
 /* QLCDNumber -------------------------------------------------------------
 
 --------------------------------------------------------------------------- */
@@ -864,7 +924,7 @@ QAbstractItemView QLineEdit,
 QAbstractItemView QAbstractSpinBox,
 QAbstractItemView QComboBox,
 QAbstractItemView QAbstractButton {
-    padding: 0px;
+    padding: 0;
     margin: 1px;
 }
 
@@ -988,7 +1048,7 @@ QHeaderView::up-arrow::horizontal {
 }
 QHeaderView::down-arrow::vertical,
 QHeaderView::up-arrow::vertical {
-    height: 0px;
+    height: 0;
 }
 
 QTreeView[sortingEnabled="false"] QHeaderView::down-arrow,
@@ -1203,5 +1263,5 @@ QStatusBar > QMenu {
 PlotWidget {
     /* Fix cut labels in plots
     https://github.com/ColinDuquesnoy/QDarkStyleSheet/issues/134 */
-    padding: 0px;
+    padding: 0;
 }

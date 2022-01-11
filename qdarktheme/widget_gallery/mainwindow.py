@@ -5,7 +5,6 @@ from qdarktheme.qtpy.QtGui import QAction, QActionGroup, QFont, QIcon
 from qdarktheme.qtpy.QtWidgets import (
     QApplication,
     QColorDialog,
-    QDockWidget,
     QFileDialog,
     QFontDialog,
     QMainWindow,
@@ -13,49 +12,24 @@ from qdarktheme.qtpy.QtWidgets import (
     QSizePolicy,
     QStackedWidget,
     QStatusBar,
-    QTextEdit,
     QToolBar,
     QToolButton,
     QWidget,
 )
 from qdarktheme.util import get_qdarktheme_root_path
-from qdarktheme.widget_gallery.home_ui import HomeUI
-
-
-class _DockUI:
-    def setup_ui(self, main_win: QMainWindow) -> None:
-        # Attribute
-        left_dock = QDockWidget("Left dock")
-        right_dock = QDockWidget("Right dock")
-        top_dock = QDockWidget("Top dock")
-        bottom_dock = QDockWidget("Bottom dock")
-
-        # Setup ui
-        left_dock.setWidget(QTextEdit("This is the left widget."))
-        right_dock.setWidget(QTextEdit("This is the right widget."))
-        top_dock.setWidget(QTextEdit("This is the top widget."))
-        bottom_dock.setWidget(QTextEdit("This is the bottom widget."))
-        for dock in (left_dock, right_dock, top_dock, bottom_dock):
-            dock.setAllowedAreas(
-                Qt.DockWidgetArea.LeftDockWidgetArea
-                | Qt.DockWidgetArea.RightDockWidgetArea
-                | Qt.DockWidgetArea.BottomDockWidgetArea
-                | Qt.DockWidgetArea.TopDockWidgetArea
-            )
-
-        # Layout
-        main_win.setCentralWidget(QTextEdit("This is the central widget."))
-        main_win.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, left_dock)
-        main_win.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, right_dock)
-        main_win.addDockWidget(Qt.DockWidgetArea.TopDockWidgetArea, top_dock)
-        main_win.addDockWidget(Qt.DockWidgetArea.BottomDockWidgetArea, bottom_dock)
+from qdarktheme.widget_gallery.ui.dock_ui import DockUI
+from qdarktheme.widget_gallery.ui.frame_ui import FrameUI
+from qdarktheme.widget_gallery.ui.widgets_ui import WidgetsUI
 
 
 class _WidgetGalleryUI:
     def setup_ui(self, main_win: QMainWindow) -> None:
         # Actions
-        self.action_change_home = QAction(QIcon("icons:home_24dp.svg"), "Move to home")
-        self.action_change_dock = QAction(QIcon("icons:flip_to_front_24dp.svg"), "Move to dock")
+        self.actions_page = [
+            QAction(QIcon("icons:widgets_24dp.svg"), "Move to widgets"),
+            QAction(QIcon("icons:flip_to_front_24dp.svg"), "Move to dock"),
+            QAction(QIcon("icons:crop_din_24dp.svg"), "Move to frame"),
+        ]
         self.action_open_folder = QAction(QIcon("icons:folder_open_24dp.svg"), "Open folder dialog")
         self.action_open_color_dialog = QAction(QIcon("icons:palette_24dp.svg"), "Open color dialog")
         self.action_open_font_dialog = QAction(QIcon("icons:font_download_24dp.svg"), "Open font dialog")
@@ -78,18 +52,17 @@ class _WidgetGalleryUI:
         spacer = QToolButton()
 
         # Setup Actions
-        self.action_change_home.setCheckable(True)
-        self.action_change_dock.setCheckable(True)
-        self.action_change_home.setChecked(True)
-        action_group_toolbar.addAction(self.action_change_home)
-        action_group_toolbar.addAction(self.action_change_dock)
+        for action in self.actions_page:
+            action.setCheckable(True)
+            action_group_toolbar.addAction(action)
+        self.actions_page[0].setChecked(True)
 
         # Setup Widgets
         spacer.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
         spacer.setEnabled(False)
 
         activitybar.setMovable(False)
-        activitybar.addActions((self.action_change_home, self.action_change_dock))
+        activitybar.addActions(self.actions_page)
         activitybar.addWidget(spacer)
         activitybar.addWidget(tool_btn_settings)
 
@@ -121,12 +94,10 @@ class _WidgetGalleryUI:
         self.action_enable.setEnabled(False)
 
         # Layout
-        stack_1 = QWidget()
-        HomeUI().setup_ui(stack_1)
-        self.stack_widget.addWidget(stack_1)
-        stack_2 = QMainWindow()
-        _DockUI().setup_ui(stack_2)
-        self.stack_widget.addWidget(stack_2)
+        for ui in (WidgetsUI, DockUI, FrameUI):
+            container = QWidget()
+            ui().setup_ui(container)
+            self.stack_widget.addWidget(container)
 
         self.central_window.setCentralWidget(self.stack_widget)
         self.central_window.addToolBar(toolbar)
@@ -148,8 +119,6 @@ class WidgetGallery(QMainWindow):
         self._ui.setup_ui(self)
 
         # Signal
-        self._ui.action_change_home.triggered.connect(self._change_page)
-        self._ui.action_change_dock.triggered.connect(self._change_page)
         self._ui.action_open_folder.triggered.connect(
             lambda: QFileDialog.getOpenFileName(self, "Open File", options=QFileDialog.Option.DontUseNativeDialog)
         )
@@ -163,11 +132,19 @@ class WidgetGallery(QMainWindow):
         self._ui.action_disable.triggered.connect(self._toggle_state)
         for action in self._ui.actions_theme:
             action.triggered.connect(self._change_theme)
+        for action in self._ui.actions_page:
+            action.triggered.connect(self._change_page)
 
     @Slot()
     def _change_page(self) -> None:
         action_name: str = self.sender().text()  # type: ignore
-        self._ui.stack_widget.setCurrentIndex(0 if action_name == "Move to home" else 1)
+        if "widgets" in action_name:
+            index = 0
+        elif "dock" in action_name:
+            index = 1
+        else:
+            index = 2
+        self._ui.stack_widget.setCurrentIndex(index)
 
     @Slot()
     def _toggle_state(self) -> None:
