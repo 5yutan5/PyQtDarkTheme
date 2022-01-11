@@ -63,7 +63,7 @@ black = "^21.12b0"
 isort = "^5.10.1"
 pre-commit = "^2.16.0"
 pyinstaller = "^4.7"
-rich = "^10.16.1"
+rich = "^11.0.0"
 pep8-naming = "^0.12.1"
 
 [tool.poetry.extras]
