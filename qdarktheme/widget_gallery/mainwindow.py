@@ -50,9 +50,9 @@ class _WidgetGalleryUI:
         # Widgets
         self.central_window = QMainWindow()
         self.stack_widget = QStackedWidget()
+        self.toolbar = QToolBar("Toolbar")
 
         activitybar = QToolBar("activitybar")
-        toolbar = QToolBar("Toolbar")
         statusbar = QStatusBar()
         menubar = QMenuBar()
         tool_btn_settings, tool_btn_theme, tool_btn_enable, tool_btn_disable, tool_btn_message_box = (
@@ -85,11 +85,11 @@ class _WidgetGalleryUI:
         tool_btn_theme.setIcon(QIcon("icons:contrast_24dp.svg"))
         tool_btn_theme.setPopupMode(QToolButton.ToolButtonPopupMode.InstantPopup)
 
-        toolbar.addActions((self.action_open_folder, self.action_open_color_dialog, self.action_open_font_dialog))
-        toolbar.addSeparator()
-        toolbar.addWidget(QLabel("Popup"))
-        toolbar.addWidget(tool_btn_message_box)
-        toolbar.addWidget(tool_btn_theme)
+        self.toolbar.addActions((self.action_open_folder, self.action_open_color_dialog, self.action_open_font_dialog))
+        self.toolbar.addSeparator()
+        self.toolbar.addWidget(QLabel("Popup"))
+        self.toolbar.addWidget(tool_btn_message_box)
+        self.toolbar.addWidget(tool_btn_theme)
 
         statusbar.addPermanentWidget(tool_btn_enable)
         statusbar.addPermanentWidget(tool_btn_disable)
@@ -117,7 +117,7 @@ class _WidgetGalleryUI:
             self.stack_widget.addWidget(container)
 
         self.central_window.setCentralWidget(self.stack_widget)
-        self.central_window.addToolBar(toolbar)
+        self.central_window.addToolBar(self.toolbar)
 
         main_win.setCentralWidget(self.central_window)
         main_win.addToolBar(Qt.ToolBarArea.LeftToolBarArea, activitybar)
@@ -169,6 +169,7 @@ class WidgetGallery(QMainWindow):
     def _toggle_state(self) -> None:
         state: str = self.sender().text()  # type: ignore
         self._ui.central_window.centralWidget().setEnabled(state == "Enable")
+        self._ui.toolbar.setEnabled(state == "Enable")
         self._ui.action_enable.setEnabled(state == "Disable")
         self._ui.action_disable.setEnabled(state == "Enable")
         self.statusBar().showMessage(state)

@@ -484,6 +484,12 @@ $env_patch{"version": ">=6.0.0", "value": "popupMode=MenuButtonPopup"}
     width: 18px;
     image: $url{"icon": "expand_less.svg", "id": "icon-foreground", "rotate": "180"};
 }
+QToolButton[
+$env_patch{"version": "<6.0.0", "value": "popupMode=\\\"1\\\""}
+$env_patch{"version": ">=6.0.0", "value": "popupMode=MenuButtonPopup"}
+]::menu-button:disabled {
+    image: $url{"icon": "expand_less.svg", "id": "icon-foreground-disabled", "rotate": "180"};
+}
 
 /* QComboBox --------------------------------------------------------------
 

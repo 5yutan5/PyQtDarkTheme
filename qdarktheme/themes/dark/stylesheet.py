@@ -377,6 +377,12 @@ $env_patch{"version": ">=6.0.0", "value": "popupMode=MenuButtonPopup"}
     width: 18px;
     image: url(${path}/themes/dark/svg/expand_less__icon-foreground__rotate-180.svg);
 }
+QToolButton[
+$env_patch{"version": "<6.0.0", "value": "popupMode=\\\"1\\\""}
+$env_patch{"version": ">=6.0.0", "value": "popupMode=MenuButtonPopup"}
+]::menu-button:disabled {
+    image: url(${path}/themes/dark/svg/expand_less__icon-foreground-disabled__rotate-180.svg);
+}
 QComboBox {
     border: 1px solid rgba(63.000, 64.000, 66.000, 1.000);
     border-radius: 4px;
