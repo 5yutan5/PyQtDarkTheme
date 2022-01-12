@@ -43,6 +43,7 @@ flake8-comprehensions = "^3.8.0"
 flake8-eradicate = "^1.2.0"
 flake8-rst-docstrings = "^0.2.5"
 flake8-pytest-style = "^1.6.0"
+pep8-naming = "^0.12.1"
 pyproject-flake8 = "^0.0.1-alpha.2"
 
 # pytest
@@ -64,7 +65,6 @@ isort = "^5.10.1"
 pre-commit = "^2.16.0"
 pyinstaller = "^4.7"
 rich = "^11.0.0"
-pep8-naming = "^0.12.1"
 
 [tool.poetry.extras]
 # See https://github.com/readthedocs/readthedocs.org/issues/4912#issuecomment-664002569

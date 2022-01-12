@@ -1,11 +1,12 @@
 """Test WidgetGallery."""
 import pytest
+from pytestqt.qtbot import QtBot
 
 from qdarktheme.widget_gallery.__main__ import WidgetGallery
 
 
 @pytest.fixture()
-def widget_gallery(qtbot) -> WidgetGallery:
+def widget_gallery(qtbot: QtBot) -> WidgetGallery:
     """Create test instance of WidgetGallery."""
     widget_gallery = WidgetGallery()
     qtbot.add_widget(widget_gallery)
@@ -13,19 +14,17 @@ def widget_gallery(qtbot) -> WidgetGallery:
     return widget_gallery
 
 
-def test_change_page(widget_gallery: WidgetGallery) -> None:
-    """Ensure the change page UX works."""
-    for action in widget_gallery._ui.actions_page:
-        action.triggered.emit()
+def test_actions(widget_gallery: WidgetGallery, monkeypatch: pytest.MonkeyPatch) -> None:
+    """Ensure the actions work correctly."""
+    from qdarktheme.qtpy.QtWidgets import QMessageBox
 
+    for message_type in ("question", "information", "warning", "critical"):
+        monkeypatch.setattr(QMessageBox, message_type, lambda a, b, c: (a, b, c))
 
-def test_toggle_state(widget_gallery: WidgetGallery) -> None:
-    """Ensure the toggle state UX works."""
-    for action in [widget_gallery._ui.action_enable, widget_gallery._ui.action_disable]:
-        action.triggered.emit()
-
-
-def test_change_theme(widget_gallery: WidgetGallery) -> None:
-    """Ensure the change theme UX works."""
-    for action in widget_gallery._ui.actions_theme:
+    actions = [widget_gallery._ui.action_enable, widget_gallery._ui.action_disable]
+    actions += widget_gallery._ui.actions_page
+    actions += widget_gallery._ui.actions_theme
+    actions += widget_gallery._ui.actions_message_box
+    actions += widget_gallery._ui.actions_message_box
+    for action in actions:
         action.triggered.emit()

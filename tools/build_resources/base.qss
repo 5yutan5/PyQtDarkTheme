@@ -290,6 +290,10 @@ QToolBar > QToolButton#qt_toolbar_ext_button:disabled {
     image: $url{"icon": "double_arrow.svg", "id": "icon-foreground-disabled"};
 }
 
+QToolBar > QWidget {
+    background-color: transparent;
+}
+
 /* QMenu ------------------------------------------------------------------
 
 examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qmenu
@@ -408,7 +412,8 @@ QPushButton:checked,
 QPushButton[flat=true]:checked {
     border-color: $highlight;
 }
-QPushButton:disabled {
+QPushButton:disabled,
+QPushButton[flat=true]:checked {
     border-color: $button-disabled;
 }
 
@@ -448,17 +453,6 @@ QToolButton:checked {
 QToolButton::checked:disabled {
     background-color: $button-disabled;
 }
-QToolButton::menu-button {
-    padding: 1px;
-    border-radius: 4px;
-    width: 12px;
-}
-QToolButton::menu-button {
-    border: 1px solid transparent;
-}
-QToolButton::menu-button:hover, QToolButton::menu-button:checked:hover {
-    border-color: $highlight;
-}
 QToolButton::menu-indicator {
     height: 18px;
     width: 18px;
@@ -475,8 +469,26 @@ QToolButton::menu-arrow {
 }
 
 /* MenuButtonPopup */
-QToolButton[popupMode="1"] {
+QToolButton[
+$env_patch{"version": "<6.0.0", "value": "popupMode=\\\"1\\\""}
+$env_patch{"version": ">=6.0.0", "value": "popupMode=MenuButtonPopup"}
+] {
     padding-right: 14px;
+}
+QToolButton[
+$env_patch{"version": "<6.0.0", "value": "popupMode=\\\"1\\\""}
+$env_patch{"version": ">=6.0.0", "value": "popupMode=MenuButtonPopup"}
+]::menu-button {
+    border: none;
+    border-radius: 4px;
+    width: 18px;
+    image: $url{"icon": "expand_less.svg", "id": "icon-foreground", "rotate": "180"};
+}
+QToolButton[
+$env_patch{"version": "<6.0.0", "value": "popupMode=\\\"1\\\""}
+$env_patch{"version": ">=6.0.0", "value": "popupMode=MenuButtonPopup"}
+]::menu-button:disabled {
+    image: $url{"icon": "expand_less.svg", "id": "icon-foreground-disabled", "rotate": "180"};
 }
 
 /* QComboBox --------------------------------------------------------------
@@ -1051,10 +1063,10 @@ QHeaderView::up-arrow::vertical {
     height: 0;
 }
 
-QTreeView[sortingEnabled="false"] QHeaderView::down-arrow,
-QTreeView[sortingEnabled="false"] QHeaderView::up-arrow,
-QTableView[sortingEnabled="false"] QHeaderView::down-arrow,
-QTableView[sortingEnabled="false"] QHeaderView::up-arrow {
+QTreeView[sortingEnabled=false] QHeaderView::down-arrow,
+QTreeView[sortingEnabled=false] QHeaderView::up-arrow,
+QTableView[sortingEnabled=false] QHeaderView::down-arrow,
+QTableView[sortingEnabled=false] QHeaderView::up-arrow {
     width: 0;
     padding: 0;
 }
@@ -1146,7 +1158,7 @@ QDateTimeEdit::drop-down:disabled {
 There is a bug in Qt, where the down-arrow icon show when `calendarPopup = True`.
 So hide down-arrow icon when `calendarPopup = True`.
 */
-QDateTimeEdit::down-arrow[calendarPopup="true"] {
+QDateTimeEdit::down-arrow[calendarPopup=true] {
     image: none;
 }
 
@@ -1162,7 +1174,7 @@ QDateTimeEdit QCalendarWidget QAbstractItemView {
     border: none;
 }
 
-/* QFileDialog QFontDialog ---------------------------------------------------
+/* QFileDialog QFontDialog ------------------------------------------------
 
 --------------------------------------------------------------------------- */
 QFileDialog > QFrame QAbstractItemView {

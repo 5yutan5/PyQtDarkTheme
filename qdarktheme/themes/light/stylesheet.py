@@ -222,6 +222,9 @@ QToolBar > QToolButton#qt_toolbar_ext_button {
 QToolBar > QToolButton#qt_toolbar_ext_button:disabled {
     image: url(${path}/themes/light/svg/double_arrow__icon-foreground-disabled.svg);
 }
+QToolBar > QWidget {
+    background-color: transparent;
+}
 QMenu {
     background-color: rgba(255.000, 255.000, 255.000, 1.000);
     padding: 8px 0;
@@ -315,7 +318,8 @@ QPushButton:checked,
 QPushButton[flat=true]:checked {
     border-color: rgba(0.000, 129.000, 219.000, 1.000);
 }
-QPushButton:disabled {
+QPushButton:disabled,
+QPushButton[flat=true]:checked {
     border-color: rgba(218.000, 220.000, 224.000, 1.000);
 }
 QPushButton[flat=true] {
@@ -344,17 +348,6 @@ QToolButton:checked {
 QToolButton::checked:disabled {
     background-color: rgba(218.000, 220.000, 224.000, 1.000);
 }
-QToolButton::menu-button {
-    padding: 1px;
-    border-radius: 4px;
-    width: 12px;
-}
-QToolButton::menu-button {
-    border: 1px solid transparent;
-}
-QToolButton::menu-button:hover, QToolButton::menu-button:checked:hover {
-    border-color: rgba(0.000, 129.000, 219.000, 1.000);
-}
 QToolButton::menu-indicator {
     height: 18px;
     width: 18px;
@@ -369,8 +362,26 @@ QToolButton::menu-arrow {
     height: 8px;
     width: 8px;
 }
-QToolButton[popupMode="1"] {
+QToolButton[
+$env_patch{"version": "<6.0.0", "value": "popupMode=\\\"1\\\""}
+$env_patch{"version": ">=6.0.0", "value": "popupMode=MenuButtonPopup"}
+] {
     padding-right: 14px;
+}
+QToolButton[
+$env_patch{"version": "<6.0.0", "value": "popupMode=\\\"1\\\""}
+$env_patch{"version": ">=6.0.0", "value": "popupMode=MenuButtonPopup"}
+]::menu-button {
+    border: none;
+    border-radius: 4px;
+    width: 18px;
+    image: url(${path}/themes/light/svg/expand_less__icon-foreground__rotate-180.svg);
+}
+QToolButton[
+$env_patch{"version": "<6.0.0", "value": "popupMode=\\\"1\\\""}
+$env_patch{"version": ">=6.0.0", "value": "popupMode=MenuButtonPopup"}
+]::menu-button:disabled {
+    image: url(${path}/themes/light/svg/expand_less__icon-foreground-disabled__rotate-180.svg);
 }
 QComboBox {
     border: 1px solid rgba(218.000, 220.000, 224.000, 1.000);
@@ -826,10 +837,10 @@ QHeaderView::down-arrow::vertical,
 QHeaderView::up-arrow::vertical {
     height: 0;
 }
-QTreeView[sortingEnabled="false"] QHeaderView::down-arrow,
-QTreeView[sortingEnabled="false"] QHeaderView::up-arrow,
-QTableView[sortingEnabled="false"] QHeaderView::down-arrow,
-QTableView[sortingEnabled="false"] QHeaderView::up-arrow {
+QTreeView[sortingEnabled=false] QHeaderView::down-arrow,
+QTreeView[sortingEnabled=false] QHeaderView::up-arrow,
+QTableView[sortingEnabled=false] QHeaderView::down-arrow,
+QTableView[sortingEnabled=false] QHeaderView::up-arrow {
     width: 0;
     padding: 0;
 }
@@ -901,7 +912,7 @@ QDateTimeEdit::drop-down {
 QDateTimeEdit::drop-down:disabled {
     image: url(${path}/themes/light/svg/calendar_today__icon-foreground-disabled.svg);
 }
-QDateTimeEdit::down-arrow[calendarPopup="true"] {
+QDateTimeEdit::down-arrow[calendarPopup=true] {
     image: none;
 }
 QDateTimeEdit QAbstractItemView {
