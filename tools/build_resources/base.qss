@@ -990,17 +990,21 @@ QTableView {
 }
 
 QTableView QTableCornerButton::section {
-    border-right: 2px solid transparent;
-    border-bottom: 2px solid transparent;
     border-top-left-radius: 2px;
     background-color: $headerview-section;
 }
 QTableView QTableCornerButton::section:pressed {
-    background-color: $highlight;
+    background-color: $scrollarea-highlight;
 }
 
-QTableView QHeaderView{
+QTableView > QHeaderView{
     background-color: $tableview;
+}
+QTableView > QHeaderView::section:horizontal:first {
+    margin-left: 1px;
+}
+QTableView > QHeaderView::section:vertical:first {
+    margin-top: 1px;
 }
 
 /* QHeaderView ------------------------------------------------------------

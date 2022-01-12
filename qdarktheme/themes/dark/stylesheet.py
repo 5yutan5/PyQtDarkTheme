@@ -772,16 +772,20 @@ QTableView {
     background-color: rgba(0.000, 0.000, 0.000, 1.000);
 }
 QTableView QTableCornerButton::section {
-    border-right: 2px solid transparent;
-    border-bottom: 2px solid transparent;
     border-top-left-radius: 2px;
     background-color: rgba(63.000, 64.000, 66.000, 1.000);
 }
 QTableView QTableCornerButton::section:pressed {
-    background-color: rgba(138.000, 180.000, 247.000, 1.000);
+    background-color: rgba(0.000, 72.000, 117.000, 1.000);
 }
-QTableView QHeaderView{
+QTableView > QHeaderView{
     background-color: rgba(0.000, 0.000, 0.000, 1.000);
+}
+QTableView > QHeaderView::section:horizontal:first {
+    margin-left: 1px;
+}
+QTableView > QHeaderView::section:vertical:first {
+    margin-top: 1px;
 }
 QHeaderView {
     padding: 0;
