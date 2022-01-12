@@ -1,11 +1,12 @@
 """Test WidgetGallery."""
 import pytest
+from pytestqt.qtbot import QtBot
 
 from qdarktheme.widget_gallery.__main__ import WidgetGallery
 
 
 @pytest.fixture()
-def widget_gallery(qtbot) -> WidgetGallery:
+def widget_gallery(qtbot: QtBot) -> WidgetGallery:
     """Create test instance of WidgetGallery."""
     widget_gallery = WidgetGallery()
     qtbot.add_widget(widget_gallery)
@@ -17,10 +18,8 @@ def test_actions(widget_gallery: WidgetGallery, monkeypatch: pytest.MonkeyPatch)
     """Ensure the actions work correctly."""
     from qdarktheme.qtpy.QtWidgets import QMessageBox
 
-    monkeypatch.setattr(QMessageBox, "question", lambda a, b, c: (a, b, c))
-    monkeypatch.setattr(QMessageBox, "information", lambda a, b, c: (a, b, c))
-    monkeypatch.setattr(QMessageBox, "warning", lambda a, b, c: (a, b, c))
-    monkeypatch.setattr(QMessageBox, "critical", lambda a, b, c: (a, b, c))
+    for message_type in ("question", "information", "warning", "critical"):
+        monkeypatch.setattr(QMessageBox, message_type, lambda a, b, c: (a, b, c))
 
     actions = [widget_gallery._ui.action_enable, widget_gallery._ui.action_disable]
     actions += widget_gallery._ui.actions_page
