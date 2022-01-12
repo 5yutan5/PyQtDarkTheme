@@ -7,8 +7,10 @@ from qdarktheme.qtpy.QtWidgets import (
     QColorDialog,
     QFileDialog,
     QFontDialog,
+    QLabel,
     QMainWindow,
     QMenuBar,
+    QMessageBox,
     QSizePolicy,
     QStackedWidget,
     QStatusBar,
@@ -25,17 +27,23 @@ from qdarktheme.widget_gallery.ui.widgets_ui import WidgetsUI
 class _WidgetGalleryUI:
     def setup_ui(self, main_win: QMainWindow) -> None:
         # Actions
-        self.actions_page = [
-            QAction(QIcon("icons:widgets_24dp.svg"), "Move to widgets"),
-            QAction(QIcon("icons:flip_to_front_24dp.svg"), "Move to dock"),
-            QAction(QIcon("icons:crop_din_24dp.svg"), "Move to frame"),
-        ]
         self.action_open_folder = QAction(QIcon("icons:folder_open_24dp.svg"), "Open folder dialog")
         self.action_open_color_dialog = QAction(QIcon("icons:palette_24dp.svg"), "Open color dialog")
         self.action_open_font_dialog = QAction(QIcon("icons:font_download_24dp.svg"), "Open font dialog")
         self.action_enable = QAction(QIcon("icons:circle_24dp.svg"), "Enable")
         self.action_disable = QAction(QIcon("icons:clear_24dp.svg"), "Disable")
         self.actions_theme = [QAction(theme, main_win) for theme in ["dark", "light"]]
+        self.actions_page = (
+            QAction(QIcon("icons:widgets_24dp.svg"), "Move to widgets"),
+            QAction(QIcon("icons:flip_to_front_24dp.svg"), "Move to dock"),
+            QAction(QIcon("icons:crop_din_24dp.svg"), "Move to frame"),
+        )
+        self.actions_message_box = (
+            QAction(text="Open question dialog"),
+            QAction(text="Open information dialog"),
+            QAction(text="Open warning dialog"),
+            QAction(text="Open critical dialog"),
+        )
 
         action_group_toolbar = QActionGroup(main_win)
 
@@ -47,7 +55,9 @@ class _WidgetGalleryUI:
         toolbar = QToolBar("Toolbar")
         statusbar = QStatusBar()
         menubar = QMenuBar()
-        tool_btn_settings, tool_btn_theme, tool_btn_enable, tool_btn_disable = (QToolButton() for _ in range(4))
+        tool_btn_settings, tool_btn_theme, tool_btn_enable, tool_btn_disable, tool_btn_message_box = (
+            QToolButton() for _ in range(5)
+        )
 
         spacer = QToolButton()
 
@@ -70,11 +80,15 @@ class _WidgetGalleryUI:
         tool_btn_settings.setPopupMode(QToolButton.ToolButtonPopupMode.InstantPopup)
         tool_btn_enable.setDefaultAction(self.action_enable)
         tool_btn_disable.setDefaultAction(self.action_disable)
+        tool_btn_message_box.setIcon(QIcon("icons:announcement_24dp.svg"))
+        tool_btn_message_box.setPopupMode(QToolButton.ToolButtonPopupMode.MenuButtonPopup)
         tool_btn_theme.setIcon(QIcon("icons:contrast_24dp.svg"))
         tool_btn_theme.setPopupMode(QToolButton.ToolButtonPopupMode.InstantPopup)
 
         toolbar.addActions((self.action_open_folder, self.action_open_color_dialog, self.action_open_font_dialog))
         toolbar.addSeparator()
+        toolbar.addWidget(QLabel("Popup"))
+        toolbar.addWidget(tool_btn_message_box)
         toolbar.addWidget(tool_btn_theme)
 
         statusbar.addPermanentWidget(tool_btn_enable)
@@ -87,9 +101,12 @@ class _WidgetGalleryUI:
         menu_theme.addActions(self.actions_theme)
         menu_dialog = menubar.addMenu("&Dialog")
         menu_dialog.addActions((self.action_open_folder, self.action_open_color_dialog, self.action_open_font_dialog))
+        menu_message_box = menu_dialog.addMenu("&Messages")
+        menu_message_box.addActions(self.actions_message_box)
 
         tool_btn_settings.setMenu(menu_toggle)
         tool_btn_theme.setMenu(menu_theme)
+        tool_btn_message_box.setMenu(menu_message_box)
 
         self.action_enable.setEnabled(False)
 
@@ -134,6 +151,8 @@ class WidgetGallery(QMainWindow):
             action.triggered.connect(self._change_theme)
         for action in self._ui.actions_page:
             action.triggered.connect(self._change_page)
+        for action in self._ui.actions_message_box:
+            action.triggered.connect(self._popup_message_box)
 
     @Slot()
     def _change_page(self) -> None:
@@ -158,3 +177,15 @@ class WidgetGallery(QMainWindow):
     def _change_theme(self) -> None:
         theme: str = self.sender().text()  # type: ignore
         QApplication.instance().setStyleSheet(qdarktheme.load_stylesheet(theme))
+
+    @Slot()
+    def _popup_message_box(self) -> None:
+        action_name: str = self.sender().text()  # type: ignore
+        if "question" in action_name:
+            QMessageBox.question(self, "Question", "Question")
+        elif "information" in action_name:
+            QMessageBox.information(self, "Information", "Information")
+        elif "warning" in action_name:
+            QMessageBox.warning(self, "Warning", "Warning")
+        elif "critical" in action_name:
+            QMessageBox.critical(self, "Critical", "Critical")
