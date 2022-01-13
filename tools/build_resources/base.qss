@@ -17,23 +17,23 @@
  */
 
 * {
-    padding: 0px;
-    margin: 0px;
-    border: 0px;
+    padding: 0;
+    margin: 0;
+    border: none;
     border-style: none;
     border-image: none;
-    outline: 0;
+    outline: none;
 }
 QToolBar * {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 
 /* QWidget ----------------------------------------------------------------
 
 --------------------------------------------------------------------------- */
 QWidget {
-    background-color: $base;
+    background: $base;
     color: $text;
     selection-background-color: $highlight;
     selection-color: $highlight-text;
@@ -86,11 +86,11 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qmainwindo
 QMainWindow::separator {
     width: 4px;
     height: 4px;
-    background-color: $border;
+    background: $border;
 }
 QMainWindow::separator:hover,
 QMainWindow::separator:pressed {
-    background-color: $highlight;
+    background: $highlight;
 }
 
 /* QToolTip ---------------------------------------------------------------
@@ -99,7 +99,7 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtooltip
 
 --------------------------------------------------------------------------- */
 QToolTip {
-    background-color: $popup;
+    background: $popup;
     color: $popup-text;
     border: 1px solid $border;
 }
@@ -122,28 +122,25 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qstatusbar
 
 --------------------------------------------------------------------------- */
 QStatusBar {
-    background-color: $statusbar;
-}
-QStatusBar::item {
-    border: none;
+    background: $statusbar;
 }
 
 QStatusBar QWidget {
-    background-color: transparent;
+    background: transparent;
     padding: 3px;
     border-radius: 4px;
 }
 QStatusBar QWidget:hover {
-    background-color: $statusbar-button-hover;
+    background: $statusbar-button-hover;
 }
 QStatusBar QWidget:pressed {
-    background-color: $statusbar-button-pressed;
+    background: $statusbar-button-pressed;
 }
 QStatusBar QWidget:disabled {
-    background-color: $statusbar-button-disabled;
+    background: $statusbar-button-disabled;
 }
 QStatusBar QWidget:checked {
-    background-color: $statusbar-button-checked;
+    background: $statusbar-button-checked;
 }
 
 /* QCheckBox --------------------------------------------------------------
@@ -153,10 +150,12 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qcheckbox
 --------------------------------------------------------------------------- */
 QCheckBox,
 QRadioButton {
-    border-width: 2px 0;
-    border-style: solid;
-    border-color: transparent;
-    background-color: transparent;
+    border-top: 2px solid transparent;
+    border-bottom: 2px solid transparent;
+}
+QCheckBox:!window,
+QRadioButton:!window {
+    background: transparent;
 }
 QCheckBox:hover,
 QRadioButton:hover {
@@ -207,7 +206,7 @@ QGroupBox::title {
     margin: 0 2px 0 2px;
 }
 
-QGroupBox[flat=true] {
+QGroupBox:flat {
     border-color: transparent;
     padding: 2px 0 0 0;
 }
@@ -218,7 +217,7 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qmenubar
 
 --------------------------------------------------------------------------- */
 QMenuBar {
-    background-color: $menubar;
+    background: $menubar;
     padding: 2px;
     border-bottom: 1px solid $border;
 }
@@ -228,7 +227,7 @@ QMenuBar::item {
 }
 QMenuBar::item:selected {
     padding: 4px;
-    background-color: $menubar-item-selected;
+    background: $menubar-item-selected;
     border-radius: 4px;
 }
 QMenuBar::item:pressed {
@@ -243,7 +242,7 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtoolbar
 
 --------------------------------------------------------------------------- */
 QToolBar {
-    background-color: $toolbar;
+    background: $toolbar;
     padding: 1px;
     font-weight: bold;
     spacing: 2px;
@@ -258,7 +257,7 @@ QToolBar::handle:vertical {
     image: $url{"icon": "drag_indicator_horizontal.svg", "id": "icon-foreground", "rotate": "90"};
 }
 QToolBar::separator {
-    background-color: $border;
+    background: $border;
 }
 QToolBar::separator:horizontal {
     width: 2px;
@@ -270,18 +269,18 @@ QToolBar::separator:vertical {
 }
 
 QToolBar > QToolButton {
-    background-color: transparent;
+    background: transparent;
     padding: 3px;
     border-radius: 4px;
 }
 QToolBar > QToolButton:hover {
-    background-color: $toolbar-button-hover;
+    background: $toolbar-button-hover;
 }
 QToolBar > QToolButton:pressed {
-    background-color: $toolbar-button-pressed;
+    background: $toolbar-button-pressed;
 }
 QToolBar > QToolButton:checked {
-    background-color: $toolbar-button-checked;
+    background: $toolbar-button-checked;
 }
 QToolBar > QToolButton#qt_toolbar_ext_button {
     image: $url{"icon": "double_arrow.svg", "id": "icon-foreground"};
@@ -291,7 +290,7 @@ QToolBar > QToolButton#qt_toolbar_ext_button:disabled {
 }
 
 QToolBar > QWidget {
-    background-color: transparent;
+    background: transparent;
 }
 
 /* QMenu ------------------------------------------------------------------
@@ -300,19 +299,19 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qmenu
 
 --------------------------------------------------------------------------- */
 QMenu {
-    background-color: $popup;
+    background: $popup;
     padding: 8px 0;
     border: 1px solid $border;
 }
 QMenu::separator {
     height: 1px;
-    background-color: $border;
+    background: $border;
 }
 QMenu::item {
     padding: 4px 28px;
 }
 QMenu::item:selected {
-    background-color: $border;
+    background: $border;
 }
 QMenu::icon {
     padding-left: 10px;
@@ -336,7 +335,7 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qscrollbar
 
 --------------------------------------------------------------------------- */
 QScrollBar {
-    background-color: transparent;
+    background: transparent;
 }
 QScrollBar:horizontal {
     height: 7px;
@@ -345,14 +344,14 @@ QScrollBar:vertical {
     width: 7px;
 }
 QScrollBar::handle {
-    background-color: $scrollbar-handle;
+    background: $scrollbar-handle;
     border-radius: 3px;
 }
 QScrollBar::handle:hover {
-    background-color: $scrollbar-handle-hover;
+    background: $scrollbar-handle-hover;
 }
 QScrollBar::handle:pressed {
-    background-color: $scrollbar-handle-pressed;
+    background: $scrollbar-handle-pressed;
 }
 QScrollBar::handle:horizontal {
     min-width: 8px;
@@ -367,7 +366,7 @@ QScrollBar::sub-line, QScrollBar::add-line {
 }
 /* We hide background of QScrollBar */
 QScrollBar::sub-page, QScrollBar::add-page {
-    background-color: transparent;
+    background: transparent;
 }
 
 /* QProgressBar -----------------------------------------------------------
@@ -382,11 +381,11 @@ QProgressBar {
     color: $text;
 }
 QProgressBar::chunk {
-    background-color: $progressbar-chunk;
+    background: $progressbar-chunk;
     border-radius: 3px;
 }
 QProgressBar::chunk:disabled {
-    background-color: $highlight-disabled;
+    background: $highlight-disabled;
 }
 
 /* QPushButton ------------------------------------------------------------
@@ -401,24 +400,24 @@ QPushButton {
     color: $highlight;
 }
 QPushButton:hover,
-QPushButton[flat=true]:hover {
-    background-color: $button-hover;
+QPushButton:flat:hover {
+    background: $button-hover;
 }
 QPushButton:pressed,
-QPushButton[flat=true]:pressed {
-    background-color: $button-pressed;
+QPushButton:flat:pressed {
+    background: $button-pressed;
 }
 QPushButton:checked,
-QPushButton[flat=true]:checked {
+QPushButton:flat:checked {
     border-color: $highlight;
 }
 QPushButton:disabled,
-QPushButton[flat=true]:checked {
+QPushButton:flat:checked {
     border-color: $button-disabled;
 }
 
-QPushButton[flat=true] {
-    background-color: transparent;
+QPushButton:flat {
+    background: transparent;
     border-color: transparent;
 }
 
@@ -435,23 +434,23 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtoolbutto
 
 --------------------------------------------------------------------------- */
 QToolButton {
-    background-color: transparent;
+    background: transparent;
     padding: 5px;
     border-radius: 2px;
     spacing: 2px;
 }
 QToolButton:hover {
-    background-color: $button-hover;
+    background: $button-hover;
 }
 QToolButton:pressed {
-    background-color: $button-pressed;
+    background: $button-pressed;
 }
 QToolButton:selected,
 QToolButton:checked {
-    background-color: $button-checked;
+    background: $button-checked;
 }
 QToolButton::checked:disabled {
-    background-color: $button-disabled;
+    background: $button-disabled;
 }
 QToolButton::menu-indicator {
     height: 18px;
@@ -501,7 +500,7 @@ QComboBox {
     border-radius: 4px;
     min-height: 1.5em;
     padding: 0 4px;
-    background-color: $input-line;
+    background: $input-line;
 }
 QComboBox:focus,
 QComboBox:open {
@@ -523,12 +522,12 @@ QComboBox::down-arrow:disabled {
 /* Setting color background color of selected item when editable is false. */
 QComboBox::item:selected {
     border: none;  /* This setting remove the border of indicator. */
-    background-color: $scrollarea-highlight;
+    background: $scrollarea-highlight;
     color: $scrollarea-highlight-text;
 }
 
 QComboBox QAbstractItemView {
-    background-color: $popup;
+    background: $popup;
     margin: 0;
     border: 1px solid $border;
     selection-background-color: $scrollarea-highlight;
@@ -551,9 +550,6 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qslider
 QSlider {
     padding: 2px 0;
 }
-QSlider:focus {
-    border: none;
-}
 QSlider::groove {
     border-radius: 2px;
 }
@@ -564,18 +560,18 @@ QSlider::groove:vertical {
     width: 4px;
 }
 QSlider::sub-page, QSlider::handle {
-    background-color: $slider-subpage-handle;
+    background: $slider-subpage-handle;
 }
 QSlider::sub-page:disabled,
 QSlider::add-page:disabled,
 QSlider::handle:disabled {
-    background-color: $highlight-disabled;
+    background: $highlight-disabled;
 }
 QSlider::add-page {
-    background-color: $slider-addpage;
+    background: $slider-addpage;
 }
 QSlider::handle:hover {
-    background-color: $slider-handle-hover;
+    background: $slider-handle-hover;
 }
 QSlider::handle:horizontal {
     width: 16px;
@@ -613,24 +609,24 @@ QTabBar::close-button:disabled {
     image: $url{"icon": "close.svg", "id": "icon-foreground-disabled"};
 }
 QTabBar::close-button:hover {
-    background-color: $tabbar-button-hover;
+    background: $tabbar-button-hover;
     border-radius: 4px
 }
 QTabBar::close-button:hover:!selected {
-    background-color: $tabbar-button-hover-inselected;
+    background: $tabbar-button-hover-inselected;
 }
 QTabBar::tab {
     padding: 3px;
 }
 QTabBar::tab:hover {
-    background-color: $button-hover;
+    background: $button-hover;
 }
 QTabBar::tab:selected {
     color: $highlight;
-    background-color: $button-pressed;
+    background: $button-pressed;
 }
 QTabBar::tab:selected:disabled {
-    background-color: $highlight-disabled;
+    background: $highlight-disabled;
     color: $text-disabled;
 }
 QTabBar::tab:top {
@@ -705,8 +701,7 @@ QDockWidget::title {
   /* Better size for title bar */
     padding: 3px;
     spacing: 4px;
-    border: none;
-    background-color: $dockwidget-titlebar;
+    background: $dockwidget-titlebar;
 }
 /*
 Hover is already set in the QToolButton:hover, but it is not worked in
@@ -714,7 +709,7 @@ QDockWidget::title. Therefore, we need to set it again here.
 */
 QDockWidget::close-button:hover,
 QDockWidget::float-button:hover {
-    background-color: $button-hover;
+    background: $button-hover;
     border-radius: 2px;
 }
 
@@ -748,7 +743,7 @@ $env_patch{"version": "<6.0.0", "value": "frameShape=\\\"2\\\""}
 $env_patch{"version": ">=6.0.0", "value": "frameShape=Panel"}
 ] {
     border-color: $panel;
-    background-color: $panel;
+    background: $panel;
 }
 /* HLine */
 QFrame[
@@ -757,7 +752,7 @@ $env_patch{"version": ">=6.0.0", "value": "frameShape=HLine"}
 ] {
     max-height: 2px;
     border: none;
-    background-color: $border;
+    background: $border;
 }
 /* VLine */
 QFrame[
@@ -766,7 +761,7 @@ $env_patch{"version": ">=6.0.0", "value": "frameShape=VLine"}
 ] {
     max-width: 2px;
     border: none;
-    background-color: $border;
+    background: $border;
 }
 /* QLCDNumber -------------------------------------------------------------
 
@@ -777,35 +772,16 @@ QLCDNumber {
     margin: 2px;
 }
 
-/* QLabel -----------------------------------------------------------------
-
-https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qframe
-
---------------------------------------------------------------------------- */
-QLabel {
-    border: none;
-}
-
-/* QStackedWidget ---------------------------------------------------------
-
---------------------------------------------------------------------------- */
-QStackedWidget {
-    border: none;
-}
-
 /* QToolBox ---------------------------------------------------------------
 
 examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtoolbox
 
 --------------------------------------------------------------------------- */
-QToolBox {
-    border: none;
-}
 QToolBox:selected {
     border: 2px solid $highlight;
 }
 QToolBox::tab {
-    background-color: $toolbox-tab;
+    background: $toolbox-tab;
     border-bottom: 2px solid $border;
 }
 QToolBox::tab:selected {
@@ -820,15 +796,12 @@ QToolBox::tab:selected:disabled {
 examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qsplitter
 
 --------------------------------------------------------------------------- */
-QSplitter {
-    border: none;
-}
 QSplitter::handle {
-    background-color: $border;
+    background: $border;
     margin: 1px 3px;
 }
 QSplitter::handle:hover {
-    background-color: $highlight;
+    background: $highlight;
 }
 QSplitter::handle:horizontal {
     width: 5px;
@@ -868,10 +841,10 @@ QAbstractScrollArea:disabled {
 
 /* Fix a bug where widgets in scroll area would hide the scroll area border. */
 QAbstractScrollArea > .QWidget {
-    background-color: transparent;
+    background: transparent;
 }
 QAbstractScrollArea > .QWidget > .QWidget {
-    background-color: transparent;
+    background: transparent;
 }
 
 /* QTextEdit QPlainTextEdit------------------------------------------------
@@ -880,7 +853,7 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-specific-w
 
 --------------------------------------------------------------------------- */
 QTextEdit, QPlainTextEdit {
-    background-color: $textedit;
+    background: $textedit;
 }
 QTextEdit:focus,
 QTextEdit:selected,
@@ -917,16 +890,16 @@ QAbstractItemView:selected:!active,
 QAbstractItemView:selected:!focus,
 QAbstractItemView::item:selected:!active,
 QTreeView::branch:selected:!active {
-    background-color: $itemview-highlight-inactive;
+    background: $itemview-highlight-inactive;
 }
 QAbstractItemView::item:selected,
 QTreeView::branch:selected {
-    background-color: $scrollarea-highlight;
+    background: $scrollarea-highlight;
     color: $scrollarea-highlight-text;
 }
 QAbstractItemView::item:!selected:hover,
 QTreeView::branch:!selected:hover {
-    background-color: $itemview-item-hover;
+    background: $itemview-item-hover;
 }
 QAbstractItemView::item:selected:disabled {
     color: $text-disabled;
@@ -986,19 +959,19 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtableview
 --------------------------------------------------------------------------- */
 QTableView {
     gridline-color: $tableview-gridline;
-    background-color: $tableview;
+    background: $tableview;
 }
 
 QTableView QTableCornerButton::section {
     border-top-left-radius: 2px;
-    background-color: $headerview-section;
+    background: $headerview-section;
 }
 QTableView QTableCornerButton::section:pressed {
-    background-color: $scrollarea-highlight;
+    background: $scrollarea-highlight;
 }
 
 QTableView > QHeaderView{
-    background-color: $tableview;
+    background: $tableview;
 }
 QTableView > QHeaderView::section:horizontal:first {
     margin-left: 1px;
@@ -1019,7 +992,7 @@ QHeaderView {
     border-radius: 0;
 }
 QHeaderView::section {
-    background-color: $headerview-section;
+    background: $headerview-section;
     text-align: left;
     padding: 0 4px;
     border: none;
@@ -1079,7 +1052,7 @@ QTableView[sortingEnabled=false] QHeaderView::up-arrow {
 
 --------------------------------------------------------------------------- */
 QCalendarWidget > .QWidget {
-    background-color: $tableview;
+    background: $tableview;
     border-bottom: 1px solid $border;
     border-radius: 4px;
     border-bottom-left-radius: 0;
@@ -1115,7 +1088,7 @@ QAbstractSpinBox {
     padding: 3px 4px;
     /* Adjust the min-height of QLineEdit to the height of the characters. */
     min-height: 1em;
-    background-color: $input-line;
+    background: $input-line;
     border-radius: 4px;
 }
 QLineEdit:focus,
@@ -1132,7 +1105,7 @@ QAbstractSpinBox::down-button {
 }
 QAbstractSpinBox::up-button:hover,
 QAbstractSpinBox::down-button:hover {
-    background-color: $input-line-button-hover;
+    background: $input-line-button-hover;
 }
 QAbstractSpinBox::up-button {
     subcontrol-position: top right;
@@ -1164,7 +1137,6 @@ QAbstractSpinBox::down-arrow:disabled {
 --------------------------------------------------------------------------- */
 QDateTimeEdit::drop-down {
     subcontrol-position: center right;
-    border: none;
     padding-right: 4px;
     width: 16px;
     image: $url{"icon": "calendar_today.svg", "id": "icon-foreground"};
@@ -1220,7 +1192,7 @@ QMenu::indicator:checked {
 }
 QMenu::indicator {
     width: 18px;
-    background-color: $menu-checkbox;
+    background: $menu-checkbox;
     border-radius: 4px;
     margin-left: 3px;
 }
