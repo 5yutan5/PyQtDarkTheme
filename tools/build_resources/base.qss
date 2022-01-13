@@ -909,9 +909,9 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qcombobox
 QAbstractItemView {
     alternate-background-color: $itemview-alternate;
 }
-QAbstractItemView:item {
+QAbstractItemView::item {
     spacing: 6px;
-    border-color: transparent;  /* Fix indicator bug on Qt6 */
+    $env_patch{"version": ">=6.0.0", "value": "border-color: transparent"};  /* Fix indicator bug on Qt6 */
 }
 QAbstractItemView:selected:!active,
 QAbstractItemView:selected:!focus,
@@ -1078,16 +1078,30 @@ QTableView[sortingEnabled=false] QHeaderView::up-arrow {
 /* QCalendarWidget --------------------------------------------------------
 
 --------------------------------------------------------------------------- */
-QCalendarWidget {
-    border: 1px solid $border;
+QCalendarWidget > .QWidget {
+    background-color: $tableview;
+    border-bottom: 1px solid $border;
     border-radius: 4px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+QCalendarWidget > QTableView {
+    margin: 0;
+    border: none;
+    border-radius: 4px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 
-QCalendarWidget QWidget {
-    background-color: $tableview;
+/*
+The following setting is need when displaying  QCalendarWidget as part of the layout.
+This is not necessary when displaying QCalendar as a popup of QDateTimeEdit.
+*/
+QCalendarWidget > .QWidget > QToolButton#qt_calendar_prevmonth {
+    qproperty-icon: $url{"icon": "arrow_upward.svg", "id": "icon-foreground", "rotate": "270"};
 }
-QCalendarWidget QTableView {
-    alternate-background-color: $border;
+QCalendarWidget > .QWidget > QToolButton#qt_calendar_nextmonth {
+    qproperty-icon: $url{"icon": "arrow_upward.svg", "id": "icon-foreground", "rotate": "90"};
 }
 
 /* QAbstractSpinBox QLineEdit----------------------------------------------

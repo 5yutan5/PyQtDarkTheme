@@ -707,9 +707,9 @@ QPlainTextEdit:!active {
 QAbstractItemView {
     alternate-background-color: rgba(41.000, 43.000, 46.000, 1.000);
 }
-QAbstractItemView:item {
+QAbstractItemView::item {
     spacing: 6px;
-    border-color: transparent;
+    $env_patch{"version": ">=6.0.0", "value": "border-color: transparent"};
 }
 QAbstractItemView:selected:!active,
 QAbstractItemView:selected:!focus,
@@ -848,15 +848,25 @@ QTableView[sortingEnabled=false] QHeaderView::up-arrow {
     width: 0;
     padding: 0;
 }
-QCalendarWidget {
-    border: 1px solid rgba(63.000, 64.000, 66.000, 1.000);
-    border-radius: 4px;
-}
-QCalendarWidget QWidget {
+QCalendarWidget > .QWidget {
     background-color: rgba(0.000, 0.000, 0.000, 1.000);
+    border-bottom: 1px solid rgba(63.000, 64.000, 66.000, 1.000);
+    border-radius: 4px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
-QCalendarWidget QTableView {
-    alternate-background-color: rgba(63.000, 64.000, 66.000, 1.000);
+QCalendarWidget > QTableView {
+    margin: 0;
+    border: none;
+    border-radius: 4px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+QCalendarWidget > .QWidget > QToolButton#qt_calendar_prevmonth {
+    qproperty-icon: url(${path}/themes/dark/svg/arrow_upward__icon-foreground__rotate-270.svg);
+}
+QCalendarWidget > .QWidget > QToolButton#qt_calendar_nextmonth {
+    qproperty-icon: url(${path}/themes/dark/svg/arrow_upward__icon-foreground__rotate-90.svg);
 }
 QLineEdit,
 QAbstractSpinBox {
