@@ -1092,6 +1092,11 @@ QCalendarWidget > QTableView {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+
+/*
+The following setting is need when displaying  QCalendarWidget as part of the layout.
+This is not necessary when displaying QCalendar as a popup of QDateTimeEdit.
+*/
 QCalendarWidget > .QWidget > QToolButton#qt_calendar_prevmonth {
     qproperty-icon: $url{"icon": "arrow_upward.svg", "id": "icon-foreground", "rotate": "270"};
 }
