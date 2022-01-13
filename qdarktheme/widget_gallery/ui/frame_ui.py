@@ -1,6 +1,7 @@
 """Module setting up ui of frame window."""
 from qdarktheme.qtpy.QtGui import QIcon
 from qdarktheme.qtpy.QtWidgets import (
+    QCalendarWidget,
     QCheckBox,
     QFrame,
     QGridLayout,
@@ -10,7 +11,6 @@ from qdarktheme.qtpy.QtWidgets import (
     QRadioButton,
     QScrollArea,
     QSpinBox,
-    QTableWidget,
     QToolButton,
     QVBoxLayout,
     QWidget,
@@ -42,9 +42,7 @@ class FrameUI:
             push_btn_flat.setFlat(True)
             tool_btn = QToolButton()
             tool_btn.setIcon(QIcon("icons:favorite_border_24dp.svg"))
-            table = QTableWidget()
-            table.setRowCount(5)
-            table.setColumnCount(5)
+            calender = QCalendarWidget()
 
             g_layout = QGridLayout(frame)
             g_layout.addWidget(QPushButton("Push button"), 0, 0)
@@ -53,7 +51,7 @@ class FrameUI:
             g_layout.addWidget(tool_btn, 1, 1)
             g_layout.addWidget(QRadioButton("Radio button"), 2, 0)
             g_layout.addWidget(QCheckBox("Check box"), 2, 1)
-            g_layout.addWidget(table, 3, 0, 1, 2)
+            g_layout.addWidget(calender, 3, 0, 1, 2)
 
         for group, frame in ((group_box, frame_box), (group_panel, frame_panel), (group_none, frame_none)):
             v_layout = QVBoxLayout(group)
