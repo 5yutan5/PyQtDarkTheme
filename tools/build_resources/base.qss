@@ -1,21 +1,3 @@
-
-/* ==========================================================================================
- * PyQtDarkTheme.
- *
- *  This is originally a fork of QDarkStyleSheet distributed under the terms of the MIT License.
- *   see https://github.com/ColinDuquesnoy/QDarkStyleSheet/blob/master/LICENSE.rst#the-mit-license-mit---code
- *
- * Original code:
- *   https://github.com/ColinDuquesnoy/QDarkStyleSheet/blob/master/qdarkstyle/dark/style.qss
- *
- * -------------------------------------------------------------------------------------------
- * The MIT License (MIT)
- *
- * Copyright (c) 2013-2014 Colin Duquesnoy
- * Copyright (c) 2021-2022 Yunosuke Ohsugi
- * ==========================================================================================
- */
-
 * {
     padding: 0;
     margin: 0;
@@ -232,8 +214,8 @@ QMenuBar::item:selected {
 }
 QMenuBar::item:pressed {
     padding: 4px;
-    margin-bottom: 0px;
-    padding-bottom: 0px;
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
 
 /* QToolBar ---------------------------------------------------------------
