@@ -82,5 +82,6 @@
     "python.formatting.provider": "black",
     "restructuredtext.confPath": "${workspaceFolder}/docs/source",
     "restructuredtext.languageServer.disabled": true,
-    "commentTranslate.hover.enabled": true
+    "commentTranslate.hover.enabled": true,
+    "svg.preview.background": "black"
 }

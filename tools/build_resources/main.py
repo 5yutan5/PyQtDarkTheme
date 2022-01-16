@@ -64,12 +64,12 @@ def _build_svg_file(urls: set[_Url], colors: dict[str, str], svg_dir_path: Path,
     svg_paths = (path for path in svg_dir_path.iterdir() if ".svg" in path.name)
     svg_codes = {path.name: path.read_text(encoding="utf-8") for path in svg_paths}
 
-    # QSvg does not support #RRGGBBAA. Therefore, we need to set the alpha value to `fill-opacity` instead.
     def to_svg_color_format(color_hex: str) -> str:
         r, g, b, a = RGBA.from_hex(color_hex)
         if a == 1:
-            return f'fill="{color_hex}"'
-        return f'fill="rgb({r}, {g}, {b})" fill-opacity="{a}"'
+            return f'"{color_hex}"'
+        # QSvg does not support #RRGGBBAA. Therefore, we need to set the alpha value to `fill-opacity` instead.
+        return f'"rgb({r}, {g}, {b})" fill-opacity="{a}"'
 
     pattern = re.compile(r'xmlns="[\s\S]*?" ')
 
@@ -78,7 +78,7 @@ def _build_svg_file(urls: set[_Url], colors: dict[str, str], svg_dir_path: Path,
         # Change color and rotate. See https://stackoverflow.com/a/15139069/13452582
         new_contents = to_svg_color_format(color_hex)
         new_contents += "" if url.rotate == "0" else f' transform="rotate({url.rotate}, 12, 12)"'
-        svg_code_converted = svg_codes[url.icon].replace('fill="#FFFFFF"', new_contents)
+        svg_code_converted = svg_codes[url.icon].replace('"#FFFFFF"', new_contents)
         svg_code_converted = pattern.sub("", svg_code_converted)
         with (output_dir_path / url.file_name).open("w") as f:
             f.write(svg_code_converted)

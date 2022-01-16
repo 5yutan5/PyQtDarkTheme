@@ -3,7 +3,7 @@
     margin: 0;
     border: none;
     border-style: none;
-    border-image: none;
+    border-image: unset;
     outline: none;
 }
 QToolBar * {
@@ -125,9 +125,11 @@ QStatusBar QWidget:checked {
     background: $statusbar-button-checked;
 }
 
-/* QCheckBox --------------------------------------------------------------
+/* QCheckBox QRadioButton QGroupBox ---------------------------------------
 
 examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qcheckbox
+examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qradiobutton
+examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qgroupbox
 
 --------------------------------------------------------------------------- */
 QCheckBox,
@@ -143,35 +145,7 @@ QCheckBox:hover,
 QRadioButton:hover {
     border-bottom: 2px solid $highlight;
 }
-QCheckBox::indicator,
-QRadioButton::indicator {
-    margin: 0 0 2 10;
-    height: 18px;
-    width: 18px;
-}
 
-QRadioButton {
-    spacing: 8px;
-}
-QRadioButton::indicator:unchecked {
-    image: $url{"icon": "radio_button_unchecked.svg", "id": "icon-foreground"};
-}
-QRadioButton::indicator:unchecked:disabled {
-    image: $url{"icon": "radio_button_unchecked.svg", "id": "icon-foreground-disabled"};
-}
-QRadioButton::indicator:checked {
-    image: $url{"icon": "radio_button_checked.svg", "id": "highlight"};
-}
-QRadioButton::indicator:checked:disabled {
-    image: $url{"icon": "radio_button_checked.svg", "id": "icon-foreground-disabled"};
-}
-
-/* QGroupBox QRadioButton -------------------------------------------------
-
-examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qgroupbox
-examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qradiobutton
-
---------------------------------------------------------------------------- */
 QGroupBox {
     font-weight: bold;
     border: 1px solid $border;
@@ -184,10 +158,8 @@ QGroupBox::title {
     subcontrol-position: top left;
     left: 7px;
     top: 2px;
-    spacing: 6px;
-    margin: 0 2px 0 2px;
+    margin: 0 2px;
 }
-
 QGroupBox:flat {
     border-color: transparent;
     padding: 2px 0 0 0;
@@ -912,11 +884,11 @@ QTreeView::branch:disabled {
 }
 QTreeView::branch:has-siblings:adjoins-item,
 QTreeView::branch:!has-children:!has-siblings:adjoins-item {
-    border-image: none;
+    border-image: unset;
 }
 QTreeView::branch:has-children:!has-siblings:closed,
 QTreeView::branch:closed:has-children:has-siblings {
-    border-image: none;
+    border-image: unset;
     image: $url{"icon": "chevron_right.svg", "id": "icon-foreground"};
 }
 QTreeView::branch:has-children:!has-siblings:closed:disabled,
@@ -925,7 +897,7 @@ QTreeView::branch:closed:has-children:has-siblings:disabled {
 }
 QTreeView::branch:open:has-children:!has-siblings,
 QTreeView::branch:open:has-children:has-siblings  {
-    border-image: none;
+    border-image: unset;
     image: $url{"icon": "expand_less.svg", "id": "icon-foreground", "rotate": "180"};
 }
 QTreeView::branch:open:has-children:!has-siblings:disabled,
@@ -1184,44 +1156,74 @@ QMenu::indicator {
 document: https://doc.qt.io/qt-5/stylesheet-reference.html#list-of-sub-controls
 
 --------------------------------------------------------------------------- */
-QCheckBox {
+QCheckBox,
+QRadioButton {
     spacing: 8px;
 }
 QGroupBox::title {
     spacing: 6px;
 }
+QCheckBox::indicator,
+QGroupBox::indicator,
+QAbstractItemView::indicator,
+QRadioButton::indicator {
+    height: 14px;
+    width: 14px;
+    border-radius: 2px;
+}
+QCheckBox::indicator,
 QGroupBox::indicator,
 QAbstractItemView::indicator {
-    height: 18px;
-    width: 18px;
+    border-image: $url{"icon": "check_box_outline_blank.svg", "id": "icon-foreground"}
 }
-QCheckBox::indicator:unchecked,
-QGroupBox::indicator:unchecked,
-QAbstractItemView::indicator:unchecked {
-    image: $url{"icon": "check_box_outline_blank.svg", "id": "icon-foreground"};
+QRadioButton::indicator {
+    border-image: $url{"icon": "radio_button_unchecked.svg", "id": "icon-foreground"}
 }
 QCheckBox::indicator:unchecked:disabled,
 QGroupBox::indicator:unchecked:disabled,
 QAbstractItemView::indicator:unchecked:disabled {
-    image: $url{"icon": "check_box_outline_blank.svg", "id": "icon-foreground-disabled"};
+    border-image: $url{"icon": "check_box_outline_blank.svg", "id": "icon-foreground-disabled"}
 }
 QCheckBox::indicator:checked,
 QGroupBox::indicator:checked,
 QAbstractItemView::indicator:checked {
-    image: $url{"icon": "check_box.svg", "id": "highlight"};
+    background: $highlight;
+    border-image: unset;
+    image: $url{"icon": "check.svg", "id": "base"};
 }
 QCheckBox::indicator:checked:disabled,
 QGroupBox::indicator:checked:disabled,
 QAbstractItemView::indicator:checked:disabled {
-    image: $url{"icon": "check_box.svg", "id": "icon-foreground-disabled"};
+    background: $icon-foreground-disabled;
+    image: $url{"icon": "check.svg", "id": "base"};
 }
 QCheckBox::indicator:indeterminate,
 QAbstractItemView::indicator:indeterminate {
-    image: $url{"icon": "indeterminate_check_box.svg", "id": "highlight"};
+    background: $highlight;
+    border-image: unset;
+    image: $url{"icon": "horizontal_rule.svg", "id": "base"};
 }
 QCheckBox::indicator:indeterminate:disabled,
 QAbstractItemView::indicator:indeterminate:disabled {
-    image: $url{"icon": "indeterminate_check_box.svg", "id": "icon-foreground-disabled"};
+    background: $icon-foreground-disabled;
+    border-color: $icon-foreground-disabled;
+    image: $url{"icon": "horizontal_rule.svg", "id": "base"};
+}
+QRadioButton::indicator:checked {
+    height: 12px;
+    width: 12px;
+    background: $highlight;
+    border: 1px solid $highlight;
+    border-radius: 7px;
+    border-image: unset;
+    image: $url{"icon": "trip_origin.svg", "id": "base"};
+}
+QRadioButton::indicator:checked:disabled {
+    background: $icon-foreground-disabled;
+    border: 1px solid $icon-foreground-disabled;
+}
+QRadioButton::indicator:unchecked:disabled {
+    border-image: $url{"icon": "radio_button_unchecked.svg", "id": "icon-foreground-disabled"}
 }
 
 /* Rounded popup ----------------------------------------------------------
