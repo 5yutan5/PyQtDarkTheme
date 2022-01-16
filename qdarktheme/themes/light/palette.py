@@ -4,42 +4,42 @@ from qdarktheme.qtpy.QtGui import QColor, QPalette
 _palette = QPalette()
 
 # base
-_palette.setColor(QPalette.ColorRole.WindowText, QColor(77, 81, 87, 255))
-_palette.setColor(QPalette.ColorRole.Button, QColor(248, 249, 250, 255))
-_palette.setColor(QPalette.ColorRole.Text, QColor(77, 81, 87, 255))
-_palette.setColor(QPalette.ColorRole.ButtonText, QColor(0, 129, 219, 255))
-_palette.setColor(QPalette.ColorRole.Base, QColor(248, 249, 250, 255))
-_palette.setColor(QPalette.ColorRole.Window, QColor(248, 249, 250, 255))
-_palette.setColor(QPalette.ColorRole.Highlight, QColor(0, 129, 219, 255))
-_palette.setColor(QPalette.ColorRole.HighlightedText, QColor(248, 249, 250, 255))
-_palette.setColor(QPalette.ColorRole.Link, QColor(248, 249, 250, 255))
-_palette.setColor(QPalette.ColorRole.AlternateBase, QColor(233, 236, 239, 255))
-_palette.setColor(QPalette.ColorRole.ToolTipBase, QColor(255, 255, 255, 255))
-_palette.setColor(QPalette.ColorRole.ToolTipText, QColor(77, 81, 87, 255))
-_palette.setColor(QPalette.ColorRole.LinkVisited, QColor(102, 0, 152, 255))
-_palette.setColor(QPalette.ColorRole.ToolTipText, QColor(255, 255, 255, 255))
-_palette.setColor(QPalette.ColorRole.ToolTipBase, QColor(77, 81, 87, 255))
+_palette.setColor(QPalette.ColorRole.WindowText, QColor("#4d5157"))
+_palette.setColor(QPalette.ColorRole.Button, QColor("#f8f9fa"))
+_palette.setColor(QPalette.ColorRole.Text, QColor("#4d5157"))
+_palette.setColor(QPalette.ColorRole.ButtonText, QColor("#0081db"))
+_palette.setColor(QPalette.ColorRole.Base, QColor("#f8f9fa"))
+_palette.setColor(QPalette.ColorRole.Window, QColor("#f8f9fa"))
+_palette.setColor(QPalette.ColorRole.Highlight, QColor("#0081db"))
+_palette.setColor(QPalette.ColorRole.HighlightedText, QColor("#f8f9fa"))
+_palette.setColor(QPalette.ColorRole.Link, QColor("#f8f9fa"))
+_palette.setColor(QPalette.ColorRole.AlternateBase, QColor("#e9ecef"))
+_palette.setColor(QPalette.ColorRole.ToolTipBase, QColor("#ffffff"))
+_palette.setColor(QPalette.ColorRole.ToolTipText, QColor("#4d5157"))
+_palette.setColor(QPalette.ColorRole.LinkVisited, QColor("#660098"))
+_palette.setColor(QPalette.ColorRole.ToolTipText, QColor("#ffffff"))
+_palette.setColor(QPalette.ColorRole.ToolTipBase, QColor("#4d5157"))
 if hasattr(QPalette.ColorRole, "Foreground"):
-    _palette.setColor(QPalette.ColorRole.Foreground, QColor(77, 81, 87, 255))  # type: ignore
+    _palette.setColor(QPalette.ColorRole.Foreground, QColor("#4d5157"))  # type: ignore
 if hasattr(QPalette.ColorRole, "PlaceholderText"):
-    _palette.setColor(QPalette.ColorRole.PlaceholderText, QColor(105, 106, 108, 255))
+    _palette.setColor(QPalette.ColorRole.PlaceholderText, QColor("#696a6c"))
 
-_palette.setColor(QPalette.ColorRole.Light, QColor(218, 220, 224, 255))
-_palette.setColor(QPalette.ColorRole.Midlight, QColor(218, 220, 224, 255))
-_palette.setColor(QPalette.ColorRole.Dark, QColor(77, 81, 87, 255))
-_palette.setColor(QPalette.ColorRole.Mid, QColor(218, 220, 224, 255))
-_palette.setColor(QPalette.ColorRole.Shadow, QColor(218, 220, 224, 255))
+_palette.setColor(QPalette.ColorRole.Light, QColor("#dadce0"))
+_palette.setColor(QPalette.ColorRole.Midlight, QColor("#dadce0"))
+_palette.setColor(QPalette.ColorRole.Dark, QColor("#4d5157"))
+_palette.setColor(QPalette.ColorRole.Mid, QColor("#dadce0"))
+_palette.setColor(QPalette.ColorRole.Shadow, QColor("#dadce0"))
 
 # disabled
-_palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.WindowText, QColor(186, 189, 194, 255))
-_palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.Text, QColor(186, 189, 194, 255))
-_palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.ButtonText, QColor(218, 220, 224, 255))
-_palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.Highlight, QColor(218, 220, 224, 255))
-_palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.HighlightedText, QColor(186, 189, 194, 255))
-_palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.Link, QColor(186, 189, 194, 255))
-_palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.LinkVisited, QColor(186, 189, 194, 255))
+_palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.WindowText, QColor("#babdc2"))
+_palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.Text, QColor("#babdc2"))
+_palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.ButtonText, QColor("#dadce0"))
+_palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.Highlight, QColor("#dadce0"))
+_palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.HighlightedText, QColor("#babdc2"))
+_palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.Link, QColor("#babdc2"))
+_palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.LinkVisited, QColor("#babdc2"))
 
 # inactive
-_palette.setColor(QPalette.ColorGroup.Inactive, QPalette.ColorRole.Highlight, QColor(228, 230, 242, 255))
+_palette.setColor(QPalette.ColorGroup.Inactive, QPalette.ColorRole.Highlight, QColor("#e4e6f2"))
 
 PALETTE = _palette

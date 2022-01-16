@@ -61,6 +61,7 @@
         "pyupgrade",
         "qdarktheme",
         "QLCD",
+        "qproperty",
         "qresource",
         "qtbot",
         "qtpy",

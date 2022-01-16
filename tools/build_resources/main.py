@@ -28,17 +28,11 @@ class _Url:
     file_name: str
 
 
-def _remove_comment(stylesheet: str) -> str:
-    """Remove comment from the stylesheet string."""
-    comment_pattern = re.compile(r" */\*[\s\S]*?\*/")
-    match = comment_pattern.search(stylesheet)
-    license_text = "/* MIT License */" if match is None else match.group()
-    # Remove qss comment
-    stylesheet = comment_pattern.sub("", stylesheet)
+def _remove_qss_comment(stylesheet: str) -> str:
+    """Remove qss comment from the stylesheet string."""
+    stylesheet = re.sub(r" */\*[\s\S]*?\*/", "", stylesheet)
     # Change blank lines to one blank line
-    stylesheet = re.sub(r"\n\s*\n", "\n", stylesheet)
-
-    return license_text + stylesheet
+    return re.sub(r"\n\s*\n", "\n", stylesheet)
 
 
 def _parse_url(stylesheet: str) -> set[_Url]:
@@ -64,42 +58,51 @@ def _build_init_file(theme: str, output_dir_path: Path) -> None:
     (output_dir_path / "__init__.py").write_text(contents)
 
 
-def _build_svg_file(urls: set[_Url], colors: dict[str, RGBA], svg_dir_path: Path, output_dir_path: Path) -> None:
+def _build_svg_file(urls: set[_Url], colors: dict[str, str], svg_dir_path: Path, output_dir_path: Path) -> None:
     svg_codes: dict[str, str] = {}  # {file name: svg code}
     output_dir_path.mkdir(exist_ok=True)
-    svg_paths = [path for path in svg_dir_path.iterdir() if ".svg" in path.name]
+    svg_paths = (path for path in svg_dir_path.iterdir() if ".svg" in path.name)
     svg_codes = {path.name: path.read_text(encoding="utf-8") for path in svg_paths}
 
     # QSvg does not support #RRGGBBAA. Therefore, we need to set the alpha value to `fill-opacity` instead.
-    def to_svg_color_format(rgba: RGBA) -> str:
-        r, g, b, a = rgba
+    def to_svg_color_format(color_hex: str) -> str:
+        r, g, b, a = RGBA.from_hex(color_hex)
+        if a == 1:
+            return f'fill="{color_hex}"'
         return f'fill="rgb({r}, {g}, {b})" fill-opacity="{a}"'
 
+    pattern = re.compile(r'xmlns="[\s\S]*?" ')
+
     for url in urls:
-        rgba = colors[url.color_id]
+        color_hex = colors[url.color_id]
         # Change color and rotate. See https://stackoverflow.com/a/15139069/13452582
-        new_contents = to_svg_color_format(rgba)
+        new_contents = to_svg_color_format(color_hex)
         new_contents += "" if url.rotate == "0" else f' transform="rotate({url.rotate}, 12, 12)"'
         svg_code_converted = svg_codes[url.icon].replace('fill="#FFFFFF"', new_contents)
+        svg_code_converted = pattern.sub("", svg_code_converted)
         with (output_dir_path / url.file_name).open("w") as f:
             f.write(svg_code_converted)
 
 
-def _build_palette_file(colors: dict[str, RGBA], output_dir_path: Path, palette_template: str) -> None:
-    def to_arg_text(rgba: RGBA) -> str:
-        r, g, b, a = rgba
-        return f"{r}, {g}, {b}, {a*255}"
+def _build_palette_file(colors: dict[str, str], output_dir_path: Path, palette_template: str) -> None:
+    def to_arg_text(color_hex: str) -> str:
+        r, g, b, a = RGBA.from_hex(color_hex)
+        return f'"{color_hex}"' if a == 1 else f"{r}, {g}, {b}, {a*255}"
 
-    replacements = {f'"${color_id}"': to_arg_text(rgba) for color_id, rgba in colors.items()}
+    replacements = {f'"${color_id}"': to_arg_text(color_hex) for color_id, color_hex in colors.items()}
     with (output_dir_path / "palette.py").open("w") as f:
         f.write(multi_replace(palette_template, replacements))
 
 
 def _build_template_stylesheet(
-    theme: str, stylesheet: str, urls: set[_Url], colors: dict[str, RGBA], output_dir_path: Path
+    theme: str, stylesheet: str, urls: set[_Url], colors: dict[str, str], output_dir_path: Path
 ) -> None:
+    def to_sheet_format(color_hex: str) -> str:
+        rgba = RGBA.from_hex(color_hex)
+        return color_hex if rgba[-1] == 1 else str(rgba)
+
     url_replacements = {url.match_text: f"url(${{path}}/themes/{theme}/svg/{url.file_name})" for url in urls}
-    colors_converted = {f"${color_id}": str(rgba) for color_id, rgba in colors.items()}
+    colors_converted = {f"${color_id}": to_sheet_format(color_hex) for color_id, color_hex in colors.items()}
     template_stylesheet = multi_replace(stylesheet, {**url_replacements, **colors_converted})
     with (output_dir_path / "stylesheet.py").open("w") as f:
         f.write(f'"""Contents that define stylesheet for {theme} theme."""\n\n')
@@ -151,7 +154,7 @@ def _generate_root_init_file(output_dir_path: Path, themes: list[str], doc_strin
 
 def build_resources(build_path: Path, theme_file_paths: list[Path], root_init_file_doc: str) -> None:
     """Build resources for qdarktheme module."""
-    stylesheet = _remove_comment(resources.read_text("tools.build_resources", "base.qss"))
+    stylesheet = _remove_qss_comment(resources.read_text("tools.build_resources", "base.qss"))
     urls = _parse_url(stylesheet)
     palette_template = resources.read_text("tools.build_resources", "palette.template.py")
     svg_dir_path = Path(__file__).parent / "svg"
@@ -163,13 +166,12 @@ def build_resources(build_path: Path, theme_file_paths: list[Path], root_init_fi
         output_dir_path = build_path / theme
         output_dir_path.mkdir()
 
-        hex_colors = json.loads(theme_file_path.read_bytes())
-        rgba_colors = {color_id: RGBA.from_hex(color_hex) for color_id, color_hex in hex_colors.items()}
+        hex_colors: dict[str, str] = json.loads(theme_file_path.read_bytes())
 
         _build_init_file(theme, output_dir_path)
-        _build_svg_file(urls, rgba_colors, svg_dir_path, output_dir_path / "svg")
-        _build_palette_file(rgba_colors, output_dir_path, palette_template)
-        _build_template_stylesheet(theme, stylesheet, urls, rgba_colors, output_dir_path)
+        _build_svg_file(urls, hex_colors, svg_dir_path, output_dir_path / "svg")
+        _build_palette_file(hex_colors, output_dir_path, palette_template)
+        _build_template_stylesheet(theme, stylesheet, urls, hex_colors, output_dir_path)
         _generate_qt_resource_file(output_dir_path / "svg", output_dir_path, theme)
 
     themes.sort()
