@@ -262,30 +262,45 @@ QProgressBar::chunk:disabled {
     background: #53575b;
 }
 QPushButton {
-    border: 1px solid #3f4042;
-    padding: 4px 8px;
     border-radius: 4px;
     color: #8ab4f7;
+    border: 1px solid #3f4042;
+    padding: 4px 8px;
+}
+QPushButton:!window {
+    background: transparent;
+}
+QPushButton:flat,
+QPushButton:default {
+    border: none;
+    padding: 5px 9px;
+}
+QPushButton:default {
+    color: #202124;
+    background: #8ab4f7;
 }
 QPushButton:hover,
 QPushButton:flat:hover {
-    background: #1e2b3c;
+    background: rgba(46.000, 70.000, 94.000, 0.333);
 }
 QPushButton:pressed,
-QPushButton:flat:pressed {
-    background: #2e465e;
+QPushButton:flat:pressed,
+QPushButton:checked:pressed,
+QPushButton:flat:checked:pressed {
+    background: rgba(46.000, 70.000, 94.000, 0.933);
 }
 QPushButton:checked,
 QPushButton:flat:checked {
-    border-color: #8ab4f7;
+    background: rgba(46.000, 70.000, 94.000, 0.733);
 }
-QPushButton:disabled,
-QPushButton:flat:checked {
-    border-color: #3f4042;
+QPushButton:default:hover {
+    background: #7fa7e5;
 }
-QPushButton:flat {
-    background: transparent;
-    border-color: transparent;
+QPushButton:default:pressed {
+    background: #6d8bbe;
+}
+QPushButton:default:disabled {
+    background: #53575b;
 }
 QDialogButtonBox QPushButton {
     min-width: 65px;
@@ -297,14 +312,15 @@ QToolButton {
     spacing: 2px;
 }
 QToolButton:hover {
-    background: #1e2b3c;
+    background: rgba(46.000, 70.000, 94.000, 0.333);
 }
-QToolButton:pressed {
-    background: #2e465e;
+QToolButton:pressed,
+QToolButton:checked:pressed {
+    background: rgba(46.000, 70.000, 94.000, 0.933);
 }
 QToolButton:selected,
 QToolButton:checked {
-    background: #2e465e;
+    background: rgba(46.000, 70.000, 94.000, 0.733);
 }
 QToolButton::checked:disabled {
     background: #3f4042;
@@ -411,10 +427,13 @@ QSlider::handle:disabled {
     background: #53575b;
 }
 QSlider::add-page {
-    background: #36568c;
+    background: #5b7193;
 }
 QSlider::handle:hover {
-    background: #7fa6e4;
+    background: #7fa7e5;
+}
+QSlider::handle:pressed {
+    background: #6d8bbe;
 }
 QSlider::handle:horizontal {
     width: 16px;
@@ -455,11 +474,11 @@ QTabBar::tab {
     padding: 3px;
 }
 QTabBar::tab:hover {
-    background: #1e2b3c;
+    background: rgba(46.000, 70.000, 94.000, 0.333);
 }
 QTabBar::tab:selected {
     color: #8ab4f7;
-    background: #2e465e;
+    background: rgba(46.000, 70.000, 94.000, 0.933);
 }
 QTabBar::tab:selected:disabled {
     background: #53575b;
@@ -536,7 +555,7 @@ QDockWidget::title {
 }
 QDockWidget::close-button:hover,
 QDockWidget::float-button:hover {
-    background: #1e2b3c;
+    background: rgba(46.000, 70.000, 94.000, 0.333);
     border-radius: 2px;
 }
 QFrame {

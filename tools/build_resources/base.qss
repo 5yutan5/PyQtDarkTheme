@@ -348,31 +348,45 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qpushbutto
 
 --------------------------------------------------------------------------- */
 QPushButton {
-    border: 1px solid $border;
-    padding: 4px 8px;
     border-radius: 4px;
     color: $highlight;
+    border: 1px solid $border;
+    padding: 4px 8px;
+}
+QPushButton:!window {
+    background: transparent;
+}
+QPushButton:flat,
+QPushButton:default {
+    border: none;
+    padding: 5px 9px;
+}
+QPushButton:default {
+    color: $highlight-text;
+    background: $highlight;
 }
 QPushButton:hover,
 QPushButton:flat:hover {
     background: $button-hover;
 }
 QPushButton:pressed,
-QPushButton:flat:pressed {
+QPushButton:flat:pressed,
+QPushButton:checked:pressed,
+QPushButton:flat:checked:pressed {
     background: $button-pressed;
 }
 QPushButton:checked,
 QPushButton:flat:checked {
-    border-color: $highlight;
+    background: $button-checked;
 }
-QPushButton:disabled,
-QPushButton:flat:checked {
-    border-color: $button-disabled;
+QPushButton:default:hover {
+    background: $highlight-hover;
 }
-
-QPushButton:flat {
-    background: transparent;
-    border-color: transparent;
+QPushButton:default:pressed {
+    background: $highlight-pressed;
+}
+QPushButton:default:disabled {
+    background: $highlight-disabled;
 }
 
 /* QDialogButtonBox -------------------------------------------------------
@@ -396,7 +410,8 @@ QToolButton {
 QToolButton:hover {
     background: $button-hover;
 }
-QToolButton:pressed {
+QToolButton:pressed,
+QToolButton:checked:pressed {
     background: $button-pressed;
 }
 QToolButton:selected,
@@ -517,7 +532,7 @@ QSlider::groove:vertical {
     width: 4px;
 }
 QSlider::sub-page, QSlider::handle {
-    background: $slider-subpage-handle;
+    background: $highlight;
 }
 QSlider::sub-page:disabled,
 QSlider::add-page:disabled,
@@ -525,10 +540,13 @@ QSlider::handle:disabled {
     background: $highlight-disabled;
 }
 QSlider::add-page {
-    background: $slider-addpage;
+    background: $highlight-border;
 }
 QSlider::handle:hover {
-    background: $slider-handle-hover;
+    background: $highlight-hover;
+}
+QSlider::handle:pressed {
+    background: $highlight-pressed;
 }
 QSlider::handle:horizontal {
     width: 16px;

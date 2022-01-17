@@ -53,12 +53,11 @@ class _Group1(QGroupBox):
 
         # Setup widgets
         self.setCheckable(True)
-        push_btn_toggled.setCheckable(True)
-        push_btn_toggled.setChecked(True)
-        push_btn_flat_toggled.setCheckable(True)
-        push_btn_flat_toggled.setChecked(True)
         push_btn_flat.setFlat(True)
         push_btn_flat_toggled.setFlat(True)
+        for btn in (push_btn_toggled, push_btn_flat_toggled):
+            btn.setCheckable(True)
+            btn.setChecked(True)
 
         tool_btn.setIcon(QIcon("icons:favorite_border_24dp.svg"))
         tool_btn_toggled.setIcon(QIcon("icons:favorite_border_24dp.svg"))

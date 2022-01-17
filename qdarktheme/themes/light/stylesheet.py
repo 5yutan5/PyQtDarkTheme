@@ -262,30 +262,45 @@ QProgressBar::chunk:disabled {
     background: #dadce0;
 }
 QPushButton {
-    border: 1px solid #dadce0;
-    padding: 4px 8px;
     border-radius: 4px;
     color: #0081db;
+    border: 1px solid #dadce0;
+    padding: 4px 8px;
+}
+QPushButton:!window {
+    background: transparent;
+}
+QPushButton:flat,
+QPushButton:default {
+    border: none;
+    padding: 5px 9px;
+}
+QPushButton:default {
+    color: #f8f9fa;
+    background: #0081db;
 }
 QPushButton:hover,
 QPushButton:flat:hover {
-    background: #e2eafb;
+    background: rgba(181.000, 202.000, 244.000, 0.333);
 }
 QPushButton:pressed,
-QPushButton:flat:pressed {
-    background: #b5caf4;
+QPushButton:flat:pressed,
+QPushButton:checked:pressed,
+QPushButton:flat:checked:pressed {
+    background: rgba(181.000, 202.000, 244.000, 0.933);
 }
 QPushButton:checked,
 QPushButton:flat:checked {
-    border-color: #0081db;
+    background: rgba(181.000, 202.000, 244.000, 0.733);
 }
-QPushButton:disabled,
-QPushButton:flat:checked {
-    border-color: #dadce0;
+QPushButton:default:hover {
+    background: #3781ea;
 }
-QPushButton:flat {
-    background: transparent;
-    border-color: transparent;
+QPushButton:default:pressed {
+    background: #6ca1f0;
+}
+QPushButton:default:disabled {
+    background: #dadce0;
 }
 QDialogButtonBox QPushButton {
     min-width: 65px;
@@ -297,14 +312,15 @@ QToolButton {
     spacing: 2px;
 }
 QToolButton:hover {
-    background: #e2eafb;
+    background: rgba(181.000, 202.000, 244.000, 0.333);
 }
-QToolButton:pressed {
-    background: #b5caf4;
+QToolButton:pressed,
+QToolButton:checked:pressed {
+    background: rgba(181.000, 202.000, 244.000, 0.933);
 }
 QToolButton:selected,
 QToolButton:checked {
-    background: #b5caf4;
+    background: rgba(181.000, 202.000, 244.000, 0.733);
 }
 QToolButton::checked:disabled {
     background: #dadce0;
@@ -411,10 +427,13 @@ QSlider::handle:disabled {
     background: #dadce0;
 }
 QSlider::add-page {
-    background: #dadce0;
+    background: #abc6f6;
 }
 QSlider::handle:hover {
-    background: #7fa6e4;
+    background: #3781ea;
+}
+QSlider::handle:pressed {
+    background: #6ca1f0;
 }
 QSlider::handle:horizontal {
     width: 16px;
@@ -455,11 +474,11 @@ QTabBar::tab {
     padding: 3px;
 }
 QTabBar::tab:hover {
-    background: #e2eafb;
+    background: rgba(181.000, 202.000, 244.000, 0.333);
 }
 QTabBar::tab:selected {
     color: #0081db;
-    background: #b5caf4;
+    background: rgba(181.000, 202.000, 244.000, 0.933);
 }
 QTabBar::tab:selected:disabled {
     background: #dadce0;
@@ -536,7 +555,7 @@ QDockWidget::title {
 }
 QDockWidget::close-button:hover,
 QDockWidget::float-button:hover {
-    background: #e2eafb;
+    background: rgba(181.000, 202.000, 244.000, 0.333);
     border-radius: 2px;
 }
 QFrame {
