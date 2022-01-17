@@ -27,6 +27,18 @@
             "description": "Main Highlight color",
             "$ref": "#/definitions/color_code"
         },
+        "highlight-hover": {
+            "description": "Main Highlight hover color",
+            "$ref": "#/definitions/color_code"
+        },
+        "highlight-pressed": {
+            "description": "Main Highlight pressed color",
+            "$ref": "#/definitions/color_code"
+        },
+        "highlight-border": {
+            "description": "Main Highlight border color",
+            "$ref": "#/definitions/color_code"
+        },
         "highlight-disabled": {
             "description": "Disabled main Highlight color",
             "$ref": "#/definitions/color_code"
@@ -167,18 +179,6 @@
             "description": "Used as the placeholder color for various text input widgets",
             "$ref": "#/definitions/color_code"
         },
-        "slider-subpage-handle": {
-            "description": "Sub page and handle color of QSlider",
-            "$ref": "#/definitions/color_code"
-        },
-        "slider-addpage": {
-            "description": "Add page color of QSlider",
-            "$ref": "#/definitions/color_code"
-        },
-        "slider-handle-hover": {
-            "description": "Hovered handle color of QSlider",
-            "$ref": "#/definitions/color_code"
-        },
         "guides-stroke-inactive": {
             "description": "QTreeView guides stroke color when inactive",
             "$ref": "#/definitions/color_code"
@@ -273,6 +273,9 @@
         "icon-foreground",
         "icon-foreground-disabled",
         "highlight",
+        "highlight-hover",
+        "highlight-pressed",
+        "highlight-border",
         "highlight-disabled",
         "text",
         "highlight-text",
@@ -308,9 +311,6 @@
         "input-line-border",
         "input-line-button-hover",
         "placeholder-text",
-        "slider-subpage-handle",
-        "slider-handle-hover",
-        "slider-addpage",
         "tabbar-button-hover",
         "dockwidget-titlebar",
         "toolbox-tab",
