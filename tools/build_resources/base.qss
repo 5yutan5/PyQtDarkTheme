@@ -423,13 +423,15 @@ QToolButton::menu-arrow {
 
 /* MenuButtonPopup */
 QToolButton[
-$env_patch{"version": "<6.0.0", "value": "popupMode=\\\"1\\\""}
+$env_patch{"version": "<6.0.0", "qt": "PySide2", "value": "popupMode=MenuButtonPopup"}
+$env_patch{"version": "<6.0.0", "qt": "PyQt5", "value": "popupMode=\\\"1\\\""}
 $env_patch{"version": ">=6.0.0", "value": "popupMode=MenuButtonPopup"}
 ] {
     padding-right: 14px;
 }
 QToolButton[
-$env_patch{"version": "<6.0.0", "value": "popupMode=\\\"1\\\""}
+$env_patch{"version": "<6.0.0", "qt": "PySide2", "value": "popupMode=MenuButtonPopup"}
+$env_patch{"version": "<6.0.0", "qt": "PyQt5", "value": "popupMode=\\\"1\\\""}
 $env_patch{"version": ">=6.0.0", "value": "popupMode=MenuButtonPopup"}
 ]::menu-button {
     border: none;
@@ -438,7 +440,8 @@ $env_patch{"version": ">=6.0.0", "value": "popupMode=MenuButtonPopup"}
     image: $url{"icon": "expand_less.svg", "id": "icon-foreground", "rotate": "180"};
 }
 QToolButton[
-$env_patch{"version": "<6.0.0", "value": "popupMode=\\\"1\\\""}
+$env_patch{"version": "<6.0.0", "qt": "PySide2", "value": "popupMode=MenuButtonPopup"}
+$env_patch{"version": "<6.0.0", "qt": "PyQt5", "value": "popupMode=\\\"1\\\""}
 $env_patch{"version": ">=6.0.0", "value": "popupMode=MenuButtonPopup"}
 ]::menu-button:disabled {
     image: $url{"icon": "expand_less.svg", "id": "icon-foreground-disabled", "rotate": "180"};
@@ -679,21 +682,24 @@ QFrame {
 }
 /* NoFrame */
 QFrame[
-$env_patch{"version": "<6.0.0", "value": "frameShape=\\\"0\\\""}
+$env_patch{"version": "<6.0.0", "qt": "PySide2", "value": "frameShape=NoFrame"}
+$env_patch{"version": "<6.0.0", "qt": "PyQt5", "value": "frameShape=\\\"0\\\""}
 $env_patch{"version": ">=6.0.0", "value": "frameShape=NoFrame"}
 ] {
     border-color: transparent;
     padding: 0;
 }
 .QFrame[
-$env_patch{"version": "<6.0.0", "value": "frameShape=\\\"0\\\""}
+$env_patch{"version": "<6.0.0", "qt": "PySide2", "value": "frameShape=NoFrame"}
+$env_patch{"version": "<6.0.0", "qt": "PyQt5", "value": "frameShape=\\\"0\\\""}
 $env_patch{"version": ">=6.0.0", "value": "frameShape=NoFrame"}
 ] {
     border: none;
 }
 /* Panel */
 QFrame[
-$env_patch{"version": "<6.0.0", "value": "frameShape=\\\"2\\\""}
+$env_patch{"version": "<6.0.0", "qt": "PySide2", "value": "frameShape=Panel"}
+$env_patch{"version": "<6.0.0", "qt": "PyQt5", "value": "frameShape=\\\"2\\\""}
 $env_patch{"version": ">=6.0.0", "value": "frameShape=Panel"}
 ] {
     border-color: $panel;
@@ -701,7 +707,8 @@ $env_patch{"version": ">=6.0.0", "value": "frameShape=Panel"}
 }
 /* HLine */
 QFrame[
-$env_patch{"version": "<6.0.0", "value": "frameShape=\\\"4\\\""}
+$env_patch{"version": "<6.0.0", "qt": "PySide2", "value": "frameShape=HLine"}
+$env_patch{"version": "<6.0.0", "qt": "PyQt5", "value": "frameShape=\\\"4\\\""}
 $env_patch{"version": ">=6.0.0", "value": "frameShape=HLine"}
 ] {
     max-height: 2px;
@@ -710,7 +717,8 @@ $env_patch{"version": ">=6.0.0", "value": "frameShape=HLine"}
 }
 /* VLine */
 QFrame[
-$env_patch{"version": "<6.0.0", "value": "frameShape=\\\"5\\\""}
+$env_patch{"version": "<6.0.0", "qt": "PySide2", "value": "frameShape=VLine"}
+$env_patch{"version": "<6.0.0", "qt": "PyQt5", "value": "frameShape=\\\"5\\\""}
 $env_patch{"version": ">=6.0.0", "value": "frameShape=VLine"}
 ] {
     max-width: 2px;

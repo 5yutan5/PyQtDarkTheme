@@ -7,18 +7,27 @@ import sys
 from pathlib import Path
 
 from qdarktheme.qtpy import QtImportError, __version__
+from qdarktheme.qtpy.qt_compat import QT_API
 from qdarktheme.util import OPERATORS, compare_v, get_logger, get_qdarktheme_root_path, multi_replace
 
 _logger = get_logger(__name__)
 
 if __version__ is None:
-    _logger.warning(
-        "Failed to detect Qt version. Set Qt version as the latest version."
-        + "\nMaybe you need to install qt-binding. Available Qt-binding packages: PySide6, PyQt6, PyQt5, PySide2."
-    )
+    _logger.warning("Failed to detect Qt version. Load Qt version as the latest version.")
     _qt_version = "10.0.0"  # Fairly future version for always setting latest version.
 else:
     _qt_version = __version__
+
+if QT_API is None:
+    _qt_api = "PySide6"
+    _logger.warning(f"Failed to detect Qt binding. Load Qt API as '{_qt_api}'.")
+else:
+    _qt_api = QT_API
+
+if None in [__version__, QT_API]:
+    _logger.warning(
+        "Maybe you need to install qt-binding. Available Qt-binding packages: PySide6, PyQt6, PyQt5, PySide2."
+    )
 
 
 class _SvgFileNotFoundError(FileNotFoundError):
@@ -44,6 +53,7 @@ def _parse_env_patch(stylesheet: str) -> dict[str, str]:
     This symbol has json string and resolve the differences of the style between qt versions.
     The json keys:
         * version - the qt version and qualifier. Available qualifiers: [==, !=, >=, <=, >, <].
+        * qt - the name of qt binding.
         * value - the qt stylesheet string
 
     Args:
@@ -62,15 +72,30 @@ def _parse_env_patch(stylesheet: str) -> dict[str, str]:
         json_text = match_text.replace("$env_patch", "")
         env_property: dict[str, str] = json.loads(json_text)
 
-        for operator in OPERATORS:
-            if operator in env_property["version"]:
-                version = env_property["version"].replace(operator, "")
-                replacements[match_text] = env_property["value"] if compare_v(_qt_version, operator, version) else ""
+        patch_version = env_property.get("version")
+        patch_qt = env_property.get("qt")
+        patch_value = env_property["value"]
+
+        results: list[bool] = []
+        # Parse version
+        if patch_version is not None:
+            for operator in OPERATORS:
+                if operator not in patch_version:
+                    continue
+                version = patch_version.replace(operator, "")
+                results.append(compare_v(_qt_version, operator, version))
                 break
-        else:
-            raise SyntaxError(
-                f"invalid character in qualifier. Available qualifiers {list(OPERATORS.keys())}"
-            ) from None
+            else:
+                raise SyntaxError(
+                    f"invalid character in qualifier. Available qualifiers {list(OPERATORS.keys())}"
+                ) from None
+        # Parse qt binding
+        if patch_qt is not None:
+            if QT_API is None:
+                results.append(False)
+            results.append(patch_qt.lower() == _qt_api.lower())
+
+        replacements[match_text] = patch_value if all(results) else ""
     return replacements
 
 
