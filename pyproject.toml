@@ -63,7 +63,7 @@ rstcheck = "^3.3.1"
 black = "^21.12b0"
 isort = "^5.10.1"
 pre-commit = "^2.16.0"
-pyinstaller = "^4.7"
+pyinstaller = "^4.8"
 rich = "^11.0.0"
 
 [tool.poetry.extras]
