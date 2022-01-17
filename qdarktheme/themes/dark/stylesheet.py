@@ -544,6 +544,9 @@ QFrame {
     padding: 1px;
     border-radius: 4px;
 }
+.QFrame {
+    padding: 0;
+}
 QFrame[
 $env_patch{"version": "<6.0.0", "qt": "PySide2", "value": "frameShape=NoFrame"}
 $env_patch{"version": "<6.0.0", "qt": "PyQt5", "value": "frameShape=\\\"0\\\""}
@@ -801,12 +804,25 @@ QTableView[sortingEnabled=false] QHeaderView::up-arrow {
     width: 0;
     padding: 0;
 }
+QCalendarWidget {
+    border: none;
+}
 QCalendarWidget > .QWidget {
     background: #000000;
     border-bottom: 1px solid #3f4042;
     border-radius: 4px;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+}
+QCalendarWidget > .QWidget > QWidget {
+    padding: 1px;
+}
+QCalendarWidget > .QWidget > QSpinBox {
+    margin-left: 1px;
+}
+QCalendarWidget > .QWidget > QSpinBox::up-button,
+QCalendarWidget > .QWidget > QSpinBox::down-button {
+    margin: 1px 3px 1px 1px;
 }
 QCalendarWidget > QTableView {
     margin: 0;
