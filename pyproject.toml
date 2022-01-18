@@ -28,7 +28,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = ">=3.7,<3.11"
-pydata-sphinx-theme = { version = "^0.7.2", optional = true }
+pydata-sphinx-theme = { version = ">=0.7.2,<0.9.0", optional = true }
 sphinx-panels = { version = "^0.6.0", optional = true }
 
 [tool.poetry.dev-dependencies]
@@ -57,7 +57,7 @@ pytest-github-actions-annotate-failures = "^0.1.6"
 # sphinx
 Sphinx = "^4.3.1"
 sphinx-panels = "^0.6.0"
-pydata-sphinx-theme = "^0.7.2"
+pydata-sphinx-theme = ">=0.7.2,<0.9.0"
 rstcheck = "^3.3.1"
 
 black = "^21.12b0"
