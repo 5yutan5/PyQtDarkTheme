@@ -139,10 +139,6 @@
             "description": "Pressed QScrollBar color",
             "$ref": "#/definitions/color_code"
         },
-        "progressbar-chunk": {
-            "description": "QProgressBar chunk color",
-            "$ref": "#/definitions/color_code"
-        },
         "progressbar-text": {
             "description": "QProgressBar text color",
             "$ref": "#/definitions/color_code"
@@ -301,7 +297,6 @@
         "scrollbar-handle",
         "scrollbar-handle-hover",
         "scrollbar-handle-pressed",
-        "progressbar-chunk",
         "progressbar-text",
         "button-hover",
         "button-pressed",

@@ -104,19 +104,17 @@ QGroupBox {
     font-weight: bold;
     border: 1px solid #dadce0;
     border-radius: 4px;
-    padding: 2px;
-    margin: 9px 0 4px 0;
+    margin-top: 8px;
+    padding: 2px 1px 1px 1px;
 }
 QGroupBox::title {
     subcontrol-origin: margin;
     subcontrol-position: top left;
     left: 7px;
-    top: 2px;
-    margin: 0 2px;
+    margin: 0 2px 0 3px;
 }
 QGroupBox:flat {
     border-color: transparent;
-    padding: 2px 0 0 0;
 }
 QMenuBar {
     background: #f8f9fa;
@@ -192,6 +190,7 @@ QMenu {
     border: 1px solid #dadce0;
 }
 QMenu::separator {
+    margin: 4px 0;
     height: 1px;
     background: #dadce0;
 }
@@ -449,7 +448,7 @@ QSlider::handle:vertical {
 }
 QTabWidget::pane {
     border: 1px solid #dadce0;
-    border-radius: 3px;
+    border-radius: 4px;
 }
 QTabBar {
     qproperty-drawBase: 0;
@@ -553,10 +552,17 @@ QDockWidget::title {
     spacing: 4px;
     background: #edeef0;
 }
+QDockWidget::close-button,
+QDockWidget::float-button {
+    border-radius: 2px;
+}
 QDockWidget::close-button:hover,
 QDockWidget::float-button:hover {
     background: rgba(181.000, 202.000, 244.000, 0.333);
-    border-radius: 2px;
+}
+QDockWidget::close-button:pressed,
+QDockWidget::float-button:pressed {
+    background: rgba(181.000, 202.000, 244.000, 0.933);
 }
 QFrame {
     border: 1px solid #dadce0;
@@ -611,6 +617,10 @@ QLCDNumber {
     color: #4d5157;
     min-width: 2em;
     margin: 2px;
+}
+QLabel:!window,
+QLCDNumber:!window {
+    background-color: transparent;
 }
 QToolBox:selected {
     border: 2px solid #0081db;
@@ -748,6 +758,7 @@ QTableView {
 }
 QTableView QTableCornerButton::section {
     border-top-left-radius: 2px;
+    margin: 0 1px 1px 0;
     background: #dadce0;
 }
 QTableView QTableCornerButton::section:pressed {
@@ -755,12 +766,6 @@ QTableView QTableCornerButton::section:pressed {
 }
 QTableView > QHeaderView{
     background: #ffffff;
-}
-QTableView > QHeaderView::section:horizontal:first {
-    margin-left: 1px;
-}
-QTableView > QHeaderView::section:vertical:first {
-    margin-top: 1px;
 }
 QHeaderView {
     padding: 0;
@@ -1019,14 +1024,22 @@ QRadioButton::indicator:unchecked:disabled {
 QMenu {
     $env_patch{"version": "<6.0.0", "value": "border-radius: 8px"};
 }
-QComboBox QAbstractItemView {
-    $env_patch{"version": ">=6.0.0", "value": "border-radius: 0; margin: 0"};
-}
-QStatusBar > QMenu {
+QComboBox QAbstractItemView,
+QStatusBar > QMenu,
+QDateTimeEdit QCalendarWidget QAbstractItemView,
+QDateTimeEdit QCalendarWidget .QWidget {
     $env_patch{"version": ">=6.0.0", "value": "border-radius: 0; margin: 0"};
 }
 PlotWidget {
     padding: 0;
+}
+ParameterTree > .QWidget > .QWidget > .QWidget > QAbstractSpinBox::up-button,
+ParameterTree > .QWidget > .QWidget > .QWidget > QAbstractSpinBox::down-button {
+    margin: 2px 3px 1px 1px;
+    padding: 2px;
+}
+ParameterTree > .QWidget > .QWidget > .QWidget > QComboBox{
+    min-height: 1.2em;
 }
 
 """
