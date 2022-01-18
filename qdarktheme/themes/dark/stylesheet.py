@@ -848,6 +848,12 @@ QCalendarWidget > .QWidget > QSpinBox::up-button,
 QCalendarWidget > .QWidget > QSpinBox::down-button {
     margin: 1px 3px 1px 1px;
 }
+QCalendarWidget > .QWidget > QToolButton::menu-indicator {
+    height: 14px;
+    width: 14px;
+    top: 5px;
+    left: 3px;
+}
 QCalendarWidget > QTableView {
     margin: 0;
     border: none;
