@@ -1205,9 +1205,6 @@ QGroupBox::indicator,
 QAbstractItemView::indicator {
     image: $url{"icon": "check_box_outline_blank.svg", "id": "icon-foreground"};
 }
-QRadioButton::indicator {
-    border-image: $url{"icon": "radio_button_unchecked.svg", "id": "icon-foreground"}
-}
 QCheckBox::indicator:unchecked:disabled,
 QGroupBox::indicator:unchecked:disabled,
 QAbstractItemView::indicator:unchecked:disabled {

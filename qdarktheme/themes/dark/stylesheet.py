@@ -961,9 +961,6 @@ QGroupBox::indicator,
 QAbstractItemView::indicator {
     image: url(${path}/themes/dark/svg/check_box_outline_blank__icon-foreground.svg);
 }
-QRadioButton::indicator {
-    border-image: url(${path}/themes/dark/svg/radio_button_unchecked__icon-foreground.svg)
-}
 QCheckBox::indicator:unchecked:disabled,
 QGroupBox::indicator:unchecked:disabled,
 QAbstractItemView::indicator:unchecked:disabled {
