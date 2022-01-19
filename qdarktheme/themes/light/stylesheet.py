@@ -802,37 +802,23 @@ QHeaderView::section:vertical {
     border-left: 2px solid transparent;
     margin-bottom: 1px;
 }
-QHeaderView::section::last,
-QHeaderView::section::only-one {
+QHeaderView::section:last,
+QHeaderView::section:only-one {
     margin: 0;
 }
 QHeaderView::down-arrow {
+    margin: -2px -6px -6px -6px;
     image: url(${path}/themes/light/svg/expand_less__icon-foreground__rotate-180.svg);
 }
 QHeaderView::down-arrow:disabled {
     image: url(${path}/themes/light/svg/expand_less__icon-foreground-disabled__rotate-180.svg);
 }
 QHeaderView::up-arrow {
+    margin: -2px -6px -6px -6px;
     image: url(${path}/themes/light/svg/expand_less__icon-foreground.svg);
 }
 QHeaderView::up-arrow:disabled {
     image: url(${path}/themes/light/svg/expand_less__icon-foreground-disabled.svg);
-}
-QHeaderView::down-arrow::horizontal,
-QHeaderView::up-arrow::horizontal {
-    width: 20px;
-    padding-right: 2px;
-}
-QHeaderView::down-arrow::vertical,
-QHeaderView::up-arrow::vertical {
-    height: 0;
-}
-QTreeView[sortingEnabled=false] QHeaderView::down-arrow,
-QTreeView[sortingEnabled=false] QHeaderView::up-arrow,
-QTableView[sortingEnabled=false] QHeaderView::down-arrow,
-QTableView[sortingEnabled=false] QHeaderView::up-arrow {
-    width: 0;
-    padding: 0;
 }
 QCalendarWidget {
     border: none;
