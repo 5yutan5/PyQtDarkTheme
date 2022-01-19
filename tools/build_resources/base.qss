@@ -780,6 +780,8 @@ QToolBox:selected {
 QToolBox::tab {
     background: $toolbox-tab;
     border-bottom: 2px solid $border;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
 }
 QToolBox::tab:selected {
     border-bottom: 2px solid $highlight;
@@ -880,7 +882,6 @@ QAbstractItemView {
     alternate-background-color: $itemview-alternate;
 }
 QAbstractItemView::item {
-    spacing: 6px;
     $env_patch{"version": ">=6.0.0", "value": "border-color: transparent"};  /* Fix indicator bug on Qt6 */
 }
 QAbstractItemView:selected:!active,
@@ -1190,70 +1191,57 @@ QCheckBox,
 QRadioButton {
     spacing: 8px;
 }
-QGroupBox::title {
+QGroupBox::title,
+QAbstractItemView::item {
     spacing: 6px;
 }
 QCheckBox::indicator,
 QGroupBox::indicator,
 QAbstractItemView::indicator,
 QRadioButton::indicator {
-    height: 14px;
-    width: 14px;
-    border-radius: 2px;
+    height: 18px;
+    width: 18px;
 }
 QCheckBox::indicator,
 QGroupBox::indicator,
 QAbstractItemView::indicator {
-    border-image: $url{"icon": "check_box_outline_blank.svg", "id": "icon-foreground"}
-}
-QRadioButton::indicator {
-    border-image: $url{"icon": "radio_button_unchecked.svg", "id": "icon-foreground"}
+    image: $url{"icon": "check_box_outline_blank.svg", "id": "icon-foreground"};
 }
 QCheckBox::indicator:unchecked:disabled,
 QGroupBox::indicator:unchecked:disabled,
 QAbstractItemView::indicator:unchecked:disabled {
-    border-image: $url{"icon": "check_box_outline_blank.svg", "id": "icon-foreground-disabled"}
+    image: $url{"icon": "check_box_outline_blank.svg", "id": "icon-foreground-disabled"};
 }
 QCheckBox::indicator:checked,
 QGroupBox::indicator:checked,
 QAbstractItemView::indicator:checked {
-    background: $highlight;
-    border-image: unset;
-    image: $url{"icon": "check.svg", "id": "base"};
+    image: $url{"icon": "check_box.svg", "id": "highlight"};
 }
 QCheckBox::indicator:checked:disabled,
 QGroupBox::indicator:checked:disabled,
 QAbstractItemView::indicator:checked:disabled {
-    background: $icon-foreground-disabled;
-    image: $url{"icon": "check.svg", "id": "base"};
+    image: $url{"icon": "check_box.svg", "id": "icon-foreground-disabled"};
 }
 QCheckBox::indicator:indeterminate,
 QAbstractItemView::indicator:indeterminate {
-    background: $highlight;
-    border-image: unset;
-    image: $url{"icon": "horizontal_rule.svg", "id": "base"};
+    image: $url{"icon": "indeterminate_check_box.svg", "id": "highlight"};
 }
 QCheckBox::indicator:indeterminate:disabled,
 QAbstractItemView::indicator:indeterminate:disabled {
-    background: $icon-foreground-disabled;
-    border-color: $icon-foreground-disabled;
-    image: $url{"icon": "horizontal_rule.svg", "id": "base"};
+    image: $url{"icon": "indeterminate_check_box.svg", "id": "icon-foreground-disabled"};
 }
-QRadioButton::indicator:checked {
-    height: 12px;
-    width: 12px;
-    background: $highlight;
-    border: 1px solid $highlight;
-    border-radius: 7px;
-    border-image: unset;
-    image: $url{"icon": "trip_origin.svg", "id": "base"};
-}
-QRadioButton::indicator:checked:disabled {
-    background: $icon-foreground-disabled;
-    border: 1px solid $icon-foreground-disabled;
+
+QRadioButton::indicator:unchecked {
+    image: $url{"icon": "radio_button_unchecked.svg", "id": "icon-foreground"};
 }
 QRadioButton::indicator:unchecked:disabled {
-    border-image: $url{"icon": "radio_button_unchecked.svg", "id": "icon-foreground-disabled"}
+    image: $url{"icon": "radio_button_unchecked.svg", "id": "icon-foreground-disabled"};
+}
+QRadioButton::indicator:checked {
+    image: $url{"icon": "radio_button_checked.svg", "id": "highlight"};
+}
+QRadioButton::indicator:checked:disabled {
+    image: $url{"icon": "radio_button_checked.svg", "id": "icon-foreground-disabled"};
 }
 
 /* Rounded popup ----------------------------------------------------------
