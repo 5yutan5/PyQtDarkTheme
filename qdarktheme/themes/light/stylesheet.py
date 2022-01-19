@@ -696,7 +696,6 @@ QAbstractItemView {
     alternate-background-color: #e9ecef;
 }
 QAbstractItemView::item {
-    spacing: 6px;
     $env_patch{"version": ">=6.0.0", "value": "border-color: transparent"};
 }
 QAbstractItemView:selected:!active,
@@ -946,21 +945,21 @@ QCheckBox,
 QRadioButton {
     spacing: 8px;
 }
-QGroupBox::title {
+QGroupBox::title,
+QAbstractItemView::item {
     spacing: 6px;
 }
 QCheckBox::indicator,
 QGroupBox::indicator,
 QAbstractItemView::indicator,
 QRadioButton::indicator {
-    height: 14px;
-    width: 14px;
-    border-radius: 2px;
+    height: 18px;
+    width: 18px;
 }
 QCheckBox::indicator,
 QGroupBox::indicator,
 QAbstractItemView::indicator {
-    border-image: url(${path}/themes/light/svg/check_box_outline_blank__icon-foreground.svg)
+    image: url(${path}/themes/light/svg/check_box_outline_blank__icon-foreground.svg);
 }
 QRadioButton::indicator {
     border-image: url(${path}/themes/light/svg/radio_button_unchecked__icon-foreground.svg)
@@ -968,48 +967,37 @@ QRadioButton::indicator {
 QCheckBox::indicator:unchecked:disabled,
 QGroupBox::indicator:unchecked:disabled,
 QAbstractItemView::indicator:unchecked:disabled {
-    border-image: url(${path}/themes/light/svg/check_box_outline_blank__icon-foreground-disabled.svg)
+    image: url(${path}/themes/light/svg/check_box_outline_blank__icon-foreground-disabled.svg);
 }
 QCheckBox::indicator:checked,
 QGroupBox::indicator:checked,
 QAbstractItemView::indicator:checked {
-    background: #0081db;
-    border-image: unset;
-    image: url(${path}/themes/light/svg/check__base.svg);
+    image: url(${path}/themes/light/svg/check_box__highlight.svg);
 }
 QCheckBox::indicator:checked:disabled,
 QGroupBox::indicator:checked:disabled,
 QAbstractItemView::indicator:checked:disabled {
-    background: #babdc2;
-    image: url(${path}/themes/light/svg/check__base.svg);
+    image: url(${path}/themes/light/svg/check_box__icon-foreground-disabled.svg);
 }
 QCheckBox::indicator:indeterminate,
 QAbstractItemView::indicator:indeterminate {
-    background: #0081db;
-    border-image: unset;
-    image: url(${path}/themes/light/svg/horizontal_rule__base.svg);
+    image: url(${path}/themes/light/svg/indeterminate_check_box__highlight.svg);
 }
 QCheckBox::indicator:indeterminate:disabled,
 QAbstractItemView::indicator:indeterminate:disabled {
-    background: #babdc2;
-    border-color: #babdc2;
-    image: url(${path}/themes/light/svg/horizontal_rule__base.svg);
+    image: url(${path}/themes/light/svg/indeterminate_check_box__icon-foreground-disabled.svg);
 }
-QRadioButton::indicator:checked {
-    height: 12px;
-    width: 12px;
-    background: #0081db;
-    border: 1px solid #0081db;
-    border-radius: 7px;
-    border-image: unset;
-    image: url(${path}/themes/light/svg/trip_origin__base.svg);
-}
-QRadioButton::indicator:checked:disabled {
-    background: #babdc2;
-    border: 1px solid #babdc2;
+QRadioButton::indicator:unchecked {
+    image: url(${path}/themes/light/svg/radio_button_unchecked__icon-foreground.svg);
 }
 QRadioButton::indicator:unchecked:disabled {
-    border-image: url(${path}/themes/light/svg/radio_button_unchecked__icon-foreground-disabled.svg)
+    image: url(${path}/themes/light/svg/radio_button_unchecked__icon-foreground-disabled.svg);
+}
+QRadioButton::indicator:checked {
+    image: url(${path}/themes/light/svg/radio_button_checked__highlight.svg);
+}
+QRadioButton::indicator:checked:disabled {
+    image: url(${path}/themes/light/svg/radio_button_checked__icon-foreground-disabled.svg);
 }
 QMenu {
     $env_patch{"version": "<6.0.0", "value": "border-radius: 8px"};
