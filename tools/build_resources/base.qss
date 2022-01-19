@@ -296,12 +296,15 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qscrollbar
 --------------------------------------------------------------------------- */
 QScrollBar {
     background: transparent;
+    $env_patch{"os": "Darwin", "value": "background: transparent;"};
 }
 QScrollBar:horizontal {
-    height: 7px;
+    height: 14px;
+    $env_patch{"os": "Darwin", "value": "height: 7px;"};
 }
 QScrollBar:vertical {
-    width: 7px;
+    width: 14px;
+    $env_patch{"os": "Darwin", "value": "width: 7px;"};
 }
 QScrollBar::handle {
     background: $scrollbar-handle;
@@ -315,29 +318,62 @@ QScrollBar::handle:pressed {
 }
 QScrollBar::handle:horizontal {
     min-width: 8px;
+    margin: 2px 14px;
+    $env_patch{"os": "Darwin", "value": "margin: 0;"};
 }
 QScrollBar::handle:vertical {
     min-height: 8px;
+    margin: 14px 2px;
+    $env_patch{"os": "Darwin", "value": "margin: 0;"};
 }
 /* There is no support button in modern apps. So we hide button of QScrollBar. */
 QScrollBar::sub-line, QScrollBar::add-line {
+    background: transparent;
     $env_patch{"os": "Darwin", "value": "width: 0; height: 0"};
 }
 /* We hide background of QScrollBar */
 QScrollBar::sub-page, QScrollBar::add-page {
     background: transparent;
 }
+QScrollBar::sub-line,
+QScrollBar::add-line {
+    width: 14px;
+    height: 14px;
+    margin: 2px;
+    subcontrol-origin: margin;
+    $env_patch{"os": "Darwin", "value": "width: 0; height: 0; margin: 2px"};
+}
+QScrollBar::sub-line:vertical {
+    subcontrol-position: top;
+    $env_patch{"os": "Darwin", "value": "margin: 0"};
+}
+QScrollBar::add-line:vertical {
+    subcontrol-position: bottom;
+    $env_patch{"os": "Darwin", "value": "margin: 0"};
+}
 QScrollBar::up-arrow {
-    image: $url{"icon": "arrow_drop_up.svg", "id": "icon-foreground", "rotate": "0"};
+    image: $url{"icon": "arrow_drop_up.svg", "id": "scrollbar-handle", "rotate": "0"};
 }
 QScrollBar::right-arrow {
-    image: $url{"icon": "arrow_drop_up.svg", "id": "icon-foreground", "rotate": "90"};
+    image: $url{"icon": "arrow_drop_up.svg", "id": "scrollbar-handle", "rotate": "90"};
 }
 QScrollBar::down-arrow {
-    image: $url{"icon": "arrow_drop_up.svg", "id": "icon-foreground", "rotate": "180"};
+    image: $url{"icon": "arrow_drop_up.svg", "id": "scrollbar-handle", "rotate": "180"};
 }
 QScrollBar::left-arrow {
-    image: $url{"icon": "arrow_drop_up.svg", "id": "icon-foreground", "rotate": "270"};
+    image: $url{"icon": "arrow_drop_up.svg", "id": "scrollbar-handle", "rotate": "270"};
+}
+QScrollBar::up-arrow:hover {
+    image: $url{"icon": "arrow_drop_up.svg", "id": "scrollbar-handle-pressed", "rotate": "0"};
+}
+QScrollBar::right-arrow:hover {
+    image: $url{"icon": "arrow_drop_up.svg", "id": "scrollbar-handle-pressed", "rotate": "90"};
+}
+QScrollBar::down-arrow:hover {
+    image: $url{"icon": "arrow_drop_up.svg", "id": "scrollbar-handle-pressed", "rotate": "180"};
+}
+QScrollBar::left-arrow:hover {
+    image: $url{"icon": "arrow_drop_up.svg", "id": "scrollbar-handle-pressed", "rotate": "270"};
 }
 
 /* QProgressBar -----------------------------------------------------------

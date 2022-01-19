@@ -223,12 +223,15 @@ QMenu::right-arrow:disabled {
 }
 QScrollBar {
     background: transparent;
+    $env_patch{"os": "Darwin", "value": "background: transparent;"};
 }
 QScrollBar:horizontal {
-    height: 7px;
+    height: 14px;
+    $env_patch{"os": "Darwin", "value": "height: 7px;"};
 }
 QScrollBar:vertical {
-    width: 7px;
+    width: 14px;
+    $env_patch{"os": "Darwin", "value": "width: 7px;"};
 }
 QScrollBar::handle {
     background: rgba(84.000, 86.000, 86.000, 0.737);
@@ -242,27 +245,60 @@ QScrollBar::handle:pressed {
 }
 QScrollBar::handle:horizontal {
     min-width: 8px;
+    margin: 2px 14px;
+    $env_patch{"os": "Darwin", "value": "margin: 0;"};
 }
 QScrollBar::handle:vertical {
     min-height: 8px;
+    margin: 14px 2px;
+    $env_patch{"os": "Darwin", "value": "margin: 0;"};
 }
 QScrollBar::sub-line, QScrollBar::add-line {
+    background: transparent;
     $env_patch{"os": "Darwin", "value": "width: 0; height: 0"};
 }
 QScrollBar::sub-page, QScrollBar::add-page {
     background: transparent;
 }
+QScrollBar::sub-line,
+QScrollBar::add-line {
+    width: 14px;
+    height: 14px;
+    margin: 2px;
+    subcontrol-origin: margin;
+    $env_patch{"os": "Darwin", "value": "width: 0; height: 0; margin: 2px"};
+}
+QScrollBar::sub-line:vertical {
+    subcontrol-position: top;
+    $env_patch{"os": "Darwin", "value": "margin: 0"};
+}
+QScrollBar::add-line:vertical {
+    subcontrol-position: bottom;
+    $env_patch{"os": "Darwin", "value": "margin: 0"};
+}
 QScrollBar::up-arrow {
-    image: url(${path}/themes/dark/svg/arrow_drop_up__icon-foreground.svg);
+    image: url(${path}/themes/dark/svg/arrow_drop_up__scrollbar-handle.svg);
 }
 QScrollBar::right-arrow {
-    image: url(${path}/themes/dark/svg/arrow_drop_up__icon-foreground__rotate-90.svg);
+    image: url(${path}/themes/dark/svg/arrow_drop_up__scrollbar-handle__rotate-90.svg);
 }
 QScrollBar::down-arrow {
-    image: url(${path}/themes/dark/svg/arrow_drop_up__icon-foreground__rotate-180.svg);
+    image: url(${path}/themes/dark/svg/arrow_drop_up__scrollbar-handle__rotate-180.svg);
 }
 QScrollBar::left-arrow {
-    image: url(${path}/themes/dark/svg/arrow_drop_up__icon-foreground__rotate-270.svg);
+    image: url(${path}/themes/dark/svg/arrow_drop_up__scrollbar-handle__rotate-270.svg);
+}
+QScrollBar::up-arrow:hover {
+    image: url(${path}/themes/dark/svg/arrow_drop_up__scrollbar-handle-pressed.svg);
+}
+QScrollBar::right-arrow:hover {
+    image: url(${path}/themes/dark/svg/arrow_drop_up__scrollbar-handle-pressed__rotate-90.svg);
+}
+QScrollBar::down-arrow:hover {
+    image: url(${path}/themes/dark/svg/arrow_drop_up__scrollbar-handle-pressed__rotate-180.svg);
+}
+QScrollBar::left-arrow:hover {
+    image: url(${path}/themes/dark/svg/arrow_drop_up__scrollbar-handle-pressed__rotate-270.svg);
 }
 QProgressBar {
     border: 1px solid #3f4042;
