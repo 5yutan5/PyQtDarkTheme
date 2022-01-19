@@ -106,11 +106,18 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qstatusbar
 QStatusBar {
     background: $statusbar;
 }
+QStatusBar::item {
+    /* Remove white border line on Windows */
+    border: none;
+}
 
 QStatusBar QWidget {
     background: transparent;
     padding: 3px;
     border-radius: 4px;
+}
+QStatusBar > .QSizeGrip {
+    padding: 0;
 }
 QStatusBar QWidget:hover {
     background: $statusbar-button-hover;

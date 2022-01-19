@@ -70,10 +70,16 @@ QSizeGrip {
 QStatusBar {
     background: #dfe1e5;
 }
+QStatusBar::item {
+    border: none;
+}
 QStatusBar QWidget {
     background: transparent;
     padding: 3px;
     border-radius: 4px;
+}
+QStatusBar > .QSizeGrip {
+    padding: 0;
 }
 QStatusBar QWidget:hover {
     background: #d1d4da;
