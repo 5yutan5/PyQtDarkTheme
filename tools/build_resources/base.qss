@@ -106,11 +106,18 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qstatusbar
 QStatusBar {
     background: $statusbar;
 }
+QStatusBar::item {
+    /* Remove white border line on Windows */
+    border: none;
+}
 
 QStatusBar QWidget {
     background: transparent;
     padding: 3px;
     border-radius: 4px;
+}
+QStatusBar > .QSizeGrip {
+    padding: 0;
 }
 QStatusBar QWidget:hover {
     background: $statusbar-button-hover;
@@ -150,19 +157,17 @@ QGroupBox {
     font-weight: bold;
     border: 1px solid $border;
     border-radius: 4px;
-    padding: 2px;
-    margin: 9px 0 4px 0;
+    margin-top: 8px;
+    padding: 2px 1px 1px 1px;
 }
 QGroupBox::title {
     subcontrol-origin: margin;
     subcontrol-position: top left;
     left: 7px;
-    top: 2px;
-    margin: 0 2px;
+    margin: 0 2px 0 3px;
 }
 QGroupBox:flat {
     border-color: transparent;
-    padding: 2px 0 0 0;
 }
 
 /* QMenuBar ---------------------------------------------------------------
@@ -258,6 +263,7 @@ QMenu {
     border: 1px solid $border;
 }
 QMenu::separator {
+    margin: 4px 0;
     height: 1px;
     background: $border;
 }
@@ -335,7 +341,7 @@ QProgressBar {
     color: $text;
 }
 QProgressBar::chunk {
-    background: $progressbar-chunk;
+    background: $highlight;
     border-radius: 3px;
 }
 QProgressBar::chunk:disabled {
@@ -479,13 +485,10 @@ QComboBox:open {
     border: 1px solid $highlight;
 }
 QComboBox::drop-down {
-    subcontrol-position: center right;
     border: none;
     padding-right: 4px;
 }
 QComboBox::down-arrow {
-    height: 23px;
-    width: 23px;
     image: $url{"icon": "expand_less.svg", "id": "icon-foreground", "rotate": "180"};
 }
 QComboBox::down-arrow:disabled {
@@ -568,7 +571,7 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtabwidget
 --------------------------------------------------------------------------- */
 QTabWidget::pane {
     border: 1px solid $border;
-    border-radius: 3px;
+    border-radius: 4px;
 }
 QTabBar {
     /* Not filling background color when drawBase property is true. So need to set drawBase to false. */
@@ -682,10 +685,17 @@ QDockWidget::title {
 Hover is already set in the QToolButton:hover, but it is not worked in
 QDockWidget::title. Therefore, we need to set it again here.
 */
+QDockWidget::close-button,
+QDockWidget::float-button {
+    border-radius: 2px;
+}
 QDockWidget::close-button:hover,
 QDockWidget::float-button:hover {
     background: $button-hover;
-    border-radius: 2px;
+}
+QDockWidget::close-button:pressed,
+QDockWidget::float-button:pressed {
+    background: $button-pressed;
 }
 
 /* QFrame -----------------------------------------------------------------
@@ -753,6 +763,10 @@ QLCDNumber {
     color: $text;
     min-width: 2em;
     margin: 2px;
+}
+QLabel:!window,
+QLCDNumber:!window {
+    background-color: transparent;
 }
 
 /* QToolBox ---------------------------------------------------------------
@@ -947,6 +961,7 @@ QTableView {
 
 QTableView QTableCornerButton::section {
     border-top-left-radius: 2px;
+    margin: 0 1px 1px 0;
     background: $headerview-section;
 }
 QTableView QTableCornerButton::section:pressed {
@@ -955,12 +970,6 @@ QTableView QTableCornerButton::section:pressed {
 
 QTableView > QHeaderView{
     background: $tableview;
-}
-QTableView > QHeaderView::section:horizontal:first {
-    margin-left: 1px;
-}
-QTableView > QHeaderView::section:vertical:first {
-    margin-top: 1px;
 }
 
 /* QHeaderView ------------------------------------------------------------
@@ -997,38 +1006,23 @@ QHeaderView::section:vertical {
     border-left: 2px solid transparent;
     margin-bottom: 1px;
 }
-QHeaderView::section::last,
-QHeaderView::section::only-one {
+QHeaderView::section:last,
+QHeaderView::section:only-one {
     margin: 0;
 }
 QHeaderView::down-arrow {
+    margin: -2px -6px -6px -6px;
     image: $url{"icon": "expand_less.svg", "id": "icon-foreground", "rotate": "180"};
 }
 QHeaderView::down-arrow:disabled {
     image: $url{"icon": "expand_less.svg", "id": "icon-foreground-disabled", "rotate": "180"};
 }
 QHeaderView::up-arrow {
+    margin: -2px -6px -6px -6px;
     image: $url{"icon": "expand_less.svg", "id": "icon-foreground"};
 }
 QHeaderView::up-arrow:disabled {
     image: $url{"icon": "expand_less.svg", "id": "icon-foreground-disabled"};
-}
-QHeaderView::down-arrow::horizontal,
-QHeaderView::up-arrow::horizontal {
-    width: 20px;
-    padding-right: 2px;
-}
-QHeaderView::down-arrow::vertical,
-QHeaderView::up-arrow::vertical {
-    height: 0;
-}
-
-QTreeView[sortingEnabled=false] QHeaderView::down-arrow,
-QTreeView[sortingEnabled=false] QHeaderView::up-arrow,
-QTableView[sortingEnabled=false] QHeaderView::down-arrow,
-QTableView[sortingEnabled=false] QHeaderView::up-arrow {
-    width: 0;
-    padding: 0;
 }
 
 /* QCalendarWidget --------------------------------------------------------
@@ -1053,6 +1047,15 @@ QCalendarWidget > .QWidget > QSpinBox {
 QCalendarWidget > .QWidget > QSpinBox::up-button,
 QCalendarWidget > .QWidget > QSpinBox::down-button {
     margin: 1px 3px 1px 1px;
+}
+QCalendarWidget .QWidget > QToolButton {
+    border-radius: 4px;
+}
+QCalendarWidget > .QWidget > QToolButton::menu-indicator {
+    height: 14px;
+    width: 14px;
+    top: 5px;
+    left: 3px;
 }
 QCalendarWidget > QTableView {
     margin: 0;
@@ -1097,7 +1100,7 @@ QAbstractSpinBox::down-button {
     width: 12px;
     height: 4px;
     padding: 3px;
-    border-radius: 0;
+    border-radius: 4px;
 }
 QAbstractSpinBox::up-button:hover,
 QAbstractSpinBox::down-button:hover {
@@ -1108,8 +1111,6 @@ QAbstractSpinBox::up-button {
     margin: 3px 3px 1px 1px;
 }
 QAbstractSpinBox::up-arrow {
-    height: 23px;
-    width: 23px;
     image: $url{"icon": "arrow_drop_up.svg", "id": "icon-foreground"};
 }
 QAbstractSpinBox::up-arrow:disabled {
@@ -1120,8 +1121,6 @@ QAbstractSpinBox::down-button {
     margin: 1px 3px 3px 1px;
 }
 QAbstractSpinBox::down-arrow {
-    height: 23px;
-    width: 23px;
     image: $url{"icon": "arrow_drop_up.svg", "id": "icon-foreground", "rotate": "180"};
 }
 QAbstractSpinBox::down-arrow:disabled {
@@ -1132,7 +1131,6 @@ QAbstractSpinBox::down-arrow:disabled {
 
 --------------------------------------------------------------------------- */
 QDateTimeEdit::drop-down {
-    subcontrol-position: center right;
     padding-right: 4px;
     width: 16px;
     image: $url{"icon": "calendar_today.svg", "id": "icon-foreground"};
@@ -1140,22 +1138,12 @@ QDateTimeEdit::drop-down {
 QDateTimeEdit::drop-down:disabled {
     image: $url{"icon": "calendar_today.svg", "id": "icon-foreground-disabled"};
 }
-/*
-There is a bug in Qt, where the down-arrow icon show when `calendarPopup = True`.
-So hide down-arrow icon when `calendarPopup = True`.
-*/
 QDateTimeEdit::down-arrow[calendarPopup=true] {
     image: none;
 }
 
-QDateTimeEdit QAbstractItemView {
-    border: 1px solid $highlight;
-}
-
-/*
-Fix bug where the last line was off the calendar.
-*/
 QDateTimeEdit QCalendarWidget QAbstractItemView {
+    /* Fix bug where the last line was off the calendar. */
     padding: -1px;
     border: none;
 }
@@ -1275,10 +1263,10 @@ QRadioButton::indicator:unchecked:disabled {
 QMenu {
     $env_patch{"version": "<6.0.0", "value": "border-radius: 8px"};
 }
-QComboBox QAbstractItemView {
-    $env_patch{"version": ">=6.0.0", "value": "border-radius: 0; margin: 0"};
-}
-QStatusBar > QMenu {
+QComboBox QAbstractItemView,
+QStatusBar > QMenu,
+QDateTimeEdit QCalendarWidget QAbstractItemView,
+QDateTimeEdit QCalendarWidget .QWidget {
     $env_patch{"version": ">=6.0.0", "value": "border-radius: 0; margin: 0"};
 }
 
@@ -1292,4 +1280,14 @@ PlotWidget {
     /* Fix cut labels in plots
     https://github.com/ColinDuquesnoy/QDarkStyleSheet/issues/134 */
     padding: 0;
+}
+
+/* ParameterTree */
+ParameterTree > .QWidget > .QWidget > .QWidget > QAbstractSpinBox::up-button,
+ParameterTree > .QWidget > .QWidget > .QWidget > QAbstractSpinBox::down-button {
+    margin: 2px 3px 1px 1px;
+    padding: 2px;
+}
+ParameterTree > .QWidget > .QWidget > .QWidget > QComboBox{
+    min-height: 1.2em;
 }

@@ -115,11 +115,12 @@ def _generate_qt_resource_file(svg_dir_path: Path, output_dir_path: Path, theme:
         qrc += f"<file>{svg_dir_path.name}/{file.name}</file>"
     qrc += "</qresource></RCC>"
 
-    with NamedTemporaryFile(suffix=".qrc", dir=str(output_dir_path)) as f:
+    with NamedTemporaryFile(suffix=".qrc", dir=str(output_dir_path), delete=False) as f:
         qrc_file_path = output_dir_path / f.name
         qrc_file_path.write_text(qrc, "utf-8")
         py_resource_file_path = output_dir_path / "rc_icons.py"
         subprocess.run(["pyside6-rcc", str(qrc_file_path), "-o", str(py_resource_file_path)])
+    qrc_file_path.unlink()
 
     resource_code = py_resource_file_path.read_text()
     replacements: dict[str, str] = {}

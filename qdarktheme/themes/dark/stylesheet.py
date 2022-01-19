@@ -70,10 +70,16 @@ QSizeGrip {
 QStatusBar {
     background: #2a2b2e;
 }
+QStatusBar::item {
+    border: none;
+}
 QStatusBar QWidget {
     background: transparent;
     padding: 3px;
     border-radius: 4px;
+}
+QStatusBar > .QSizeGrip {
+    padding: 0;
 }
 QStatusBar QWidget:hover {
     background: #44464a;
@@ -104,19 +110,17 @@ QGroupBox {
     font-weight: bold;
     border: 1px solid #3f4042;
     border-radius: 4px;
-    padding: 2px;
-    margin: 9px 0 4px 0;
+    margin-top: 8px;
+    padding: 2px 1px 1px 1px;
 }
 QGroupBox::title {
     subcontrol-origin: margin;
     subcontrol-position: top left;
     left: 7px;
-    top: 2px;
-    margin: 0 2px;
+    margin: 0 2px 0 3px;
 }
 QGroupBox:flat {
     border-color: transparent;
-    padding: 2px 0 0 0;
 }
 QMenuBar {
     background: #202124;
@@ -192,6 +196,7 @@ QMenu {
     border: 1px solid #3f4042;
 }
 QMenu::separator {
+    margin: 4px 0;
     height: 1px;
     background: #3f4042;
 }
@@ -375,13 +380,10 @@ QComboBox:open {
     border: 1px solid #8ab4f7;
 }
 QComboBox::drop-down {
-    subcontrol-position: center right;
     border: none;
     padding-right: 4px;
 }
 QComboBox::down-arrow {
-    height: 23px;
-    width: 23px;
     image: url(${path}/themes/dark/svg/expand_less__icon-foreground__rotate-180.svg);
 }
 QComboBox::down-arrow:disabled {
@@ -449,7 +451,7 @@ QSlider::handle:vertical {
 }
 QTabWidget::pane {
     border: 1px solid #3f4042;
-    border-radius: 3px;
+    border-radius: 4px;
 }
 QTabBar {
     qproperty-drawBase: 0;
@@ -553,10 +555,17 @@ QDockWidget::title {
     spacing: 4px;
     background: #000000;
 }
+QDockWidget::close-button,
+QDockWidget::float-button {
+    border-radius: 2px;
+}
 QDockWidget::close-button:hover,
 QDockWidget::float-button:hover {
     background: rgba(46.000, 70.000, 94.000, 0.333);
-    border-radius: 2px;
+}
+QDockWidget::close-button:pressed,
+QDockWidget::float-button:pressed {
+    background: rgba(46.000, 70.000, 94.000, 0.933);
 }
 QFrame {
     border: 1px solid #3f4042;
@@ -611,6 +620,10 @@ QLCDNumber {
     color: #e4e7eb;
     min-width: 2em;
     margin: 2px;
+}
+QLabel:!window,
+QLCDNumber:!window {
+    background-color: transparent;
 }
 QToolBox:selected {
     border: 2px solid #8ab4f7;
@@ -748,6 +761,7 @@ QTableView {
 }
 QTableView QTableCornerButton::section {
     border-top-left-radius: 2px;
+    margin: 0 1px 1px 0;
     background: #3f4042;
 }
 QTableView QTableCornerButton::section:pressed {
@@ -755,12 +769,6 @@ QTableView QTableCornerButton::section:pressed {
 }
 QTableView > QHeaderView{
     background: #000000;
-}
-QTableView > QHeaderView::section:horizontal:first {
-    margin-left: 1px;
-}
-QTableView > QHeaderView::section:vertical:first {
-    margin-top: 1px;
 }
 QHeaderView {
     padding: 0;
@@ -791,37 +799,23 @@ QHeaderView::section:vertical {
     border-left: 2px solid transparent;
     margin-bottom: 1px;
 }
-QHeaderView::section::last,
-QHeaderView::section::only-one {
+QHeaderView::section:last,
+QHeaderView::section:only-one {
     margin: 0;
 }
 QHeaderView::down-arrow {
+    margin: -2px -6px -6px -6px;
     image: url(${path}/themes/dark/svg/expand_less__icon-foreground__rotate-180.svg);
 }
 QHeaderView::down-arrow:disabled {
     image: url(${path}/themes/dark/svg/expand_less__icon-foreground-disabled__rotate-180.svg);
 }
 QHeaderView::up-arrow {
+    margin: -2px -6px -6px -6px;
     image: url(${path}/themes/dark/svg/expand_less__icon-foreground.svg);
 }
 QHeaderView::up-arrow:disabled {
     image: url(${path}/themes/dark/svg/expand_less__icon-foreground-disabled.svg);
-}
-QHeaderView::down-arrow::horizontal,
-QHeaderView::up-arrow::horizontal {
-    width: 20px;
-    padding-right: 2px;
-}
-QHeaderView::down-arrow::vertical,
-QHeaderView::up-arrow::vertical {
-    height: 0;
-}
-QTreeView[sortingEnabled=false] QHeaderView::down-arrow,
-QTreeView[sortingEnabled=false] QHeaderView::up-arrow,
-QTableView[sortingEnabled=false] QHeaderView::down-arrow,
-QTableView[sortingEnabled=false] QHeaderView::up-arrow {
-    width: 0;
-    padding: 0;
 }
 QCalendarWidget {
     border: none;
@@ -842,6 +836,15 @@ QCalendarWidget > .QWidget > QSpinBox {
 QCalendarWidget > .QWidget > QSpinBox::up-button,
 QCalendarWidget > .QWidget > QSpinBox::down-button {
     margin: 1px 3px 1px 1px;
+}
+QCalendarWidget .QWidget > QToolButton {
+    border-radius: 4px;
+}
+QCalendarWidget > .QWidget > QToolButton::menu-indicator {
+    height: 14px;
+    width: 14px;
+    top: 5px;
+    left: 3px;
 }
 QCalendarWidget > QTableView {
     margin: 0;
@@ -874,7 +877,7 @@ QAbstractSpinBox::down-button {
     width: 12px;
     height: 4px;
     padding: 3px;
-    border-radius: 0;
+    border-radius: 4px;
 }
 QAbstractSpinBox::up-button:hover,
 QAbstractSpinBox::down-button:hover {
@@ -885,8 +888,6 @@ QAbstractSpinBox::up-button {
     margin: 3px 3px 1px 1px;
 }
 QAbstractSpinBox::up-arrow {
-    height: 23px;
-    width: 23px;
     image: url(${path}/themes/dark/svg/arrow_drop_up__icon-foreground.svg);
 }
 QAbstractSpinBox::up-arrow:disabled {
@@ -897,15 +898,12 @@ QAbstractSpinBox::down-button {
     margin: 1px 3px 3px 1px;
 }
 QAbstractSpinBox::down-arrow {
-    height: 23px;
-    width: 23px;
     image: url(${path}/themes/dark/svg/arrow_drop_up__icon-foreground__rotate-180.svg);
 }
 QAbstractSpinBox::down-arrow:disabled {
     image: url(${path}/themes/dark/svg/arrow_drop_up__icon-foreground-disabled__rotate-180.svg);
 }
 QDateTimeEdit::drop-down {
-    subcontrol-position: center right;
     padding-right: 4px;
     width: 16px;
     image: url(${path}/themes/dark/svg/calendar_today__icon-foreground.svg);
@@ -915,9 +913,6 @@ QDateTimeEdit::drop-down:disabled {
 }
 QDateTimeEdit::down-arrow[calendarPopup=true] {
     image: none;
-}
-QDateTimeEdit QAbstractItemView {
-    border: 1px solid #8ab4f7;
 }
 QDateTimeEdit QCalendarWidget QAbstractItemView {
     padding: -1px;
@@ -1019,14 +1014,22 @@ QRadioButton::indicator:unchecked:disabled {
 QMenu {
     $env_patch{"version": "<6.0.0", "value": "border-radius: 8px"};
 }
-QComboBox QAbstractItemView {
-    $env_patch{"version": ">=6.0.0", "value": "border-radius: 0; margin: 0"};
-}
-QStatusBar > QMenu {
+QComboBox QAbstractItemView,
+QStatusBar > QMenu,
+QDateTimeEdit QCalendarWidget QAbstractItemView,
+QDateTimeEdit QCalendarWidget .QWidget {
     $env_patch{"version": ">=6.0.0", "value": "border-radius: 0; margin: 0"};
 }
 PlotWidget {
     padding: 0;
+}
+ParameterTree > .QWidget > .QWidget > .QWidget > QAbstractSpinBox::up-button,
+ParameterTree > .QWidget > .QWidget > .QWidget > QAbstractSpinBox::down-button {
+    margin: 2px 3px 1px 1px;
+    padding: 2px;
+}
+ParameterTree > .QWidget > .QWidget > .QWidget > QComboBox{
+    min-height: 1.2em;
 }
 
 """
