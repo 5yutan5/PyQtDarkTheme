@@ -837,6 +837,9 @@ QCalendarWidget > .QWidget > QSpinBox::up-button,
 QCalendarWidget > .QWidget > QSpinBox::down-button {
     margin: 1px 3px 1px 1px;
 }
+QCalendarWidget .QWidget > QToolButton {
+    border-radius: 4px;
+}
 QCalendarWidget > .QWidget > QToolButton::menu-indicator {
     height: 14px;
     width: 14px;
