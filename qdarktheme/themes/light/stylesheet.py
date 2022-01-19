@@ -373,7 +373,7 @@ QComboBox {
     border-radius: 4px;
     min-height: 1.5em;
     padding: 0 4px;
-    background: #f8f9fa;
+    background: rgba(255.000, 255.000, 255.000, 0.000);
 }
 QComboBox:focus,
 QComboBox:open {
@@ -595,8 +595,8 @@ $env_patch{"version": "<6.0.0", "qt": "PySide2", "value": "frameShape=Panel"}
 $env_patch{"version": "<6.0.0", "qt": "PyQt5", "value": "frameShape=\\\"2\\\""}
 $env_patch{"version": ">=6.0.0", "value": "frameShape=Panel"}
 ] {
-    border-color: #e1e5ea;
-    background: #e1e5ea;
+    border-color: #ffffff;
+    background: #ffffff;
 }
 QFrame[
 $env_patch{"version": "<6.0.0", "qt": "PySide2", "value": "frameShape=HLine"}
@@ -861,7 +861,7 @@ QAbstractSpinBox {
     border: 1px solid #dadce0;
     padding: 3px 4px;
     min-height: 1em;
-    background: #f8f9fa;
+    background: rgba(255.000, 255.000, 255.000, 0.000);
     border-radius: 4px;
 }
 QLineEdit:focus,
