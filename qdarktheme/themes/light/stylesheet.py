@@ -631,6 +631,8 @@ QToolBox:selected {
 QToolBox::tab {
     background: #edeef0;
     border-bottom: 2px solid #dadce0;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
 }
 QToolBox::tab:selected {
     border-bottom: 2px solid #0081db;
