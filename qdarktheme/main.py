@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import platform
 import re
 import sys
 from pathlib import Path
@@ -74,6 +75,7 @@ def _parse_env_patch(stylesheet: str) -> dict[str, str]:
 
         patch_version = env_property.get("version")
         patch_qt = env_property.get("qt")
+        patch_os = env_property.get("os")
         patch_value = env_property["value"]
 
         results: list[bool] = []
@@ -94,6 +96,9 @@ def _parse_env_patch(stylesheet: str) -> dict[str, str]:
             if QT_API is None:
                 results.append(False)
             results.append(patch_qt.lower() == _qt_api.lower())
+        # Parse os
+        if patch_os is not None:
+            results.append(patch_os.lower() == platform.system().lower())
 
         replacements[match_text] = patch_value if all(results) else ""
     return replacements

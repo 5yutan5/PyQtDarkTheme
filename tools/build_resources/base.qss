@@ -321,12 +321,23 @@ QScrollBar::handle:vertical {
 }
 /* There is no support button in modern apps. So we hide button of QScrollBar. */
 QScrollBar::sub-line, QScrollBar::add-line {
-    width: 0;
-    height: 0;
+    $env_patch{"os": "Darwin", "value": "width: 0; height: 0"};
 }
 /* We hide background of QScrollBar */
 QScrollBar::sub-page, QScrollBar::add-page {
     background: transparent;
+}
+QScrollBar::up-arrow {
+    image: $url{"icon": "arrow_drop_up.svg", "id": "icon-foreground", "rotate": "0"};
+}
+QScrollBar::right-arrow {
+    image: $url{"icon": "arrow_drop_up.svg", "id": "icon-foreground", "rotate": "90"};
+}
+QScrollBar::down-arrow {
+    image: $url{"icon": "arrow_drop_up.svg", "id": "icon-foreground", "rotate": "180"};
+}
+QScrollBar::left-arrow {
+    image: $url{"icon": "arrow_drop_up.svg", "id": "icon-foreground", "rotate": "270"};
 }
 
 /* QProgressBar -----------------------------------------------------------

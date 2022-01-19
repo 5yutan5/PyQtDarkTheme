@@ -247,11 +247,22 @@ QScrollBar::handle:vertical {
     min-height: 8px;
 }
 QScrollBar::sub-line, QScrollBar::add-line {
-    width: 0;
-    height: 0;
+    $env_patch{"os": "Darwin", "value": "width: 0; height: 0"};
 }
 QScrollBar::sub-page, QScrollBar::add-page {
     background: transparent;
+}
+QScrollBar::up-arrow {
+    image: url(${path}/themes/dark/svg/arrow_drop_up__icon-foreground.svg);
+}
+QScrollBar::right-arrow {
+    image: url(${path}/themes/dark/svg/arrow_drop_up__icon-foreground__rotate-90.svg);
+}
+QScrollBar::down-arrow {
+    image: url(${path}/themes/dark/svg/arrow_drop_up__icon-foreground__rotate-180.svg);
+}
+QScrollBar::left-arrow {
+    image: url(${path}/themes/dark/svg/arrow_drop_up__icon-foreground__rotate-270.svg);
 }
 QProgressBar {
     border: 1px solid #3f4042;
