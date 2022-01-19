@@ -485,13 +485,10 @@ QComboBox:open {
     border: 1px solid $highlight;
 }
 QComboBox::drop-down {
-    subcontrol-position: center right;
     border: none;
     padding-right: 4px;
 }
 QComboBox::down-arrow {
-    height: 23px;
-    width: 23px;
     image: $url{"icon": "expand_less.svg", "id": "icon-foreground", "rotate": "180"};
 }
 QComboBox::down-arrow:disabled {
@@ -1100,7 +1097,7 @@ QAbstractSpinBox::down-button {
     width: 12px;
     height: 4px;
     padding: 3px;
-    border-radius: 0;
+    border-radius: 4px;
 }
 QAbstractSpinBox::up-button:hover,
 QAbstractSpinBox::down-button:hover {
@@ -1111,8 +1108,6 @@ QAbstractSpinBox::up-button {
     margin: 3px 3px 1px 1px;
 }
 QAbstractSpinBox::up-arrow {
-    height: 23px;
-    width: 23px;
     image: $url{"icon": "arrow_drop_up.svg", "id": "icon-foreground"};
 }
 QAbstractSpinBox::up-arrow:disabled {
@@ -1123,8 +1118,6 @@ QAbstractSpinBox::down-button {
     margin: 1px 3px 3px 1px;
 }
 QAbstractSpinBox::down-arrow {
-    height: 23px;
-    width: 23px;
     image: $url{"icon": "arrow_drop_up.svg", "id": "icon-foreground", "rotate": "180"};
 }
 QAbstractSpinBox::down-arrow:disabled {
@@ -1135,7 +1128,6 @@ QAbstractSpinBox::down-arrow:disabled {
 
 --------------------------------------------------------------------------- */
 QDateTimeEdit::drop-down {
-    subcontrol-position: center right;
     padding-right: 4px;
     width: 16px;
     image: $url{"icon": "calendar_today.svg", "id": "icon-foreground"};
@@ -1143,16 +1135,8 @@ QDateTimeEdit::drop-down {
 QDateTimeEdit::drop-down:disabled {
     image: $url{"icon": "calendar_today.svg", "id": "icon-foreground-disabled"};
 }
-/*
-There is a bug in Qt, where the down-arrow icon show when `calendarPopup = True`.
-So hide down-arrow icon when `calendarPopup = True`.
-*/
 QDateTimeEdit::down-arrow[calendarPopup=true] {
     image: none;
-}
-
-QDateTimeEdit QAbstractItemView {
-    border: 1px solid $highlight;
 }
 
 QDateTimeEdit QCalendarWidget QAbstractItemView {

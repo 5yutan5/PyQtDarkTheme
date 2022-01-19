@@ -380,13 +380,10 @@ QComboBox:open {
     border: 1px solid #8ab4f7;
 }
 QComboBox::drop-down {
-    subcontrol-position: center right;
     border: none;
     padding-right: 4px;
 }
 QComboBox::down-arrow {
-    height: 23px;
-    width: 23px;
     image: url(${path}/themes/dark/svg/expand_less__icon-foreground__rotate-180.svg);
 }
 QComboBox::down-arrow:disabled {
@@ -877,7 +874,7 @@ QAbstractSpinBox::down-button {
     width: 12px;
     height: 4px;
     padding: 3px;
-    border-radius: 0;
+    border-radius: 4px;
 }
 QAbstractSpinBox::up-button:hover,
 QAbstractSpinBox::down-button:hover {
@@ -888,8 +885,6 @@ QAbstractSpinBox::up-button {
     margin: 3px 3px 1px 1px;
 }
 QAbstractSpinBox::up-arrow {
-    height: 23px;
-    width: 23px;
     image: url(${path}/themes/dark/svg/arrow_drop_up__icon-foreground.svg);
 }
 QAbstractSpinBox::up-arrow:disabled {
@@ -900,15 +895,12 @@ QAbstractSpinBox::down-button {
     margin: 1px 3px 3px 1px;
 }
 QAbstractSpinBox::down-arrow {
-    height: 23px;
-    width: 23px;
     image: url(${path}/themes/dark/svg/arrow_drop_up__icon-foreground__rotate-180.svg);
 }
 QAbstractSpinBox::down-arrow:disabled {
     image: url(${path}/themes/dark/svg/arrow_drop_up__icon-foreground-disabled__rotate-180.svg);
 }
 QDateTimeEdit::drop-down {
-    subcontrol-position: center right;
     padding-right: 4px;
     width: 16px;
     image: url(${path}/themes/dark/svg/calendar_today__icon-foreground.svg);
@@ -918,9 +910,6 @@ QDateTimeEdit::drop-down:disabled {
 }
 QDateTimeEdit::down-arrow[calendarPopup=true] {
     image: none;
-}
-QDateTimeEdit QAbstractItemView {
-    border: 1px solid #8ab4f7;
 }
 QDateTimeEdit QCalendarWidget QAbstractItemView {
     padding: -1px;
