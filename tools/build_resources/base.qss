@@ -245,7 +245,7 @@ QToolBar > QToolButton:checked {
 }
 QToolBar > QToolButton#qt_toolbar_ext_button {
     image: $url{"icon": "double_arrow.svg", "id": "icon-foreground"};
-    $env_patch{"os": "Windows", "value": "padding: 0;"};
+    $env_patch{"os": "Windows", "value": "padding: 0; qproperty-icon: unset"};
 }
 QToolBar > QToolButton#qt_toolbar_ext_button:disabled {
     image: $url{"icon": "double_arrow.svg", "id": "icon-foreground-disabled"};

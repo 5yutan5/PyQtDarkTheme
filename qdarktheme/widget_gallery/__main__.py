@@ -13,5 +13,6 @@ if __name__ == "__main__":
     win = WidgetGallery()
     win.menuBar().setNativeMenuBar(False)
     app.setStyleSheet(qdarktheme.load_stylesheet())
+    app.setStyle("Windows")
     win.show()
     app.exec()
