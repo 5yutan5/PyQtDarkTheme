@@ -185,6 +185,7 @@ QToolBar > QToolButton:checked {
 }
 QToolBar > QToolButton#qt_toolbar_ext_button {
     image: url(${path}/themes/light/svg/double_arrow__icon-foreground.svg);
+    $env_patch{"os": "Windows", "value": "padding: 0;"};
 }
 QToolBar > QToolButton#qt_toolbar_ext_button:disabled {
     image: url(${path}/themes/light/svg/double_arrow__icon-foreground-disabled.svg);
