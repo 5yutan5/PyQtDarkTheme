@@ -127,6 +127,10 @@
             "description": "Disabled button color in QToolBar",
             "$ref": "#/definitions/color_code"
         },
+        "scrollbar-background": {
+            "description": "QScrollBar background color",
+            "$ref": "#/definitions/color_code"
+        },
         "scrollbar-handle": {
             "description": "QScrollBar handle color",
             "$ref": "#/definitions/color_code"
@@ -137,6 +141,10 @@
         },
         "scrollbar-handle-pressed": {
             "description": "Pressed QScrollBar color",
+            "$ref": "#/definitions/color_code"
+        },
+        "scrollbar-disabled": {
+            "description": "Disabled QScrollBar color",
             "$ref": "#/definitions/color_code"
         },
         "progressbar-text": {
@@ -294,9 +302,11 @@
         "toolbar-button-pressed",
         "toolbar-button-checked",
         "toolbar-button-disabled",
+        "scrollbar-background",
         "scrollbar-handle",
         "scrollbar-handle-hover",
         "scrollbar-handle-pressed",
+        "scrollbar-disabled",
         "progressbar-text",
         "button-hover",
         "button-pressed",

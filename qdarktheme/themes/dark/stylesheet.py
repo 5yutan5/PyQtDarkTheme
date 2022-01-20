@@ -222,13 +222,17 @@ QMenu::right-arrow:disabled {
     image: url(${path}/themes/dark/svg/chevron_right__icon-foreground-disabled.svg);
 }
 QScrollBar {
-    background: transparent;
+    background: #292b2e;
+    border-radius: 4px;
+    $env_patch{"os": "Darwin", "value": "background: transparent"};
 }
 QScrollBar:horizontal {
-    height: 7px;
+    height: 14px;
+    $env_patch{"os": "Darwin", "value": "height: 7px;"};
 }
 QScrollBar:vertical {
-    width: 7px;
+    width: 14px;
+    $env_patch{"os": "Darwin", "value": "width: 7px;"};
 }
 QScrollBar::handle {
     background: rgba(84.000, 86.000, 86.000, 0.737);
@@ -240,18 +244,86 @@ QScrollBar::handle:hover {
 QScrollBar::handle:pressed {
     background: rgba(143.000, 145.000, 145.000, 0.933);
 }
+QScrollBar::handle:disabled {
+    background-color: #3b3e43;
+}
 QScrollBar::handle:horizontal {
     min-width: 8px;
+    margin: 4px 14px;
+    $env_patch{"os": "Darwin", "value": "margin: 0;"};
+}
+QScrollBar::handle:horizontal:hover {
+    margin: 2px 14px;
+    $env_patch{"os": "Darwin", "value": "margin: 0;"};
 }
 QScrollBar::handle:vertical {
     min-height: 8px;
+    margin: 14px 4px;
+    $env_patch{"os": "Darwin", "value": "margin: 0;"};
 }
-QScrollBar::sub-line, QScrollBar::add-line {
-    width: 0;
-    height: 0;
+QScrollBar::handle:vertical:hover {
+    margin: 14px 2px;
+    $env_patch{"os": "Darwin", "value": "margin: 0;"};
 }
 QScrollBar::sub-page, QScrollBar::add-page {
     background: transparent;
+}
+QScrollBar::sub-line,
+QScrollBar::add-line {
+    background: transparent;
+    width: 14px;
+    height: 14px;
+    margin: 2px;
+    subcontrol-origin: margin;
+    $env_patch{"os": "Darwin", "value": "width: 0; height: 0; margin: 0"};
+}
+QScrollBar::sub-line:vertical {
+    subcontrol-position: top;
+}
+QScrollBar::add-line:vertical {
+    subcontrol-position: bottom;
+}
+QScrollBar::sub-line:horizontal {
+    subcontrol-position: left;
+}
+QScrollBar::add-line:horizontal {
+    subcontrol-position: right;
+}
+QScrollBar::up-arrow {
+    image: url(${path}/themes/dark/svg/arrow_drop_up__scrollbar-handle.svg);
+}
+QScrollBar::right-arrow {
+    image: url(${path}/themes/dark/svg/arrow_drop_up__scrollbar-handle__rotate-90.svg);
+}
+QScrollBar::down-arrow {
+    image: url(${path}/themes/dark/svg/arrow_drop_up__scrollbar-handle__rotate-180.svg);
+}
+QScrollBar::left-arrow {
+    image: url(${path}/themes/dark/svg/arrow_drop_up__scrollbar-handle__rotate-270.svg);
+}
+QScrollBar::up-arrow:hover {
+    image: url(${path}/themes/dark/svg/arrow_drop_up__scrollbar-handle-pressed.svg);
+}
+QScrollBar::right-arrow:hover {
+    image: url(${path}/themes/dark/svg/arrow_drop_up__scrollbar-handle-pressed__rotate-90.svg);
+}
+QScrollBar::down-arrow:hover {
+    image: url(${path}/themes/dark/svg/arrow_drop_up__scrollbar-handle-pressed__rotate-180.svg);
+}
+QScrollBar::left-arrow:hover {
+    image: url(${path}/themes/dark/svg/arrow_drop_up__scrollbar-handle-pressed__rotate-270.svg);
+}
+QScrollBar::up-arrow:disabled {
+    image: url(${path}/themes/dark/svg/arrow_drop_up__scrollbar-disabled.svg);
+}
+QScrollBar::right-arrow:disabled {
+    image: url(${path}/themes/dark/svg/arrow_drop_up__scrollbar-disabled__rotate-90.svg);
+}
+QScrollBar::down-arrow:disabled {
+    image: url(${path}/themes/dark/svg/arrow_drop_up__scrollbar-disabled__rotate-180.svg);
+}
+QScrollBar::left-arrow:disabled {
+    image: url(${path}/themes/dark/svg/arrow_drop_up__scrollbar-disabled__rotate-270.svg);
 }
 QProgressBar {
     border: 1px solid #3f4042;
@@ -341,8 +413,16 @@ QToolButton::menu-indicator:disabled {
     image: url(${path}/themes/dark/svg/expand_less__icon-foreground-disabled__rotate-180.svg);
 }
 QToolButton::menu-arrow {
-    height: 8px;
-    width: 8px;
+    image: unset;
+}
+QToolButton::menu-button {
+    border: none;
+    border-radius: 4px;
+    width: 18px;
+    image: url(${path}/themes/dark/svg/expand_less__icon-foreground__rotate-180.svg);
+}
+QToolButton::menu-button:disabled {
+    image: url(${path}/themes/dark/svg/expand_less__icon-foreground-disabled__rotate-180.svg);
 }
 QToolButton[
 $env_patch{"version": "<6.0.0", "qt": "PySide2", "value": "popupMode=MenuButtonPopup"}
@@ -350,23 +430,6 @@ $env_patch{"version": "<6.0.0", "qt": "PyQt5", "value": "popupMode=\\\"1\\\""}
 $env_patch{"version": ">=6.0.0", "value": "popupMode=MenuButtonPopup"}
 ] {
     padding-right: 14px;
-}
-QToolButton[
-$env_patch{"version": "<6.0.0", "qt": "PySide2", "value": "popupMode=MenuButtonPopup"}
-$env_patch{"version": "<6.0.0", "qt": "PyQt5", "value": "popupMode=\\\"1\\\""}
-$env_patch{"version": ">=6.0.0", "value": "popupMode=MenuButtonPopup"}
-]::menu-button {
-    border: none;
-    border-radius: 4px;
-    width: 18px;
-    image: url(${path}/themes/dark/svg/expand_less__icon-foreground__rotate-180.svg);
-}
-QToolButton[
-$env_patch{"version": "<6.0.0", "qt": "PySide2", "value": "popupMode=MenuButtonPopup"}
-$env_patch{"version": "<6.0.0", "qt": "PyQt5", "value": "popupMode=\\\"1\\\""}
-$env_patch{"version": ">=6.0.0", "value": "popupMode=MenuButtonPopup"}
-]::menu-button:disabled {
-    image: url(${path}/themes/dark/svg/expand_less__icon-foreground-disabled__rotate-180.svg);
 }
 QComboBox {
     border: 1px solid #3f4042;
@@ -998,14 +1061,17 @@ QRadioButton::indicator:checked {
 QRadioButton::indicator:checked:disabled {
     image: url(${path}/themes/dark/svg/radio_button_checked__icon-foreground-disabled.svg);
 }
-QMenu {
-    $env_patch{"version": "<6.0.0", "value": "border-radius: 8px"};
-}
 QComboBox QAbstractItemView,
 QStatusBar > QMenu,
 QDateTimeEdit QCalendarWidget QAbstractItemView,
 QDateTimeEdit QCalendarWidget .QWidget {
-    $env_patch{"version": ">=6.0.0", "value": "border-radius: 0; margin: 0"};
+    border-radius: 0;
+    margin: 0;
+    $env_patch{"version": "<6.0.0", "os": "Darwin", "value": "border-radius: 4px"};
+}
+QMenu,
+QStatusBar > QMenu {
+    $env_patch{"version": "<6.0.0", "os": "Darwin", "value": "border-radius: 8px"};
 }
 PlotWidget {
     padding: 0;
