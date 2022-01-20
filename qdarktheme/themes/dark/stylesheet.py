@@ -1069,14 +1069,17 @@ QRadioButton::indicator:checked {
 QRadioButton::indicator:checked:disabled {
     image: url(${path}/themes/dark/svg/radio_button_checked__icon-foreground-disabled.svg);
 }
-QMenu {
-    $env_patch{"version": "<6.0.0", "value": "border-radius: 8px"};
-}
 QComboBox QAbstractItemView,
 QStatusBar > QMenu,
 QDateTimeEdit QCalendarWidget QAbstractItemView,
 QDateTimeEdit QCalendarWidget .QWidget {
-    $env_patch{"version": ">=6.0.0", "value": "border-radius: 0; margin: 0"};
+    border-radius: 0;
+    margin: 0;
+    $env_patch{"version": "<6.0.0", "os": "Darwin", "value": "border-radius: 4px"};
+}
+QMenu,
+QStatusBar > QMenu {
+    $env_patch{"version": "<6.0.0", "os": "Darwin", "value": "border-radius: 8px"};
 }
 PlotWidget {
     padding: 0;

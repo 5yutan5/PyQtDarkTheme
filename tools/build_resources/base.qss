@@ -1317,15 +1317,18 @@ QRadioButton::indicator:checked:disabled {
 /* Rounded popup ----------------------------------------------------------
 
 --------------------------------------------------------------------------- */
-/* In Qt6, the style crashes by rounded popup. */
-QMenu {
-    $env_patch{"version": "<6.0.0", "value": "border-radius: 8px"};
-}
 QComboBox QAbstractItemView,
 QStatusBar > QMenu,
 QDateTimeEdit QCalendarWidget QAbstractItemView,
 QDateTimeEdit QCalendarWidget .QWidget {
-    $env_patch{"version": ">=6.0.0", "value": "border-radius: 0; margin: 0"};
+    border-radius: 0;
+    margin: 0;
+    $env_patch{"version": "<6.0.0", "os": "Darwin", "value": "border-radius: 4px"};
+}
+/* In Qt6, the style crashes by rounded popup. */
+QMenu,
+QStatusBar > QMenu {
+    $env_patch{"version": "<6.0.0", "os": "Darwin", "value": "border-radius: 8px"};
 }
 
 /* PyQtGraph
@@ -1340,7 +1343,9 @@ PlotWidget {
     padding: 0;
 }
 
-/* ParameterTree */
+/* ParameterTree ----------------------------------------------------------
+
+--------------------------------------------------------------------------- */
 ParameterTree > .QWidget > .QWidget > .QWidget > QAbstractSpinBox::up-button,
 ParameterTree > .QWidget > .QWidget > .QWidget > QAbstractSpinBox::down-button {
     margin: 2px 3px 1px 1px;

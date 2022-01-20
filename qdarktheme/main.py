@@ -98,7 +98,7 @@ def _parse_env_patch(stylesheet: str) -> dict[str, str]:
             results.append(patch_qt.lower() == _qt_api.lower())
         # Parse os
         if patch_os is not None:
-            results.append(patch_os.lower() == platform.system().lower())
+            results.append(platform.system().lower() in patch_os.lower())
 
         replacements[match_text] = patch_value if all(results) else ""
     return replacements
