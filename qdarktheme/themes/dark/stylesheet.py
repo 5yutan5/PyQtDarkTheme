@@ -172,10 +172,12 @@ QToolBar > QToolButton {
     padding: 3px;
     border-radius: 4px;
 }
-QToolBar > QToolButton:hover {
+QToolBar > QToolButton:hover,
+QToolBar > QToolButton::menu-button:hover {
     background: #44464a;
 }
-QToolBar > QToolButton:pressed {
+QToolBar > QToolButton:pressed,
+QToolBar > QToolButton::menu-button:pressed {
     background: #4f5054;
 }
 QToolBar > QToolButton:checked {
@@ -183,6 +185,7 @@ QToolBar > QToolButton:checked {
 }
 QToolBar > QToolButton#qt_toolbar_ext_button {
     image: url(${path}/themes/dark/svg/double_arrow__icon-foreground.svg);
+    $env_patch{"os": "Windows", "value": "padding: 0; qproperty-icon: unset"};
 }
 QToolBar > QToolButton#qt_toolbar_ext_button:disabled {
     image: url(${path}/themes/dark/svg/double_arrow__icon-foreground-disabled.svg);
@@ -388,11 +391,13 @@ QToolButton {
     border-radius: 2px;
     spacing: 2px;
 }
-QToolButton:hover {
+QToolButton:hover,
+QToolButton::menu-button:hover {
     background: rgba(46.000, 70.000, 94.000, 0.333);
 }
 QToolButton:pressed,
-QToolButton:checked:pressed {
+QToolButton:checked:pressed,
+QToolButton::menu-button:pressed {
     background: rgba(46.000, 70.000, 94.000, 0.933);
 }
 QToolButton:selected,
@@ -416,9 +421,11 @@ QToolButton::menu-arrow {
     image: unset;
 }
 QToolButton::menu-button {
+    subcontrol-origin: margin;
     border: none;
-    border-radius: 4px;
-    width: 18px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    width: 17px;
     image: url(${path}/themes/dark/svg/expand_less__icon-foreground__rotate-180.svg);
 }
 QToolButton::menu-button:disabled {
@@ -429,7 +436,10 @@ $env_patch{"version": "<6.0.0", "qt": "PySide2", "value": "popupMode=MenuButtonP
 $env_patch{"version": "<6.0.0", "qt": "PyQt5", "value": "popupMode=\\\"1\\\""}
 $env_patch{"version": ">=6.0.0", "value": "popupMode=MenuButtonPopup"}
 ] {
-    padding-right: 14px;
+    padding-right: 1px;
+    margin-right: 18px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 }
 QComboBox {
     border: 1px solid #3f4042;
