@@ -296,6 +296,7 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qscrollbar
 --------------------------------------------------------------------------- */
 QScrollBar {
     background: $scrollbar-background;
+    border-radius: 4px;
     $env_patch{"os": "Darwin", "value": "background: transparent"};
 }
 QScrollBar:horizontal {
@@ -508,8 +509,17 @@ QToolButton::menu-indicator:disabled {
     image: $url{"icon": "expand_less.svg", "id": "icon-foreground-disabled", "rotate": "180"};
 }
 QToolButton::menu-arrow {
-    height: 8px;
-    width: 8px;
+    /* Remove default arrow icon on Qt5 */
+    image: unset;
+}
+QToolButton::menu-button {
+    border: none;
+    border-radius: 4px;
+    width: 18px;
+    image: $url{"icon": "expand_less.svg", "id": "icon-foreground", "rotate": "180"};
+}
+QToolButton::menu-button:disabled {
+    image: $url{"icon": "expand_less.svg", "id": "icon-foreground-disabled", "rotate": "180"};
 }
 
 /* MenuButtonPopup */
@@ -519,23 +529,6 @@ $env_patch{"version": "<6.0.0", "qt": "PyQt5", "value": "popupMode=\\\"1\\\""}
 $env_patch{"version": ">=6.0.0", "value": "popupMode=MenuButtonPopup"}
 ] {
     padding-right: 14px;
-}
-QToolButton[
-$env_patch{"version": "<6.0.0", "qt": "PySide2", "value": "popupMode=MenuButtonPopup"}
-$env_patch{"version": "<6.0.0", "qt": "PyQt5", "value": "popupMode=\\\"1\\\""}
-$env_patch{"version": ">=6.0.0", "value": "popupMode=MenuButtonPopup"}
-]::menu-button {
-    border: none;
-    border-radius: 4px;
-    width: 18px;
-    image: $url{"icon": "expand_less.svg", "id": "icon-foreground", "rotate": "180"};
-}
-QToolButton[
-$env_patch{"version": "<6.0.0", "qt": "PySide2", "value": "popupMode=MenuButtonPopup"}
-$env_patch{"version": "<6.0.0", "qt": "PyQt5", "value": "popupMode=\\\"1\\\""}
-$env_patch{"version": ">=6.0.0", "value": "popupMode=MenuButtonPopup"}
-]::menu-button:disabled {
-    image: $url{"icon": "expand_less.svg", "id": "icon-foreground-disabled", "rotate": "180"};
 }
 
 /* QComboBox --------------------------------------------------------------

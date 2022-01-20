@@ -223,6 +223,7 @@ QMenu::right-arrow:disabled {
 }
 QScrollBar {
     background: #292b2e;
+    border-radius: 4px;
     $env_patch{"os": "Darwin", "value": "background: transparent"};
 }
 QScrollBar:horizontal {
@@ -412,8 +413,16 @@ QToolButton::menu-indicator:disabled {
     image: url(${path}/themes/dark/svg/expand_less__icon-foreground-disabled__rotate-180.svg);
 }
 QToolButton::menu-arrow {
-    height: 8px;
-    width: 8px;
+    image: unset;
+}
+QToolButton::menu-button {
+    border: none;
+    border-radius: 4px;
+    width: 18px;
+    image: url(${path}/themes/dark/svg/expand_less__icon-foreground__rotate-180.svg);
+}
+QToolButton::menu-button:disabled {
+    image: url(${path}/themes/dark/svg/expand_less__icon-foreground-disabled__rotate-180.svg);
 }
 QToolButton[
 $env_patch{"version": "<6.0.0", "qt": "PySide2", "value": "popupMode=MenuButtonPopup"}
@@ -421,23 +430,6 @@ $env_patch{"version": "<6.0.0", "qt": "PyQt5", "value": "popupMode=\\\"1\\\""}
 $env_patch{"version": ">=6.0.0", "value": "popupMode=MenuButtonPopup"}
 ] {
     padding-right: 14px;
-}
-QToolButton[
-$env_patch{"version": "<6.0.0", "qt": "PySide2", "value": "popupMode=MenuButtonPopup"}
-$env_patch{"version": "<6.0.0", "qt": "PyQt5", "value": "popupMode=\\\"1\\\""}
-$env_patch{"version": ">=6.0.0", "value": "popupMode=MenuButtonPopup"}
-]::menu-button {
-    border: none;
-    border-radius: 4px;
-    width: 18px;
-    image: url(${path}/themes/dark/svg/expand_less__icon-foreground__rotate-180.svg);
-}
-QToolButton[
-$env_patch{"version": "<6.0.0", "qt": "PySide2", "value": "popupMode=MenuButtonPopup"}
-$env_patch{"version": "<6.0.0", "qt": "PyQt5", "value": "popupMode=\\\"1\\\""}
-$env_patch{"version": ">=6.0.0", "value": "popupMode=MenuButtonPopup"}
-]::menu-button:disabled {
-    image: url(${path}/themes/dark/svg/expand_less__icon-foreground-disabled__rotate-180.svg);
 }
 QComboBox {
     border: 1px solid #3f4042;
