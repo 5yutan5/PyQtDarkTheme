@@ -114,7 +114,7 @@ QStatusBar::item {
 QStatusBar QWidget {
     background: transparent;
     padding: 3px;
-    border-radius: 4px;
+    border-radius: $radius{4px};
 }
 QStatusBar > .QSizeGrip {
     padding: 0;
@@ -156,9 +156,9 @@ QRadioButton:hover {
 QGroupBox {
     font-weight: bold;
     border: 1px solid $border;
-    border-radius: 4px;
     margin-top: 8px;
     padding: 2px 1px 1px 1px;
+    border-radius: $radius{4px};
 }
 QGroupBox::title {
     subcontrol-origin: margin;
@@ -187,7 +187,7 @@ QMenuBar::item {
 QMenuBar::item:selected {
     padding: 4px;
     background: $menubar-item-selected;
-    border-radius: 4px;
+    border-radius: $radius{4px};
 }
 QMenuBar::item:pressed {
     padding: 4px;
@@ -230,7 +230,7 @@ QToolBar::separator:vertical {
 QToolBar > QToolButton {
     background: transparent;
     padding: 3px;
-    border-radius: 4px;
+    border-radius: $radius{4px};
 }
 QToolBar > QToolButton:hover,
 QToolBar > QToolButton::menu-button:hover {
@@ -299,8 +299,8 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qscrollbar
 --------------------------------------------------------------------------- */
 QScrollBar {
     background: $scrollbar-background;
-    border-radius: 4px;
     $env_patch{"os": "Darwin", "value": "background: transparent"};
+    border-radius: $radius{4px};
 }
 QScrollBar:horizontal {
     height: 14px;
@@ -312,7 +312,7 @@ QScrollBar:vertical {
 }
 QScrollBar::handle {
     background: $scrollbar-handle;
-    border-radius: 3px;
+    border-radius: $radius{3px};
 }
 QScrollBar::handle:hover {
     background: $scrollbar-handle-hover;
@@ -410,13 +410,13 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qprogressb
 --------------------------------------------------------------------------- */
 QProgressBar {
     border: 1px solid $border;
-    border-radius: 4px;
     text-align: center;
     color: $text;
+    border-radius: $radius{4px};
 }
 QProgressBar::chunk {
     background: $highlight;
-    border-radius: 3px;
+    border-radius: $radius{3px};
 }
 QProgressBar::chunk:disabled {
     background: $highlight-disabled;
@@ -428,10 +428,10 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qpushbutto
 
 --------------------------------------------------------------------------- */
 QPushButton {
-    border-radius: 4px;
     color: $highlight;
     border: 1px solid $border;
     padding: 4px 8px;
+    border-radius: $radius{4px};
 }
 QPushButton:!window {
     background: transparent;
@@ -484,8 +484,8 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtoolbutto
 QToolButton {
     background: transparent;
     padding: 5px;
-    border-radius: 2px;
     spacing: 2px;
+    border-radius: $radius{2px};
 }
 QToolButton:hover,
 QToolButton::menu-button:hover {
@@ -520,9 +520,9 @@ QToolButton::menu-arrow {
 QToolButton::menu-button {
     subcontrol-origin: margin;
     border: none;
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
     width: 17px;
+    border-top-right-radius: $radius{4px};
+    border-bottom-right-radius: $radius{4px};
     image: $url{"icon": "expand_less.svg", "id": "icon-foreground", "rotate": "180"};
 }
 QToolButton::menu-button:disabled {
@@ -537,8 +537,8 @@ $env_patch{"version": ">=6.0.0", "value": "popupMode=MenuButtonPopup"}
 ] {
     padding-right: 1px;
     margin-right: 18px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    border-top-right-radius: $radius{0};
+    border-bottom-right-radius: $radius{0};
 }
 
 /* QComboBox --------------------------------------------------------------
@@ -548,10 +548,10 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qcombobox
 --------------------------------------------------------------------------- */
 QComboBox {
     border: 1px solid $input-line-border;
-    border-radius: 4px;
     min-height: 1.5em;
     padding: 0 4px;
     background: $input-line;
+    border-radius: $radius{4px};
 }
 QComboBox:focus,
 QComboBox:open {
@@ -599,7 +599,7 @@ QSlider {
     padding: 2px 0;
 }
 QSlider::groove {
-    border-radius: 2px;
+    border-radius: $radius{2px};
 }
 QSlider::groove:horizontal {
     height: 4px;
@@ -644,7 +644,7 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtabwidget
 --------------------------------------------------------------------------- */
 QTabWidget::pane {
     border: 1px solid $border;
-    border-radius: 4px;
+    border-radius: $radius{4px};
 }
 QTabBar {
     /* Not filling background color when drawBase property is true. So need to set drawBase to false. */
@@ -661,7 +661,7 @@ QTabBar::close-button:disabled {
 }
 QTabBar::close-button:hover {
     background: $tabbar-button-hover;
-    border-radius: 4px
+    border-radius: $radius{4px};
 }
 QTabBar::close-button:hover:!selected {
     background: $tabbar-button-hover-inselected;
@@ -681,10 +681,10 @@ QTabBar::tab:selected:disabled {
     color: $text-disabled;
 }
 QTabBar::tab:top {
-    border-top-left-radius: 2px;
-    border-top-right-radius: 2px;
     border-bottom: 2px solid $border;
     margin-left: 4px;
+    border-top-left-radius: $radius{2px};
+    border-top-right-radius: $radius{2px};
 }
 QTabBar::tab:top:selected {
     border-bottom: 2px solid $highlight;
@@ -696,10 +696,10 @@ QTabBar::tab:top:selected:disabled {
     border-color: $highlight-disabled;
 }
 QTabBar::tab:bottom {
-    border-bottom-left-radius: 2px;
-    border-bottom-right-radius: 2px;
     border-top: 2px solid $border;
     margin-left: 4px;
+    border-bottom-left-radius: $radius{2px};
+    border-bottom-right-radius: $radius{2px};
 }
 QTabBar::tab:bottom:selected {
     border-top: 2px solid $highlight;
@@ -711,10 +711,10 @@ QTabBar::tab:bottom:selected:disabled {
     border-color: $highlight-disabled;
 }
 QTabBar::tab:left {
-    border-top-left-radius: 2px;
-    border-bottom-left-radius: 2px;
     border-right: 2px solid $border;
     margin-top: 4px;
+    border-top-left-radius: $radius{2px};
+    border-bottom-left-radius: $radius{2px};
 }
 QTabBar::tab:left:selected {
     border-right: 2px solid $highlight;
@@ -726,10 +726,10 @@ QTabBar::tab:left:selected:disabled {
     border-color: $highlight-disabled;
 }
 QTabBar::tab:right {
-    border-top-right-radius: 2px;
-    border-bottom-right-radius: 2px;
     border-left: 2px solid $border;
     margin-top: 4px;
+    border-top-right-radius: $radius{2px};
+    border-bottom-right-radius: $radius{2px};
 }
 QTabBar::tab:right:selected {
     border-left: 2px solid $highlight;
@@ -746,7 +746,7 @@ QTabBar::tab:right:selected:disabled {
 --------------------------------------------------------------------------- */
 QDockWidget {
     border: 1px solid $border;
-    border-radius: 4px;
+    border-radius: $radius{4px};
 }
 QDockWidget::title {
   /* Better size for title bar */
@@ -760,7 +760,7 @@ QDockWidget::title. Therefore, we need to set it again here.
 */
 QDockWidget::close-button,
 QDockWidget::float-button {
-    border-radius: 2px;
+    border-radius: $radius{2px};
 }
 QDockWidget::close-button:hover,
 QDockWidget::float-button:hover {
@@ -779,7 +779,7 @@ https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qframe
 QFrame {
     border: 1px solid $border;
     padding: 1px;
-    border-radius: 4px;
+    border-radius: $radius{4px};
 }
 .QFrame {
     padding: 0;
@@ -853,8 +853,8 @@ QToolBox:selected {
 QToolBox::tab {
     background: $toolbox-tab;
     border-bottom: 2px solid $border;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
+    border-top-left-radius: $radius{4px};
+    border-top-right-radius: $radius{4px};
 }
 QToolBox::tab:selected {
     border-bottom: 2px solid $highlight;
@@ -909,6 +909,9 @@ QAbstractScrollArea {
 }
 QAbstractScrollArea:disabled {
     selection-background-color: $scrollarea-highlight-disabled;
+}
+QAbstractScrollArea::corner {
+    background: transparent;
 }
 
 /* Fix a bug where widgets in scroll area would hide the scroll area border. */
@@ -1034,9 +1037,9 @@ QTableView {
 }
 
 QTableView QTableCornerButton::section {
-    border-top-left-radius: 2px;
     margin: 0 1px 1px 0;
     background: $headerview-section;
+    border-top-left-radius: $radius{2px};
 }
 QTableView QTableCornerButton::section:pressed {
     background: $scrollarea-highlight;
@@ -1055,7 +1058,7 @@ QHeaderView {
     padding: 0;
     margin: 0;
     border: none;
-    border-radius: 0;
+    border-radius: $radius{0};
 }
 QHeaderView::section {
     background: $headerview-section;
@@ -1108,9 +1111,9 @@ QCalendarWidget {
 QCalendarWidget > .QWidget {
     background: $tableview;
     border-bottom: 1px solid $border;
-    border-radius: 4px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    border-radius: $radius{4px};
+    border-bottom-left-radius: $radius{0};
+    border-bottom-right-radius: $radius{0};
 }
 QCalendarWidget > .QWidget > QWidget {
     padding: 1px;
@@ -1123,7 +1126,7 @@ QCalendarWidget > .QWidget > QSpinBox::down-button {
     margin: 1px 3px 1px 1px;
 }
 QCalendarWidget .QWidget > QToolButton {
-    border-radius: 4px;
+    border-radius: $radius{4px};
 }
 QCalendarWidget > .QWidget > QToolButton::menu-indicator {
     height: 14px;
@@ -1134,9 +1137,9 @@ QCalendarWidget > .QWidget > QToolButton::menu-indicator {
 QCalendarWidget > QTableView {
     margin: 0;
     border: none;
-    border-radius: 4px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+    border-radius: $radius{4px};
+    border-top-left-radius: $radius{0};
+    border-top-right-radius: $radius{0};
 }
 
 /*
@@ -1162,7 +1165,7 @@ QAbstractSpinBox {
     /* Adjust the min-height of QLineEdit to the height of the characters. */
     min-height: 1em;
     background: $input-line;
-    border-radius: 4px;
+    border-radius: $radius{4px};
 }
 QLineEdit:focus,
 QAbstractSpinBox:focus {
@@ -1174,7 +1177,7 @@ QAbstractSpinBox::down-button {
     width: 12px;
     height: 4px;
     padding: 3px;
-    border-radius: 4px;
+    border-radius: $radius{4px};
 }
 QAbstractSpinBox::up-button:hover,
 QAbstractSpinBox::down-button:hover {
@@ -1251,8 +1254,8 @@ QMenu::indicator:checked {
 QMenu::indicator {
     width: 18px;
     background: $menu-checkbox;
-    border-radius: 4px;
     margin-left: 3px;
+    border-radius: $radius{4px};
 }
 
 /* Check indicator --------------------------------------------------------
@@ -1324,14 +1327,14 @@ QComboBox QAbstractItemView,
 QStatusBar > QMenu,
 QDateTimeEdit QCalendarWidget QAbstractItemView,
 QDateTimeEdit QCalendarWidget .QWidget {
-    border-radius: 0;
     margin: 0;
-    $env_patch{"version": "<6.0.0", "os": "Darwin", "value": "border-radius: 4px"};
+    border-radius: $radius{0};
+    $env_patch{"version": "<6.0.0", "os": "Darwin", "value": "border-radius: $radius{4px}"};
 }
 /* In Qt6, the style crashes by rounded popup. */
 QMenu,
 QStatusBar > QMenu {
-    $env_patch{"version": "<6.0.0", "os": "Darwin", "value": "border-radius: 8px"};
+    $env_patch{"version": "<6.0.0", "os": "Darwin", "value": "border-radius: $radius{8px}"};
 }
 
 /* PyQtGraph

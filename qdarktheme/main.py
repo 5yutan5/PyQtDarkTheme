@@ -30,6 +30,10 @@ if None in [__version__, QT_API]:
         "Maybe you need to install qt-binding. Available Qt-binding packages: PySide6, PyQt6, PyQt5, PySide2."
     )
 
+# Pattern
+_PATTERN_RADIUS = re.compile(r"\$radius\{[\s\S]*?\}")
+_PATTERN_ENV_PATCH = re.compile(r"\$env_patch\{[\s\S]*?\}")
+
 
 class _SvgFileNotFoundError(FileNotFoundError):
 
@@ -47,8 +51,23 @@ def get_themes() -> tuple[str, ...]:
     return THEMES
 
 
+def _replace_rounded(match: re.Match) -> str:
+    return match.group().replace("$radius{", "").replace("}", "")
+
+
+def _replace_sharp(match: re.Match) -> str:
+    return _PATTERN_RADIUS.sub("0", match.group())
+
+
+def _parse_radius(stylesheet: str, border: str = "rounded") -> dict[str, str]:
+    """Parse `$radius{...}` placeholder in template stylesheet."""
+    matches = _PATTERN_RADIUS.finditer(stylesheet)
+    replace = _replace_rounded if border == "rounded" else _replace_sharp
+    return {match.group(): replace(match) for match in matches}
+
+
 def _parse_env_patch(stylesheet: str) -> dict[str, str]:
-    """Parse `$env_patch{...}` symbol in template stylesheet.
+    """Parse `$env_patch{...}` placeholder in template stylesheet.
 
     Template stylesheet has `$env_patch{...}` symbol.
     This symbol has json string and resolve the differences of the style between qt versions.
@@ -68,7 +87,7 @@ def _parse_env_patch(stylesheet: str) -> dict[str, str]:
         Value is the value of the `value` key in $env_patch.
     """
     replacements: dict[str, str] = {}
-    for match in re.finditer(r"\$env_patch\{[\s\S]*?\}", stylesheet):
+    for match in re.finditer(_PATTERN_ENV_PATCH, stylesheet):
         match_text = match.group()
         json_text = match_text.replace("$env_patch", "")
         env_property: dict[str, str] = json.loads(json_text)
@@ -104,11 +123,12 @@ def _parse_env_patch(stylesheet: str) -> dict[str, str]:
     return replacements
 
 
-def load_stylesheet(theme: str = "dark") -> str:
+def load_stylesheet(theme: str = "dark", border: str = "rounded") -> str:
     """Load the style sheet which looks like flat design. There are two themes, dark theme and light theme.
 
     Args:
-        theme: The name of the theme. Available theme are "dark" and "light".
+        theme: The name of the theme. Available themes are "dark" and "light".
+        border: The border style. Available styles are "rounded" and "sharp".
 
     Raises:
         TypeError: If the arg of theme name is wrong.
@@ -130,9 +150,19 @@ def load_stylesheet(theme: str = "dark") -> str:
 
             app = QApplication([])
             app.setStyleSheet(qdarktheme.load_stylesheet("light"))
+
+        Change sharp frame.
+
+        Sharp Frame::
+
+            app = QApplication([])
+            app.setStyleSheet(qdarktheme.load_stylesheet(border="sharp"))
     """
     if theme not in get_themes():
         raise TypeError("The argument [theme] can only be specified as 'dark' or 'light'.") from None
+
+    if border not in ("rounded", "sharp"):
+        raise TypeError("The argument [border] can only be specified as 'rounded' or 'sharp'.")
 
     try:
         # In mac os, if the qt version is 5.13 or lower, the svg icon of Qt resource file cannot be read correctly.
@@ -157,12 +187,15 @@ def load_stylesheet(theme: str = "dark") -> str:
     else:
         from qdarktheme.themes.light.stylesheet import STYLE_SHEET
 
-    # Create Qt version patches
-    replacements = _parse_env_patch(STYLE_SHEET)
-    # Replace the ${path} variable by real path value
-    replacements["${path}"] = icon_path
     # Build stylesheet
-    return multi_replace(STYLE_SHEET, replacements)
+    # Radius
+    replacements_radius = _parse_radius(STYLE_SHEET, border)
+    stylesheet = multi_replace(STYLE_SHEET, replacements_radius)
+    # Env
+    replacements_env = _parse_env_patch(stylesheet)
+    # Path
+    replacements_env["${path}"] = icon_path
+    return multi_replace(stylesheet, replacements_env)
 
 
 def load_palette(theme: str = "dark"):
