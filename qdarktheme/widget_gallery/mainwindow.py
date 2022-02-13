@@ -184,12 +184,12 @@ class WidgetGallery(QMainWindow):
     @Slot()
     def _change_theme(self) -> None:
         self._theme = self.sender().text()  # type: ignore
-        QApplication.instance().setStyleSheet(qdarktheme.load_stylesheet(self._theme, self._radius))
+        QApplication.instance().setStyleSheet(qdarktheme.load_stylesheet(self._theme, self._border_radius))
 
     @Slot()
     def _change_corner_radius(self) -> None:
-        self._radius: str = self.sender().text()  # type: ignore
-        QApplication.instance().setStyleSheet(qdarktheme.load_stylesheet(self._theme, self._radius))
+        self._border_radius: str = self.sender().text()  # type: ignore
+        QApplication.instance().setStyleSheet(qdarktheme.load_stylesheet(self._theme, self._border_radius))
 
     @Slot()
     def _popup_message_box(self) -> None:
