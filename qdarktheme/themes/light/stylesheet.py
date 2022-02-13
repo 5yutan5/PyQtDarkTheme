@@ -76,7 +76,7 @@ QStatusBar::item {
 QStatusBar QWidget {
     background: transparent;
     padding: 3px;
-    border-radius: 4px;
+    border-radius: $radius{4px};
 }
 QStatusBar > .QSizeGrip {
     padding: 0;
@@ -109,9 +109,9 @@ QRadioButton:hover {
 QGroupBox {
     font-weight: bold;
     border: 1px solid #dadce0;
-    border-radius: 4px;
     margin-top: 8px;
     padding: 2px 1px 1px 1px;
+    border-radius: $radius{4px};
 }
 QGroupBox::title {
     subcontrol-origin: margin;
@@ -134,7 +134,7 @@ QMenuBar::item {
 QMenuBar::item:selected {
     padding: 4px;
     background: #dadce0;
-    border-radius: 4px;
+    border-radius: $radius{4px};
 }
 QMenuBar::item:pressed {
     padding: 4px;
@@ -170,7 +170,7 @@ QToolBar::separator:vertical {
 QToolBar > QToolButton {
     background: transparent;
     padding: 3px;
-    border-radius: 4px;
+    border-radius: $radius{4px};
 }
 QToolBar > QToolButton:hover,
 QToolBar > QToolButton::menu-button:hover {
@@ -226,8 +226,8 @@ QMenu::right-arrow:disabled {
 }
 QScrollBar {
     background: #edeff2;
-    border-radius: 4px;
     $env_patch{"os": "Darwin", "value": "background: transparent"};
+    border-radius: $radius{4px};
 }
 QScrollBar:horizontal {
     height: 14px;
@@ -239,7 +239,7 @@ QScrollBar:vertical {
 }
 QScrollBar::handle {
     background: rgba(155.000, 155.000, 157.000, 0.737);
-    border-radius: 3px;
+    border-radius: $radius{3px};
 }
 QScrollBar::handle:hover {
     background: rgba(117.000, 117.000, 119.000, 0.827);
@@ -330,22 +330,22 @@ QScrollBar::left-arrow:disabled {
 }
 QProgressBar {
     border: 1px solid #dadce0;
-    border-radius: 4px;
     text-align: center;
     color: #4d5157;
+    border-radius: $radius{4px};
 }
 QProgressBar::chunk {
     background: #0081db;
-    border-radius: 3px;
+    border-radius: $radius{3px};
 }
 QProgressBar::chunk:disabled {
     background: #dadce0;
 }
 QPushButton {
-    border-radius: 4px;
     color: #0081db;
     border: 1px solid #dadce0;
     padding: 4px 8px;
+    border-radius: $radius{4px};
 }
 QPushButton:!window {
     background: transparent;
@@ -388,8 +388,8 @@ QDialogButtonBox QPushButton {
 QToolButton {
     background: transparent;
     padding: 5px;
-    border-radius: 2px;
     spacing: 2px;
+    border-radius: $radius{2px};
 }
 QToolButton:hover,
 QToolButton::menu-button:hover {
@@ -423,9 +423,9 @@ QToolButton::menu-arrow {
 QToolButton::menu-button {
     subcontrol-origin: margin;
     border: none;
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
     width: 17px;
+    border-top-right-radius: $radius{4px};
+    border-bottom-right-radius: $radius{4px};
     image: url(${path}/themes/light/svg/expand_less__icon-foreground__rotate-180.svg);
 }
 QToolButton::menu-button:disabled {
@@ -438,15 +438,15 @@ $env_patch{"version": ">=6.0.0", "value": "popupMode=MenuButtonPopup"}
 ] {
     padding-right: 1px;
     margin-right: 18px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    border-top-right-radius: $radius{0};
+    border-bottom-right-radius: $radius{0};
 }
 QComboBox {
     border: 1px solid #dadce0;
-    border-radius: 4px;
     min-height: 1.5em;
     padding: 0 4px;
     background: rgba(255.000, 255.000, 255.000, 0.000);
+    border-radius: $radius{4px};
 }
 QComboBox:focus,
 QComboBox:open {
@@ -485,7 +485,7 @@ QSlider {
     padding: 2px 0;
 }
 QSlider::groove {
-    border-radius: 2px;
+    border-radius: $radius{2px};
 }
 QSlider::groove:horizontal {
     height: 4px;
@@ -514,17 +514,17 @@ QSlider::handle:horizontal {
     width: 16px;
     height: 8px;
     margin: -6px 0;
-    border-radius: 8px;
+    border-radius: $radius{8px};
 }
 QSlider::handle:vertical {
     width: 8px;
     height: 16px;
     margin: 0 -6px;
-    border-radius: 8px;
+    border-radius: $radius{8px};
 }
 QTabWidget::pane {
     border: 1px solid #dadce0;
-    border-radius: 4px;
+    border-radius: $radius{4px};
 }
 QTabBar {
     qproperty-drawBase: 0;
@@ -540,7 +540,7 @@ QTabBar::close-button:disabled {
 }
 QTabBar::close-button:hover {
     background: #93b2ef;
-    border-radius: 4px
+    border-radius: $radius{4px};
 }
 QTabBar::close-button:hover:!selected {
     background: #aec5f4;
@@ -560,10 +560,10 @@ QTabBar::tab:selected:disabled {
     color: #babdc2;
 }
 QTabBar::tab:top {
-    border-top-left-radius: 2px;
-    border-top-right-radius: 2px;
     border-bottom: 2px solid #dadce0;
     margin-left: 4px;
+    border-top-left-radius: $radius{2px};
+    border-top-right-radius: $radius{2px};
 }
 QTabBar::tab:top:selected {
     border-bottom: 2px solid #0081db;
@@ -575,10 +575,10 @@ QTabBar::tab:top:selected:disabled {
     border-color: #dadce0;
 }
 QTabBar::tab:bottom {
-    border-bottom-left-radius: 2px;
-    border-bottom-right-radius: 2px;
     border-top: 2px solid #dadce0;
     margin-left: 4px;
+    border-bottom-left-radius: $radius{2px};
+    border-bottom-right-radius: $radius{2px};
 }
 QTabBar::tab:bottom:selected {
     border-top: 2px solid #0081db;
@@ -590,10 +590,10 @@ QTabBar::tab:bottom:selected:disabled {
     border-color: #dadce0;
 }
 QTabBar::tab:left {
-    border-top-left-radius: 2px;
-    border-bottom-left-radius: 2px;
     border-right: 2px solid #dadce0;
     margin-top: 4px;
+    border-top-left-radius: $radius{2px};
+    border-bottom-left-radius: $radius{2px};
 }
 QTabBar::tab:left:selected {
     border-right: 2px solid #0081db;
@@ -605,10 +605,10 @@ QTabBar::tab:left:selected:disabled {
     border-color: #dadce0;
 }
 QTabBar::tab:right {
-    border-top-right-radius: 2px;
-    border-bottom-right-radius: 2px;
     border-left: 2px solid #dadce0;
     margin-top: 4px;
+    border-top-right-radius: $radius{2px};
+    border-bottom-right-radius: $radius{2px};
 }
 QTabBar::tab:right:selected {
     border-left: 2px solid #0081db;
@@ -621,7 +621,7 @@ QTabBar::tab:right:selected:disabled {
 }
 QDockWidget {
     border: 1px solid #dadce0;
-    border-radius: 4px;
+    border-radius: $radius{4px};
 }
 QDockWidget::title {
     padding: 3px;
@@ -630,7 +630,7 @@ QDockWidget::title {
 }
 QDockWidget::close-button,
 QDockWidget::float-button {
-    border-radius: 2px;
+    border-radius: $radius{2px};
 }
 QDockWidget::close-button:hover,
 QDockWidget::float-button:hover {
@@ -643,7 +643,7 @@ QDockWidget::float-button:pressed {
 QFrame {
     border: 1px solid #dadce0;
     padding: 1px;
-    border-radius: 4px;
+    border-radius: $radius{4px};
 }
 .QFrame {
     padding: 0;
@@ -704,8 +704,8 @@ QToolBox:selected {
 QToolBox::tab {
     background: #edeef0;
     border-bottom: 2px solid #dadce0;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
+    border-top-left-radius: $radius{4px};
+    border-top-right-radius: $radius{4px};
 }
 QToolBox::tab:selected {
     border-bottom: 2px solid #0081db;
@@ -834,9 +834,9 @@ QTableView {
     background: #ffffff;
 }
 QTableView QTableCornerButton::section {
-    border-top-left-radius: 2px;
     margin: 0 1px 1px 0;
     background: #dadce0;
+    border-top-left-radius: $radius{2px};
 }
 QTableView QTableCornerButton::section:pressed {
     background: #4ca6e5;
@@ -848,7 +848,7 @@ QHeaderView {
     padding: 0;
     margin: 0;
     border: none;
-    border-radius: 0;
+    border-radius: $radius{0};
 }
 QHeaderView::section {
     background: #dadce0;
@@ -897,9 +897,9 @@ QCalendarWidget {
 QCalendarWidget > .QWidget {
     background: #ffffff;
     border-bottom: 1px solid #dadce0;
-    border-radius: 4px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    border-radius: $radius{4px};
+    border-bottom-left-radius: $radius{0};
+    border-bottom-right-radius: $radius{0};
 }
 QCalendarWidget > .QWidget > QWidget {
     padding: 1px;
@@ -912,7 +912,7 @@ QCalendarWidget > .QWidget > QSpinBox::down-button {
     margin: 1px 3px 1px 1px;
 }
 QCalendarWidget .QWidget > QToolButton {
-    border-radius: 4px;
+    border-radius: $radius{4px};
 }
 QCalendarWidget > .QWidget > QToolButton::menu-indicator {
     height: 14px;
@@ -923,9 +923,9 @@ QCalendarWidget > .QWidget > QToolButton::menu-indicator {
 QCalendarWidget > QTableView {
     margin: 0;
     border: none;
-    border-radius: 4px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+    border-radius: $radius{4px};
+    border-top-left-radius: $radius{0};
+    border-top-right-radius: $radius{0};
 }
 QCalendarWidget > .QWidget > QToolButton#qt_calendar_prevmonth {
     qproperty-icon: url(${path}/themes/light/svg/arrow_upward__icon-foreground__rotate-270.svg);
@@ -939,7 +939,7 @@ QAbstractSpinBox {
     padding: 3px 4px;
     min-height: 1em;
     background: rgba(255.000, 255.000, 255.000, 0.000);
-    border-radius: 4px;
+    border-radius: $radius{4px};
 }
 QLineEdit:focus,
 QAbstractSpinBox:focus {
@@ -951,7 +951,7 @@ QAbstractSpinBox::down-button {
     width: 12px;
     height: 4px;
     padding: 3px;
-    border-radius: 4px;
+    border-radius: $radius{4px};
 }
 QAbstractSpinBox::up-button:hover,
 QAbstractSpinBox::down-button:hover {
@@ -1013,8 +1013,8 @@ QMenu::indicator:checked {
 QMenu::indicator {
     width: 18px;
     background: #c4c7cc;
-    border-radius: 4px;
     margin-left: 3px;
+    border-radius: $radius{4px};
 }
 QCheckBox,
 QRadioButton {
@@ -1075,13 +1075,13 @@ QComboBox QAbstractItemView,
 QStatusBar > QMenu,
 QDateTimeEdit QCalendarWidget QAbstractItemView,
 QDateTimeEdit QCalendarWidget .QWidget {
-    border-radius: 0;
     margin: 0;
-    $env_patch{"version": "<6.0.0", "os": "Darwin", "value": "border-radius: 4px"};
+    border-radius: $radius{0};
+    $env_patch{"version": "<6.0.0", "os": "Darwin", "value": "border-radius: $radius{4px}"};
 }
 QMenu,
 QStatusBar > QMenu {
-    $env_patch{"version": "<6.0.0", "os": "Darwin", "value": "border-radius: 8px"};
+    $env_patch{"version": "<6.0.0", "os": "Darwin", "value": "border-radius: $radius{8px}"};
 }
 PlotWidget {
     padding: 0;

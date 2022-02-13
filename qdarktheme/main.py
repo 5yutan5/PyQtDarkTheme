@@ -30,6 +30,9 @@ if None in [__version__, QT_API]:
         "Maybe you need to install qt-binding. Available Qt-binding packages: PySide6, PyQt6, PyQt5, PySide2."
     )
 
+# Pattern
+PATTERN_RADIUS = re.compile(r"\$radius\{[\s\S]*?\}")
+
 
 class _SvgFileNotFoundError(FileNotFoundError):
 
@@ -47,8 +50,23 @@ def get_themes() -> tuple[str, ...]:
     return THEMES
 
 
+def _replace_rounded(match: re.Match) -> str:
+    return match.group().replace("$radius{", "").replace("}", "")
+
+
+def _replace_sharp(match: re.Match) -> str:
+    return PATTERN_RADIUS.sub("0", match.group())
+
+
+def _parse_radius(stylesheet: str, border: str = "rounded") -> dict[str, str]:
+    """Parse `$radius{...}` placeholder in template stylesheet."""
+    matches = PATTERN_RADIUS.finditer(stylesheet)
+    replace = _replace_rounded if border == "rounded" else _replace_sharp
+    return {match.group(): replace(match) for match in matches}
+
+
 def _parse_env_patch(stylesheet: str) -> dict[str, str]:
-    """Parse `$env_patch{...}` symbol in template stylesheet.
+    """Parse `$env_patch{...}` placeholder in template stylesheet.
 
     Template stylesheet has `$env_patch{...}` symbol.
     This symbol has json string and resolve the differences of the style between qt versions.
@@ -104,7 +122,7 @@ def _parse_env_patch(stylesheet: str) -> dict[str, str]:
     return replacements
 
 
-def load_stylesheet(theme: str = "dark") -> str:
+def load_stylesheet(theme: str = "dark", border: str = "rounded") -> str:
     """Load the style sheet which looks like flat design. There are two themes, dark theme and light theme.
 
     Args:
@@ -157,12 +175,15 @@ def load_stylesheet(theme: str = "dark") -> str:
     else:
         from qdarktheme.themes.light.stylesheet import STYLE_SHEET
 
-    # Create Qt version patches
-    replacements = _parse_env_patch(STYLE_SHEET)
-    # Replace the ${path} variable by real path value
-    replacements["${path}"] = icon_path
     # Build stylesheet
-    return multi_replace(STYLE_SHEET, replacements)
+    # Radius
+    replacements_radius = _parse_radius(STYLE_SHEET, border)
+    stylesheet = multi_replace(STYLE_SHEET, replacements_radius)
+    # Env
+    replacements_env = _parse_env_patch(stylesheet)
+    # Path
+    replacements_env["${path}"] = icon_path
+    return multi_replace(stylesheet, replacements_env)
 
 
 def load_palette(theme: str = "dark"):
