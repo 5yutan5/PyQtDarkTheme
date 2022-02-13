@@ -127,7 +127,8 @@ def load_stylesheet(theme: str = "dark", border: str = "rounded") -> str:
     """Load the style sheet which looks like flat design. There are two themes, dark theme and light theme.
 
     Args:
-        theme: The name of the theme. Available theme are "dark" and "light".
+        theme: The name of the theme. Available themes are "dark" and "light".
+        border: The border style. Available styles are "rounded" and "sharp".
 
     Raises:
         TypeError: If the arg of theme name is wrong.
@@ -149,9 +150,19 @@ def load_stylesheet(theme: str = "dark", border: str = "rounded") -> str:
 
             app = QApplication([])
             app.setStyleSheet(qdarktheme.load_stylesheet("light"))
+
+        Change sharp frame.
+
+        Sharp Frame::
+
+            app = QApplication([])
+            app.setStyleSheet(qdarktheme.load_stylesheet(border="sharp"))
     """
     if theme not in get_themes():
         raise TypeError("The argument [theme] can only be specified as 'dark' or 'light'.") from None
+
+    if border not in ("rounded", "sharp"):
+        raise TypeError("The argument [border] can only be specified as 'rounded' or 'sharp'.")
 
     try:
         # In mac os, if the qt version is 5.13 or lower, the svg icon of Qt resource file cannot be read correctly.

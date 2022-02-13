@@ -30,7 +30,14 @@ def test_wrong_theme() -> None:
         qdarktheme.load_palette("wrong_value")
 
     for e in [e_stylesheet, e_palette]:
-        assert str(e.value) == "The argument [theme] can only be specified as 'dark' or 'light'."
+        assert e.type == TypeError
+
+
+def test_wrong_border_style() -> None:
+    """Verify we raise TypeError when inputting wrong border shape name."""
+    with pytest.raises(TypeError) as e:
+        qdarktheme.load_stylesheet(border="none")
+    assert e.type == TypeError
 
 
 @pytest.mark.available_qt()
