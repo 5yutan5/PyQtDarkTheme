@@ -184,7 +184,7 @@ class WidgetGallery(QMainWindow):
     @Slot()
     def _change_theme(self) -> None:
         self._theme = self.sender().text()  # type: ignore
-        QApplication.instance().setStyleSheet(qdarktheme.load_stylesheet(self._theme, self._theme))
+        QApplication.instance().setStyleSheet(qdarktheme.load_stylesheet(self._theme, self._radius))
 
     @Slot()
     def _change_corner_radius(self) -> None:
