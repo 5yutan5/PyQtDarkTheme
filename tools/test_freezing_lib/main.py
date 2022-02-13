@@ -146,7 +146,6 @@ def main() -> int:
 
     for library in _Library:
         if not getattr(args, library.value):
-            # if library.value not in (args.PyInstaller, args.cx_Freeze):
             _console.log(f"Skip {library.value} test")
             skip_count += 1
             continue
