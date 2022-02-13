@@ -63,18 +63,18 @@ jobs:
         path: ${{ steps.poetry-home.outputs.path }}
         key: poetry-${{ runner.os }}-${{ steps.full-py-version.outputs.version }}
 
-    - uses: snok/install-poetry@v1
-      with:
-        virtualenvs-in-project: true
-      env:
-        POETRY_HOME: ${{ steps.poetry-home.outputs.path }}
-
     - name: Cache ./.venv
       id: cache-venv
       uses: actions/cache@v2
       with:
         path: .venv
         key: venv-${{ runner.os }}-${{ steps.full-py-version.outputs.version }}-${{ matrix.qt }}-${{ hashFiles('**/poetry.lock') }}
+
+    - uses: snok/install-poetry@v1
+      with:
+        virtualenvs-in-project: true
+      env:
+        POETRY_HOME: ${{ steps.poetry-home.outputs.path }}
 
     - name: Install dependencies
       if: steps.cache-venv.outputs.cache-hit != 'true'
@@ -120,8 +120,6 @@ jobs:
         name: widget-img
         path: ./${{ env.TEST_IMG_OUTPUT_PATH}}/*.png
 
-    - name: Test freezing-pkg(PyInstaller & cx_Freeze)
+    - name: Test freezing-pkg(PyInstaller)
       if: matrix.qt != 'none' && runner.os != 'Linux'
-      run: |
-        poetry run pip install -U cx_Freeze
-        poetry run python -m tools.test_freezing_lib --PyInstaller --cx_Freeze
+      run: poetry run python -m tools.test_freezing_lib --PyInstaller

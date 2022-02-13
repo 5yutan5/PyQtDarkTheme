@@ -69,6 +69,7 @@
         "RGBA",
         "RRGGBB",
         "RRGGBBAA",
+        "runneradmin",
         "secho",
         "shiboken",
         "snok",

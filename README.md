@@ -22,7 +22,7 @@ Check out the [complete documentation](https://pyqtdarktheme.readthedocs.io).
 
 - A flat dark and light theme
 - Support PySide and PyQt
-- Support some freezing library(PyInstaller, cx_Freeze)
+- Support PyInstaller
 - Resolve the style differences between Qt versions
 - QPalette of dark and light theme
 

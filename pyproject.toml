@@ -107,5 +107,3 @@ markers = [
 
 [tool.pyright]
 typeCheckingMode = "basic"
-# Build app with cx_Freeze include pyi file
-ignore = ["dist"]
