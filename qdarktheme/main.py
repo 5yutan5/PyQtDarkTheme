@@ -31,7 +31,8 @@ if None in [__version__, QT_API]:
     )
 
 # Pattern
-PATTERN_RADIUS = re.compile(r"\$radius\{[\s\S]*?\}")
+_PATTERN_RADIUS = re.compile(r"\$radius\{[\s\S]*?\}")
+_PATTERN_ENV_PATCH = re.compile(r"\$env_patch\{[\s\S]*?\}")
 
 
 class _SvgFileNotFoundError(FileNotFoundError):
@@ -55,12 +56,12 @@ def _replace_rounded(match: re.Match) -> str:
 
 
 def _replace_sharp(match: re.Match) -> str:
-    return PATTERN_RADIUS.sub("0", match.group())
+    return _PATTERN_RADIUS.sub("0", match.group())
 
 
 def _parse_radius(stylesheet: str, border: str = "rounded") -> dict[str, str]:
     """Parse `$radius{...}` placeholder in template stylesheet."""
-    matches = PATTERN_RADIUS.finditer(stylesheet)
+    matches = _PATTERN_RADIUS.finditer(stylesheet)
     replace = _replace_rounded if border == "rounded" else _replace_sharp
     return {match.group(): replace(match) for match in matches}
 
@@ -86,7 +87,7 @@ def _parse_env_patch(stylesheet: str) -> dict[str, str]:
         Value is the value of the `value` key in $env_patch.
     """
     replacements: dict[str, str] = {}
-    for match in re.finditer(r"\$env_patch\{[\s\S]*?\}", stylesheet):
+    for match in re.finditer(_PATTERN_ENV_PATCH, stylesheet):
         match_text = match.group()
         json_text = match_text.replace("$env_patch", "")
         env_property: dict[str, str] = json.loads(json_text)

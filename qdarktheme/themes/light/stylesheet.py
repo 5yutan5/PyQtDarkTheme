@@ -514,13 +514,13 @@ QSlider::handle:horizontal {
     width: 16px;
     height: 8px;
     margin: -6px 0;
-    border-radius: $radius{8px};
+    border-radius: 8px;
 }
 QSlider::handle:vertical {
     width: 8px;
     height: 16px;
     margin: 0 -6px;
-    border-radius: $radius{8px};
+    border-radius: 8px;
 }
 QTabWidget::pane {
     border: 1px solid #dadce0;
@@ -742,6 +742,9 @@ QAbstractScrollArea {
 }
 QAbstractScrollArea:disabled {
     selection-background-color: #0081db;
+}
+QAbstractScrollArea::corner {
+    background: transparent;
 }
 QAbstractScrollArea > .QWidget {
     background: transparent;

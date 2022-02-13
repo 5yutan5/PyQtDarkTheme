@@ -44,6 +44,7 @@ class _WidgetGalleryUI:
             QAction(text="Open warning dialog"),
             QAction(text="Open critical dialog"),
         )
+        self.actions_corner_radius = (QAction(text="rounded"), QAction(text="sharp"))
 
         action_group_toolbar = QActionGroup(main_win)
 
@@ -100,6 +101,8 @@ class _WidgetGalleryUI:
         menu_theme = menubar.addMenu("&Theme")
         menu_theme.addActions(self.actions_theme)
         menu_dialog = menubar.addMenu("&Dialog")
+        menu_option = menubar.addMenu("&Option")
+        menu_option.addActions(self.actions_corner_radius)
         menu_dialog.addActions((self.action_open_folder, self.action_open_color_dialog, self.action_open_font_dialog))
         menu_message_box = menu_dialog.addMenu("&Messages")
         menu_message_box.addActions(self.actions_message_box)
@@ -134,6 +137,8 @@ class WidgetGallery(QMainWindow):
         QDir.addSearchPath("icons", f"{get_qdarktheme_root_path().as_posix()}/widget_gallery/svg")
         self._ui = _WidgetGalleryUI()
         self._ui.setup_ui(self)
+        self._theme = "dark"
+        self._border_radius = "rounded"
 
         # Signal
         self._ui.action_open_folder.triggered.connect(
@@ -153,6 +158,8 @@ class WidgetGallery(QMainWindow):
             action.triggered.connect(self._change_page)
         for action in self._ui.actions_message_box:
             action.triggered.connect(self._popup_message_box)
+        for action in self._ui.actions_corner_radius:
+            action.triggered.connect(self._change_corner_radius)
 
     @Slot()
     def _change_page(self) -> None:
@@ -176,8 +183,13 @@ class WidgetGallery(QMainWindow):
 
     @Slot()
     def _change_theme(self) -> None:
-        theme: str = self.sender().text()  # type: ignore
-        QApplication.instance().setStyleSheet(qdarktheme.load_stylesheet(theme))
+        self._theme = self.sender().text()  # type: ignore
+        QApplication.instance().setStyleSheet(qdarktheme.load_stylesheet(self._theme, self._theme))
+
+    @Slot()
+    def _change_corner_radius(self) -> None:
+        self._radius: str = self.sender().text()  # type: ignore
+        QApplication.instance().setStyleSheet(qdarktheme.load_stylesheet(self._theme, self._radius))
 
     @Slot()
     def _popup_message_box(self) -> None:

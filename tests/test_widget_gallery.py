@@ -26,5 +26,6 @@ def test_actions(widget_gallery: WidgetGallery, monkeypatch: pytest.MonkeyPatch)
     actions += widget_gallery._ui.actions_theme
     actions += widget_gallery._ui.actions_message_box
     actions += widget_gallery._ui.actions_message_box
+    actions += widget_gallery._ui.actions_corner_radius
     for action in actions:
         action.triggered.emit()
