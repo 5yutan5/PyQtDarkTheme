@@ -344,7 +344,7 @@ restructuredtext-lint = "*"
 
 [[package]]
 name = "flake8-simplify"
-version = "0.15.1"
+version = "0.17.0"
 description = "flake8 plugin which checks for code that can be simplified"
 category = "dev"
 optional = false
@@ -1092,7 +1092,7 @@ docs = ["pydata-sphinx-theme", "sphinx-panels"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7,<3.11"
-content-hash = "f92a6c07bb50ebef501a46e5340e05677db2e5b091dbf0ccd6cdb6980dcf4ff9"
+content-hash = "954de00024db246f1d4fcb613b1f4b02ffba2d1c0baf71357202a91770725ed3"
 
 [metadata.files]
 alabaster = [
@@ -1279,8 +1279,8 @@ flake8-rst-docstrings = [
     {file = "flake8_rst_docstrings-0.2.5-py3-none-any.whl", hash = "sha256:b99d9041b769b857efe45a448dc8c71b1bb311f9cacbdac5de82f96498105082"},
 ]
 flake8-simplify = [
-    {file = "flake8_simplify-0.15.1-py3-none-any.whl", hash = "sha256:dafa439c33d87bbf0e1d2218ce9cc1395baaf6f94b6c8a0e92d7fe6ba8939c38"},
-    {file = "flake8_simplify-0.15.1.tar.gz", hash = "sha256:43c15229b0e1ecf6a1afaa6e02a42de961ceca57caaf74bac45818130dec44a3"},
+    {file = "flake8_simplify-0.17.0-py3-none-any.whl", hash = "sha256:a566bb550706dbdc637b46729b760a7ac6442e2b28d64b729bc9da44a4dfd3b1"},
+    {file = "flake8_simplify-0.17.0.tar.gz", hash = "sha256:fd4076e0f9e9af4a18d91dfe32b1d460b7da97322d5e083fc3a5bbe487075877"},
 ]
 future = [
     {file = "future-0.18.2.tar.gz", hash = "sha256:b1bead90b70cf6ec3f0710ae53a525360fa360d306a86583adc6bf83a4db537d"},
