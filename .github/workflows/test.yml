@@ -38,7 +38,7 @@ jobs:
     name: ${{ matrix.os }} py-${{ matrix.py }} qt-${{ matrix.qt }}
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.py }}
