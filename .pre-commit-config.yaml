@@ -13,7 +13,7 @@ repos:
         pass_filenames: false
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.1.0
+    rev: v4.2.0
     hooks:
       - id: trailing-whitespace
         args: [--markdown-linebreak-ext=md]
@@ -24,13 +24,13 @@ repos:
       - id: check-added-large-files
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.31.1
+    rev: v2.32.0
     hooks:
       - id: pyupgrade
         args: [--py37-plus]
 
   - repo: https://github.com/psf/black
-    rev: 22.1.0
+    rev: 22.3.0
     hooks:
       - id: black
 
