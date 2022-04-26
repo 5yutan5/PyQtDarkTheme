@@ -115,7 +115,7 @@ jobs:
 
     - name: Archive img of WidgetGallery
       if: matrix.qt != 'none'
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: widget-img
         path: ./${{ env.TEST_IMG_OUTPUT_PATH}}/*.png
