@@ -589,7 +589,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "pydata-sphinx-theme"
-version = "0.8.0"
+version = "0.8.1"
 description = "Bootstrap-based Sphinx theme from the PyData community"
 category = "main"
 optional = false
@@ -598,7 +598,8 @@ python-versions = ">=3.7"
 [package.dependencies]
 beautifulsoup4 = "*"
 docutils = "!=0.17.0"
-sphinx = "*"
+packaging = "*"
+sphinx = ">=3.5.4,<5"
 
 [package.extras]
 doc = ["numpydoc", "myst-parser", "pandas", "pytest", "pytest-regressions", "sphinxext-rediraffe", "sphinx-sitemap", "jupyter-sphinx", "plotly", "numpy", "xarray"]
@@ -1435,8 +1436,8 @@ pycodestyle = [
     {file = "pycodestyle-2.8.0.tar.gz", hash = "sha256:eddd5847ef438ea1c7870ca7eb78a9d47ce0cdb4851a5523949f2601d0cbbe7f"},
 ]
 pydata-sphinx-theme = [
-    {file = "pydata_sphinx_theme-0.8.0-py3-none-any.whl", hash = "sha256:fbcbb833a07d3ad8dd997dd40dc94da18d98b41c68123ab0182b58fe92271204"},
-    {file = "pydata_sphinx_theme-0.8.0.tar.gz", hash = "sha256:9f72015d9c572ea92e3007ab221a8325767c426783b6b9941813e65fa988dc90"},
+    {file = "pydata_sphinx_theme-0.8.1-py3-none-any.whl", hash = "sha256:af2c99cb0b43d95247b1563860942ba75d7f1596360594fce510caaf8c4fcc16"},
+    {file = "pydata_sphinx_theme-0.8.1.tar.gz", hash = "sha256:96165702253917ece13dd895e23b96ee6dce422dcc144d560806067852fe1fed"},
 ]
 pydocstyle = [
     {file = "pydocstyle-6.1.1-py3-none-any.whl", hash = "sha256:6987826d6775056839940041beef5c08cc7e3d71d63149b48e36727f70144dc4"},
