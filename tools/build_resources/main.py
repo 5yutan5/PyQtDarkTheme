@@ -180,7 +180,7 @@ def build_resources(build_path: Path, theme_file_paths: list[Path], root_init_fi
 
 
 def compare_rc_files(dirs: Sequence[Path]) -> list[str]:
-    """Check if the contents of the qt resource files with the same name in the two directories are the same.
+    """Check if the contents of the qt resource files with the same name in the directories are the same.
 
     Args:
         dirs: The directories.
@@ -189,13 +189,18 @@ def compare_rc_files(dirs: Sequence[Path]) -> list[str]:
         list[str]: A list of file names with different contents.
     """
     rc_files_changed: list[str] = []
-    exclude_pattern = re.compile(r"qt_resource_struct = b\"[\s\S]*?\"\n")
+    exclude_pattern = re.compile(
+        r"qt_resource_struct = b\"[\s\S]*?\"\n"
+        + "|"
+        + r"# Created by: The Resource Compiler for Qt version [0-9\.]+\n"
+    )
     # Exclude rc_icon.py when the text other than random hash is the same
     for rc_path in dirs[1].glob("**/rc_icons.py"):
-        rc_path = str(rc_path).replace(str(dirs[1]), "")[1:]
-        targets = {exclude_pattern.sub("", (dir / rc_path).read_text()) for dir in dirs}
+        rc_relative_path = str(rc_path).replace(str(dirs[1]), "")[1:]
+        # If the contents in the file are the same, it will be canceled by "set".
+        targets = {exclude_pattern.sub("", (dir / rc_relative_path).read_text()) for dir in dirs}
         if len(targets) != 1:
-            rc_files_changed.append(rc_path)
+            rc_files_changed.append(rc_relative_path)
     return rc_files_changed
 
 
