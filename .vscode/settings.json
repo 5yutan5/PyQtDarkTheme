@@ -84,5 +84,6 @@
     "restructuredtext.confPath": "${workspaceFolder}/docs/source",
     "restructuredtext.languageServer.disabled": true,
     "commentTranslate.hover.enabled": true,
-    "svg.preview.background": "black"
+    "svg.preview.background": "black",
+    "esbonio.sphinx.confDir": "${workspaceFolder}/docs/source"
 }

@@ -66,7 +66,7 @@ def _walk_directory(directory: Path, tree: Tree, ignore_hiddenfile: bool, level:
             tree.add(Text(icon) + text_filename)
 
 
-def get_file_tree(directory: Path, ignore_hiddenfile: bool = False, level: int = None) -> Tree:
+def get_file_tree(directory: Path, ignore_hiddenfile: bool = False, level: int | None = None) -> Tree:
     """Return tree object of directory.
 
     Args:

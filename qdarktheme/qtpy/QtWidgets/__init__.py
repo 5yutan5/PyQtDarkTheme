@@ -20,7 +20,7 @@ elif QT_API == "PySide2":
 class Application(QApplication):  # type: ignore  # noqa: F405
     """Override QApplication."""
 
-    def __init__(self, args: Sequence[str] = None) -> None:
+    def __init__(self, args: Sequence[str] | None = None) -> None:
         """Override QApplication method."""
         super().__init__(args)
 
@@ -42,7 +42,7 @@ class Application(QApplication):  # type: ignore  # noqa: F405
         """Override QApplication method."""
         super().setAttribute(attribute, on)
 
-    def setPalette(self, palette: QPalette, className: str = None) -> None:  # noqa: N802, N803
+    def setPalette(self, palette: QPalette, className: str | None = None) -> None:  # noqa: N802, N803
         """Override QApplication method."""
         super().setPalette(palette, className)
 
