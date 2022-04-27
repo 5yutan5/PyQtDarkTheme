@@ -47,7 +47,7 @@ pep8-naming = "^0.12.1"
 pyproject-flake8 = "^0.0.1a4"
 
 # pytest
-pytest = "^7.1.0"
+pytest = "^7.1.2"
 pytest-cov = { version = "^3.0.0", extras = ["toml"] }
 pytest-randomly = "^3.11.0"
 pytest-qt = "^4.0.2"
