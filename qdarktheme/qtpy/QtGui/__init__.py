@@ -15,6 +15,6 @@ elif QT_API == "PySide2":
     from PySide2.QtWidgets import QAction, QActionGroup, QShortcut  # type: ignore
 
 if QT_API in ["PyQt5", "PySide2"]:
-    QAction = QAction  # type: ignore
-    QActionGroup = QActionGroup  # type: ignore
-    QShortcut = QShortcut  # type: ignore
+    QAction = QAction  # type: ignore  # noqa: SIM909
+    QActionGroup = QActionGroup  # type: ignore  # noqa: SIM909
+    QShortcut = QShortcut  # type: ignore  # noqa: SIM909
