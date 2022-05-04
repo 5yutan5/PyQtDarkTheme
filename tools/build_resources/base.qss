@@ -82,7 +82,7 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtooltip
 --------------------------------------------------------------------------- */
 QToolTip {
     background: $popup;
-    color: $popup-text;
+    color: $text;
     border: 1px solid $border;
 }
 
@@ -122,14 +122,12 @@ QStatusBar > .QSizeGrip {
 QStatusBar QWidget:hover {
     background: $statusbar-button-hover;
 }
-QStatusBar QWidget:pressed {
+QStatusBar QWidget:pressed,
+QStatusBar QWidget:checked {
     background: $statusbar-button-pressed;
 }
 QStatusBar QWidget:disabled {
     background: $statusbar-button-disabled;
-}
-QStatusBar QWidget:checked {
-    background: $statusbar-button-checked;
 }
 
 /* QCheckBox QRadioButton QGroupBox ---------------------------------------
@@ -176,7 +174,7 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qmenubar
 
 --------------------------------------------------------------------------- */
 QMenuBar {
-    background: $menubar;
+    background: $base;
     padding: 2px;
     border-bottom: 1px solid $border;
 }
@@ -237,11 +235,9 @@ QToolBar > QToolButton::menu-button:hover {
     background: $toolbar-button-hover;
 }
 QToolBar > QToolButton:pressed,
-QToolBar > QToolButton::menu-button:pressed {
-    background: $toolbar-button-pressed;
-}
+QToolBar > QToolButton::menu-button:pressed,
 QToolBar > QToolButton:checked {
-    background: $toolbar-button-checked;
+    background: $toolbar-button-pressed;
 }
 QToolBar > QToolButton#qt_toolbar_ext_button {
     image: $url{"icon": "double_arrow.svg", "id": "icon-foreground"};
@@ -547,7 +543,7 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qcombobox
 
 --------------------------------------------------------------------------- */
 QComboBox {
-    border: 1px solid $input-line-border;
+    border: 1px solid $border;
     min-height: 1.5em;
     padding: 0 4px;
     background: $input-line;
@@ -571,7 +567,7 @@ QComboBox::down-arrow:disabled {
 QComboBox::item:selected {
     border: none;  /* This setting remove the border of indicator. */
     background: $scrollarea-highlight;
-    color: $scrollarea-highlight-text;
+    color: $text;
 }
 
 QComboBox QAbstractItemView {
@@ -579,7 +575,7 @@ QComboBox QAbstractItemView {
     margin: 0;
     border: 1px solid $border;
     selection-background-color: $scrollarea-highlight;
-    selection-color: $scrollarea-highlight-text;
+    selection-color: $text;
     padding: 2px;
 }
 /* QAbstractItemView of QComboBox is NoFrame. Override default settings and show border. */
@@ -654,7 +650,7 @@ QTabBar::close-button:selected {
     image: $url{"icon": "close.svg", "id": "icon-foreground"};
 }
 QTabBar::close-button:!selected {
-    image: $url{"icon": "close.svg", "id": "tabbar-button-inselected"}
+    image: $url{"icon": "close.svg", "id": "tabbar-button-unselected"}
 }
 QTabBar::close-button:disabled {
     image: $url{"icon": "close.svg", "id": "icon-foreground-disabled"};
@@ -664,7 +660,7 @@ QTabBar::close-button:hover {
     border-radius: $radius{4px};
 }
 QTabBar::close-button:hover:!selected {
-    background: $tabbar-button-hover-inselected;
+    background: $tabbar-button-hover-unselected;
 }
 QTabBar::tab {
     padding: 3px;
@@ -752,7 +748,7 @@ QDockWidget::title {
   /* Better size for title bar */
     padding: 3px;
     spacing: 4px;
-    background: $dockwidget-titlebar;
+    background: $title;
 }
 /*
 Hover is already set in the QToolButton:hover, but it is not worked in
@@ -851,7 +847,7 @@ QToolBox:selected {
     border: 2px solid $highlight;
 }
 QToolBox::tab {
-    background: $toolbox-tab;
+    background: $title;
     border-bottom: 2px solid $border;
     border-top-left-radius: $radius{4px};
     border-top-right-radius: $radius{4px};
@@ -904,7 +900,7 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qabstracts
 --------------------------------------------------------------------------- */
 QAbstractScrollArea {
     selection-background-color: $scrollarea-highlight;
-    selection-color: $scrollarea-highlight-text;
+    selection-color: $text;
     margin: 1px;
 }
 QAbstractScrollArea:disabled {
@@ -969,7 +965,7 @@ QTreeView::branch:selected:!active {
 QAbstractItemView::item:selected,
 QTreeView::branch:selected {
     background: $scrollarea-highlight;
-    color: $scrollarea-highlight-text;
+    color: $text;
 }
 QAbstractItemView::item:!selected:hover,
 QTreeView::branch:!selected:hover {
@@ -1032,7 +1028,7 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtableview
 
 --------------------------------------------------------------------------- */
 QTableView {
-    gridline-color: $tableview-gridline;
+    gridline-color: $tableview-grid;
     background: $tableview;
 }
 
@@ -1160,7 +1156,7 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qlineedit
 --------------------------------------------------------------------------- */
 QLineEdit,
 QAbstractSpinBox {
-    border: 1px solid $input-line-border;
+    border: 1px solid $border;
     padding: 3px 4px;
     /* Adjust the min-height of QLineEdit to the height of the characters. */
     min-height: 1em;

@@ -84,14 +84,12 @@ QStatusBar > .QSizeGrip {
 QStatusBar QWidget:hover {
     background: #d1d4da;
 }
-QStatusBar QWidget:pressed {
+QStatusBar QWidget:pressed,
+QStatusBar QWidget:checked {
     background: #c3c7ce;
 }
 QStatusBar QWidget:disabled {
     background: #edeef0;
-}
-QStatusBar QWidget:checked {
-    background: #c3c7ce;
 }
 QCheckBox,
 QRadioButton {
@@ -177,9 +175,7 @@ QToolBar > QToolButton::menu-button:hover {
     background: #d7d7d7;
 }
 QToolBar > QToolButton:pressed,
-QToolBar > QToolButton::menu-button:pressed {
-    background: #c4c4c4;
-}
+QToolBar > QToolButton::menu-button:pressed,
 QToolBar > QToolButton:checked {
     background: #c4c4c4;
 }
@@ -533,7 +529,7 @@ QTabBar::close-button:selected {
     image: url(${path}/themes/light/svg/close__icon-foreground.svg);
 }
 QTabBar::close-button:!selected {
-    image: url(${path}/themes/light/svg/close__tabbar-button-inselected.svg)
+    image: url(${path}/themes/light/svg/close__tabbar-button-unselected.svg)
 }
 QTabBar::close-button:disabled {
     image: url(${path}/themes/light/svg/close__icon-foreground-disabled.svg);
