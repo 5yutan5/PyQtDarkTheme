@@ -15,10 +15,10 @@ _palette.setColor(QPalette.ColorRole.HighlightedText, QColor("$highlight-text"))
 _palette.setColor(QPalette.ColorRole.Link, QColor("$highlight-text"))
 _palette.setColor(QPalette.ColorRole.AlternateBase, QColor("$itemview-alternate"))
 _palette.setColor(QPalette.ColorRole.ToolTipBase, QColor("$popup"))
-_palette.setColor(QPalette.ColorRole.ToolTipText, QColor("$popup-text"))
+_palette.setColor(QPalette.ColorRole.ToolTipText, QColor("$text"))
 _palette.setColor(QPalette.ColorRole.LinkVisited, QColor("$link-visited"))
 _palette.setColor(QPalette.ColorRole.ToolTipText, QColor("$popup"))
-_palette.setColor(QPalette.ColorRole.ToolTipBase, QColor("$popup-text"))
+_palette.setColor(QPalette.ColorRole.ToolTipBase, QColor("$text"))
 if hasattr(QPalette.ColorRole, "Foreground"):
     _palette.setColor(QPalette.ColorRole.Foreground, QColor("$text"))  # type: ignore
 if hasattr(QPalette.ColorRole, "PlaceholderText"):

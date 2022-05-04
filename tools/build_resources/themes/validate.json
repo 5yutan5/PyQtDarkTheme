@@ -63,12 +63,12 @@
             "description": "Panel background color",
             "$ref": "#/definitions/color_code"
         },
-        "popup": {
-            "description": "Pop-up color",
+        "title": {
+            "description": "Title bar color, title of dock widget and tool box",
             "$ref": "#/definitions/color_code"
         },
-        "popup-text": {
-            "description": "Pop-up text color",
+        "popup": {
+            "description": "Pop-up color",
             "$ref": "#/definitions/color_code"
         },
         "popup-item-selected": {
@@ -87,20 +87,8 @@
             "description": "Pressed button color in statusbar",
             "$ref": "#/definitions/color_code"
         },
-        "statusbar-button-checked": {
-            "description": "Checked button color in statusbar",
-            "$ref": "#/definitions/color_code"
-        },
         "statusbar-button-disabled": {
             "description": "Disabled button color in statusbar",
-            "$ref": "#/definitions/color_code"
-        },
-        "menubar": {
-            "description": "QMenuBar background color",
-            "$ref": "#/definitions/color_code"
-        },
-        "menubar-hover": {
-            "description": "Hovered QMenuBar background color",
             "$ref": "#/definitions/color_code"
         },
         "menubar-item-selected": {
@@ -117,10 +105,6 @@
         },
         "toolbar-button-pressed": {
             "description": "Pressed button color in QToolBar",
-            "$ref": "#/definitions/color_code"
-        },
-        "toolbar-button-checked": {
-            "description": "Checked button color in QToolBar",
             "$ref": "#/definitions/color_code"
         },
         "toolbar-button-disabled": {
@@ -147,10 +131,6 @@
             "description": "Disabled QScrollBar color",
             "$ref": "#/definitions/color_code"
         },
-        "progressbar-text": {
-            "description": "QProgressBar text color",
-            "$ref": "#/definitions/color_code"
-        },
         "button-hover": {
             "description": "Hovered button color",
             "$ref": "#/definitions/color_code"
@@ -171,10 +151,6 @@
             "description": "Input box color like QComboBox, QLineEdit and QSpinBox",
             "$ref": "#/definitions/color_code"
         },
-        "input-line-border": {
-            "description": "Input box border color",
-            "$ref": "#/definitions/color_code"
-        },
         "input-line-button-hover": {
             "description": "Hovered button of input line",
             "$ref": "#/definitions/color_code"
@@ -187,24 +163,16 @@
             "description": "QTreeView guides stroke color when inactive",
             "$ref": "#/definitions/color_code"
         },
-        "tabbar-button-inselected": {
-            "description": "Button background color of QTabBar when inselected",
+        "tabbar-button-unselected": {
+            "description": "Button background color of QTabBar when unselected",
             "$ref": "#/definitions/color_code"
         },
         "tabbar-button-hover": {
             "description": "Hovered button background color of QTabBar",
             "$ref": "#/definitions/color_code"
         },
-        "tabbar-button-hover-inselected": {
-            "description": "Hovered button background color of QTabBar when inselected",
-            "$ref": "#/definitions/color_code"
-        },
-        "dockwidget-titlebar": {
-            "description": "Title bar color",
-            "$ref": "#/definitions/color_code"
-        },
-        "toolbox-tab": {
-            "description": "QToolBox tab color",
+        "tabbar-button-hover-unselected": {
+            "description": "Hovered button background color of QTabBar when unselected",
             "$ref": "#/definitions/color_code"
         },
         "scrollarea-highlight": {
@@ -213,10 +181,6 @@
         },
         "scrollarea-highlight-disabled": {
             "description": "Disabled QScrollArea highlight color",
-            "$ref": "#/definitions/color_code"
-        },
-        "scrollarea-highlight-text": {
-            "description": "Text highlight color of scrollarea",
             "$ref": "#/definitions/color_code"
         },
         "itemview-alternate": {
@@ -239,28 +203,16 @@
             "description": "Textedit highlight color",
             "$ref": "#/definitions/color_code"
         },
-        "listview-item-hover": {
-            "description": "Hovered listview item",
-            "$ref": "#/definitions/color_code"
-        },
         "headerview-section": {
             "description": "QHeaderview section color",
-            "$ref": "#/definitions/color_code"
-        },
-        "headerview-text-active": {
-            "description": "QHeaderview active section text color",
             "$ref": "#/definitions/color_code"
         },
         "tableview": {
             "description": "QTableview color",
             "$ref": "#/definitions/color_code"
         },
-        "tableview-gridline": {
+        "tableview-grid": {
             "description": "QTableview grid line color",
-            "$ref": "#/definitions/color_code"
-        },
-        "tableview-highlight-text": {
-            "description": "QTableview highlight text color",
             "$ref": "#/definitions/color_code"
         },
         "link-visited": {
@@ -286,53 +238,41 @@
         "text-disabled",
         "border",
         "panel",
+        "title",
         "popup",
-        "popup-text",
         "popup-item-selected",
         "statusbar",
         "statusbar-button-hover",
         "statusbar-button-pressed",
-        "statusbar-button-checked",
         "statusbar-button-disabled",
-        "menubar",
-        "menubar-hover",
         "menubar-item-selected",
         "toolbar",
         "toolbar-button-hover",
         "toolbar-button-pressed",
-        "toolbar-button-checked",
         "toolbar-button-disabled",
         "scrollbar-background",
         "scrollbar-handle",
         "scrollbar-handle-hover",
         "scrollbar-handle-pressed",
         "scrollbar-disabled",
-        "progressbar-text",
         "button-hover",
         "button-pressed",
         "button-checked",
         "button-disabled",
         "input-line",
-        "input-line-border",
         "input-line-button-hover",
         "placeholder-text",
         "tabbar-button-hover",
-        "dockwidget-titlebar",
-        "toolbox-tab",
         "scrollarea-highlight",
         "scrollarea-highlight-disabled",
-        "scrollarea-highlight-text",
         "itemview-alternate",
         "itemview-item-hover",
         "itemview-highlight-inactive",
         "textedit",
         "textedit-highlight",
-        "listview-item-hover",
         "headerview-section",
-        "headerview-text-active",
         "tableview",
-        "tableview-gridline",
-        "tableview-highlight-text",
+        "tableview-grid",
         "link-visited",
         "menu-checkbox"
     ]
