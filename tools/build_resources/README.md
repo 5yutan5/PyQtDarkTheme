@@ -21,15 +21,11 @@ themes
 ├── dark
 │   ├── __init__.py
 │   ├── palette.py
-│   ├── rc_icons.py
 │   ├── stylesheet.py
-│   └── svg
-│       └── ...
+│   └── svg.py
 └── light
     ├── __init__.py
     ├── palette.py
-    ├── rc_icons.py
     ├── stylesheet.py
-    └── svg
-        └── ...
+    └── svg.py
 ```
