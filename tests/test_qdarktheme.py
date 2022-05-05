@@ -55,3 +55,10 @@ def test_parse_env_patch() -> None:
     qtpy.__version__ = None
     _parse_env_patch('$env_patch{"version": "==6.0.0", "value": "test"};')
     qtpy.__version__ = temp_qt_version
+
+
+def test_clear_cache() -> None:
+    """Test `clear_cache()`."""
+    qdarktheme.load_stylesheet()
+    qdarktheme.clear_cache()
+    qdarktheme.clear_cache()
