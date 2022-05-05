@@ -70,10 +70,6 @@ rich = "^12.3.0"
 # See https://github.com/readthedocs/readthedocs.org/issues/4912#issuecomment-664002569
 docs = ["pydata-sphinx-theme", "sphinx-panels"]
 
-[tool.poetry.plugins."pyinstaller40"]
-# See https://pyinstaller.readthedocs.io/en/stable/hooks.html#providing-pyinstaller-hooks-with-your-package
-hook-dirs = "qdarktheme.__pyinstaller:get_hook_dirs"
-
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"

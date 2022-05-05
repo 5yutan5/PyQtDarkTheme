@@ -8,3 +8,5 @@ API Reference
 .. autofunction:: qdarktheme.load_palette
 
 .. autofunction:: qdarktheme.get_themes
+
+.. autofunction:: qdarktheme.clear_cache

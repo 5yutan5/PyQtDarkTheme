@@ -1,6 +1,5 @@
 """Tests for the main program."""
 import sys
-from importlib import import_module
 
 import pytest
 
@@ -40,19 +39,6 @@ def test_wrong_border_style() -> None:
     assert e.type == TypeError
 
 
-@pytest.mark.available_qt()
-def test_qrc() -> None:
-    """Test the qt resource files."""
-    from qdarktheme.qtpy import QtCore
-
-    if not hasattr(QtCore, "qRegisterResourceData"):
-        return
-
-    for theme in qdarktheme.get_themes():
-        rc_icons = import_module(f"qdarktheme.themes.{theme}.rc_icons")
-        rc_icons.qCleanupResources()  # type: ignore
-
-
 def test_parse_env_patch() -> None:
     """Test `parse_env_patch()`."""
     from qdarktheme.main import _parse_env_patch
@@ -69,3 +55,10 @@ def test_parse_env_patch() -> None:
     qtpy.__version__ = None
     _parse_env_patch('$env_patch{"version": "==6.0.0", "value": "test"};')
     qtpy.__version__ = temp_qt_version
+
+
+def test_clear_cache() -> None:
+    """Test `clear_cache()`."""
+    qdarktheme.load_stylesheet()
+    qdarktheme.clear_cache()
+    qdarktheme.clear_cache()

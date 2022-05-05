@@ -4,20 +4,23 @@ from __future__ import annotations
 import json
 import platform
 import re
-import sys
+import shutil
 from pathlib import Path
 
-from qdarktheme.qtpy import QtImportError, __version__
+from qdarktheme.qtpy import __version__ as qt_version
 from qdarktheme.qtpy.qt_compat import QT_API
-from qdarktheme.util import OPERATORS, compare_v, get_logger, get_qdarktheme_root_path, multi_replace
+from qdarktheme.util import OPERATORS, compare_v, get_logger, multi_replace
+
+# Version of PyQtDarkTheme
+__version__ = "1.1.0"
 
 _logger = get_logger(__name__)
 
-if __version__ is None:
+if qt_version is None:
     _logger.warning("Failed to detect Qt version. Load Qt version as the latest version.")
     _qt_version = "10.0.0"  # Fairly future version for always setting latest version.
 else:
-    _qt_version = __version__
+    _qt_version = qt_version
 
 if QT_API is None:
     _qt_api = "PySide6"
@@ -25,19 +28,33 @@ if QT_API is None:
 else:
     _qt_api = QT_API
 
-if None in [__version__, QT_API]:
+if None in [qt_version, QT_API]:
     _logger.warning(
         "Maybe you need to install qt-binding. Available Qt-binding packages: PySide6, PyQt6, PyQt5, PySide2."
     )
+
+_RESOURCE_HOME_DIR = Path.home() / ".qdarktheme"
+_RESOURCES_BASE_DIR = _RESOURCE_HOME_DIR / f"v{__version__}"
 
 # Pattern
 _PATTERN_RADIUS = re.compile(r"\$radius\{[\s\S]*?\}")
 _PATTERN_ENV_PATCH = re.compile(r"\$env_patch\{[\s\S]*?\}")
 
 
-class _SvgFileNotFoundError(FileNotFoundError):
+def _build_svg_files(theme: str, theme_resources_dir: Path) -> None:
+    svg_resources_dir = theme_resources_dir / "svg"
+    if not svg_resources_dir.exists():
+        svg_resources_dir.mkdir()
+    else:
+        return
 
-    pass
+    if theme == "dark":
+        from qdarktheme.themes.dark.svg import SVG_RESOURCES
+    else:
+        from qdarktheme.themes.light.svg import SVG_RESOURCES
+
+    for file_name, code in json.loads(SVG_RESOURCES).items():
+        (svg_resources_dir / f"{file_name}.svg").write_text(code)
 
 
 def get_themes() -> tuple[str, ...]:
@@ -164,23 +181,9 @@ def load_stylesheet(theme: str = "dark", border: str = "rounded") -> str:
     if border not in ("rounded", "sharp"):
         raise TypeError("The argument [border] can only be specified as 'rounded' or 'sharp'.")
 
-    try:
-        # In mac os, if the qt version is 5.13 or lower, the svg icon of Qt resource file cannot be read correctly.
-        if compare_v(_qt_version, "<", "5.13.0"):
-            raise _SvgFileNotFoundError()
-
-        if theme == "dark":
-            from qdarktheme.themes.dark import rc_icons as _
-        else:
-            from qdarktheme.themes.light import rc_icons as _  # noqa: F401
-        icon_path = ":qdarktheme"
-    except (AttributeError, QtImportError, _SvgFileNotFoundError):
-        # Qt resource system has been removed in PyQt6. So in PyQt6, load the icon from a physical file.
-        # PyInstaller's one file option uses temp dir(_MEIPASS).
-        if hasattr(sys, "_MEIPASS"):
-            icon_path = (Path(sys._MEIPASS) / "qdarktheme").as_posix()  # type: ignore
-        else:
-            icon_path = get_qdarktheme_root_path().as_posix()
+    theme_resources_dir = _RESOURCES_BASE_DIR / theme
+    theme_resources_dir.mkdir(parents=True, exist_ok=True)
+    _build_svg_files(theme, theme_resources_dir)
 
     if theme == "dark":
         from qdarktheme.themes.dark.stylesheet import STYLE_SHEET
@@ -194,8 +197,21 @@ def load_stylesheet(theme: str = "dark", border: str = "rounded") -> str:
     # Env
     replacements_env = _parse_env_patch(stylesheet)
     # Path
-    replacements_env["${path}"] = icon_path
+    replacements_env["${path}"] = _RESOURCES_BASE_DIR.as_posix()
     return multi_replace(stylesheet, replacements_env)
+
+
+def clear_cache():
+    """Clear the caches in system home path.
+
+    PyQtDarkTheme build the caches of resources in the system home path.You can clear the caches by running this
+    method.
+    """
+    try:
+        shutil.rmtree(_RESOURCE_HOME_DIR)
+        _logger.info(f"The caches({_RESOURCE_HOME_DIR}) has been deleted")
+    except FileNotFoundError:
+        _logger.info("There is no caches")
 
 
 def load_palette(theme: str = "dark"):

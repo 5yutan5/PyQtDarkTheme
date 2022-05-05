@@ -1,7 +1,7 @@
 ci:
   # Replace use some hooks of pre-commit.ci with our own github actions.
   # See https://github.com/pre-commit-ci/issues/issues/55.
-  skip: ['build-resources', 'pyright']
+  skip: ['pyright']
 repos:
   - repo: local
     hooks:
@@ -9,7 +9,7 @@ repos:
         name: Build resources
         entry: python -m tools.build_resources
         language: python
-        additional_dependencies: ['rich', 'pyside6']
+        additional_dependencies: ['rich']
         pass_filenames: false
 
   - repo: https://github.com/pre-commit/pre-commit-hooks

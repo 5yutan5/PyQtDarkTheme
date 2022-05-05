@@ -45,11 +45,13 @@
         "linebreak",
         "maxdepth",
         "MEIPASS",
+        "ncipollo",
         "pflake",
         "pformat",
         "Pixmaps",
         "pydata",
         "pyinstaller",
+        "pypi",
         "pyproject",
         "pyqt",
         "pyqtdarktheme",
@@ -73,6 +75,7 @@
         "secho",
         "shiboken",
         "snok",
+        "testpypi",
         "toctree",
         "venv",
         "virtualenvs",
@@ -85,5 +88,6 @@
     "restructuredtext.languageServer.disabled": true,
     "commentTranslate.hover.enabled": true,
     "svg.preview.background": "black",
-    "esbonio.sphinx.confDir": "${workspaceFolder}/docs/source"
+    "esbonio.sphinx.confDir": "${workspaceFolder}/docs/source",
+    "commentTranslate.multiLineMerge": true
 }
