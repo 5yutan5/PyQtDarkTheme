@@ -45,6 +45,7 @@ def get_logger(logger_name: str) -> logging.Logger:
     """
     logger = logging.getLogger(logger_name)
     logger.propagate = False
+    logger.setLevel(logging.INFO)
     ch = logging.StreamHandler()
     ch.setFormatter(logging.Formatter("[%(name)s] [%(levelname)s] %(message)s"))
     logger.addHandler(ch)

@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 import platform
 import re
+import shutil
 from pathlib import Path
 
 from qdarktheme.qtpy import __version__ as qt_version
@@ -32,7 +33,8 @@ if None in [qt_version, QT_API]:
         "Maybe you need to install qt-binding. Available Qt-binding packages: PySide6, PyQt6, PyQt5, PySide2."
     )
 
-_RESOURCES_BASE_DIR = Path.home() / ".qdarktheme" / f"v{__version__}"
+_RESOURCE_HOME_DIR = Path.home() / ".qdarktheme"
+_RESOURCES_BASE_DIR = _RESOURCE_HOME_DIR / f"v{__version__}"
 
 # Pattern
 _PATTERN_RADIUS = re.compile(r"\$radius\{[\s\S]*?\}")
@@ -197,6 +199,19 @@ def load_stylesheet(theme: str = "dark", border: str = "rounded") -> str:
     # Path
     replacements_env["${path}"] = _RESOURCES_BASE_DIR.as_posix()
     return multi_replace(stylesheet, replacements_env)
+
+
+def clear_cache():
+    """Clear the caches in system home path.
+
+    PyQtDarkTheme build the caches of resources in the system home path.You can clear the caches by running this
+    method.
+    """
+    try:
+        shutil.rmtree(_RESOURCE_HOME_DIR)
+        _logger.info(f"The caches({_RESOURCE_HOME_DIR}) has been deleted")
+    except FileNotFoundError:
+        _logger.info("There is no caches")
 
 
 def load_palette(theme: str = "dark"):
