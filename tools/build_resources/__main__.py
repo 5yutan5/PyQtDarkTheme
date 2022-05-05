@@ -8,7 +8,7 @@ from tempfile import TemporaryDirectory
 
 from rich.console import Console
 
-from tools.build_resources.main import DIST_DIR_PATH, build_resources, compare_all_files, compare_rc_files
+from tools.build_resources.main import DIST_DIR_PATH, build_resources, compare_all_files
 
 ROOT_INIT_DOC = '''"""Package including resources.
 
@@ -79,14 +79,6 @@ def _main() -> None:
         build_resources(Path(temp_dir), color_schemes, ROOT_INIT_DOC)
         # Refresh dist dir
         files_changed = compare_all_files(DIST_DIR_PATH, Path(temp_dir))
-        rc_files_changed = compare_rc_files((DIST_DIR_PATH, Path(temp_dir)))
-        for rc_file in [file for file in files_changed if "rc_icons.py" in file]:
-            if rc_file in rc_files_changed:
-                continue
-            temp_rc_file = Path(temp_dir) / rc_file
-            dist_rc_file = DIST_DIR_PATH / rc_file
-            temp_rc_file.write_text(dist_rc_file.read_text())
-            files_changed.remove(rc_file)
 
         if not files_changed:
             _console.log("There is no change")

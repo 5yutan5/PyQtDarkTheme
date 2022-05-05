@@ -1,6 +1,5 @@
 """Tests for the main program."""
 import sys
-from importlib import import_module
 
 import pytest
 
@@ -38,19 +37,6 @@ def test_wrong_border_style() -> None:
     with pytest.raises(TypeError) as e:
         qdarktheme.load_stylesheet(border="none")
     assert e.type == TypeError
-
-
-@pytest.mark.available_qt()
-def test_qrc() -> None:
-    """Test the qt resource files."""
-    from qdarktheme.qtpy import QtCore
-
-    if not hasattr(QtCore, "qRegisterResourceData"):
-        return
-
-    for theme in qdarktheme.get_themes():
-        rc_icons = import_module(f"qdarktheme.themes.{theme}.rc_icons")
-        rc_icons.qCleanupResources()  # type: ignore
 
 
 def test_parse_env_patch() -> None:

@@ -88,5 +88,6 @@
     "restructuredtext.languageServer.disabled": true,
     "commentTranslate.hover.enabled": true,
     "svg.preview.background": "black",
-    "esbonio.sphinx.confDir": "${workspaceFolder}/docs/source"
+    "esbonio.sphinx.confDir": "${workspaceFolder}/docs/source",
+    "commentTranslate.multiLineMerge": true
 }

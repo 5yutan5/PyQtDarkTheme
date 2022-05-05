@@ -25,28 +25,28 @@ QWidget:disabled {
     selection-color: #babdc2;
 }
 QWidget {
-    backward-icon: url(${path}/themes/light/svg/arrow_upward__icon-foreground__rotate-270.svg);
-    forward-icon: url(${path}/themes/light/svg/arrow_upward__icon-foreground__rotate-90.svg);
-    leftarrow-icon: url(${path}/themes/light/svg/arrow_upward__icon-foreground__rotate-270.svg);
-    rightarrow-icon: url(${path}/themes/light/svg/arrow_upward__icon-foreground__rotate-90.svg);
-    dialog-ok-icon: url(${path}/themes/light/svg/check__icon-foreground.svg);
-    dialog-cancel-icon: url(${path}/themes/light/svg/close__icon-foreground.svg);
-    dialog-yes-icon: url(${path}/themes/light/svg/check_circle__icon-foreground.svg);
-    dialog-no-icon: url(${path}/themes/light/svg/cancel__icon-foreground.svg);
-    dialog-apply-icon: url(${path}/themes/light/svg/check__icon-foreground.svg);
-    dialog-reset-icon: url(${path}/themes/light/svg/restart_alt__icon-foreground.svg);
-    dialog-save-icon: url(${path}/themes/light/svg/save__icon-foreground.svg);
-    dialog-discard-icon: url(${path}/themes/light/svg/delete__icon-foreground.svg);
-    dialog-close-icon: url(${path}/themes/light/svg/close__icon-foreground.svg);
-    dialog-open-icon: url(${path}/themes/light/svg/folder_open__icon-foreground.svg);
-    dialog-help-icon: url(${path}/themes/light/svg/help__icon-foreground.svg);
-    filedialog-parent-directory-icon: url(${path}/themes/light/svg/arrow_upward__icon-foreground.svg);
-    filedialog-new-directory-icon: url(${path}/themes/light/svg/create_new_folder__icon-foreground.svg);
-    titlebar-close-icon: url(${path}/themes/light/svg/close__icon-foreground.svg);
-    titlebar-normal-icon: url(${path}/themes/light/svg/flip_to_front__icon-foreground.svg);
+    backward-icon: url(${path}/light/svg/arrow_upward__icon-foreground__rotate-270.svg);
+    forward-icon: url(${path}/light/svg/arrow_upward__icon-foreground__rotate-90.svg);
+    leftarrow-icon: url(${path}/light/svg/arrow_upward__icon-foreground__rotate-270.svg);
+    rightarrow-icon: url(${path}/light/svg/arrow_upward__icon-foreground__rotate-90.svg);
+    dialog-ok-icon: url(${path}/light/svg/check__icon-foreground.svg);
+    dialog-cancel-icon: url(${path}/light/svg/close__icon-foreground.svg);
+    dialog-yes-icon: url(${path}/light/svg/check_circle__icon-foreground.svg);
+    dialog-no-icon: url(${path}/light/svg/cancel__icon-foreground.svg);
+    dialog-apply-icon: url(${path}/light/svg/check__icon-foreground.svg);
+    dialog-reset-icon: url(${path}/light/svg/restart_alt__icon-foreground.svg);
+    dialog-save-icon: url(${path}/light/svg/save__icon-foreground.svg);
+    dialog-discard-icon: url(${path}/light/svg/delete__icon-foreground.svg);
+    dialog-close-icon: url(${path}/light/svg/close__icon-foreground.svg);
+    dialog-open-icon: url(${path}/light/svg/folder_open__icon-foreground.svg);
+    dialog-help-icon: url(${path}/light/svg/help__icon-foreground.svg);
+    filedialog-parent-directory-icon: url(${path}/light/svg/arrow_upward__icon-foreground.svg);
+    filedialog-new-directory-icon: url(${path}/light/svg/create_new_folder__icon-foreground.svg);
+    titlebar-close-icon: url(${path}/light/svg/close__icon-foreground.svg);
+    titlebar-normal-icon: url(${path}/light/svg/flip_to_front__icon-foreground.svg);
 }
 QCommandLinkButton {
-    qproperty-icon: url(${path}/themes/light/svg/east__highlight.svg);
+    qproperty-icon: url(${path}/light/svg/east__highlight.svg);
 }
 QMainWindow::separator {
     width: 4px;
@@ -148,11 +148,11 @@ QToolBar {
 }
 QToolBar::handle:horizontal {
     width: 20px;
-    image: url(${path}/themes/light/svg/drag_indicator_horizontal__icon-foreground.svg);
+    image: url(${path}/light/svg/drag_indicator_horizontal__icon-foreground.svg);
 }
 QToolBar::handle:vertical {
     height: 20px;
-    image: url(${path}/themes/light/svg/drag_indicator_horizontal__icon-foreground__rotate-90.svg);
+    image: url(${path}/light/svg/drag_indicator_horizontal__icon-foreground__rotate-90.svg);
 }
 QToolBar::separator {
     background: #dadce0;
@@ -180,11 +180,11 @@ QToolBar > QToolButton:checked {
     background: #c4c4c4;
 }
 QToolBar > QToolButton#qt_toolbar_ext_button {
-    image: url(${path}/themes/light/svg/double_arrow__icon-foreground.svg);
+    image: url(${path}/light/svg/double_arrow__icon-foreground.svg);
     $env_patch{"os": "Windows", "value": "padding: 0; qproperty-icon: unset"};
 }
 QToolBar > QToolButton#qt_toolbar_ext_button:disabled {
-    image: url(${path}/themes/light/svg/double_arrow__icon-foreground-disabled.svg);
+    image: url(${path}/light/svg/double_arrow__icon-foreground-disabled.svg);
 }
 QToolBar > QWidget {
     background: transparent;
@@ -215,10 +215,10 @@ QMenu::right-arrow {
     padding-left: 12px;
     height: 20px;
     width: 20px;
-    image: url(${path}/themes/light/svg/chevron_right__icon-foreground.svg);
+    image: url(${path}/light/svg/chevron_right__icon-foreground.svg);
 }
 QMenu::right-arrow:disabled {
-    image: url(${path}/themes/light/svg/chevron_right__icon-foreground-disabled.svg);
+    image: url(${path}/light/svg/chevron_right__icon-foreground-disabled.svg);
 }
 QScrollBar {
     background: #edeff2;
@@ -289,40 +289,40 @@ QScrollBar::add-line:horizontal {
     subcontrol-position: right;
 }
 QScrollBar::up-arrow {
-    image: url(${path}/themes/light/svg/arrow_drop_up__scrollbar-handle.svg);
+    image: url(${path}/light/svg/arrow_drop_up__scrollbar-handle.svg);
 }
 QScrollBar::right-arrow {
-    image: url(${path}/themes/light/svg/arrow_drop_up__scrollbar-handle__rotate-90.svg);
+    image: url(${path}/light/svg/arrow_drop_up__scrollbar-handle__rotate-90.svg);
 }
 QScrollBar::down-arrow {
-    image: url(${path}/themes/light/svg/arrow_drop_up__scrollbar-handle__rotate-180.svg);
+    image: url(${path}/light/svg/arrow_drop_up__scrollbar-handle__rotate-180.svg);
 }
 QScrollBar::left-arrow {
-    image: url(${path}/themes/light/svg/arrow_drop_up__scrollbar-handle__rotate-270.svg);
+    image: url(${path}/light/svg/arrow_drop_up__scrollbar-handle__rotate-270.svg);
 }
 QScrollBar::up-arrow:hover {
-    image: url(${path}/themes/light/svg/arrow_drop_up__scrollbar-handle-pressed.svg);
+    image: url(${path}/light/svg/arrow_drop_up__scrollbar-handle-pressed.svg);
 }
 QScrollBar::right-arrow:hover {
-    image: url(${path}/themes/light/svg/arrow_drop_up__scrollbar-handle-pressed__rotate-90.svg);
+    image: url(${path}/light/svg/arrow_drop_up__scrollbar-handle-pressed__rotate-90.svg);
 }
 QScrollBar::down-arrow:hover {
-    image: url(${path}/themes/light/svg/arrow_drop_up__scrollbar-handle-pressed__rotate-180.svg);
+    image: url(${path}/light/svg/arrow_drop_up__scrollbar-handle-pressed__rotate-180.svg);
 }
 QScrollBar::left-arrow:hover {
-    image: url(${path}/themes/light/svg/arrow_drop_up__scrollbar-handle-pressed__rotate-270.svg);
+    image: url(${path}/light/svg/arrow_drop_up__scrollbar-handle-pressed__rotate-270.svg);
 }
 QScrollBar::up-arrow:disabled {
-    image: url(${path}/themes/light/svg/arrow_drop_up__scrollbar-disabled.svg);
+    image: url(${path}/light/svg/arrow_drop_up__scrollbar-disabled.svg);
 }
 QScrollBar::right-arrow:disabled {
-    image: url(${path}/themes/light/svg/arrow_drop_up__scrollbar-disabled__rotate-90.svg);
+    image: url(${path}/light/svg/arrow_drop_up__scrollbar-disabled__rotate-90.svg);
 }
 QScrollBar::down-arrow:disabled {
-    image: url(${path}/themes/light/svg/arrow_drop_up__scrollbar-disabled__rotate-180.svg);
+    image: url(${path}/light/svg/arrow_drop_up__scrollbar-disabled__rotate-180.svg);
 }
 QScrollBar::left-arrow:disabled {
-    image: url(${path}/themes/light/svg/arrow_drop_up__scrollbar-disabled__rotate-270.svg);
+    image: url(${path}/light/svg/arrow_drop_up__scrollbar-disabled__rotate-270.svg);
 }
 QProgressBar {
     border: 1px solid #dadce0;
@@ -408,10 +408,10 @@ QToolButton::menu-indicator {
     width: 18px;
     top: 6px;
     left: 3px;
-    image: url(${path}/themes/light/svg/expand_less__icon-foreground__rotate-180.svg);
+    image: url(${path}/light/svg/expand_less__icon-foreground__rotate-180.svg);
 }
 QToolButton::menu-indicator:disabled {
-    image: url(${path}/themes/light/svg/expand_less__icon-foreground-disabled__rotate-180.svg);
+    image: url(${path}/light/svg/expand_less__icon-foreground-disabled__rotate-180.svg);
 }
 QToolButton::menu-arrow {
     image: unset;
@@ -422,10 +422,10 @@ QToolButton::menu-button {
     width: 17px;
     border-top-right-radius: $radius{4px};
     border-bottom-right-radius: $radius{4px};
-    image: url(${path}/themes/light/svg/expand_less__icon-foreground__rotate-180.svg);
+    image: url(${path}/light/svg/expand_less__icon-foreground__rotate-180.svg);
 }
 QToolButton::menu-button:disabled {
-    image: url(${path}/themes/light/svg/expand_less__icon-foreground-disabled__rotate-180.svg);
+    image: url(${path}/light/svg/expand_less__icon-foreground-disabled__rotate-180.svg);
 }
 QToolButton[
 $env_patch{"version": "<6.0.0", "qt": "PySide2", "value": "popupMode=MenuButtonPopup"}
@@ -453,10 +453,10 @@ QComboBox::drop-down {
     padding-right: 4px;
 }
 QComboBox::down-arrow {
-    image: url(${path}/themes/light/svg/expand_less__icon-foreground__rotate-180.svg);
+    image: url(${path}/light/svg/expand_less__icon-foreground__rotate-180.svg);
 }
 QComboBox::down-arrow:disabled {
-    image: url(${path}/themes/light/svg/expand_less__icon-foreground-disabled__rotate-180.svg);
+    image: url(${path}/light/svg/expand_less__icon-foreground-disabled__rotate-180.svg);
 }
 QComboBox::item:selected {
     border: none;
@@ -526,13 +526,13 @@ QTabBar {
     qproperty-drawBase: 0;
 }
 QTabBar::close-button:selected {
-    image: url(${path}/themes/light/svg/close__icon-foreground.svg);
+    image: url(${path}/light/svg/close__icon-foreground.svg);
 }
 QTabBar::close-button:!selected {
-    image: url(${path}/themes/light/svg/close__tabbar-button-unselected.svg)
+    image: url(${path}/light/svg/close__tabbar-button-unselected.svg)
 }
 QTabBar::close-button:disabled {
-    image: url(${path}/themes/light/svg/close__icon-foreground-disabled.svg);
+    image: url(${path}/light/svg/close__icon-foreground-disabled.svg);
 }
 QTabBar::close-button:hover {
     background: #93b2ef;
@@ -718,17 +718,17 @@ QSplitter::handle:hover {
 }
 QSplitter::handle:horizontal {
     width: 5px;
-    image: url(${path}/themes/light/svg/horizontal_rule__icon-foreground__rotate-90.svg);
+    image: url(${path}/light/svg/horizontal_rule__icon-foreground__rotate-90.svg);
 }
 QSplitter::handle:horizontal:disabled {
-    image: url(${path}/themes/light/svg/horizontal_rule__icon-foreground-disabled__rotate-90.svg);
+    image: url(${path}/light/svg/horizontal_rule__icon-foreground-disabled__rotate-90.svg);
 }
 QSplitter::handle:vertical {
     height: 5px;
-    image: url(${path}/themes/light/svg/horizontal_rule__icon-foreground.svg);
+    image: url(${path}/light/svg/horizontal_rule__icon-foreground.svg);
 }
 QSplitter::handle:vertical:disabled {
-    image: url(${path}/themes/light/svg/horizontal_rule__icon-foreground-disabled.svg);
+    image: url(${path}/light/svg/horizontal_rule__icon-foreground-disabled.svg);
 }
 QSplitterHandle::item:hover {}
 QAbstractScrollArea {
@@ -798,13 +798,13 @@ QAbstractItemView QAbstractButton {
     margin: 1px;
 }
 QTreeView::branch {
-    border-image: url(${path}/themes/light/svg/vertical_line__guides-stroke-inactive.svg) 0;
+    border-image: url(${path}/light/svg/vertical_line__guides-stroke-inactive.svg) 0;
 }
 QTreeView::branch:active {
-    border-image: url(${path}/themes/light/svg/vertical_line__icon-foreground.svg) 0;
+    border-image: url(${path}/light/svg/vertical_line__icon-foreground.svg) 0;
 }
 QTreeView::branch:disabled {
-    border-image: url(${path}/themes/light/svg/vertical_line__icon-foreground-disabled.svg) 0;
+    border-image: url(${path}/light/svg/vertical_line__icon-foreground-disabled.svg) 0;
 }
 QTreeView::branch:has-siblings:adjoins-item,
 QTreeView::branch:!has-children:!has-siblings:adjoins-item {
@@ -813,20 +813,20 @@ QTreeView::branch:!has-children:!has-siblings:adjoins-item {
 QTreeView::branch:has-children:!has-siblings:closed,
 QTreeView::branch:closed:has-children:has-siblings {
     border-image: unset;
-    image: url(${path}/themes/light/svg/chevron_right__icon-foreground.svg);
+    image: url(${path}/light/svg/chevron_right__icon-foreground.svg);
 }
 QTreeView::branch:has-children:!has-siblings:closed:disabled,
 QTreeView::branch:closed:has-children:has-siblings:disabled {
-    image: url(${path}/themes/light/svg/chevron_right__icon-foreground-disabled.svg);
+    image: url(${path}/light/svg/chevron_right__icon-foreground-disabled.svg);
 }
 QTreeView::branch:open:has-children:!has-siblings,
 QTreeView::branch:open:has-children:has-siblings  {
     border-image: unset;
-    image: url(${path}/themes/light/svg/expand_less__icon-foreground__rotate-180.svg);
+    image: url(${path}/light/svg/expand_less__icon-foreground__rotate-180.svg);
 }
 QTreeView::branch:open:has-children:!has-siblings:disabled,
 QTreeView::branch:open:has-children:has-siblings:disabled  {
-    image: url(${path}/themes/light/svg/expand_less__icon-foreground-disabled__rotate-180.svg);
+    image: url(${path}/light/svg/expand_less__icon-foreground-disabled__rotate-180.svg);
 }
 QTableView {
     gridline-color: #58595c;
@@ -878,17 +878,17 @@ QHeaderView::section:only-one {
 }
 QHeaderView::down-arrow {
     margin: -2px -6px -6px -6px;
-    image: url(${path}/themes/light/svg/expand_less__icon-foreground__rotate-180.svg);
+    image: url(${path}/light/svg/expand_less__icon-foreground__rotate-180.svg);
 }
 QHeaderView::down-arrow:disabled {
-    image: url(${path}/themes/light/svg/expand_less__icon-foreground-disabled__rotate-180.svg);
+    image: url(${path}/light/svg/expand_less__icon-foreground-disabled__rotate-180.svg);
 }
 QHeaderView::up-arrow {
     margin: -2px -6px -6px -6px;
-    image: url(${path}/themes/light/svg/expand_less__icon-foreground.svg);
+    image: url(${path}/light/svg/expand_less__icon-foreground.svg);
 }
 QHeaderView::up-arrow:disabled {
-    image: url(${path}/themes/light/svg/expand_less__icon-foreground-disabled.svg);
+    image: url(${path}/light/svg/expand_less__icon-foreground-disabled.svg);
 }
 QCalendarWidget {
     border: none;
@@ -927,10 +927,10 @@ QCalendarWidget > QTableView {
     border-top-right-radius: $radius{0};
 }
 QCalendarWidget > .QWidget > QToolButton#qt_calendar_prevmonth {
-    qproperty-icon: url(${path}/themes/light/svg/arrow_upward__icon-foreground__rotate-270.svg);
+    qproperty-icon: url(${path}/light/svg/arrow_upward__icon-foreground__rotate-270.svg);
 }
 QCalendarWidget > .QWidget > QToolButton#qt_calendar_nextmonth {
-    qproperty-icon: url(${path}/themes/light/svg/arrow_upward__icon-foreground__rotate-90.svg);
+    qproperty-icon: url(${path}/light/svg/arrow_upward__icon-foreground__rotate-90.svg);
 }
 QLineEdit,
 QAbstractSpinBox {
@@ -961,28 +961,28 @@ QAbstractSpinBox::up-button {
     margin: 3px 3px 1px 1px;
 }
 QAbstractSpinBox::up-arrow {
-    image: url(${path}/themes/light/svg/arrow_drop_up__icon-foreground.svg);
+    image: url(${path}/light/svg/arrow_drop_up__icon-foreground.svg);
 }
 QAbstractSpinBox::up-arrow:disabled {
-    image: url(${path}/themes/light/svg/arrow_drop_up__icon-foreground-disabled.svg);
+    image: url(${path}/light/svg/arrow_drop_up__icon-foreground-disabled.svg);
 }
 QAbstractSpinBox::down-button {
     subcontrol-position: bottom right;
     margin: 1px 3px 3px 1px;
 }
 QAbstractSpinBox::down-arrow {
-    image: url(${path}/themes/light/svg/arrow_drop_up__icon-foreground__rotate-180.svg);
+    image: url(${path}/light/svg/arrow_drop_up__icon-foreground__rotate-180.svg);
 }
 QAbstractSpinBox::down-arrow:disabled {
-    image: url(${path}/themes/light/svg/arrow_drop_up__icon-foreground-disabled__rotate-180.svg);
+    image: url(${path}/light/svg/arrow_drop_up__icon-foreground-disabled__rotate-180.svg);
 }
 QDateTimeEdit::drop-down {
     padding-right: 4px;
     width: 16px;
-    image: url(${path}/themes/light/svg/calendar_today__icon-foreground.svg);
+    image: url(${path}/light/svg/calendar_today__icon-foreground.svg);
 }
 QDateTimeEdit::drop-down:disabled {
-    image: url(${path}/themes/light/svg/calendar_today__icon-foreground-disabled.svg);
+    image: url(${path}/light/svg/calendar_today__icon-foreground-disabled.svg);
 }
 QDateTimeEdit::down-arrow[calendarPopup=true] {
     image: none;
@@ -1007,7 +1007,7 @@ QFontDialog QScrollBar:vertical {
 QComboBox::indicator:checked,
 QMenu::indicator:checked {
     width: 18px;
-    image: url(${path}/themes/light/svg/check__icon-foreground.svg);
+    image: url(${path}/light/svg/check__icon-foreground.svg);
 }
 QMenu::indicator {
     width: 18px;
@@ -1033,42 +1033,42 @@ QRadioButton::indicator {
 QCheckBox::indicator,
 QGroupBox::indicator,
 QAbstractItemView::indicator {
-    image: url(${path}/themes/light/svg/check_box_outline_blank__icon-foreground.svg);
+    image: url(${path}/light/svg/check_box_outline_blank__icon-foreground.svg);
 }
 QCheckBox::indicator:unchecked:disabled,
 QGroupBox::indicator:unchecked:disabled,
 QAbstractItemView::indicator:unchecked:disabled {
-    image: url(${path}/themes/light/svg/check_box_outline_blank__icon-foreground-disabled.svg);
+    image: url(${path}/light/svg/check_box_outline_blank__icon-foreground-disabled.svg);
 }
 QCheckBox::indicator:checked,
 QGroupBox::indicator:checked,
 QAbstractItemView::indicator:checked {
-    image: url(${path}/themes/light/svg/check_box__highlight.svg);
+    image: url(${path}/light/svg/check_box__highlight.svg);
 }
 QCheckBox::indicator:checked:disabled,
 QGroupBox::indicator:checked:disabled,
 QAbstractItemView::indicator:checked:disabled {
-    image: url(${path}/themes/light/svg/check_box__icon-foreground-disabled.svg);
+    image: url(${path}/light/svg/check_box__icon-foreground-disabled.svg);
 }
 QCheckBox::indicator:indeterminate,
 QAbstractItemView::indicator:indeterminate {
-    image: url(${path}/themes/light/svg/indeterminate_check_box__highlight.svg);
+    image: url(${path}/light/svg/indeterminate_check_box__highlight.svg);
 }
 QCheckBox::indicator:indeterminate:disabled,
 QAbstractItemView::indicator:indeterminate:disabled {
-    image: url(${path}/themes/light/svg/indeterminate_check_box__icon-foreground-disabled.svg);
+    image: url(${path}/light/svg/indeterminate_check_box__icon-foreground-disabled.svg);
 }
 QRadioButton::indicator:unchecked {
-    image: url(${path}/themes/light/svg/radio_button_unchecked__icon-foreground.svg);
+    image: url(${path}/light/svg/radio_button_unchecked__icon-foreground.svg);
 }
 QRadioButton::indicator:unchecked:disabled {
-    image: url(${path}/themes/light/svg/radio_button_unchecked__icon-foreground-disabled.svg);
+    image: url(${path}/light/svg/radio_button_unchecked__icon-foreground-disabled.svg);
 }
 QRadioButton::indicator:checked {
-    image: url(${path}/themes/light/svg/radio_button_checked__highlight.svg);
+    image: url(${path}/light/svg/radio_button_checked__highlight.svg);
 }
 QRadioButton::indicator:checked:disabled {
-    image: url(${path}/themes/light/svg/radio_button_checked__icon-foreground-disabled.svg);
+    image: url(${path}/light/svg/radio_button_checked__icon-foreground-disabled.svg);
 }
 QComboBox QAbstractItemView,
 QStatusBar > QMenu,
