@@ -64,7 +64,7 @@ black = "^22.3"
 isort = "^5.10.1"
 pre-commit = "^2.18.1"
 pyinstaller = "^5.0"
-rich = "^12.3.0"
+rich = "^12.4.4"
 
 [tool.poetry.extras]
 # See https://github.com/readthedocs/readthedocs.org/issues/4912#issuecomment-664002569
