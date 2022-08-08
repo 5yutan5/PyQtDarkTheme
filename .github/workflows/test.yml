@@ -58,14 +58,14 @@ jobs:
       run: echo ::set-output name=version::$(python -c "import sys; print('-'.join(str(v) for v in sys.version_info))")
 
     - name: Cache ${{ steps.poetry-home.outputs.path }}
-      uses: actions/cache@v3.0.2
+      uses: actions/cache@v3.0.6
       with:
         path: ${{ steps.poetry-home.outputs.path }}
         key: poetry-${{ runner.os }}-${{ steps.full-py-version.outputs.version }}
 
     - name: Cache ./.venv
       id: cache-venv
-      uses: actions/cache@v3.0.2
+      uses: actions/cache@v3.0.6
       with:
         path: .venv
         key: venv-${{ runner.os }}-${{ steps.full-py-version.outputs.version }}-${{ matrix.qt }}-${{ hashFiles('**/poetry.lock') }}
