@@ -754,7 +754,7 @@ doc = ["sphinx", "sphinx-rtd-theme"]
 
 [[package]]
 name = "pytest-randomly"
-version = "3.11.0"
+version = "3.12.0"
 description = "Pytest plugin to randomly order tests and control random.seed."
 category = "dev"
 optional = false
@@ -1121,7 +1121,7 @@ docs = ["pydata-sphinx-theme", "sphinx-panels"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7,<3.12"
-content-hash = "714af12d446063fcf8923f2526b28e90f83d17b777683b0fcb486da44c30af19"
+content-hash = "95709b665dc5daf768a4022a05257793cd883836543673df003e4efd97f9ab8e"
 
 [metadata.files]
 alabaster = [
@@ -1522,8 +1522,8 @@ pytest-qt = [
     {file = "pytest_qt-4.0.2-py2.py3-none-any.whl", hash = "sha256:e03847ac02a890ccaac0fde1748855b9dce425aceba62005c6cfced6cf7d5456"},
 ]
 pytest-randomly = [
-    {file = "pytest-randomly-3.11.0.tar.gz", hash = "sha256:9f013b8c1923130f3d0a286fde56e1fc52cfb3547b8eedf2765c460cee979c7f"},
-    {file = "pytest_randomly-3.11.0-py3-none-any.whl", hash = "sha256:a3c680d2b8150cf766311a80a1f92da64c3dd819045cda834fbf1b0ac4891610"},
+    {file = "pytest-randomly-3.12.0.tar.gz", hash = "sha256:d60c2db71ac319aee0fc6c4110a7597d611a8b94a5590918bfa8583f00caccb2"},
+    {file = "pytest_randomly-3.12.0-py3-none-any.whl", hash = "sha256:f4f2e803daf5d1ba036cc22bf4fe9dbbf99389ec56b00e5cba732fb5c1d07fdd"},
 ]
 pytest-xvfb = [
     {file = "pytest-xvfb-2.0.0.tar.gz", hash = "sha256:c4ba642de05499940db7f65ee111621939be513e3e75c3da9156b7235e2ed8cf"},
