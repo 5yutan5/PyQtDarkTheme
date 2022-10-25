@@ -11,7 +11,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - uses: actions/setup-python@v3
+    - uses: actions/setup-python@v4
     - uses: snok/install-poetry@v1
 
     - name: Get tag
