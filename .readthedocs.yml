@@ -1,9 +1,14 @@
 version: 2
 
-python:
-  version: "3.8"
-  install:
-    - method: pip
-      path: .
-      extra_requirements:
-        - docs
+build:
+  os: "ubuntu-22.04"
+  tools:
+    python: "3.10"
+  jobs:
+    post_create_environment:
+      - curl -sSL https://install.python-poetry.org | python3 -
+      - $HOME/.poetry/bin/poetry config virtualenvs.create false
+      - $HOME/.poetry/bin/poetry install --with docs --without flake8,test
+
+sphinx:
+  configuration: docs/conf.py

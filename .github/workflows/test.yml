@@ -19,21 +19,27 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macOS-latest, windows-latest]
-        py: ['3.7', '3.8', '3.9', '3.10.0']
+        py: ['3.7', '3.8', '3.9', '3.10']
         qt-lib: ['pyqt', 'pyside', 'none']
         include:
           - {py: '3.7', qt-lib: 'pyqt', qt: 'PyQt5~=5.11.0'}
           - {py: '3.7', qt-lib: 'pyside', qt: 'PySide2'}
           - {py: '3.7', qt-lib: 'none', qt: 'none'}
           - {py: '3.8', qt-lib: 'pyqt', qt: 'PyQt5'}
-          - {py: '3.8', qt-lib: 'pyside', qt: 'PySide6'}
+          - {py: '3.8', qt-lib: 'pyside', qt: 'PySide6-Essentials'}
           - {py: '3.8', qt-lib: 'none', qt: 'none'}
           - {py: '3.9', qt-lib: 'pyqt', qt: 'PyQt6'}
-          - {py: '3.9', qt-lib: 'pyside', qt: 'PySide6'}
+          - {py: '3.9', qt-lib: 'pyside', qt: 'PySide6-Essentials'}
           - {py: '3.9', qt-lib: 'none', qt: 'none'}
-          - {py: '3.10.0', qt-lib: 'pyqt', qt: 'PyQt6'}
-          - {py: '3.10.0', qt-lib: 'pyside', qt: 'PySide6'}
-          - {py: '3.10.0', qt-lib: 'none', qt: 'none'}
+          - {py: '3.10', qt-lib: 'pyqt', qt: 'PyQt6'}
+          - {py: '3.10', qt-lib: 'pyside', qt: 'PySide6-Essentials'}
+          - {py: '3.10', qt-lib: 'none', qt: 'none'}
+          - {py: '3.11', qt-lib: 'pyqt', qt: 'PyQt6', os: ubuntu-latest}
+          - {py: '3.11', qt-lib: 'pyqt', qt: 'none', os: ubuntu-latest}
+          - {py: '3.11.0-rc.2', qt-lib: 'pyqt', qt: 'PyQt6', os: macOS-latest}
+          - {py: '3.11.0-rc.2', qt-lib: 'pyqt', qt: 'none', os: macOS-latest}
+          - {py: '3.11', qt-lib: 'pyqt', qt: 'PyQt6', os: windows-latest}
+          - {py: '3.11', qt-lib: 'pyqt', qt: 'none', os: windows-latest}
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.os }} py-${{ matrix.py }} qt-${{ matrix.qt }}
 
@@ -43,25 +49,9 @@ jobs:
       with:
         python-version: ${{ matrix.py }}
 
-    - name: Get Poetry home path
-      id: poetry-home
-      run: |
-        if [ ${{ runner.os }} == "ubuntu-latest" ]; then
-          path="C:/Users/runneradmin/AppData/Roaming/Python/Scripts"
-        else
-          path="$HOME/.local/"
-        fi
-        echo ::set-output name=path::$path
-
     - name: Get full Python version
       id: full-py-version
-      run: echo ::set-output name=version::$(python -c "import sys; print('-'.join(str(v) for v in sys.version_info))")
-
-    - name: Cache ${{ steps.poetry-home.outputs.path }}
-      uses: actions/cache@v3.0.11
-      with:
-        path: ${{ steps.poetry-home.outputs.path }}
-        key: poetry-${{ runner.os }}-${{ steps.full-py-version.outputs.version }}
+      run: echo version=$(python -c "import sys; print('-'.join(str(v) for v in sys.version_info))") >> $GITHUB_OUTPUT
 
     - name: Cache ./.venv
       id: cache-venv
@@ -73,15 +63,10 @@ jobs:
     - uses: snok/install-poetry@v1
       with:
         virtualenvs-in-project: true
-      env:
-        POETRY_HOME: ${{ steps.poetry-home.outputs.path }}
 
     - name: Install dependencies
       if: steps.cache-venv.outputs.cache-hit != 'true'
-      run: |
-        # See https://github.com/python-poetry/poetry/issues/4524
-        # poetry self update
-        poetry install
+      run: poetry install --with github-actions
 
     - name: Install Qt lib
       if: matrix.qt != 'none' && steps.cache-venv.outputs.cache-hit != 'true'
@@ -91,7 +76,7 @@ jobs:
       if: runner.os == 'Linux'
       run: |
         sudo apt-get update -y
-        sudo apt-get install --no-install-recommends -y libxkbcommon-x11-0 libopengl0 libyaml-dev libegl1-mesa libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0
+        sudo apt-get install --no-install-recommends -y libxkbcommon-x11-0 x11-utils libyaml-dev libegl1-mesa libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libopengl0
 
     - name: Run pytest
       if: matrix.qt != 'none'
