@@ -32,7 +32,7 @@ jobs:
           - {py: '3.9', qt-lib: 'pyside', qt: 'PySide6'}
           - {py: '3.9', qt-lib: 'none', qt: 'none'}
           - {py: '3.10', qt-lib: 'pyqt', qt: 'PyQt6'}
-          - {py: '3.10', qt-lib: 'pyside', qt: 'PySide6'}
+          - {py: '3.10', qt-lib: 'pyside', qt: 'PySide6-Essentials'}
           - {py: '3.10', qt-lib: 'none', qt: 'none'}
           - {py: '3.11', qt-lib: 'pyqt', qt: 'PyQt6', os: ubuntu-latest}
           - {py: '3.11', qt-lib: 'pyqt', qt: 'none', os: ubuntu-latest}
