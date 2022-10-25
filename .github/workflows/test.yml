@@ -19,7 +19,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macOS-latest, windows-latest]
-        py: ['3.7', '3.8', '3.9', '3.10', '3.11.0-rc.2']
+        py: ['3.7', '3.8', '3.9', '3.10']
         qt-lib: ['pyqt', 'pyside', 'none']
         include:
           - {py: '3.7', qt-lib: 'pyqt', qt: 'PyQt5~=5.11.0'}
@@ -34,8 +34,10 @@ jobs:
           - {py: '3.10', qt-lib: 'pyqt', qt: 'PyQt6'}
           - {py: '3.10', qt-lib: 'pyside', qt: 'PySide6'}
           - {py: '3.10', qt-lib: 'none', qt: 'none'}
-          - {py: '3.11.0-rc.2', qt-lib: 'pyqt', qt: 'PyQt6'}
-          - {py: '3.11.0-rc.2', qt-lib: 'none', qt: 'none'}
+          - {py: '3.11', qt-lib: 'pyqt', qt: 'PyQt6', os: ubuntu-latest}
+          - {py: '3.11', qt-lib: 'pyqt', qt: 'none', os: ubuntu-latest}
+          - {py: '3.11', qt-lib: 'pyqt', qt: 'PyQt6', os: windows-latest}
+          - {py: '3.11', qt-lib: 'pyqt', qt: 'none', os: windows-latest}
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.os }} py-${{ matrix.py }} qt-${{ matrix.qt }}
 
@@ -64,10 +66,7 @@ jobs:
 
     - name: Install dependencies
       if: steps.cache-venv.outputs.cache-hit != 'true'
-      run: |
-        # See https://github.com/python-poetry/poetry/issues/4524
-        # poetry self update
-        poetry install
+      run: poetry install --with github-actions
 
     - name: Install Qt lib
       if: matrix.qt != 'none' && steps.cache-venv.outputs.cache-hit != 'true'
