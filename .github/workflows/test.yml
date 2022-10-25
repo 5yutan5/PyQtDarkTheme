@@ -34,8 +34,8 @@ jobs:
           - {py: '3.10', qt-lib: 'pyqt', qt: 'PyQt6'}
           - {py: '3.10', qt-lib: 'pyside', qt: 'PySide6'}
           - {py: '3.10', qt-lib: 'none', qt: 'none'}
-          - {py: '3.11', qt-lib: 'pyqt', qt: 'PyQt6'}
-          - {py: '3.11', qt-lib: 'none', qt: 'none'}
+          - {py: '3.11.0-rc.2', qt-lib: 'pyqt', qt: 'PyQt6'}
+          - {py: '3.11.0-rc.2', qt-lib: 'none', qt: 'none'}
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.os }} py-${{ matrix.py }} qt-${{ matrix.qt }}
 
