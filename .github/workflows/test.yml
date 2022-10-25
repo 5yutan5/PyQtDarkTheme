@@ -26,10 +26,10 @@ jobs:
           - {py: '3.7', qt-lib: 'pyside', qt: 'PySide2'}
           - {py: '3.7', qt-lib: 'none', qt: 'none'}
           - {py: '3.8', qt-lib: 'pyqt', qt: 'PyQt5'}
-          - {py: '3.8', qt-lib: 'pyside', qt: 'PySide6'}
+          - {py: '3.8', qt-lib: 'pyside', qt: 'PySide6-Essentials'}
           - {py: '3.8', qt-lib: 'none', qt: 'none'}
           - {py: '3.9', qt-lib: 'pyqt', qt: 'PyQt6'}
-          - {py: '3.9', qt-lib: 'pyside', qt: 'PySide6'}
+          - {py: '3.9', qt-lib: 'pyside', qt: 'PySide6-Essentials'}
           - {py: '3.9', qt-lib: 'none', qt: 'none'}
           - {py: '3.10', qt-lib: 'pyqt', qt: 'PyQt6'}
           - {py: '3.10', qt-lib: 'pyside', qt: 'PySide6-Essentials'}
@@ -63,8 +63,6 @@ jobs:
     - uses: snok/install-poetry@v1
       with:
         virtualenvs-in-project: true
-      env:
-        POETRY_HOME: ${{ steps.poetry-home.outputs.path }}
 
     - name: Install dependencies
       if: steps.cache-venv.outputs.cache-hit != 'true'
