@@ -36,6 +36,8 @@ jobs:
           - {py: '3.10', qt-lib: 'none', qt: 'none'}
           - {py: '3.11', qt-lib: 'pyqt', qt: 'PyQt6', os: ubuntu-latest}
           - {py: '3.11', qt-lib: 'pyqt', qt: 'none', os: ubuntu-latest}
+          - {py: '3.11.0-rc.2', qt-lib: 'pyqt', qt: 'PyQt6', os: macOS-latest}
+          - {py: '3.11.0-rc.2', qt-lib: 'pyqt', qt: 'none', os: macOS-latest}
           - {py: '3.11', qt-lib: 'pyqt', qt: 'PyQt6', os: windows-latest}
           - {py: '3.11', qt-lib: 'pyqt', qt: 'none', os: windows-latest}
     runs-on: ${{ matrix.os }}
@@ -49,7 +51,7 @@ jobs:
 
     - name: Get full Python version
       id: full-py-version
-      run: echo ::set-output name=version::$(python -c "import sys; print('-'.join(str(v) for v in sys.version_info))")
+      run: echo version=$(python -c "import sys; print('-'.join(str(v) for v in sys.version_info))") >> $GITHUB_OUTPUT
 
     - name: Cache ./.venv
       id: cache-venv
