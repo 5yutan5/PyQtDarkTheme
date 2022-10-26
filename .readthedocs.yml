@@ -8,7 +8,7 @@ build:
     post_create_environment:
       - curl -sSL https://install.python-poetry.org | python3 -
       - ~/.local/share/pypoetry/venv/bin/poetry config virtualenvs.create false
-      - ~/.local/share/pypoetry/venv/bin/poetry --with docs --without flake8,test
+      - ~/.local/share/pypoetry/venv/bin/poetry install --with docs --without flake8,test
 
 sphinx:
   configuration: docs/conf.py
