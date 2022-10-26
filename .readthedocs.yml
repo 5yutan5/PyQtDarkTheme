@@ -8,7 +8,7 @@ build:
     - python3-poetry
   jobs:
     post_create_environment:
-      - ~/.local/share/pypoetry/venv/bin/poetry export --only docs -o requirements.txt
+      - poetry export --only docs -o requirements.txt
 
 python:
   install:
