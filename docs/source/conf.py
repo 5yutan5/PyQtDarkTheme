@@ -21,7 +21,7 @@ sys.path.insert(0, os.path.abspath("../.."))
 
 
 # -- Project information -----------------------------------------------------
-project = "pyqtdarktheme"
+project = "PyQtDarkTheme"
 copyright = f"2021-2022, {package_metadata(project)['author']}"
 author = package_metadata(project)["author"]
 
