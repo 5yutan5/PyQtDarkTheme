@@ -19,8 +19,6 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macOS-latest, windows-latest]
-        py: ['3.7', '3.8', '3.9', '3.10']
-        qt-lib: ['pyqt', 'pyside', 'none']
         include:
           - {py: '3.7', qt-lib: 'pyqt', qt: 'PyQt5~=5.11.0'}
           - {py: '3.7', qt-lib: 'pyside', qt: 'PySide2'}
@@ -66,9 +64,9 @@ jobs:
 
     - name: Install dependencies
       if: steps.cache-venv.outputs.cache-hit != 'true'
-      run: poetry install --only dev,github-actions
+      run: poetry install --only dev,github-actions,test
 
-    - name: Install Qt lib
+    - name: Install Qt dependencies
       if: matrix.qt != 'none' && steps.cache-venv.outputs.cache-hit != 'true'
       run: poetry run pip install -U ${{ matrix.qt }}
 
