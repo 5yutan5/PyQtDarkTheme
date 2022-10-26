@@ -66,9 +66,9 @@ jobs:
 
     - name: Install dependencies
       if: steps.cache-venv.outputs.cache-hit != 'true'
-      run: poetry install --with github-actions
+      run: poetry install --only dev,github-actions,test
 
-    - name: Install Qt lib
+    - name: Install Qt dependencies
       if: matrix.qt != 'none' && steps.cache-venv.outputs.cache-hit != 'true'
       run: poetry run pip install -U ${{ matrix.qt }}
 
