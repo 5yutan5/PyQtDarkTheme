@@ -19,6 +19,8 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macOS-latest, windows-latest]
+        py: ['3.7', '3.8', '3.9', '3.10']
+        qt-lib: ['pyqt', 'pyside', 'none']
         include:
           - {py: '3.7', qt-lib: 'pyqt', qt: 'PyQt5~=5.11.0'}
           - {py: '3.7', qt-lib: 'pyside', qt: 'PySide2'}
