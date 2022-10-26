@@ -11,4 +11,4 @@ build:
       - ~/.local/share/pypoetry/venv/bin/poetry install --with docs --without flake8,test
 
 sphinx:
-  configuration: docs/conf.py
+  configuration: docs/source/conf.py
