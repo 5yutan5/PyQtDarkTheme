@@ -3,17 +3,15 @@ PyQtDarkTheme documentation
 
 PyQtDarkTheme applies a flat dark theme to QtWidgets application(PySide and PyQt). There's a light theme too. Color and style balanced from a dark theme for easy viewing in daylight.
 
-.. |Dark| image:: https://raw.githubusercontent.com/5yutan5/PyQtDarkTheme/main/images/widget_gallery_dark.png
-.. _Dark: https://raw.githubusercontent.com/5yutan5/PyQtDarkTheme/main/images/widget_gallery_dark.png
+.. tab-set::
 
-.. |Light| image:: https://raw.githubusercontent.com/5yutan5/PyQtDarkTheme/main/images/widget_gallery_light.png
-.. _Light: https://raw.githubusercontent.com/5yutan5/PyQtDarkTheme/main/images/widget_gallery_light.png
+    .. tab-item:: Dark
 
-========  =======
-Dark      Light
-========  =======
-|Dark|_   |Light|_
-========  =======
+        .. image:: https://raw.githubusercontent.com/5yutan5/PyQtDarkTheme/main/images/widget_gallery_dark.png
+
+    .. tab-item:: Light
+
+        .. image:: https://raw.githubusercontent.com/5yutan5/PyQtDarkTheme/main/images/widget_gallery_light.png
 
 
 **Features:**
@@ -23,44 +21,59 @@ Dark      Light
 * Support PyInstaller
 * Resolve the style differences between Qt versions
 * QPalette of dark and light theme
+++++
 
+.. grid::
+   :gutter: 2
 
-.. panels::
-   :card: + intro-card text-center
-   :column: col-lg-6 col-md-6 col-sm-6 col-xs-12 d-flex
+   .. grid-item::
+     .. grid:: 1 1 1 1
+      :gutter: 4
 
-   ---
-   Installation guide
-   ^^^^^^^^^^^^^^^^^^
+      .. grid-item-card::  Installation guide
+          :text-align: center
 
-   .. link-button:: installation_guide
-      :type: ref
-      :text: To the installation guide
-      :classes: btn-block btn-secondary stretched-link
-   ---
-   How to use
-   ^^^^^^^^^^
+          .. button-ref:: installation_guide
+             :color: primary
+             :click-parent:
+             :expand:
 
-   .. link-button:: how_to_use
-      :type: ref
-      :text: To the usage guide
-      :classes: btn-block btn-secondary stretched-link
-   ---
-   API reference
-   ^^^^^^^^^^^^^
+             To the installation guide
 
-   .. link-button:: qdarktheme
-      :type: ref
-      :text: To the references guide
-      :classes: btn-block btn-secondary stretched-link
-   ---
-   Contributing
-   ^^^^^^^^^^^^
+      .. grid-item-card::  How to use
+          :text-align: center
 
-   .. link-button:: contributing
-      :type: ref
-      :text: To the contributing guide
-      :classes: btn-block btn-secondary stretched-link
+          .. button-ref:: how_to_use
+             :color: primary
+             :click-parent:
+             :expand:
+
+             To the usage guide
+
+   .. grid-item::
+
+     .. grid:: 1 1 1 1
+      :gutter: 4
+
+      .. grid-item-card::  API reference
+         :text-align: center
+
+         .. button-ref:: qdarktheme
+           :color: primary
+           :click-parent:
+           :expand:
+
+           To the references guide
+
+      .. grid-item-card::  Contributing
+          :text-align: center
+
+          .. button-ref:: contributing
+             :color: primary
+             :click-parent:
+             :expand:
+
+             To the contributing guide
 
 .. toctree::
    :maxdepth: 2

@@ -11,38 +11,23 @@ Dependencies
 Installation
 ------------
 
-.. panels::
-    :card: + install-card
-    :column: col-lg-6 col-md-6 col-sm-6 col-xs-12 d-flex
+.. tab-set::
 
-    PyPi
-    ^^^^
+    .. tab-item:: PyPi
 
-    PyQtDarkTheme can be installed via pip from `PyPI <https://pypi.org/project/pyqtdarktheme/>`__. The most common way to install PyQtDarkTheme is with pip.
+        PyQtDarkTheme can be installed via pip from `PyPI <https://pypi.org/project/pyqtdarktheme/>`__. ::
 
-    ++++
+          pip install pyqtdarktheme
 
-    .. code-block:: bash
+    .. tab-item:: GitHub
 
-        pip install pyqtdarktheme
+        To get access to the latest features and bugfixes you can install PyQtDarkTheme from GitHub. ::
 
-    ---
-
-    GitHub
-    ^^^^^^
-
-    To get access to the very latest features and bugfixes you can install PyQtDarkTheme from GitHub.
-
-    ++++
-
-    .. code-block:: bash
-
-        pip install git+https://github.com/5yutan5/PyQtDarkTheme.git@main
+          pip install git+https://github.com/5yutan5/PyQtDarkTheme.git@main
 
 Example App
 -----------
 
-PyQtDarkTheme includes example app that can be accessed by
-running::
+PyQtDarkTheme includes example app that can be accessed by running: ::
 
     python -m qdarktheme.widget_gallery

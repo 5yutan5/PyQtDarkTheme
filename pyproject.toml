@@ -63,16 +63,18 @@ pytest-xvfb = "^2.0.0"
 # Temporarily keep the Sphinx at v4.x.
 # Latest of Sphinx is v5.x.
 Sphinx = "^4.3.1"
-sphinx-panels = "^0.6.0"
 rstcheck = "^5.0.0"
 pydata-sphinx-theme = "^0.11.0"
+sphinx-design = "^0.3.0"
+sphinx-copybutton = "^0.5.0"
 
 [tool.poetry.group.read-the-docs]
 optional = true
 
 [tool.poetry.group.read-the-docs.dependencies]
-sphinx-panels = "^0.6.0"
 pydata-sphinx-theme = "^0.11.0"
+sphinx-design = "^0.3.0"
+sphinx-copybutton = "^0.5.0"
 
 [tool.poetry.group.github-actions]
 # only used in github actions
