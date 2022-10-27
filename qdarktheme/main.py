@@ -12,7 +12,7 @@ from qdarktheme.qtpy.qt_compat import QT_API
 from qdarktheme.util import OPERATORS, compare_v, get_logger, multi_replace
 
 # Version of PyQtDarkTheme
-__version__ = "1.1.0"
+__version__ = "1.1.1"
 
 _logger = get_logger(__name__)
 
