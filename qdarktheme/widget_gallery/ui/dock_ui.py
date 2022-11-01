@@ -1,4 +1,6 @@
 """Module setting up ui of dock window."""
+from __future__ import annotations
+
 from qdarktheme.qtpy.QtCore import Qt
 from qdarktheme.qtpy.QtWidgets import QDockWidget, QMainWindow, QTextEdit, QVBoxLayout, QWidget
 

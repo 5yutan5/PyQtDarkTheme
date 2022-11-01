@@ -1,4 +1,6 @@
 """Module loading QPalette."""
+from __future__ import annotations
+
 from functools import partial
 
 from qdarktheme.template_engine import Template
