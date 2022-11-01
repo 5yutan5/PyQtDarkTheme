@@ -124,20 +124,31 @@ Further information can be found in our docs:
 
 - [Usage Guide](https://pyqtdarktheme.readthedocs.io/en/latest/how_to_use.html)
 
+### Customizing colors
+
+You can customize theme color.
+
+```python
+# Customize accent color.
+stylesheet = qdarktheme.load_stylesheet(custom_colors={"primary": "#D0BCFF"})
+```
+
+Further color id can be found in our theme color docs:
+
+- [Theme Color](https://pyqtdarktheme.readthedocs.io/en/latest/reference/theme_color.html)
+
 ### Sharp frame
 
-You can change the border corner style.
+You can change the corner style.
 
 ```python
 # Default is "rounded".
-stylesheet = qdarktheme.load_stylesheet(border="sharp")
+stylesheet = qdarktheme.load_stylesheet(corner_shape="sharp")
 ```
-
-![widget_gallery_dark_theme_sharp](https://raw.githubusercontent.com/5yutan5/PyQtDarkTheme/main/images/widget_gallery_dark_sharp.png)
 
 ## Example
 
-To check example app, run:
+To check all Qt widgets, run:
 
 ```plaintext
 python -m qdarktheme.widget_gallery

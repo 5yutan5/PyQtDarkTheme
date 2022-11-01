@@ -36,8 +36,8 @@ jobs:
           - {py: '3.10', qt-lib: 'none', qt: 'none'}
           - {py: '3.11', qt-lib: 'pyqt', qt: 'PyQt6', os: ubuntu-latest}
           - {py: '3.11', qt-lib: 'pyqt', qt: 'none', os: ubuntu-latest}
-          - {py: '3.11.0-rc.2', qt-lib: 'pyqt', qt: 'PyQt6', os: macOS-latest}
-          - {py: '3.11.0-rc.2', qt-lib: 'pyqt', qt: 'none', os: macOS-latest}
+          - {py: '3.11', qt-lib: 'pyqt', qt: 'PyQt6', os: macOS-latest}
+          - {py: '3.11', qt-lib: 'pyqt', qt: 'none', os: macOS-latest}
           - {py: '3.11', qt-lib: 'pyqt', qt: 'PyQt6', os: windows-latest}
           - {py: '3.11', qt-lib: 'pyqt', qt: 'none', os: windows-latest}
     runs-on: ${{ matrix.os }}
@@ -85,8 +85,7 @@ jobs:
     - name: Run pytest without Qt lib
       if: matrix.qt == 'none'
       run: |
-        poetry run pip uninstall -y pytest-qt
-        poetry run pytest --cov --cov-report=term-missing --cov-report=xml --ignore=tests/test_widget_gallery.py -m "not available_qt"
+        poetry run pytest --cov --cov-report=term-missing --cov-report=xml --ignore=tests/test_widget_gallery.py --ignore=tests/test_qdarktheme_with_qt.py -p no:pytest-qt
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
@@ -107,4 +106,4 @@ jobs:
 
     - name: Test freezing-pkg(PyInstaller)
       if: matrix.qt != 'none' && runner.os != 'Linux'
-      run: poetry run python -m tools.test_freezing_lib --PyInstaller
+      run: poetry run python -m tools.test_freezing_lib

@@ -9,7 +9,6 @@ repos:
         name: Build resources
         entry: python -m tools.build_resources
         language: python
-        additional_dependencies: ['rich']
         pass_filenames: false
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -21,10 +20,12 @@ repos:
         exclude: (?x)(^.*/.*\.svg$)
       - id: check-json
       - id: check-toml
-      - id: check-added-large-files
+      - id: check-yaml
+      - id: name-tests-test
+        args: [--pytest-test-first]
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.1.0
+    rev: v3.2.0
     hooks:
       - id: pyupgrade
         args: [--py37-plus]
@@ -58,6 +59,7 @@ repos:
         additional_dependencies: &flake8_dependencies
           - pyproject-flake8
           - pep8-naming
+          - flake8-pie
           - flake8-print
           - flake8-return
           - flake8-simplify
@@ -92,4 +94,4 @@ repos:
         language: python
         pass_filenames: false
         types: [python]
-        additional_dependencies: ['pyright', 'PyQt6', 'rich', 'pytest', 'pytest-qt']
+        additional_dependencies: ['pyright', 'PyQt6', 'pytest', 'pytest-qt']

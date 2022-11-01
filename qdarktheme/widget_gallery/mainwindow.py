@@ -21,6 +21,7 @@ from qdarktheme.qtpy.QtWidgets import (
 from qdarktheme.util import get_qdarktheme_root_path
 from qdarktheme.widget_gallery.ui.dock_ui import DockUI
 from qdarktheme.widget_gallery.ui.frame_ui import FrameUI
+from qdarktheme.widget_gallery.ui.mdi_ui import MdiUI
 from qdarktheme.widget_gallery.ui.widgets_ui import WidgetsUI
 
 
@@ -29,7 +30,9 @@ class _WidgetGalleryUI:
         # Actions
         self.action_open_folder = QAction(QIcon("icons:folder_open_24dp.svg"), "Open folder dialog")
         self.action_open_color_dialog = QAction(QIcon("icons:palette_24dp.svg"), "Open color dialog")
-        self.action_open_font_dialog = QAction(QIcon("icons:font_download_24dp.svg"), "Open font dialog")
+        self.action_open_font_dialog = QAction(
+            QIcon("icons:font_download_24dp.svg"), "Open font dialog"
+        )
         self.action_enable = QAction(QIcon("icons:circle_24dp.svg"), "Enable")
         self.action_disable = QAction(QIcon("icons:clear_24dp.svg"), "Disable")
         self.actions_theme = [QAction(theme, main_win) for theme in ["dark", "light"]]
@@ -37,6 +40,7 @@ class _WidgetGalleryUI:
             QAction(QIcon("icons:widgets_24dp.svg"), "Move to widgets"),
             QAction(QIcon("icons:flip_to_front_24dp.svg"), "Move to dock"),
             QAction(QIcon("icons:crop_din_24dp.svg"), "Move to frame"),
+            QAction(QIcon("icons:branding_watermark_24dp.svg"), "Move to mdi"),
         )
         self.actions_message_box = (
             QAction(text="Open question dialog"),
@@ -86,7 +90,9 @@ class _WidgetGalleryUI:
         tool_btn_theme.setIcon(QIcon("icons:contrast_24dp.svg"))
         tool_btn_theme.setPopupMode(QToolButton.ToolButtonPopupMode.InstantPopup)
 
-        self.toolbar.addActions((self.action_open_folder, self.action_open_color_dialog, self.action_open_font_dialog))
+        self.toolbar.addActions(
+            (self.action_open_folder, self.action_open_color_dialog, self.action_open_font_dialog)
+        )
         self.toolbar.addSeparator()
         self.toolbar.addWidget(QLabel("Popup"))
         self.toolbar.addWidget(tool_btn_message_box)
@@ -103,7 +109,9 @@ class _WidgetGalleryUI:
         menu_dialog = menubar.addMenu("&Dialog")
         menu_option = menubar.addMenu("&Option")
         menu_option.addActions(self.actions_corner_radius)
-        menu_dialog.addActions((self.action_open_folder, self.action_open_color_dialog, self.action_open_font_dialog))
+        menu_dialog.addActions(
+            (self.action_open_folder, self.action_open_color_dialog, self.action_open_font_dialog)
+        )
         menu_message_box = menu_dialog.addMenu("&Messages")
         menu_message_box.addActions(self.actions_message_box)
 
@@ -114,7 +122,7 @@ class _WidgetGalleryUI:
         self.action_enable.setEnabled(False)
 
         # Layout
-        for ui in (WidgetsUI, DockUI, FrameUI):
+        for ui in (WidgetsUI, DockUI, FrameUI, MdiUI):
             container = QWidget()
             ui().setup_ui(container)
             self.stack_widget.addWidget(container)
@@ -138,17 +146,23 @@ class WidgetGallery(QMainWindow):
         self._ui = _WidgetGalleryUI()
         self._ui.setup_ui(self)
         self._theme = "dark"
-        self._border_radius = "rounded"
+        self._corner_shape = "rounded"
 
         # Signal
         self._ui.action_open_folder.triggered.connect(
-            lambda: QFileDialog.getOpenFileName(self, "Open File", options=QFileDialog.Option.DontUseNativeDialog)
+            lambda: QFileDialog.getOpenFileName(
+                self, "Open File", options=QFileDialog.Option.DontUseNativeDialog
+            )
         )
         self._ui.action_open_color_dialog.triggered.connect(
-            lambda: QColorDialog.getColor(parent=self, options=QColorDialog.ColorDialogOption.DontUseNativeDialog)
+            lambda: QColorDialog.getColor(
+                parent=self, options=QColorDialog.ColorDialogOption.DontUseNativeDialog
+            )
         )
         self._ui.action_open_font_dialog.triggered.connect(
-            lambda: QFontDialog.getFont(QFont(), parent=self, options=QFontDialog.FontDialogOption.DontUseNativeDialog)
+            lambda: QFontDialog.getFont(
+                QFont(), parent=self, options=QFontDialog.FontDialogOption.DontUseNativeDialog
+            )
         )
         self._ui.action_enable.triggered.connect(self._toggle_state)
         self._ui.action_disable.triggered.connect(self._toggle_state)
@@ -168,8 +182,10 @@ class WidgetGallery(QMainWindow):
             index = 0
         elif "dock" in action_name:
             index = 1
-        else:
+        elif "frame" in action_name:
             index = 2
+        else:
+            index = 3
         self._ui.stack_widget.setCurrentIndex(index)
 
     @Slot()
@@ -184,12 +200,16 @@ class WidgetGallery(QMainWindow):
     @Slot()
     def _change_theme(self) -> None:
         self._theme = self.sender().text()  # type: ignore
-        QApplication.instance().setStyleSheet(qdarktheme.load_stylesheet(self._theme, self._border_radius))
+        QApplication.instance().setStyleSheet(
+            qdarktheme.load_stylesheet(self._theme, self._corner_shape)
+        )
 
     @Slot()
     def _change_corner_radius(self) -> None:
-        self._border_radius: str = self.sender().text()  # type: ignore
-        QApplication.instance().setStyleSheet(qdarktheme.load_stylesheet(self._theme, self._border_radius))
+        self._corner_shape: str = self.sender().text()  # type: ignore
+        QApplication.instance().setStyleSheet(
+            qdarktheme.load_stylesheet(self._theme, self._corner_shape)
+        )
 
     @Slot()
     def _popup_message_box(self) -> None:

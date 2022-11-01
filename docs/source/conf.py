@@ -37,8 +37,8 @@ release = version
 # ones.
 extensions = [
     "sphinx.ext.viewcode",
-    "sphinx.ext.todo",
     "sphinx.ext.napoleon",
+    "sphinx.ext.todo",
     "sphinx_design",
     "sphinx_copybutton",
 ]

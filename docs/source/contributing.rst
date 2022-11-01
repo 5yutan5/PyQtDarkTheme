@@ -38,7 +38,7 @@ These are the basic steps needed to start developing on PyQtDarkTheme.
 
         $ poetry run pre-commit install
 #. Check Qt theme
-    You can check dark/light theme with example app.
+    You can check dark/light theme with built-in app.
 
     .. code-block:: bash
 

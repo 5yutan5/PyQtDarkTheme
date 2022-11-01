@@ -10,7 +10,7 @@ from pathlib import Path
 import qdarktheme
 
 # greater_equal and less_equal must be evaluated before greater and less.
-OPERATORS = {"==": ope.eq, "!=": ope.ne, ">=": ope.ge, "<=": ope.le, ">": ope.gt, "<": ope.lt}
+_OPERATORS = {"==": ope.eq, "!=": ope.ne, ">=": ope.ge, "<=": ope.le, ">": ope.gt, "<": ope.lt}
 
 
 def multi_replace(target: str, replacements: dict[str, str]) -> str:
@@ -52,6 +52,11 @@ def get_logger(logger_name: str) -> logging.Logger:
     return logger
 
 
+def get_cash_root_path(version: str) -> Path:
+    """Return the cash root dir path."""
+    return Path.home() / ".cache" / "qdarktheme" / f"v{version}"
+
+
 def get_qdarktheme_root_path() -> Path:
     """Return the qdarktheme package root path.
 
@@ -61,7 +66,17 @@ def get_qdarktheme_root_path() -> Path:
     return Path(inspect.getfile(qdarktheme)).parent
 
 
-def compare_v(v1: str, operator: str, v2: str) -> bool:
+def _compare_v(v1: str, operator: str, v2: str) -> bool:
     """Comparing two versions."""
     v1_list, v2_list = (tuple(map(int, (v.split(".")))) for v in (v1, v2))
-    return OPERATORS[operator](v1_list, v2_list)
+    return _OPERATORS[operator](v1_list, v2_list)
+
+
+def analyze_version_str(target_version: str, version_text: str) -> bool:
+    """Analyze text comparing versions."""
+    for operator in _OPERATORS:
+        if operator not in version_text:
+            continue
+        version = version_text.replace(operator, "")
+        return _compare_v(target_version, operator, version)
+    raise AssertionError("Text comparing versions is wrong.")

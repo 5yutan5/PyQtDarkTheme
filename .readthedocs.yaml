@@ -8,6 +8,8 @@ build:
     post_create_environment:
       - curl -sSL https://install.python-poetry.org | python3 -
       - ~/.local/share/pypoetry/venv/bin/poetry export --only read-the-docs -o requirements.txt
+      - ~/.local/share/pypoetry/venv/bin/poetry install
+      - ~/.local/share/pypoetry/venv/bin/poetry run python -m tools.build_theme_color_doc
 
 python:
   install:

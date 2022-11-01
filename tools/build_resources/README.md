@@ -9,23 +9,17 @@ To build resources, run:
 poetry run python -m tools.build_resources
 ```
 
-Build svg and stylesheet based on the color-map of the theme file.
-The resources are output to `./qdarktheme/themes`.
+Build template stylesheet, svg, QPalette script and dark/light color schema.
+The resources are output to `./qdarktheme/resources`.
 This folder is not included in the built package.
 
 ## Output format
 
 ```Plaintext
-themes
+resources
 ├── __init__.py
-├── dark
-│   ├── __init__.py
-│   ├── palette.py
-│   ├── stylesheet.py
-│   └── svg.py
-└── light
-    ├── __init__.py
-    ├── palette.py
-    ├── stylesheet.py
-    └── svg.py
+├── color_schema.py
+├── palette.py
+├── svg.py
+└── template_stylesheet.py
 ```
