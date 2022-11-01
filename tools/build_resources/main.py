@@ -60,7 +60,7 @@ def _mk_palette_file(output: Path):
 def _mk_color_schema_resource(color_schemas: dict[str, dict], output: Path):
     code = '"""Color schemas."""\n\n'
     code += "COLOR_SCHEMAS = {\n"
-    for theme, color_schema in color_schemas.items():
+    for theme, color_schema in sorted(color_schemas.items()):
         code += f"""    "{theme}": '{json.dumps(color_schema, sort_keys=True)}',  # noqa: E501\n"""
     code += "}\n"
     output.write_text(code)
