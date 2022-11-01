@@ -116,7 +116,7 @@ class _Group2(QGroupBox):
 
         spinbox, spinbox_suffix = QSpinBox(), QSpinBox()
         combobox, combobox_line_edit = QComboBox(), QComboBox()
-        lineedit = QLineEdit()
+        line_edit = QLineEdit()
         date_time_edit, date_time_edit_calendar = QDateTimeEdit(), QDateTimeEdit()
 
         # Setup widgets
@@ -127,7 +127,7 @@ class _Group2(QGroupBox):
         combobox_line_edit.addItems(("Item 1", "Item 2", "Item 3"))
         combobox_line_edit.setEditable(True)
 
-        lineedit.setPlaceholderText("Placeholder text")
+        line_edit.setPlaceholderText("Placeholder text")
         date_time_edit_calendar.setCalendarPopup(True)
 
         # Layout
@@ -141,9 +141,9 @@ class _Group2(QGroupBox):
         v_layout_combo.addWidget(combobox_line_edit)
         group_combobox.setLayout(v_layout_combo)
 
-        v_layout_lineedit = QVBoxLayout()
-        v_layout_lineedit.addWidget(lineedit)
-        group_editable.setLayout(v_layout_lineedit)
+        v_layout_line_edit = QVBoxLayout()
+        v_layout_line_edit.addWidget(line_edit)
+        group_editable.setLayout(v_layout_line_edit)
 
         v_layout_date = QVBoxLayout()
         v_layout_date.addWidget(date_time_edit)
@@ -185,7 +185,9 @@ class _TableModel(QAbstractTableModel):
             flag |= Qt.ItemFlag.ItemIsEditable
         return flag  # type: ignore
 
-    def headerData(self, section: int, orientation: Qt.Orientation, role: int = ...) -> Any:  # noqa: N802
+    def headerData(  # noqa: N802
+        self, section: int, orientation: Qt.Orientation, role: int = ...
+    ) -> Any:
         if role != Qt.ItemDataRole.DisplayRole:
             return None
         if orientation == Qt.Orientation.Horizontal:
@@ -212,6 +214,7 @@ class _Group3(QGroupBox):
         tab_text_edit.append("<b>PyQtDarkTheme</b>")
         tab_text_edit.append("Dark theme for PySide and PyQt.")
         tab_text_edit.append("This project is licensed under the MIT license.")
+        tab_text_edit.append('<a href="https://pyqtdarktheme.readthedocs.io">PyQtDarkTheme Doc</a>')
         tab_text_edit.setWordWrapMode(QTextOption.WrapMode.NoWrap)
 
         tab_table.setModel(_TableModel())
@@ -270,7 +273,9 @@ class WidgetsUI:
     def setup_ui(self, win: QWidget) -> None:
         """Set up ui."""
         # Widgets
-        h_splitter_1, h_splitter_2 = QSplitter(Qt.Orientation.Horizontal), QSplitter(Qt.Orientation.Horizontal)
+        h_splitter_1, h_splitter_2 = QSplitter(Qt.Orientation.Horizontal), QSplitter(
+            Qt.Orientation.Horizontal
+        )
 
         # Setup widgets
         h_splitter_1.setMinimumHeight(350)  # Fix bug layout crush

@@ -8,10 +8,12 @@ PyQtDarkTheme applies a flat dark theme to QtWidgets application(PySide and PyQt
     .. tab-item:: Dark
 
         .. image:: https://raw.githubusercontent.com/5yutan5/PyQtDarkTheme/main/images/widget_gallery_dark.png
+            :class: dark-light
 
     .. tab-item:: Light
 
         .. image:: https://raw.githubusercontent.com/5yutan5/PyQtDarkTheme/main/images/widget_gallery_light.png
+            :class: dark-light
 
 
 **Features:**
@@ -21,59 +23,47 @@ PyQtDarkTheme applies a flat dark theme to QtWidgets application(PySide and PyQt
 * Support PyInstaller
 * Resolve the style differences between Qt versions
 * QPalette of dark and light theme
+
 ++++
 
 .. grid::
-   :gutter: 2
+    :gutter: 2
 
-   .. grid-item::
-     .. grid:: 1 1 1 1
-      :gutter: 4
+    .. grid-item-card:: Installation guide
+        :text-align: center
+        :link: installation_guide
+        :link-type: doc
+        :class-item: sd-text-nowrap
 
-      .. grid-item-card::  Installation guide
-          :text-align: center
+        :material-regular:`install_desktop;5em;sd-text-primary`
+        ^^^
 
-          .. button-ref:: installation_guide
-             :color: primary
-             :click-parent:
-             :expand:
+    .. grid-item-card:: How to use
+        :text-align: center
+        :link: how_to_use
+        :link-type: doc
+        :class-item: sd-text-nowrap
 
-             To the installation guide
+        :material-regular:`menu_book;5em;sd-text-primary`
+        ^^^
 
-      .. grid-item-card::  How to use
-          :text-align: center
+    .. grid-item-card:: API reference
+        :text-align: center
+        :link: reference/index
+        :link-type: doc
+        :class-item: sd-text-nowrap
 
-          .. button-ref:: how_to_use
-             :color: primary
-             :click-parent:
-             :expand:
+        :material-regular:`library_books;5em;sd-text-primary`
+        ^^^
 
-             To the usage guide
+    .. grid-item-card:: Contributing
+        :text-align: center
+        :link: contributing
+        :link-type: doc
+        :class-item: sd-text-nowrap
 
-   .. grid-item::
-
-     .. grid:: 1 1 1 1
-      :gutter: 4
-
-      .. grid-item-card::  API reference
-         :text-align: center
-
-         .. button-ref:: qdarktheme
-           :color: primary
-           :click-parent:
-           :expand:
-
-           To the references guide
-
-      .. grid-item-card::  Contributing
-          :text-align: center
-
-          .. button-ref:: contributing
-             :color: primary
-             :click-parent:
-             :expand:
-
-             To the contributing guide
+        :material-regular:`person_add;5em;sd-text-primary`
+        ^^^
 
 .. toctree::
    :maxdepth: 2
@@ -81,5 +71,5 @@ PyQtDarkTheme applies a flat dark theme to QtWidgets application(PySide and PyQt
 
    Installation guide<installation_guide.rst>
    How to use<how_to_use.rst>
-   API reference<qdarktheme.rst>
+   API reference<reference/index.rst>
    Contributing<contributing.rst>

@@ -8,8 +8,6 @@ import sys
 class QtImportError(ImportError):
     """Error raise if no bindings could be selected."""
 
-    pass
-
 
 qt_import_error = QtImportError(
     "Failed to import qt-binding. Check packages(pip list)."

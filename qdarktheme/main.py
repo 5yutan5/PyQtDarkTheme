@@ -2,226 +2,156 @@
 from __future__ import annotations
 
 import json
-import platform
-import re
 import shutil
-from pathlib import Path
+import warnings
+from functools import partial
 
-from qdarktheme.qtpy import __version__ as qt_version
-from qdarktheme.qtpy.qt_compat import QT_API
-from qdarktheme.util import OPERATORS, compare_v, get_logger, multi_replace
-
-# Version of PyQtDarkTheme
-__version__ = "1.1.1"
+from qdarktheme import __version__, filter, resources
+from qdarktheme.color import Color
+from qdarktheme.template_engine import Template
+from qdarktheme.util import get_cash_root_path, get_logger
 
 _logger = get_logger(__name__)
 
-if qt_version is None:
-    _logger.warning("Failed to detect Qt version. Load Qt version as the latest version.")
-    _qt_version = "10.0.0"  # Fairly future version for always setting latest version.
-else:
-    _qt_version = qt_version
 
-if QT_API is None:
-    _qt_api = "PySide6"
-    _logger.warning(f"Failed to detect Qt binding. Load Qt API as '{_qt_api}'.")
-else:
-    _qt_api = QT_API
-
-if None in [qt_version, QT_API]:
-    _logger.warning(
-        "Maybe you need to install qt-binding. Available Qt-binding packages: PySide6, PyQt6, PyQt5, PySide2."
-    )
-
-_RESOURCE_HOME_DIR = Path.home() / ".qdarktheme"
-_RESOURCES_BASE_DIR = _RESOURCE_HOME_DIR / f"v{__version__}"
-
-# Pattern
-_PATTERN_RADIUS = re.compile(r"\$radius\{[\s\S]*?\}")
-_PATTERN_ENV_PATCH = re.compile(r"\$env_patch\{[\s\S]*?\}")
+def _color_schema(theme: str) -> dict[str, str | dict]:
+    try:
+        return json.loads(resources.COLOR_SCHEMAS[theme])
+    except KeyError:
+        raise ValueError(f'invalid argument, not a dark or light: "{theme}"') from None
 
 
-def _build_svg_files(theme: str, theme_resources_dir: Path) -> None:
-    svg_resources_dir = theme_resources_dir / "svg"
-    if not svg_resources_dir.exists():
-        svg_resources_dir.mkdir()
-    else:
-        return
+def _marge_colors(color_schema: dict[str, str | dict], custom_colors: dict[str, str]):
+    for color_id, color_format in custom_colors.items():
+        if not Color.check_hex_format(color_format):
+            raise ValueError(
+                f'invalid value for argument custom_colors: "{color_format}". '
+                "Only support following hexadecimal notations: #RGB, #RGBA, #RRGGBB and #RRGGBBAA. "
+                "R (red), G (green), B (blue), and A (alpha) are hexadecimal characters "
+                "(0-9, a-f or A-F)."
+            ) from None
 
-    if theme == "dark":
-        from qdarktheme.themes.dark.svg import SVG_RESOURCES
-    else:
-        from qdarktheme.themes.light.svg import SVG_RESOURCES
-
-    for file_name, code in json.loads(SVG_RESOURCES).items():
-        (svg_resources_dir / f"{file_name}.svg").write_text(code)
-
-
-def get_themes() -> tuple[str, ...]:
-    """Return available theme list.
-
-    Returns:
-        Available themes.
-    """
-    from qdarktheme.themes import THEMES
-
-    return THEMES
-
-
-def _replace_rounded(match: re.Match) -> str:
-    return match.group().replace("$radius{", "").replace("}", "")
-
-
-def _replace_sharp(match: re.Match) -> str:
-    return _PATTERN_RADIUS.sub("0", match.group())
-
-
-def _parse_radius(stylesheet: str, border: str = "rounded") -> dict[str, str]:
-    """Parse `$radius{...}` placeholder in template stylesheet."""
-    matches = _PATTERN_RADIUS.finditer(stylesheet)
-    replace = _replace_rounded if border == "rounded" else _replace_sharp
-    return {match.group(): replace(match) for match in matches}
-
-
-def _parse_env_patch(stylesheet: str) -> dict[str, str]:
-    """Parse `$env_patch{...}` placeholder in template stylesheet.
-
-    Template stylesheet has `$env_patch{...}` symbol.
-    This symbol has json string and resolve the differences of the style between qt versions.
-    The json keys:
-        * version - the qt version and qualifier. Available qualifiers: [==, !=, >=, <=, >, <].
-        * qt - the name of qt binding.
-        * value - the qt stylesheet string
-
-    Args:
-        stylesheet: The qt stylesheet string.
-
-    Raises:
-        SyntaxError: If the version operator in version key of `$env_patch{...}` is wrong.
-
-    Returns:
-        The dictionary. Key is the text of $env_patch{...} symbol.
-        Value is the value of the `value` key in $env_patch.
-    """
-    replacements: dict[str, str] = {}
-    for match in re.finditer(_PATTERN_ENV_PATCH, stylesheet):
-        match_text = match.group()
-        json_text = match_text.replace("$env_patch", "")
-        env_property: dict[str, str] = json.loads(json_text)
-
-        patch_version = env_property.get("version")
-        patch_qt = env_property.get("qt")
-        patch_os = env_property.get("os")
-        patch_value = env_property["value"]
-
-        results: list[bool] = []
-        # Parse version
-        if patch_version is not None:
-            for operator in OPERATORS:
-                if operator not in patch_version:
-                    continue
-                version = patch_version.replace(operator, "")
-                results.append(compare_v(_qt_version, operator, version))
-                break
+        parent_key, *child_key = color_id.split(">")
+        try:
+            color_info = color_schema[parent_key]
+            if len(child_key) == 0:
+                if isinstance(color_info, str):
+                    color_schema[parent_key] = color_format
+                else:
+                    color_info["base"] = color_format
+            elif len(child_key) == 1:
+                color_info = color_schema[parent_key]
+                if isinstance(color_info, str):
+                    raise KeyError
+                # Check if child_key is valid.
+                color_info[child_key[0]]
+                color_info[child_key[0]] = color_format
             else:
-                raise SyntaxError(
-                    f"invalid character in qualifier. Available qualifiers {list(OPERATORS.keys())}"
-                ) from None
-        # Parse qt binding
-        if patch_qt is not None:
-            if QT_API is None:
-                results.append(False)
-            results.append(patch_qt.lower() == _qt_api.lower())
-        # Parse os
-        if patch_os is not None:
-            results.append(platform.system().lower() in patch_os.lower())
-
-        replacements[match_text] = patch_value if all(results) else ""
-    return replacements
+                raise KeyError
+        except KeyError:
+            raise KeyError(f'invalid color id for argument custom_colors: "{color_id}".') from None
 
 
-def load_stylesheet(theme: str = "dark", border: str = "rounded") -> str:
-    """Load the style sheet which looks like flat design. There are two themes, dark theme and light theme.
+def load_stylesheet(
+    theme: str = "dark",
+    corner_shape: str = "rounded",
+    custom_colors: dict[str, str] | None = None,
+    *,
+    border: str | None = None,
+) -> str:
+    """Load the style sheet which looks like flat design. There are `dark` and `light` theme.
 
     Args:
-        theme: The name of the theme. Available themes are "dark" and "light".
-        border: The border style. Available styles are "rounded" and "sharp".
+        theme: The name of the theme. There are `dark` and `light` theme.
+        corner_shape: The corner shape. There are `rounded` and `sharp` shape.
+        custom_colors: The custom color map. Overrides the default color for color id you set.
+        border: The corner shape. There are `rounded` and `sharp` shape.
+                This argument is deprecated since v2.0.0. Please use `corner_shape` instead.
+                This argument override value of argument `corner_shape`.
 
     Raises:
-        TypeError: If the arg of theme name is wrong.
+        ValueError: If the arguments of this method is wrong.
+        KeyError: If the color id of custom_colors is wrong.
 
     Returns:
-        The stylesheet string for the given theme.
+        The stylesheet string for the given arguments.
 
     Examples:
         Set stylesheet to your Qt application.
 
-        1. Dark Theme::
+        1. Dark Theme ::
 
             app = QApplication([])
             app.setStyleSheet(qdarktheme.load_stylesheet())
             # or
             app.setStyleSheet(qdarktheme.load_stylesheet("dark"))
 
-        2. Light Theme::
+        2. Light Theme ::
 
             app = QApplication([])
             app.setStyleSheet(qdarktheme.load_stylesheet("light"))
 
-        Change sharp frame.
+        3. Sharp corner ::
 
-        Sharp Frame::
+            # Change corner shape to sharp.
+            app = QApplication([])
+            app.setStyleSheet(qdarktheme.load_stylesheet(corner_shape="sharp"))
+
+        4. Customize color ::
 
             app = QApplication([])
-            app.setStyleSheet(qdarktheme.load_stylesheet(border="sharp"))
+            app.setStyleSheet(qdarktheme.load_stylesheet(custom_colors={"primary": "#D0BCFF"}))
     """
-    if theme not in get_themes():
-        raise TypeError("The argument [theme] can only be specified as 'dark' or 'light'.") from None
+    color_schema = _color_schema(theme)
+    if corner_shape not in ("rounded", "sharp"):
+        raise ValueError(f'invalid argument, not a rounded or sharp: "{corner_shape}"')
+    if border not in (None, "rounded", "sharp"):
+        raise ValueError(f'invalid argument, not a rounded or sharp: "{border}"')
+    if border is not None:
+        warnings.warn(
+            'deprecated argument, "border" is deprecated since v2.0.0. '
+            'Please use "corner_shape" instead.',
+            FutureWarning,
+        )
+        corner_shape = border
 
-    if border not in ("rounded", "sharp"):
-        raise TypeError("The argument [border] can only be specified as 'rounded' or 'sharp'.")
+    get_cash_root_path(__version__).mkdir(parents=True, exist_ok=True)
 
-    theme_resources_dir = _RESOURCES_BASE_DIR / theme
-    theme_resources_dir.mkdir(parents=True, exist_ok=True)
-    _build_svg_files(theme, theme_resources_dir)
-
-    if theme == "dark":
-        from qdarktheme.themes.dark.stylesheet import STYLE_SHEET
-    else:
-        from qdarktheme.themes.light.stylesheet import STYLE_SHEET
+    if custom_colors is not None:
+        _marge_colors(color_schema, custom_colors)
 
     # Build stylesheet
-    # Radius
-    replacements_radius = _parse_radius(STYLE_SHEET, border)
-    stylesheet = multi_replace(STYLE_SHEET, replacements_radius)
-    # Env
-    replacements_env = _parse_env_patch(stylesheet)
-    # Path
-    replacements_env["${path}"] = _RESOURCES_BASE_DIR.as_posix()
-    return multi_replace(stylesheet, replacements_env)
+    template = Template(
+        resources.TEMPLATE_STYLESHEET,
+        {"color": filter.color, "corner": filter.corner, "env": filter.env, "url": filter.url},
+    )
+    replacements = dict(color_schema, **{"corner-shape": corner_shape})
+    return template.render(replacements)
 
 
-def clear_cache():
+def clear_cache() -> None:
     """Clear the caches in system home path.
 
-    PyQtDarkTheme build the caches of resources in the system home path.You can clear the caches by running this
-    method.
+    PyQtDarkTheme build the caches of resources in the system home path.
+    You can clear the caches by running this method.
     """
     try:
-        shutil.rmtree(_RESOURCE_HOME_DIR)
-        _logger.info(f"The caches({_RESOURCE_HOME_DIR}) has been deleted")
+        shutil.rmtree(get_cash_root_path(__version__))
+        _logger.info(f"The caches({get_cash_root_path(__version__)}) has been deleted")
     except FileNotFoundError:
         _logger.info("There is no caches")
 
 
-def load_palette(theme: str = "dark"):
+def load_palette(theme: str = "dark", custom_colors: dict[str, str] | None = None):
     """Load the QPalette for the dark or light theme.
 
     Args:
-        theme: The name of the theme. Available theme are "dark" and "light".
+        theme: The name of the theme. Available theme are `dark` and `light`.
+        custom_colors: The custom color map. Overrides the default color for color id you set.
 
     Raises:
         TypeError: If the arg name of theme is wrong.
+        KeyError: If the color id of custom_colors is wrong.
 
     Returns:
         QPalette: The QPalette for the given theme.
@@ -229,23 +159,35 @@ def load_palette(theme: str = "dark"):
     Examples:
         Set QPalette to your Qt application.
 
-        1. Dark Theme::
+        1. Dark Theme ::
 
             app = QApplication([])
             app.setPalette(qdarktheme.load_palette())
             # or
             app.setPalette(qdarktheme.load_palette("dark"))
 
-        2. Light Theme::
+        2. Light Theme ::
 
             app = QApplication([])
             app.setPalette(qdarktheme.load_palette("light"))
-    """
-    if theme not in get_themes():
-        raise TypeError("The argument [theme] can only be specified as 'dark' or 'light'.") from None
 
-    if theme == "dark":
-        from qdarktheme.themes.dark.palette import PALETTE
-    else:
-        from qdarktheme.themes.light.palette import PALETTE
-    return PALETTE
+        3. Customize color ::
+
+            app = QApplication([])
+            app.setPalette(custom_colors={"primary": "#D0BCFF"})
+    """
+    color_schema = _color_schema(theme)
+    if custom_colors is not None:
+        _marge_colors(color_schema, custom_colors)
+
+    mk_template = partial(Template, filters={"color": filter.color, "palette": filter.palette_format})
+    return resources.mk_q_palette(mk_template, color_schema)
+
+
+def get_themes() -> tuple[str, ...]:
+    """Return available theme names.
+
+    Returns:
+        Tuple of available theme names.
+    """
+    return resources.THEMES

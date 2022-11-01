@@ -1,5 +1,7 @@
-API Reference
-=============
+qdarktheme
+==========
+
+``qdarktheme`` is a python module to apply original theme to PySide and PyQt.
 
 .. currentmodule:: qdarktheme
 

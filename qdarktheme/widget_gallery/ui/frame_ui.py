@@ -53,7 +53,11 @@ class FrameUI:
             g_layout.addWidget(QCheckBox("Check box"), 2, 1)
             g_layout.addWidget(calender, 3, 0, 1, 2)
 
-        for group, frame in ((group_box, frame_box), (group_panel, frame_panel), (group_none, frame_none)):
+        for group, frame in (
+            (group_box, frame_box),
+            (group_panel, frame_panel),
+            (group_none, frame_none),
+        ):
             v_layout = QVBoxLayout(group)
             v_layout.addWidget(frame)
 

@@ -1,64 +1,92 @@
 """Tests for the main program."""
-import sys
+import re
 
 import pytest
 
 import qdarktheme
 
 
-@pytest.mark.available_qt()
-def test_load_palette() -> None:
-    """Ensure `load_palette()` load QPalette without error."""
-    from qdarktheme.qtpy.QtCore import Qt
-    from qdarktheme.qtpy.QtWidgets import QApplication
+@pytest.mark.parametrize(
+    ("theme", "corner_shape", "custom_colors"),
+    [
+        # Test theme and corner_shape
+        ("dark", "rounded", None),
+        ("dark", "sharp", None),
+        # Test theme, corner_shape and custom_colors
+        ("dark", "rounded", {}),
+        ("dark", "rounded", {"foreground": "#112233"}),
+        ("dark", "sharp", {"foreground": "#112233"}),
+        ("dark", "rounded", {"foreground>icon": "#112233"}),
+        # Test color code
+        ("dark", "rounded", {"foreground": "#112"}),
+        ("dark", "rounded", {"foreground": "#11223344"}),
+        ("dark", "rounded", {"foreground": "#1122"}),
+    ],
+)
+def test_load_stylesheet(theme, corner_shape, custom_colors) -> None:
+    """Verify that the function `load_stylesheet()` runs successfully when using various arguments."""
+    qdarktheme.load_stylesheet(theme, corner_shape, custom_colors)
 
-    app = QApplication.instance() if QApplication.instance() else QApplication(sys.argv)
-    if hasattr(Qt.ApplicationAttribute, "AA_UseHighDpiPixmaps"):
-        app.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)  # type: ignore
 
-    for theme in qdarktheme.get_themes():
-        app.setPalette(qdarktheme.load_palette(theme))
-
-
-def test_wrong_theme() -> None:
-    """Verify we raise TypeError when inputting wrong theme name."""
-    with pytest.raises(TypeError) as e_stylesheet:
+def test_load_stylesheet_with_wrong_theme() -> None:
+    """Verify we raise ValueError when using wrong theme name."""
+    with pytest.raises(ValueError, match='invalid argument, not a dark or light: "wrong_value"') as e:
         qdarktheme.load_stylesheet("wrong_value")
-
-    with pytest.raises(TypeError) as e_palette:
-        qdarktheme.load_palette("wrong_value")
-
-    for e in [e_stylesheet, e_palette]:
-        assert e.type == TypeError
+    assert e.type == ValueError
 
 
-def test_wrong_border_style() -> None:
-    """Verify we raise TypeError when inputting wrong border shape name."""
-    with pytest.raises(TypeError) as e:
-        qdarktheme.load_stylesheet(border="none")
-    assert e.type == TypeError
+def test_load_stylesheet_with_wrong_corner_shape() -> None:
+    """Verify we raise ValueError when using wrong corner shape name."""
+    with pytest.raises(
+        ValueError, match='invalid argument, not a rounded or sharp: "wrong_value"'
+    ) as e:
+        qdarktheme.load_stylesheet(corner_shape="wrong_value")
+    assert e.type == ValueError
 
 
-def test_parse_env_patch() -> None:
-    """Test `parse_env_patch()`."""
-    from qdarktheme.main import _parse_env_patch
+def test_load_stylesheet_with_wrong_custom_colors() -> None:
+    """Verify we raise ValueError when using wrong custom colors."""
+    with pytest.raises(
+        ValueError,
+        match=re.escape(
+            'invalid value for argument custom_colors: "wrong color code". '
+            "Only support following hexadecimal notations: #RGB, #RGBA, #RRGGBB and #RRGGBBAA. "
+            "R (red), G (green), B (blue), and A (alpha) are hexadecimal characters (0-9, a-f or A-F)."
+        ),
+    ) as e:
+        qdarktheme.load_stylesheet(custom_colors={"input.background": "wrong color code"})
+    assert e.type == ValueError
 
-    with pytest.raises(SyntaxError) as e:
-        _parse_env_patch('$env_patch{"version": "^6.0.0", "value": "test"};')
+    with pytest.raises(
+        KeyError, match='invalid color id for argument custom_colors: "wrong key".'
+    ) as e:
+        qdarktheme.load_stylesheet(custom_colors={"wrong key": "#121212"})
+    assert e.type == KeyError
 
-    assert "invalid character in qualifier. Available qualifiers" in str(e.value)
+    with pytest.raises(
+        KeyError, match='invalid color id for argument custom_colors: "background>wrong child key".'
+    ) as e:
+        qdarktheme.load_stylesheet(custom_colors={"background>wrong child key": "#121212"})
+    assert e.type == KeyError
 
-    # If Qt module not found
-    from qdarktheme import qtpy
-
-    temp_qt_version = qtpy.__version__
-    qtpy.__version__ = None
-    _parse_env_patch('$env_patch{"version": "==6.0.0", "value": "test"};')
-    qtpy.__version__ = temp_qt_version
+    with pytest.raises(
+        KeyError, match='invalid color id for argument custom_colors: "background>wrong key>wrong key".'
+    ) as e:
+        qdarktheme.load_stylesheet(custom_colors={"background>wrong key>wrong key": "#121212"})
+    assert e.type == KeyError
 
 
 def test_clear_cache() -> None:
-    """Test `clear_cache()`."""
+    """Verify `clear_cache()`."""
     qdarktheme.load_stylesheet()
     qdarktheme.clear_cache()
+    # Test function when there is no cache.
     qdarktheme.clear_cache()
+
+
+def test_get_themes() -> None:
+    """Verify `get_themes()` works.
+
+    get_themes() is not called from other functions, so it should be tested.
+    """
+    qdarktheme.get_themes()

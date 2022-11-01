@@ -150,3 +150,6 @@ cython_debug/
 
 # System information folder for mac
 *.DS_Store
+
+# Original
+docs/source/reference/theme_color.rst

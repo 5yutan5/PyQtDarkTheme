@@ -3,11 +3,10 @@ import argparse
 import sys
 from importlib.metadata import version
 
-from rich.console import Console
-
 import qdarktheme
+from qdarktheme.util import get_logger
 
-_console = Console(force_terminal=True)
+logger = get_logger(__name__)
 
 
 def _parse_args() -> argparse.Namespace:
@@ -31,16 +30,16 @@ def _main() -> None:
     tag_v: str = args.tag_version.replace("v", "")
     package_v = version("pyqtdarktheme")
     if tag_v == package_v == qdarktheme.__version__:
-        _console.log("The package version, module version and tag version are the same.", style="green")
+        logger.info("The package version, module version and tag version are the same.")
     else:
-        _console.log("The version names of package and tag are different.", style="red")
-        _console.log(f"tag version(GitHub tags)         : {tag_v}")
-        _console.log(f"package version(pyproject.toml)  : {package_v}")
-        _console.log(f"module version(__version__)      : {qdarktheme.__version__}")
+        logger.info("The version names of package and tag are different.")
+        logger.info("tag version(GitHub tags)         : ", tag_v)
+        logger.info("package version(pyproject.toml)  : ", package_v)
+        logger.info("module version(__version__)      : ", qdarktheme.__version__)
         sys.exit(1)
 
     _test_qdarktheme()
-    _console.log("Test finished successfully!", style="green")
+    logger.info("Test finished successfully!")
 
 
 if __name__ == "__main__":

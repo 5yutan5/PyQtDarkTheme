@@ -1,11 +1,10 @@
 {
-    "recommendations": [
-        "ms-python.python",
-        "seanwu.vscode-qt-for-python",
-        "streetsidesoftware.code-spell-checker",
-        "davidanson.vscode-markdownlint",
-        "tamasfe.even-better-toml",
-        "lextudio.restructuredtext",
-        "trond-snekvik.simple-rst"
-    ]
+  "recommendations": [
+    "ms-python.python",
+    "streetsidesoftware.code-spell-checker",
+    "davidanson.vscode-markdownlint",
+    "tamasfe.even-better-toml",
+    "lextudio.restructuredtext",
+    "trond-snekvik.simple-rst"
+  ]
 }

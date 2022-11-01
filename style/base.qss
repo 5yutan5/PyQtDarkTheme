@@ -15,15 +15,15 @@ QToolBar * {
 
 --------------------------------------------------------------------------- */
 QWidget {
-    background: $base;
-    color: $text;
-    selection-background-color: $highlight;
-    selection-color: $highlight-text;
+    background: {{ background|color }};
+    color: {{ foreground|color }};
+    selection-color: {{ foreground|color }};
+    selection-background-color: {{ primary|color(state="selection.background") }};
 }
 QWidget:disabled {
-    color: $text-disabled;
-    selection-background-color: $highlight-disabled;
-    selection-color: $text-disabled;
+    color: {{ foreground|color(state="disabled") }};
+    selection-background-color: {{ foreground|color(state="disabledSelectionBackground") }};
+    selection-color: {{ foreground|color(state="disabled") }};
 }
 
 /* Override default icons -------------------------------------------------
@@ -32,31 +32,50 @@ document: https://doc.qt.io/qt-5/stylesheet-reference.html#list-of-icons
 
 --------------------------------------------------------------------------- */
 QWidget {
-    backward-icon: $url{"icon": "arrow_upward.svg", "id": "icon-foreground", "rotate": "270"};
-    forward-icon: $url{"icon": "arrow_upward.svg", "id": "icon-foreground", "rotate": "90"};
-    leftarrow-icon: $url{"icon": "arrow_upward.svg", "id": "icon-foreground", "rotate": "270"};
-    rightarrow-icon: $url{"icon": "arrow_upward.svg", "id": "icon-foreground", "rotate": "90"};
+    backward-icon: {{ foreground|color(state="icon")|url(id="arrow_upward", rotate=270) }};
+    forward-icon: {{ foreground|color(state="icon")|url(id="arrow_upward", rotate=90) }};
+    leftarrow-icon: {{ foreground|color(state="icon")|url(id="arrow_upward", rotate=270) }};
+    rightarrow-icon: {{ foreground|color(state="icon")|url(id="arrow_upward", rotate=90) }};
 
-    dialog-ok-icon: $url{"icon": "check.svg", "id": "icon-foreground"};
-    dialog-cancel-icon: $url{"icon": "close.svg", "id": "icon-foreground"};
-    dialog-yes-icon: $url{"icon": "check_circle.svg", "id": "icon-foreground"};
-    dialog-no-icon: $url{"icon": "cancel.svg", "id": "icon-foreground"};
-    dialog-apply-icon: $url{"icon": "check.svg", "id": "icon-foreground"};
-    dialog-reset-icon: $url{"icon": "restart_alt.svg", "id": "icon-foreground"};
-    dialog-save-icon: $url{"icon": "save.svg", "id": "icon-foreground"};
-    dialog-discard-icon: $url{"icon": "delete.svg", "id": "icon-foreground"};
-    dialog-close-icon: $url{"icon": "close.svg", "id": "icon-foreground"};
-    dialog-open-icon: $url{"icon": "folder_open.svg", "id": "icon-foreground"};
-    dialog-help-icon: $url{"icon": "help.svg", "id": "icon-foreground"};
+    dialog-ok-icon: {{ foreground|color(state="icon")|url(id="check") }};
+    dialog-cancel-icon: {{ foreground|color(state="icon")|url(id="close") }};
+    dialog-yes-icon: {{ foreground|color(state="icon")|url(id="check_circle") }};
+    dialog-no-icon: {{ foreground|color(state="icon")|url(id="cancel") }};
+    dialog-apply-icon: {{ foreground|color(state="icon")|url(id="check") }};
+    dialog-reset-icon: {{ foreground|color(state="icon")|url(id="restart_alt") }};
+    dialog-save-icon: {{ foreground|color(state="icon")|url(id="save") }};
+    dialog-discard-icon: {{ foreground|color(state="icon")|url(id="delete") }};
+    dialog-close-icon: {{ foreground|color(state="icon")|url(id="close") }};
+    dialog-open-icon: {{ foreground|color(state="icon")|url(id="folder_open") }};
+    dialog-help-icon: {{ foreground|color(state="icon")|url(id="help") }};
 
-    filedialog-parent-directory-icon: $url{"icon": "arrow_upward.svg", "id": "icon-foreground"};
-    filedialog-new-directory-icon: $url{"icon": "create_new_folder.svg", "id": "icon-foreground"};
-    titlebar-close-icon: $url{"icon": "close.svg", "id": "icon-foreground"};
-    titlebar-normal-icon: $url{"icon": "flip_to_front.svg", "id": "icon-foreground"};
+    filedialog-parent-directory-icon: {{ foreground|color(state="icon")|url(id="arrow_upward") }};
+    filedialog-new-directory-icon: {{ foreground|color(state="icon")|url(id="create_new_folder") }};
+    titlebar-close-icon: {{ foreground|color(state="icon")|url(id="close") }};
+    titlebar-normal-icon: {{ foreground|color(state="icon")|url(id="flip_to_front") }};
 }
 
 QCommandLinkButton {
-    qproperty-icon: $url{"icon": "east.svg", "id": "highlight"};
+    qproperty-icon: {{ primary|color|url(id="east") }};
+}
+
+/* Top level widget -------------------------------------------------------
+
+--------------------------------------------------------------------------- */
+QCheckBox:!window,
+QRadioButton:!window,
+QPushButton:!window,
+QLabel:!window,
+QLCDNumber:!window {
+    background: transparent;
+}
+
+QMdiSubWindow > QCheckBox:!window,
+QMdiSubWindow > QRadioButton:!window,
+QMdiSubWindow > QPushButton:!window,
+QMdiSubWindow > QLabel:!window,
+QMdiSubWindow > QLCDNumber:!window {
+    background: {{ background|color }};
 }
 
 /* QMainWindow ------------------------------------------------------------
@@ -68,11 +87,11 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qmainwindo
 QMainWindow::separator {
     width: 4px;
     height: 4px;
-    background: $border;
+    background: {{ border|color }};
 }
 QMainWindow::separator:hover,
 QMainWindow::separator:pressed {
-    background: $highlight;
+    background: {{ primary|color }};
 }
 
 /* QToolTip ---------------------------------------------------------------
@@ -81,9 +100,8 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtooltip
 
 --------------------------------------------------------------------------- */
 QToolTip {
-    background: $popup;
-    color: $text;
-    border: 1px solid $border;
+    background: {{ background|color(state="popup") }};
+    color: {{ foreground|color }};
 }
 
 /* QSizeGrip --------------------------------------------------------------
@@ -104,7 +122,7 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qstatusbar
 
 --------------------------------------------------------------------------- */
 QStatusBar {
-    background: $statusbar;
+    background: {{ statusBar.background|color }};
 }
 QStatusBar::item {
     /* Remove white border line on Windows */
@@ -114,20 +132,17 @@ QStatusBar::item {
 QStatusBar QWidget {
     background: transparent;
     padding: 3px;
-    border-radius: $radius{4px};
+    border-radius: {{ corner-shape|corner(size=4) }}px;
 }
 QStatusBar > .QSizeGrip {
     padding: 0;
 }
 QStatusBar QWidget:hover {
-    background: $statusbar-button-hover;
+    background: {{ statusBarItem.hoverBackground|color }};
 }
 QStatusBar QWidget:pressed,
 QStatusBar QWidget:checked {
-    background: $statusbar-button-pressed;
-}
-QStatusBar QWidget:disabled {
-    background: $statusbar-button-disabled;
+    background: {{ statusBarItem.activeBackground|color }};
 }
 
 /* QCheckBox QRadioButton QGroupBox ---------------------------------------
@@ -142,21 +157,17 @@ QRadioButton {
     border-top: 2px solid transparent;
     border-bottom: 2px solid transparent;
 }
-QCheckBox:!window,
-QRadioButton:!window {
-    background: transparent;
-}
 QCheckBox:hover,
 QRadioButton:hover {
-    border-bottom: 2px solid $highlight;
+    border-bottom: 2px solid {{ primary|color }};
 }
 
 QGroupBox {
     font-weight: bold;
-    border: 1px solid $border;
     margin-top: 8px;
     padding: 2px 1px 1px 1px;
-    border-radius: $radius{4px};
+    border-radius: {{ corner-shape|corner(size=4) }}px;
+    border: 1px solid {{ border|color }};
 }
 QGroupBox::title {
     subcontrol-origin: margin;
@@ -174,9 +185,9 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qmenubar
 
 --------------------------------------------------------------------------- */
 QMenuBar {
-    background: $base;
     padding: 2px;
-    border-bottom: 1px solid $border;
+    border-bottom: 1px solid {{ border|color }};
+    background: {{ background|color }};
 }
 QMenuBar::item {
     background: transparent;
@@ -184,8 +195,8 @@ QMenuBar::item {
 }
 QMenuBar::item:selected {
     padding: 4px;
-    background: $menubar-item-selected;
-    border-radius: $radius{4px};
+    border-radius: {{ corner-shape|corner(size=4) }}px;
+    background: {{ menubar.selectionBackground|color }};
 }
 QMenuBar::item:pressed {
     padding: 4px;
@@ -199,22 +210,22 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtoolbar
 
 --------------------------------------------------------------------------- */
 QToolBar {
-    background: $toolbar;
     padding: 1px;
     font-weight: bold;
     spacing: 2px;
     margin: 1px;
+    background: {{ toolbar.background|color }};
 }
 QToolBar::handle:horizontal {
     width: 20px;
-    image: $url{"icon": "drag_indicator_horizontal.svg", "id": "icon-foreground"};
+    image: {{ foreground|color(state="icon")|url(id="drag_indicator_horizontal") }};
 }
 QToolBar::handle:vertical {
     height: 20px;
-    image: $url{"icon": "drag_indicator_horizontal.svg", "id": "icon-foreground", "rotate": "90"};
+    image: {{ foreground|color(state="icon")|url(id="drag_indicator_horizontal", rotate=90) }};
 }
 QToolBar::separator {
-    background: $border;
+    background: {{ border|color }};
 }
 QToolBar::separator:horizontal {
     width: 2px;
@@ -228,23 +239,22 @@ QToolBar::separator:vertical {
 QToolBar > QToolButton {
     background: transparent;
     padding: 3px;
-    border-radius: $radius{4px};
+    border-radius: {{ corner-shape|corner(size=4) }}px;
 }
-QToolBar > QToolButton:hover,
-QToolBar > QToolButton::menu-button:hover {
-    background: $toolbar-button-hover;
+QToolBar > QToolButton:hover {
+    background: {{ toolbar.hoverBackground|color }};
 }
 QToolBar > QToolButton:pressed,
-QToolBar > QToolButton::menu-button:pressed,
-QToolBar > QToolButton:checked {
-    background: $toolbar-button-pressed;
+QToolBar > QToolButton::menu-button:pressed:!disabled,
+QToolBar > QToolButton:checked:!disabled {
+    background: {{ toolbar.activeBackground|color }};
 }
 QToolBar > QToolButton#qt_toolbar_ext_button {
-    image: $url{"icon": "double_arrow.svg", "id": "icon-foreground"};
-    $env_patch{"os": "Windows", "value": "padding: 0; qproperty-icon: unset"};
+    image: {{ foreground|color(state="icon")|url(id="double_arrow") }};
+    {{ |env(value="padding: 0; qproperty-icon: unset", os="Windows")}}
 }
 QToolBar > QToolButton#qt_toolbar_ext_button:disabled {
-    image: $url{"icon": "double_arrow.svg", "id": "icon-foreground-disabled"};
+    image: {{ foreground|color(state="disabled")|url(id="double_arrow") }};
 }
 
 QToolBar > QWidget {
@@ -257,20 +267,20 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qmenu
 
 --------------------------------------------------------------------------- */
 QMenu {
-    background: $popup;
+    background: {{ background|color(state="popup") }};
     padding: 8px 0;
-    border: 1px solid $border;
+    border: 1px solid {{ border|color }};
 }
 QMenu::separator {
     margin: 4px 0;
     height: 1px;
-    background: $border;
+    background: {{ border|color }};
 }
 QMenu::item {
     padding: 4px 28px;
 }
 QMenu::item:selected {
-    background: $border;
+    background: {{ popupItem.selectionBackground|color }};
 }
 QMenu::icon {
     padding-left: 10px;
@@ -282,10 +292,10 @@ QMenu::right-arrow {
     padding-left: 12px;
     height: 20px;
     width: 20px;
-    image: $url{"icon": "chevron_right.svg", "id": "icon-foreground"};
+    image: {{ foreground|color(state="icon")|url(id="chevron_right") }};
 }
 QMenu::right-arrow:disabled {
-    image: $url{"icon": "chevron_right.svg", "id": "icon-foreground-disabled"};
+    image: {{ foreground|color(state="disabled")|url(id="chevron_right") }};
 }
 
 /* QScrollBar -------------------------------------------------------------
@@ -294,48 +304,48 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qscrollbar
 
 --------------------------------------------------------------------------- */
 QScrollBar {
-    background: $scrollbar-background;
-    $env_patch{"os": "Darwin", "value": "background: transparent"};
-    border-radius: $radius{4px};
+    background: {{ scrollbar.background|color }};
+    border-radius: {{ corner-shape|corner(size=4) }}px;
+    {{ |env(value="background: transparent", os="Darwin")}}
 }
 QScrollBar:horizontal {
     height: 14px;
-    $env_patch{"os": "Darwin", "value": "height: 7px;"};
+    {{ |env(value="height: 7px;", os="Darwin") }}
 }
 QScrollBar:vertical {
     width: 14px;
-    $env_patch{"os": "Darwin", "value": "width: 7px;"};
+    {{ |env(value="width: 7px;", os="Darwin") }}
 }
 QScrollBar::handle {
-    background: $scrollbar-handle;
-    border-radius: $radius{3px};
+    background: {{ scrollbarSlider.background|color }};
+    border-radius: {{ corner-shape|corner(size=3) }}px;
 }
 QScrollBar::handle:hover {
-    background: $scrollbar-handle-hover;
+    background: {{ scrollbarSlider.hoverBackground|color }};
 }
 QScrollBar::handle:pressed {
-    background: $scrollbar-handle-pressed;
+    background: {{ scrollbarSlider.activeBackground|color }};
 }
 QScrollBar::handle:disabled {
-    background-color: $scrollbar-disabled;
+    background: {{ scrollbarSlider.disabledBackground|color }};
 }
 QScrollBar::handle:horizontal {
     min-width: 8px;
     margin: 4px 14px;
-    $env_patch{"os": "Darwin", "value": "margin: 0;"};
+    {{ |env(value="margin: 0;", os="Darwin") }}
 }
 QScrollBar::handle:horizontal:hover {
     margin: 2px 14px;
-    $env_patch{"os": "Darwin", "value": "margin: 0;"};
+    {{ |env(value="margin: 0;", os="Darwin") }}
 }
 QScrollBar::handle:vertical {
     min-height: 8px;
     margin: 14px 4px;
-    $env_patch{"os": "Darwin", "value": "margin: 0;"};
+    {{ |env(value="margin: 0;", os="Darwin") }}
 }
 QScrollBar::handle:vertical:hover {
     margin: 14px 2px;
-    $env_patch{"os": "Darwin", "value": "margin: 0;"};
+    {{ |env(value="margin: 0;", os="Darwin") }}
 }
 /* We hide background of QScrollBar */
 QScrollBar::sub-page, QScrollBar::add-page {
@@ -348,7 +358,7 @@ QScrollBar::add-line {
     height: 14px;
     margin: 2px;
     subcontrol-origin: margin;
-    $env_patch{"os": "Darwin", "value": "width: 0; height: 0; margin: 0"};
+    {{ |env(value="width: 0; height: 0; margin: 0", os="Darwin") }}
 }
 QScrollBar::sub-line:vertical {
     subcontrol-position: top;
@@ -363,40 +373,40 @@ QScrollBar::add-line:horizontal {
     subcontrol-position: right;
 }
 QScrollBar::up-arrow {
-    image: $url{"icon": "arrow_drop_up.svg", "id": "scrollbar-handle", "rotate": "0"};
+    image: {{ scrollbarSlider.background|color|url(id="arrow_drop_up") }};
 }
 QScrollBar::right-arrow {
-    image: $url{"icon": "arrow_drop_up.svg", "id": "scrollbar-handle", "rotate": "90"};
+    image: {{ scrollbarSlider.background|color|url(id="arrow_drop_up", rotate=90) }};
 }
 QScrollBar::down-arrow {
-    image: $url{"icon": "arrow_drop_up.svg", "id": "scrollbar-handle", "rotate": "180"};
+    image: {{ scrollbarSlider.background|color|url(id="arrow_drop_up", rotate=180) }};
 }
 QScrollBar::left-arrow {
-    image: $url{"icon": "arrow_drop_up.svg", "id": "scrollbar-handle", "rotate": "270"};
+    image: {{ scrollbarSlider.background|color|url(id="arrow_drop_up", rotate=270) }};
 }
 QScrollBar::up-arrow:hover {
-    image: $url{"icon": "arrow_drop_up.svg", "id": "scrollbar-handle-pressed", "rotate": "0"};
+    image: {{ scrollbarSlider.activeBackground|color|url(id="arrow_drop_up") }};
 }
 QScrollBar::right-arrow:hover {
-    image: $url{"icon": "arrow_drop_up.svg", "id": "scrollbar-handle-pressed", "rotate": "90"};
+    image: {{ scrollbarSlider.activeBackground|color|url(id="arrow_drop_up", rotate=90) }};
 }
 QScrollBar::down-arrow:hover {
-    image: $url{"icon": "arrow_drop_up.svg", "id": "scrollbar-handle-pressed", "rotate": "180"};
+    image: {{ scrollbarSlider.activeBackground|color|url(id="arrow_drop_up", rotate=180) }};
 }
 QScrollBar::left-arrow:hover {
-    image: $url{"icon": "arrow_drop_up.svg", "id": "scrollbar-handle-pressed", "rotate": "270"};
+    image: {{ scrollbarSlider.activeBackground|color|url(id="arrow_drop_up", rotate=270) }};
 }
 QScrollBar::up-arrow:disabled {
-    image: $url{"icon": "arrow_drop_up.svg", "id": "scrollbar-disabled", "rotate": "0"};
+    image: {{ scrollbarSlider.disabledBackground|color|url(id="arrow_drop_up") }};
 }
 QScrollBar::right-arrow:disabled {
-    image: $url{"icon": "arrow_drop_up.svg", "id": "scrollbar-disabled", "rotate": "90"};
+    image: {{ scrollbarSlider.disabledBackground|color|url(id="arrow_drop_up", rotate=90) }};
 }
 QScrollBar::down-arrow:disabled {
-    image: $url{"icon": "arrow_drop_up.svg", "id": "scrollbar-disabled", "rotate": "180"};
+    image: {{ scrollbarSlider.disabledBackground|color|url(id="arrow_drop_up", rotate=180) }};
 }
 QScrollBar::left-arrow:disabled {
-    image: $url{"icon": "arrow_drop_up.svg", "id": "scrollbar-disabled", "rotate": "270"};
+    image: {{ scrollbarSlider.disabledBackground|color|url(id="arrow_drop_up", rotate=270) }};
 }
 
 /* QProgressBar -----------------------------------------------------------
@@ -405,17 +415,16 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qprogressb
 
 --------------------------------------------------------------------------- */
 QProgressBar {
-    border: 1px solid $border;
     text-align: center;
-    color: $text;
-    border-radius: $radius{4px};
+    border: 1px solid {{ border|color }};
+    border-radius: {{ corner-shape|corner(size=4) }}px;
 }
 QProgressBar::chunk {
-    background: $highlight;
-    border-radius: $radius{3px};
+    background: {{ primary|color(state="progressBar.background") }};
+    border-radius: {{ corner-shape|corner(size=3) }}px;
 }
 QProgressBar::chunk:disabled {
-    background: $highlight-disabled;
+    background: {{ foreground|color(state="progressBar.disabledBackground") }};
 }
 
 /* QPushButton ------------------------------------------------------------
@@ -424,13 +433,10 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qpushbutto
 
 --------------------------------------------------------------------------- */
 QPushButton {
-    color: $highlight;
-    border: 1px solid $border;
+    color: {{ primary|color }};
+    border: 1px solid {{ border|color }};
     padding: 4px 8px;
-    border-radius: $radius{4px};
-}
-QPushButton:!window {
-    background: transparent;
+    border-radius: {{ corner-shape|corner(size=4) }}px;
 }
 QPushButton:flat,
 QPushButton:default {
@@ -438,31 +444,26 @@ QPushButton:default {
     padding: 5px 9px;
 }
 QPushButton:default {
-    color: $highlight-text;
-    background: $highlight;
+    color: {{ background|color }};
+    background: {{ primary|color }};
 }
-QPushButton:hover,
-QPushButton:flat:hover {
-    background: $button-hover;
+QPushButton:hover {
+    background: {{ primary|color(state="button.hoverBackground") }};
 }
-QPushButton:pressed,
-QPushButton:flat:pressed,
-QPushButton:checked:pressed,
-QPushButton:flat:checked:pressed {
-    background: $button-pressed;
+QPushButton:pressed {
+    background: {{ primary|color(state="button.activeBackground") }};
 }
-QPushButton:checked,
-QPushButton:flat:checked {
-    background: $button-checked;
+QPushButton:checked:!disabled {
+    background: {{ primary|color(state="button.activeBackground") }};
 }
 QPushButton:default:hover {
-    background: $highlight-hover;
+    background: {{ primary|color(state="defaultButton.hoverBackground") }};
 }
 QPushButton:default:pressed {
-    background: $highlight-pressed;
+    background: {{ primary|color(state="defaultButton.activeBackground") }};
 }
 QPushButton:default:disabled {
-    background: $highlight-disabled;
+    background: {{ foreground|color(state="defaultButton.disabledBackground") }};
 }
 
 /* QDialogButtonBox -------------------------------------------------------
@@ -481,33 +482,29 @@ QToolButton {
     background: transparent;
     padding: 5px;
     spacing: 2px;
-    border-radius: $radius{2px};
+    border-radius: {{ corner-shape|corner(size=2) }}px;
 }
-QToolButton:hover,
-QToolButton::menu-button:hover {
-    background: $button-hover;
+QToolButton:hover {
+    background: {{ primary|color(state="button.hoverBackground") }};
 }
 QToolButton:pressed,
 QToolButton:checked:pressed,
-QToolButton::menu-button:pressed {
-    background: $button-pressed;
+QToolButton::menu-button:pressed:!disabled {
+    background: {{ primary|color(state="button.activeBackground") }};
 }
-QToolButton:selected,
-QToolButton:checked {
-    background: $button-checked;
-}
-QToolButton::checked:disabled {
-    background: $button-disabled;
+QToolButton:selected:!disabled,
+QToolButton:checked:!disabled {
+    background: {{ primary|color(state="button.activeBackground") }};
 }
 QToolButton::menu-indicator {
     height: 18px;
     width: 18px;
     top: 6px;
     left: 3px;
-    image: $url{"icon": "expand_less.svg", "id": "icon-foreground", "rotate": "180"};
+    image: {{ foreground|color(state="icon")|url(id="expand_less", rotate=180) }};
 }
 QToolButton::menu-indicator:disabled {
-    image: $url{"icon": "expand_less.svg", "id": "icon-foreground-disabled", "rotate": "180"};
+    image: {{ foreground|color(state="disabled")|url(id="expand_less", rotate=180) }};
 }
 QToolButton::menu-arrow {
     /* Remove default arrow icon on Qt5 */
@@ -517,24 +514,24 @@ QToolButton::menu-button {
     subcontrol-origin: margin;
     border: none;
     width: 17px;
-    border-top-right-radius: $radius{4px};
-    border-bottom-right-radius: $radius{4px};
-    image: $url{"icon": "expand_less.svg", "id": "icon-foreground", "rotate": "180"};
+    border-top-right-radius: {{ corner-shape|corner(size=4) }}px;
+    border-bottom-right-radius: {{ corner-shape|corner(size=4) }}px;
+    image: {{ foreground|color(state="icon")|url(id="expand_less", rotate=180) }};
 }
 QToolButton::menu-button:disabled {
-    image: $url{"icon": "expand_less.svg", "id": "icon-foreground-disabled", "rotate": "180"};
+    image: {{ foreground|color(state="disabled")|url(id="expand_less", rotate=180) }};
 }
 
 /* MenuButtonPopup */
 QToolButton[
-$env_patch{"version": "<6.0.0", "qt": "PySide2", "value": "popupMode=MenuButtonPopup"}
-$env_patch{"version": "<6.0.0", "qt": "PyQt5", "value": "popupMode=\\\"1\\\""}
-$env_patch{"version": ">=6.0.0", "value": "popupMode=MenuButtonPopup"}
+{{ |env(value="popupMode=MenuButtonPopup", version="<6.0.0", qt="PySide2") }}
+{{ |env(value="popupMode=\\\"1\\\"", version="<6.0.0", qt="PyQt5") }}
+{{ |env(value="popupMode=MenuButtonPopup", version=">=6.0.0") }}
 ] {
     padding-right: 1px;
     margin-right: 18px;
-    border-top-right-radius: $radius{0};
-    border-bottom-right-radius: $radius{0};
+    border-top-right-radius: {{ corner-shape|corner(size=0) }};
+    border-bottom-right-radius: {{ corner-shape|corner(size=0) }};
 }
 
 /* QComboBox --------------------------------------------------------------
@@ -543,48 +540,46 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qcombobox
 
 --------------------------------------------------------------------------- */
 QComboBox {
-    border: 1px solid $border;
     min-height: 1.5em;
     padding: 0 4px;
-    background: $input-line;
-    border-radius: $radius{4px};
+    background: {{ input.background|color }};
+    border: 1px solid {{ border|color(state="input") }};
+    border-radius: {{ corner-shape|corner(size=4) }}px;
 }
 QComboBox:focus,
 QComboBox:open {
-    border: 1px solid $highlight;
+    border-color: {{ primary|color }};
 }
 QComboBox::drop-down {
     border: none;
     padding-right: 4px;
 }
 QComboBox::down-arrow {
-    image: $url{"icon": "expand_less.svg", "id": "icon-foreground", "rotate": "180"};
+    image: {{ foreground|color(state="icon")|url(id="expand_less", rotate=180) }};
 }
 QComboBox::down-arrow:disabled {
-    image: $url{"icon": "expand_less.svg", "id": "icon-foreground-disabled", "rotate": "180"};
+    image: {{ foreground|color(state="disabled")|url(id="expand_less", rotate=180) }};
 }
 /* Setting color background color of selected item when editable is false. */
 QComboBox::item:selected {
     border: none;  /* This setting remove the border of indicator. */
-    background: $scrollarea-highlight;
-    color: $text;
+    background: {{ primary|color(state="itemView.selectionBackground") }};
 }
 
 QComboBox QAbstractItemView {
-    background: $popup;
+    background: {{ background|color(state="popup") }};
     margin: 0;
-    border: 1px solid $border;
-    selection-background-color: $scrollarea-highlight;
-    selection-color: $text;
+    border: 1px solid {{ border|color }};
     padding: 2px;
 }
 /* QAbstractItemView of QComboBox is NoFrame. Override default settings and show border. */
 QComboBox QAbstractItemView[
-$env_patch{"version": "<6.0.0", "value": "frameShape=\\\"0\\\""}
-$env_patch{"version": ">=6.0.0", "value": "frameShape=NoFrame"}
+{{ |env(value="frameShape=\\\"0\\\"", version="<6.0.0")}}
+{{ |env(value="frameShape=NoFrame", version=">=6.0.0") }}
 ] {
-    border-color: $border;
+    border-color: {{ border|color }};
 }
+
 
 /* QSlider ----------------------------------------------------------------
 
@@ -595,7 +590,7 @@ QSlider {
     padding: 2px 0;
 }
 QSlider::groove {
-    border-radius: $radius{2px};
+    border-radius: {{ corner-shape|corner(size=2) }}px;
 }
 QSlider::groove:horizontal {
     height: 4px;
@@ -604,21 +599,18 @@ QSlider::groove:vertical {
     width: 4px;
 }
 QSlider::sub-page, QSlider::handle {
-    background: $highlight;
+    background: {{ primary|color }};
 }
 QSlider::sub-page:disabled,
-QSlider::add-page:disabled,
 QSlider::handle:disabled {
-    background: $highlight-disabled;
+    background: {{ foreground|color(state="slider.disabledBackground") }};
 }
 QSlider::add-page {
-    background: $highlight-border;
+    background: {{ foreground|color(state="sliderTrack.inactiveBackground") }};
 }
-QSlider::handle:hover {
-    background: $highlight-hover;
-}
+QSlider::handle:hover,
 QSlider::handle:pressed {
-    background: $highlight-pressed;
+    background: {{ primary|color(state="sliderHandle.activeBackground") }};
 }
 QSlider::handle:horizontal {
     width: 16px;
@@ -639,116 +631,105 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtabwidget
 
 --------------------------------------------------------------------------- */
 QTabWidget::pane {
-    border: 1px solid $border;
-    border-radius: $radius{4px};
+    border: 1px solid {{ border|color }};
+    border-radius: {{ corner-shape|corner(size=4) }}px;
 }
 QTabBar {
     /* Not filling background color when drawBase property is true. So need to set drawBase to false. */
     qproperty-drawBase: 0;
 }
 QTabBar::close-button:selected {
-    image: $url{"icon": "close.svg", "id": "icon-foreground"};
+    image: {{ foreground|color(state="icon")|url(id="close") }};
 }
 QTabBar::close-button:!selected {
-    image: $url{"icon": "close.svg", "id": "tabbar-button-unselected"}
+    image: {{ foreground|color(state="icon.unfocused")|url(id="close") }};
 }
 QTabBar::close-button:disabled {
-    image: $url{"icon": "close.svg", "id": "icon-foreground-disabled"};
+    image: {{ foreground|color(state="disabled")|url(id="close") }};
 }
 QTabBar::close-button:hover {
-    background: $tabbar-button-hover;
-    border-radius: $radius{4px};
-}
-QTabBar::close-button:hover:!selected {
-    background: $tabbar-button-hover-unselected;
+    background: {{ tabCloseButton.hoverBackground|color }};
+    border-radius: {{ corner-shape|corner(size=4) }}px;
 }
 QTabBar::tab {
     padding: 3px;
+    border-style: solid;
 }
-QTabBar::tab:hover {
-    background: $button-hover;
+QTabBar::tab:hover,
+QTabBar::tab:selected:hover:!disabled {
+    background: {{ tab.hoverBackground|color }};
 }
-QTabBar::tab:selected {
-    color: $highlight;
-    background: $button-pressed;
+QTabBar::tab:selected:!disabled {
+    color: {{ primary|color }};
+    background: {{ tab.activeBackground|color }};
+    border-color: {{ primary|color }};
 }
-QTabBar::tab:selected:disabled {
-    background: $highlight-disabled;
-    color: $text-disabled;
+QTabBar::tab:selected:disabled,
+QTabBar::tab:only-one:selected:!disabled {
+    border-color: {{ border|color }};
 }
 QTabBar::tab:top {
-    border-bottom: 2px solid $border;
-    margin-left: 4px;
-    border-top-left-radius: $radius{2px};
-    border-top-right-radius: $radius{2px};
-}
-QTabBar::tab:top:selected {
-    border-bottom: 2px solid $highlight;
-}
-QTabBar::tab:top:hover {
-    border-color: $highlight;
-}
-QTabBar::tab:top:selected:disabled {
-    border-color: $highlight-disabled;
+    border-bottom-width: 2px;
+    margin: 3px 6px 0 0;
+    border-top-left-radius: {{ corner-shape|corner(size=2) }}px;
+    border-top-right-radius: {{ corner-shape|corner(size=2) }}px;
 }
 QTabBar::tab:bottom {
-    border-top: 2px solid $border;
-    margin-left: 4px;
-    border-bottom-left-radius: $radius{2px};
-    border-bottom-right-radius: $radius{2px};
-}
-QTabBar::tab:bottom:selected {
-    border-top: 2px solid $highlight;
-}
-QTabBar::tab:bottom:hover {
-    border-color: $highlight;
-}
-QTabBar::tab:bottom:selected:disabled {
-    border-color: $highlight-disabled;
+    border-top-width: 2px;
+    margin: 0 6px 3px 0;
+    border-bottom-left-radius: {{ corner-shape|corner(size=2) }}px;
+    border-bottom-right-radius: {{ corner-shape|corner(size=2) }}px;
 }
 QTabBar::tab:left {
-    border-right: 2px solid $border;
-    margin-top: 4px;
-    border-top-left-radius: $radius{2px};
-    border-bottom-left-radius: $radius{2px};
-}
-QTabBar::tab:left:selected {
-    border-right: 2px solid $highlight;
-}
-QTabBar::tab:left:hover {
-    border-color: $highlight;
-}
-QTabBar::tab:left:selected:disabled {
-    border-color: $highlight-disabled;
+    border-right-width: 2px;
+    margin: 0 0 6px 3px;
+    border-top-left-radius: {{ corner-shape|corner(size=2) }}px;
+    border-bottom-left-radius: {{ corner-shape|corner(size=2) }}px;
 }
 QTabBar::tab:right {
-    border-left: 2px solid $border;
-    margin-top: 4px;
-    border-top-right-radius: $radius{2px};
-    border-bottom-right-radius: $radius{2px};
+    border-left-width: 2px;
+    margin-bottom: 6px;
+    margin: 0 3px 6px 0;
+    border-top-right-radius: {{ corner-shape|corner(size=2) }}px;
+    border-bottom-right-radius: {{ corner-shape|corner(size=2) }}px;
 }
-QTabBar::tab:right:selected {
-    border-left: 2px solid $highlight;
+QTabBar::tab:top:first,
+QTabBar::tab:top:only-one,
+QTabBar::tab:bottom:first,
+QTabBar::tab:bottom:only-one {
+    margin-left: 2px;
 }
-QTabBar::tab:right:hover {
-    border-color: $highlight;
+QTabBar::tab:top:last,
+QTabBar::tab:top:only-one,
+QTabBar::tab:bottom:last,
+QTabBar::tab:bottom:only-one {
+    margin-right: 2px;
 }
-QTabBar::tab:right:selected:disabled {
-    border-color: $highlight-disabled;
+QTabBar::tab:left:first,
+QTabBar::tab:left:only-one,
+QTabBar::tab:right:first,
+QTabBar::tab:right:only-one {
+    margin-top: 2px;
+}
+QTabBar::tab:left:last,
+QTabBar::tab:left:only-one,
+QTabBar::tab:right:last,
+QTabBar::tab:right:only-one {
+    margin-bottom: 2px;
 }
 
 /* QDockWidget -------------------------------------------------------------
 
 --------------------------------------------------------------------------- */
 QDockWidget {
-    border: 1px solid $border;
-    border-radius: $radius{4px};
+    border: 1px solid {{ border|color }};
+    border-radius: {{ corner-shape|corner(size=4) }}px;
 }
 QDockWidget::title {
   /* Better size for title bar */
     padding: 3px;
     spacing: 4px;
-    background: $title;
+    background: {{ background|color(state="title") }};
 }
 /*
 Hover is already set in the QToolButton:hover, but it is not worked in
@@ -756,15 +737,15 @@ QDockWidget::title. Therefore, we need to set it again here.
 */
 QDockWidget::close-button,
 QDockWidget::float-button {
-    border-radius: $radius{2px};
+    border-radius: {{ corner-shape|corner(size=2) }}px;
 }
 QDockWidget::close-button:hover,
 QDockWidget::float-button:hover {
-    background: $button-hover;
+    background: {{ primary|color(state="button.hoverBackground") }};
 }
 QDockWidget::close-button:pressed,
 QDockWidget::float-button:pressed {
-    background: $button-pressed;
+    background: {{ primary|color(state="button.activeBackground") }};
 }
 
 /* QFrame -----------------------------------------------------------------
@@ -773,69 +754,64 @@ https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qframe
 
 --------------------------------------------------------------------------- */
 QFrame {
-    border: 1px solid $border;
+    border: 1px solid {{ border|color }};
     padding: 1px;
-    border-radius: $radius{4px};
+    border-radius: {{ corner-shape|corner(size=4) }}px;
 }
 .QFrame {
     padding: 0;
 }
 /* NoFrame */
 QFrame[
-$env_patch{"version": "<6.0.0", "qt": "PySide2", "value": "frameShape=NoFrame"}
-$env_patch{"version": "<6.0.0", "qt": "PyQt5", "value": "frameShape=\\\"0\\\""}
-$env_patch{"version": ">=6.0.0", "value": "frameShape=NoFrame"}
+{{ |env(value="frameShape=NoFrame", version="<6.0.0", qt="PySide2") }}
+{{ |env(value="frameShape=\\\"0\\\"", version="<6.0.0", qt="PyQt5") }}
+{{ |env(value="frameShape=NoFrame", version=">=6.0.0") }}
 ] {
     border-color: transparent;
     padding: 0;
 }
 .QFrame[
-$env_patch{"version": "<6.0.0", "qt": "PySide2", "value": "frameShape=NoFrame"}
-$env_patch{"version": "<6.0.0", "qt": "PyQt5", "value": "frameShape=\\\"0\\\""}
-$env_patch{"version": ">=6.0.0", "value": "frameShape=NoFrame"}
+{{ |env(value="frameShape=NoFrame", version="<6.0.0", qt="PySide2") }}
+{{ |env(value="frameShape=\\\"0\\\"", version="<6.0.0", qt="PyQt5") }}
+{{ |env(value="frameShape=NoFrame", version=">=6.0.0") }}
 ] {
     border: none;
 }
 /* Panel */
 QFrame[
-$env_patch{"version": "<6.0.0", "qt": "PySide2", "value": "frameShape=Panel"}
-$env_patch{"version": "<6.0.0", "qt": "PyQt5", "value": "frameShape=\\\"2\\\""}
-$env_patch{"version": ">=6.0.0", "value": "frameShape=Panel"}
+{{ |env(value="frameShape=Panel", version="<6.0.0", qt="PySide2") }}
+{{ |env(value="frameShape=\\\"2\\\"", version="<6.0.0", qt="PyQt5") }}
+{{ |env(value="frameShape=Panel", version=">=6.0.0") }}
 ] {
-    border-color: $panel;
-    background: $panel;
+    border-color: {{ background|color(state="panel") }};
+    background: {{ background|color(state="panel") }};
 }
 /* HLine */
 QFrame[
-$env_patch{"version": "<6.0.0", "qt": "PySide2", "value": "frameShape=HLine"}
-$env_patch{"version": "<6.0.0", "qt": "PyQt5", "value": "frameShape=\\\"4\\\""}
-$env_patch{"version": ">=6.0.0", "value": "frameShape=HLine"}
+{{ |env(value="frameShape=HLine", version="<6.0.0", qt="PySide2") }}
+{{ |env(value="frameShape=\\\"4\\\"", version="<6.0.0", qt="PyQt5") }}
+{{ |env(value="frameShape=HLine", version=">=6.0.0") }}
 ] {
     max-height: 2px;
     border: none;
-    background: $border;
+    background: {{ border|color }};
 }
 /* VLine */
 QFrame[
-$env_patch{"version": "<6.0.0", "qt": "PySide2", "value": "frameShape=VLine"}
-$env_patch{"version": "<6.0.0", "qt": "PyQt5", "value": "frameShape=\\\"5\\\""}
-$env_patch{"version": ">=6.0.0", "value": "frameShape=VLine"}
+{{ |env(value="frameShape=VLine", version="<6.0.0", qt="PySide2") }}
+{{ |env(value="frameShape=\\\"5\\\"", version="<6.0.0", qt="PyQt5") }}
+{{ |env(value="frameShape=VLine", version=">=6.0.0") }}
 ] {
     max-width: 2px;
     border: none;
-    background: $border;
+    background: {{ border|color }};
 }
-/* QLCDNumber -------------------------------------------------------------
+/* QLCDNumber QLabel -------------------------------------------------------------
 
 --------------------------------------------------------------------------- */
 QLCDNumber {
-    color: $text;
     min-width: 2em;
     margin: 2px;
-}
-QLabel:!window,
-QLCDNumber:!window {
-    background-color: transparent;
 }
 
 /* QToolBox ---------------------------------------------------------------
@@ -844,19 +820,16 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtoolbox
 
 --------------------------------------------------------------------------- */
 QToolBox:selected {
-    border: 2px solid $highlight;
+    border: 2px solid {{ primary|color }};
 }
 QToolBox::tab {
-    background: $title;
-    border-bottom: 2px solid $border;
-    border-top-left-radius: $radius{4px};
-    border-top-right-radius: $radius{4px};
+    background: {{ background|color(state="title") }};
+    border-bottom: 2px solid {{ border|color }};
+    border-top-left-radius: {{ corner-shape|corner(size=4) }}px;
+    border-top-right-radius: {{ corner-shape|corner(size=4) }}px;
 }
-QToolBox::tab:selected {
-    border-bottom: 2px solid $highlight;
-}
-QToolBox::tab:selected:disabled {
-    border-bottom: 2px solid $highlight-disabled;
+QToolBox::tab:selected:!disabled {
+    border-bottom: 2px solid {{ primary|color }};
 }
 
 /* QSplitter --------------------------------------------------------------
@@ -865,25 +838,25 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qsplitter
 
 --------------------------------------------------------------------------- */
 QSplitter::handle {
-    background: $border;
+    background: {{ border|color }};
     margin: 1px 3px;
 }
 QSplitter::handle:hover {
-    background: $highlight;
+    background: {{ primary|color }};
 }
 QSplitter::handle:horizontal {
     width: 5px;
-    image: $url{"icon": "horizontal_rule.svg", "id": "icon-foreground", "rotate": "90"};
+    image: {{ foreground|color(state="icon")|url(id="horizontal_rule", rotate=90) }};
 }
 QSplitter::handle:horizontal:disabled {
-    image: $url{"icon": "horizontal_rule.svg", "id": "icon-foreground-disabled", "rotate": "90"};
+    image: {{ foreground|color(state="disabled")|url(id="horizontal_rule", rotate=90) }};
 }
 QSplitter::handle:vertical {
     height: 5px;
-    image: $url{"icon": "horizontal_rule.svg", "id": "icon-foreground"};
+    image: {{ foreground|color(state="icon")|url(id="horizontal_rule") }};
 }
 QSplitter::handle:vertical:disabled {
-    image: $url{"icon": "horizontal_rule.svg", "id": "icon-foreground-disabled"};
+    image: {{ foreground|color(state="disabled")|url(id="horizontal_rule") }};
 }
 
 /*
@@ -899,12 +872,7 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qabstracts
 
 --------------------------------------------------------------------------- */
 QAbstractScrollArea {
-    selection-background-color: $scrollarea-highlight;
-    selection-color: $text;
     margin: 1px;
-}
-QAbstractScrollArea:disabled {
-    selection-background-color: $scrollarea-highlight-disabled;
 }
 QAbstractScrollArea::corner {
     background: transparent;
@@ -918,31 +886,48 @@ QAbstractScrollArea > .QWidget > .QWidget {
     background: transparent;
 }
 
+/* QMdiArea QMdiSubWindow ----------------------------------------------------
+
+--------------------------------------------------------------------------- */
+QMdiArea {
+    qproperty-background: {{ background|color(state="panel") }};
+    border-radius: 0;
+}
+
+QMdiSubWindow {
+    background: {{ background|color }};
+    border: 1px solid;
+    padding: 0 3px;
+}
+QMdiSubWindow > QWidget {
+    border: 1px solid {{ border|color }};
+}
+
 /* QTextEdit QPlainTextEdit------------------------------------------------
 
 examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-specific-widgets
 
 --------------------------------------------------------------------------- */
 QTextEdit, QPlainTextEdit {
-    background: $textedit;
+    background: {{ background|color(state="textarea") }};
 }
 QTextEdit:focus,
 QTextEdit:selected,
 QPlainTextEdit:focus,
 QPlainTextEdit:selected {
-    border: 1px solid $highlight;
-    selection-background-color: $textedit-highlight;
+    border: 1px solid {{ primary|color }};
+    selection-background-color: {{ primary|color(state="textarea.selectionBackground") }};
 }
 
 /* In version +5.15, [!active] state is disabled. */
 /* In version -5.15, [!focus] state is disabled. */
 QTextEdit:!focus,
 QPlainTextEdit:!focus {
-    $env_patch{"version": ">=5.15.0", "value": "selection-background-color: $itemview-highlight-inactive"};
+    {{ textarea.inactiveSelectionBackground|color|env(value="selection-background-color: ${}", version=">=5.15.0") }}
 }
 QTextEdit:!active,
 QPlainTextEdit:!active {
-    $env_patch{"version": "<5.15.0", "value": "selection-background-color: $itemview-highlight-inactive"};
+    {{ textarea.inactiveSelectionBackground|color|env(value="selection-background-color: ${}", version="<5.15.0") }}
 }
 
 /* QAbstractItemView ------------------------------------------------------
@@ -951,28 +936,31 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qcombobox
 
 --------------------------------------------------------------------------- */
 QAbstractItemView {
-    alternate-background-color: $itemview-alternate;
+    alternate-background-color: {{ itemView.alternateBackground|color }};
+    selection-background-color: {{ primary|color(state="itemView.selectionBackground") }};
 }
-QAbstractItemView::item {
-    $env_patch{"version": ">=6.0.0", "value": "border-color: transparent"};  /* Fix indicator bug on Qt6 */
-}
-QAbstractItemView:selected:!active,
-QAbstractItemView:selected:!focus,
-QAbstractItemView::item:selected:!active,
-QTreeView::branch:selected:!active {
-    background: $itemview-highlight-inactive;
+
+QTreeView,
+QTableView,
+QTableView:disabled,
+QTreeView:disabled {
+    /*
+    Branch of QTreeView always show selection-background-color.
+    Reset selection-background-color to enable disabled color or non-active color.
+    */
+    selection-background-color: {{ background|color }};
 }
 QAbstractItemView::item:selected,
 QTreeView::branch:selected {
-    background: $scrollarea-highlight;
-    color: $text;
+    background: {{ primary|color(state="itemView.selectionBackground") }};
+}
+QAbstractItemView::item:selected:!active,
+QTreeView::branch:selected:!active {
+    background: {{ itemView.inactiveSelectionBackground|color }};
 }
 QAbstractItemView::item:!selected:hover,
 QTreeView::branch:!selected:hover {
-    background: $itemview-item-hover;
-}
-QAbstractItemView::item:selected:disabled {
-    color: $text-disabled;
+    background: {{ itemView.hoverBackground|color }};
 }
 
 QAbstractItemView QLineEdit,
@@ -990,13 +978,10 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtreeview
 
 --------------------------------------------------------------------------- */
 QTreeView::branch {
-    border-image: $url{"icon": "vertical_line.svg", "id": "guides-stroke-inactive"} 0;
+    border-image: {{ tree.inactiveIndentGuidesStroke|color|url(id="vertical_line") }} 0;
 }
 QTreeView::branch:active {
-    border-image: $url{"icon": "vertical_line.svg", "id": "icon-foreground"} 0;
-}
-QTreeView::branch:disabled {
-    border-image: $url{"icon": "vertical_line.svg", "id": "icon-foreground-disabled"} 0;
+    border-image: {{ tree.indentGuidesStroke|color(state="icon")|url(id="vertical_line") }} 0;
 }
 QTreeView::branch:has-siblings:adjoins-item,
 QTreeView::branch:!has-children:!has-siblings:adjoins-item {
@@ -1005,20 +990,20 @@ QTreeView::branch:!has-children:!has-siblings:adjoins-item {
 QTreeView::branch:has-children:!has-siblings:closed,
 QTreeView::branch:closed:has-children:has-siblings {
     border-image: unset;
-    image: $url{"icon": "chevron_right.svg", "id": "icon-foreground"};
+    image: {{ foreground|color(state="icon")|url(id="chevron_right") }};
 }
 QTreeView::branch:has-children:!has-siblings:closed:disabled,
 QTreeView::branch:closed:has-children:has-siblings:disabled {
-    image: $url{"icon": "chevron_right.svg", "id": "icon-foreground-disabled"};
+    image: {{ foreground|color(state="disabled")|url(id="chevron_right") }};
 }
 QTreeView::branch:open:has-children:!has-siblings,
 QTreeView::branch:open:has-children:has-siblings  {
     border-image: unset;
-    image: $url{"icon": "expand_less.svg", "id": "icon-foreground", "rotate": "180"};
+    image: {{ foreground|color(state="icon")|url(id="expand_less", rotate=180) }};
 }
 QTreeView::branch:open:has-children:!has-siblings:disabled,
 QTreeView::branch:open:has-children:has-siblings:disabled  {
-    image: $url{"icon": "expand_less.svg", "id": "icon-foreground-disabled", "rotate": "180"};
+    image: {{ foreground|color(state="disabled")|url(id="expand_less", rotate=180) }};
 }
 
 /* QTableView -------------------------------------------------------------
@@ -1028,21 +1013,21 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtableview
 
 --------------------------------------------------------------------------- */
 QTableView {
-    gridline-color: $tableview-grid;
-    background: $tableview;
+    gridline-color: {{ itemViewSectionHeader.background|color }};
+    background: {{ background|color(state="table") }};
 }
 
 QTableView QTableCornerButton::section {
     margin: 0 1px 1px 0;
-    background: $headerview-section;
-    border-top-left-radius: $radius{2px};
+    background: {{ itemViewSectionHeader.background|color }};
+    border-top-left-radius: {{ corner-shape|corner(size=2) }}px;
 }
 QTableView QTableCornerButton::section:pressed {
-    background: $scrollarea-highlight;
+    background: {{ primary|color(state="itemView.selectionBackground") }};
 }
 
 QTableView > QHeaderView{
-    background: $tableview;
+    background: {{ background|color(state="table") }};
 }
 
 /* QHeaderView ------------------------------------------------------------
@@ -1054,22 +1039,17 @@ QHeaderView {
     padding: 0;
     margin: 0;
     border: none;
-    border-radius: $radius{0};
+    border-radius: {{ corner-shape|corner(size=0) }};
 }
 QHeaderView::section {
-    background: $headerview-section;
     text-align: left;
     padding: 0 4px;
     border: none;
+    background: {{ itemViewSectionHeader.background|color }};
 }
-QHeaderView::section:horizontal:on,
-QHeaderView::section:vertical:on {
-    border-color: $highlight;
-}
-QHeaderView::section:horizontal:on:disabled,
-QHeaderView::section:vertical:on:disabled {
-    color: $highlight-disabled;
-    border-color: $highlight-disabled;
+QHeaderView::section:horizontal:on:!disabled,
+QHeaderView::section:vertical:on:!disabled {
+    border-color: {{ primary|color }};
 }
 QHeaderView::section:horizontal {
     border-top: 2px solid transparent;
@@ -1085,17 +1065,17 @@ QHeaderView::section:only-one {
 }
 QHeaderView::down-arrow {
     margin: -2px -6px -6px -6px;
-    image: $url{"icon": "expand_less.svg", "id": "icon-foreground", "rotate": "180"};
+    image: {{ foreground|color(state="icon")|url(id="expand_less", rotate=180) }};
 }
 QHeaderView::down-arrow:disabled {
-    image: $url{"icon": "expand_less.svg", "id": "icon-foreground-disabled", "rotate": "180"};
+    image: {{ foreground|color(state="disabled")|url(id="expand_less", rotate=180) }};
 }
 QHeaderView::up-arrow {
     margin: -2px -6px -6px -6px;
-    image: $url{"icon": "expand_less.svg", "id": "icon-foreground"};
+    image: {{ foreground|color(state="icon")|url(id="expand_less") }};
 }
 QHeaderView::up-arrow:disabled {
-    image: $url{"icon": "expand_less.svg", "id": "icon-foreground-disabled"};
+    image: {{ foreground|color(state="disabled")|url(id="expand_less") }};
 }
 
 /* QCalendarWidget --------------------------------------------------------
@@ -1105,11 +1085,11 @@ QCalendarWidget {
     border: none;
 }
 QCalendarWidget > .QWidget {
-    background: $tableview;
-    border-bottom: 1px solid $border;
-    border-radius: $radius{4px};
-    border-bottom-left-radius: $radius{0};
-    border-bottom-right-radius: $radius{0};
+    background: {{ background|color(state="table") }};
+    border-bottom: 1px solid {{ border|color }};
+    border-radius: {{ corner-shape|corner(size=4) }}px;
+    border-bottom-left-radius: {{ corner-shape|corner(size=0) }};
+    border-bottom-right-radius: {{ corner-shape|corner(size=0) }};
 }
 QCalendarWidget > .QWidget > QWidget {
     padding: 1px;
@@ -1122,7 +1102,7 @@ QCalendarWidget > .QWidget > QSpinBox::down-button {
     margin: 1px 3px 1px 1px;
 }
 QCalendarWidget .QWidget > QToolButton {
-    border-radius: $radius{4px};
+    border-radius: {{ corner-shape|corner(size=4) }}px;
 }
 QCalendarWidget > .QWidget > QToolButton::menu-indicator {
     height: 14px;
@@ -1133,9 +1113,9 @@ QCalendarWidget > .QWidget > QToolButton::menu-indicator {
 QCalendarWidget > QTableView {
     margin: 0;
     border: none;
-    border-radius: $radius{4px};
-    border-top-left-radius: $radius{0};
-    border-top-right-radius: $radius{0};
+    border-radius: {{ corner-shape|corner(size=4) }}px;
+    border-top-left-radius: {{ corner-shape|corner(size=0) }};
+    border-top-right-radius: {{ corner-shape|corner(size=0) }};
 }
 
 /*
@@ -1143,10 +1123,10 @@ The following setting is need when displaying  QCalendarWidget as part of the la
 This is not necessary when displaying QCalendar as a popup of QDateTimeEdit.
 */
 QCalendarWidget > .QWidget > QToolButton#qt_calendar_prevmonth {
-    qproperty-icon: $url{"icon": "arrow_upward.svg", "id": "icon-foreground", "rotate": "270"};
+    qproperty-icon: {{ foreground|color(state="icon")|url(id="arrow_upward", rotate=270) }};
 }
 QCalendarWidget > .QWidget > QToolButton#qt_calendar_nextmonth {
-    qproperty-icon: $url{"icon": "arrow_upward.svg", "id": "icon-foreground", "rotate": "90"};
+    qproperty-icon: {{ foreground|color(state="icon")|url(id="arrow_upward", rotate=90) }};
 }
 
 /* QAbstractSpinBox QLineEdit----------------------------------------------
@@ -1156,16 +1136,16 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qlineedit
 --------------------------------------------------------------------------- */
 QLineEdit,
 QAbstractSpinBox {
-    border: 1px solid $border;
     padding: 3px 4px;
     /* Adjust the min-height of QLineEdit to the height of the characters. */
     min-height: 1em;
-    background: $input-line;
-    border-radius: $radius{4px};
+    border: 1px solid {{ border|color(state="input") }};
+    background: {{ input.background|color }};
+    border-radius: {{ corner-shape|corner(size=4) }}px;
 }
 QLineEdit:focus,
 QAbstractSpinBox:focus {
-    border: 1px solid $highlight;
+    border-color: {{ primary|color }};
 }
 QAbstractSpinBox::up-button,
 QAbstractSpinBox::down-button {
@@ -1173,31 +1153,31 @@ QAbstractSpinBox::down-button {
     width: 12px;
     height: 4px;
     padding: 3px;
-    border-radius: $radius{4px};
+    border-radius: {{ corner-shape|corner(size=4) }}px;
 }
 QAbstractSpinBox::up-button:hover,
 QAbstractSpinBox::down-button:hover {
-    background: $input-line-button-hover;
+    background: {{ inputButton.hoverBackground|color }};
 }
 QAbstractSpinBox::up-button {
     subcontrol-position: top right;
     margin: 3px 3px 1px 1px;
 }
 QAbstractSpinBox::up-arrow {
-    image: $url{"icon": "arrow_drop_up.svg", "id": "icon-foreground"};
+    image: {{ foreground|color(state="icon")|url(id="arrow_drop_up") }};
 }
 QAbstractSpinBox::up-arrow:disabled {
-    image: $url{"icon": "arrow_drop_up.svg", "id": "icon-foreground-disabled"};
+    image: {{ foreground|color(state="disabled")|url(id="arrow_drop_up") }};
 }
 QAbstractSpinBox::down-button {
     subcontrol-position: bottom right;
     margin: 1px 3px 3px 1px;
 }
 QAbstractSpinBox::down-arrow {
-    image: $url{"icon": "arrow_drop_up.svg", "id": "icon-foreground", "rotate": "180"};
+    image: {{ foreground|color(state="icon")|url(id="arrow_drop_up", rotate=180) }};
 }
 QAbstractSpinBox::down-arrow:disabled {
-    image: $url{"icon": "arrow_drop_up.svg", "id": "icon-foreground-disabled", "rotate": "180"};
+    image: {{ foreground|color(state="disabled")|url(id="arrow_drop_up", rotate=180) }};
 }
 
 /* QDateTimeEdit ----------------------------------------------------------
@@ -1206,10 +1186,10 @@ QAbstractSpinBox::down-arrow:disabled {
 QDateTimeEdit::drop-down {
     padding-right: 4px;
     width: 16px;
-    image: $url{"icon": "calendar_today.svg", "id": "icon-foreground"};
+    image: {{ foreground|color(state="icon")|url(id="calendar_today") }};
 }
 QDateTimeEdit::drop-down:disabled {
-    image: $url{"icon": "calendar_today.svg", "id": "icon-foreground-disabled"};
+    image: {{ foreground|color(state="disabled")|url(id="calendar_today") }};
 }
 QDateTimeEdit::down-arrow[calendarPopup=true] {
     image: none;
@@ -1245,13 +1225,13 @@ QFontDialog QScrollBar:vertical {
 QComboBox::indicator:checked,
 QMenu::indicator:checked {
     width: 18px;
-    image: $url{"icon": "check.svg", "id": "icon-foreground"};
+    image: {{ foreground|color(state="icon")|url(id="check") }};
 }
 QMenu::indicator {
     width: 18px;
-    background: $menu-checkbox;
+    background: {{ popupItem.checkbox.background|color }};
     margin-left: 3px;
-    border-radius: $radius{4px};
+    border-radius: {{ corner-shape|corner(size=4) }}px;
 }
 
 /* Check indicator --------------------------------------------------------
@@ -1277,43 +1257,43 @@ QRadioButton::indicator {
 QCheckBox::indicator,
 QGroupBox::indicator,
 QAbstractItemView::indicator {
-    image: $url{"icon": "check_box_outline_blank.svg", "id": "icon-foreground"};
+    image: {{ foreground|color(state="icon")|url(id="check_box_outline_blank") }};
 }
 QCheckBox::indicator:unchecked:disabled,
 QGroupBox::indicator:unchecked:disabled,
 QAbstractItemView::indicator:unchecked:disabled {
-    image: $url{"icon": "check_box_outline_blank.svg", "id": "icon-foreground-disabled"};
+    image: {{ foreground|color(state="disabled")|url(id="check_box_outline_blank") }};
 }
 QCheckBox::indicator:checked,
 QGroupBox::indicator:checked,
 QAbstractItemView::indicator:checked {
-    image: $url{"icon": "check_box.svg", "id": "highlight"};
+    image: {{ primary|color|url(id="check_box") }};
 }
 QCheckBox::indicator:checked:disabled,
 QGroupBox::indicator:checked:disabled,
 QAbstractItemView::indicator:checked:disabled {
-    image: $url{"icon": "check_box.svg", "id": "icon-foreground-disabled"};
+    image: {{ foreground|color(state="disabled")|url(id="check_box") }};
 }
 QCheckBox::indicator:indeterminate,
 QAbstractItemView::indicator:indeterminate {
-    image: $url{"icon": "indeterminate_check_box.svg", "id": "highlight"};
+    image: {{ primary|color|url(id="indeterminate_check_box") }};
 }
 QCheckBox::indicator:indeterminate:disabled,
 QAbstractItemView::indicator:indeterminate:disabled {
-    image: $url{"icon": "indeterminate_check_box.svg", "id": "icon-foreground-disabled"};
+    image: {{ foreground|color(state="disabled")|url(id="indeterminate_check_box") }};
 }
 
 QRadioButton::indicator:unchecked {
-    image: $url{"icon": "radio_button_unchecked.svg", "id": "icon-foreground"};
+    image: {{ foreground|color(state="icon")|url(id="radio_button_unchecked") }};
 }
 QRadioButton::indicator:unchecked:disabled {
-    image: $url{"icon": "radio_button_unchecked.svg", "id": "icon-foreground-disabled"};
+    image: {{ foreground|color(state="disabled")|url(id="radio_button_unchecked") }};
 }
 QRadioButton::indicator:checked {
-    image: $url{"icon": "radio_button_checked.svg", "id": "highlight"};
+    image: {{ primary|color|url(id="radio_button_checked") }};
 }
 QRadioButton::indicator:checked:disabled {
-    image: $url{"icon": "radio_button_checked.svg", "id": "icon-foreground-disabled"};
+    image: {{ foreground|color(state="disabled")|url(id="radio_button_checked") }};
 }
 
 /* Rounded popup ----------------------------------------------------------
@@ -1324,13 +1304,13 @@ QStatusBar > QMenu,
 QDateTimeEdit QCalendarWidget QAbstractItemView,
 QDateTimeEdit QCalendarWidget .QWidget {
     margin: 0;
-    border-radius: $radius{0};
-    $env_patch{"version": "<6.0.0", "os": "Darwin", "value": "border-radius: $radius{4px}"};
+    border-radius: {{ corner-shape|corner(size=0) }};
+    {{ corner-shape|corner(size=4)|env(value="border-radius: ${}px;", version="<6.0.0", os="Darwin") }}
 }
 /* In Qt6, the style crashes by rounded popup. */
 QMenu,
 QStatusBar > QMenu {
-    $env_patch{"version": "<6.0.0", "os": "Darwin", "value": "border-radius: $radius{8px}"};
+    {{ corner-shape|corner(size=8)|env(value="border-radius: ${}px;", version="<6.0.0", os="Darwin") }}
 }
 
 /* PyQtGraph

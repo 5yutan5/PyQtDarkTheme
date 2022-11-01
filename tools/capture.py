@@ -48,7 +48,9 @@ class _Application(QApplication):
     def _capture_window_img(self) -> None:
         for theme in qdarktheme.get_themes():
             self.setStyleSheet(qdarktheme.load_stylesheet(theme))
-            save_file_name = f"{self._img_identifier}-{theme}.png" if self._img_identifier else f"{theme}.png"
+            save_file_name = (
+                f"{self._img_identifier}-{theme}.png" if self._img_identifier else f"{theme}.png"
+            )
 
             self._gallery.setGeometry(QGuiApplication.primaryScreen().geometry())
             img_path = self._img_dir_path / save_file_name
