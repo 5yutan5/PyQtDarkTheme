@@ -40,6 +40,6 @@ https://github.com/ColinDuquesnoy/QDarkStyleSheet/blob/master/LICENSE.rst
 
 """
 # Version of PyQtDarkTheme
-__version__ = "1.1.1"
+__version__ = "1.2.0"
 
 from qdarktheme.main import clear_cache, get_themes, load_palette, load_stylesheet
