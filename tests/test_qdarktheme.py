@@ -49,7 +49,7 @@ def test_load_stylesheet_with_wrong_corner_shape() -> None:
 def test_load_stylesheet_with_wrong_border() -> None:
     """Verify we raise ValueError when using wrong border name."""
     with pytest.raises(ValueError, match='invalid argument, not a rounded or sharp: "wrong_value"'):
-        qdarktheme.load_stylesheet(corner_shape="wrong_value")
+        qdarktheme.load_stylesheet(border="wrong_value")
 
 
 def test_load_stylesheet_with_deprecation_border() -> None:

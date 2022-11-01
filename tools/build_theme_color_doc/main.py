@@ -55,6 +55,7 @@ def _parse_theme_color_files() -> dict[str, list[_ThemeColor]]:
                     _DEFAULT_LIGHT_COLORS[id]["base"],
                     base_color_property["description"],
                     base_color_property.get("image_name"),
+                    list(inherited_theme_color_properties.keys()),
                 )
             )
             # Parse inherited theme color
@@ -73,7 +74,7 @@ def _parse_theme_color_files() -> dict[str, list[_ThemeColor]]:
                         ),
                         inherited_theme_color_property["description"],
                         inherited_theme_color_property.get("image_name"),
-                        list(inherited_theme_color_properties.keys()),
+                        inherits=id,
                     )
                 )
         else:
