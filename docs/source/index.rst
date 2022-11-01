@@ -7,12 +7,12 @@ PyQtDarkTheme applies a flat dark theme to QtWidgets application(PySide and PyQt
 
     .. tab-item:: Dark
 
-        .. image:: https://raw.githubusercontent.com/5yutan5/PyQtDarkTheme/main/images/widget_gallery_dark.png
+        .. image:: ../../images/widget_gallery_dark.png
             :class: dark-light
 
     .. tab-item:: Light
 
-        .. image:: https://raw.githubusercontent.com/5yutan5/PyQtDarkTheme/main/images/widget_gallery_light.png
+        .. image:: ../../images/widget_gallery_light.png
             :class: dark-light
 
 
