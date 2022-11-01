@@ -1,4 +1,6 @@
 """Test utility methods in qdarktheme/util.py."""
+import pytest
+
 from qdarktheme.util import analyze_version_str, multi_replace
 
 
@@ -36,3 +38,17 @@ def test_analyze_version_str() -> None:
     assert analyze_version_str(target_version="6.2.2", version_text="<6.3.1")
     assert not analyze_version_str(target_version="6.3.1", version_text="<6.3.1")
     assert not analyze_version_str(target_version="6.4.0", version_text="<6.3.1")
+
+
+@pytest.mark.parametrize(
+    ("target_version", "version_text"),
+    [
+        ("6.2.2", "5.12.0"),
+        ("6.2.2", "a5.12.0"),
+        ("6.2.2", "-5.12.0"),
+    ],
+)
+def test_analyze_wrong_version_str(target_version, version_text) -> None:
+    """Verify we raise ValueError when using wrong version_str."""
+    with pytest.raises(AssertionError):
+        analyze_version_str(target_version, version_text)

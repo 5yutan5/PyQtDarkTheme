@@ -79,4 +79,4 @@ def analyze_version_str(target_version: str, version_text: str) -> bool:
             continue
         version = version_text.replace(operator, "")
         return _compare_v(target_version, operator, version)
-    raise Exception("Text comparing versions is wrong.")
+    raise AssertionError("Text comparing versions is wrong.")

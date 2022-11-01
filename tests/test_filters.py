@@ -70,3 +70,17 @@ def test_env_filter(text, output, qt_version, qt_api, os_name, expected_result) 
 def test_color_filter(color_info, color_state, expected_result) -> None:
     """Verify that the function `_Filter.color()` runs successfully when inputting various arguments."""
     assert filter.color(color_info, color_state)._to_hex() == expected_result
+
+
+@pytest.mark.parametrize(
+    ("hex", "expected_result"),
+    [
+        ("#112233", '\\"#112233\\"'),
+        ("#ffffffff", '\\"#ffffff\\"'),
+        ("#ffffff00", '\\"rgb(255, 255, 255)\\" fill-opacity=\\"0.0\\"'),
+        ("#00000000", '\\"rgb(0, 0, 0)\\" fill-opacity=\\"0.0\\"'),
+    ],
+)
+def test_svg_format_filter(hex, expected_result) -> None:
+    """Verify that the function `_Filter.color()` runs successfully when inputting various arguments."""
+    assert filter.svg_format(Color.from_hex(hex)) == expected_result

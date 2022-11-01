@@ -17,6 +17,7 @@ import qdarktheme
         ("dark", "rounded", {"foreground": "#112233"}),
         ("dark", "sharp", {"foreground": "#112233"}),
         ("dark", "rounded", {"foreground>icon": "#112233"}),
+        ("dark", "rounded", {"input.background": "#112233"}),
         # Test color code
         ("dark", "rounded", {"foreground": "#112"}),
         ("dark", "rounded", {"foreground": "#11223344"}),
@@ -28,20 +29,33 @@ def test_load_stylesheet(theme, corner_shape, custom_colors) -> None:
     qdarktheme.load_stylesheet(theme, corner_shape, custom_colors)
 
 
+def test_load_stylesheet_with_border() -> None:
+    """Verify that the function `load_stylesheet()` runs successfully when using border arguments."""
+    qdarktheme.load_stylesheet(border="sharp")
+
+
 def test_load_stylesheet_with_wrong_theme() -> None:
     """Verify we raise ValueError when using wrong theme name."""
-    with pytest.raises(ValueError, match='invalid argument, not a dark or light: "wrong_value"') as e:
+    with pytest.raises(ValueError, match='invalid argument, not a dark or light: "wrong_value"'):
         qdarktheme.load_stylesheet("wrong_value")
-    assert e.type == ValueError
 
 
 def test_load_stylesheet_with_wrong_corner_shape() -> None:
     """Verify we raise ValueError when using wrong corner shape name."""
-    with pytest.raises(
-        ValueError, match='invalid argument, not a rounded or sharp: "wrong_value"'
-    ) as e:
+    with pytest.raises(ValueError, match='invalid argument, not a rounded or sharp: "wrong_value"'):
         qdarktheme.load_stylesheet(corner_shape="wrong_value")
-    assert e.type == ValueError
+
+
+def test_load_stylesheet_with_wrong_border() -> None:
+    """Verify we raise ValueError when using wrong border name."""
+    with pytest.raises(ValueError, match='invalid argument, not a rounded or sharp: "wrong_value"'):
+        qdarktheme.load_stylesheet(corner_shape="wrong_value")
+
+
+def test_load_stylesheet_with_deprecation_border() -> None:
+    """Verify we raise FutureWarning when using deprecated border argument."""
+    with pytest.warns(FutureWarning):
+        qdarktheme.load_stylesheet(border="sharp")
 
 
 def test_load_stylesheet_with_wrong_custom_colors() -> None:
@@ -53,27 +67,21 @@ def test_load_stylesheet_with_wrong_custom_colors() -> None:
             "Only support following hexadecimal notations: #RGB, #RGBA, #RRGGBB and #RRGGBBAA. "
             "R (red), G (green), B (blue), and A (alpha) are hexadecimal characters (0-9, a-f or A-F)."
         ),
-    ) as e:
+    ):
         qdarktheme.load_stylesheet(custom_colors={"input.background": "wrong color code"})
-    assert e.type == ValueError
 
-    with pytest.raises(
-        KeyError, match='invalid color id for argument custom_colors: "wrong key".'
-    ) as e:
+    with pytest.raises(KeyError, match='invalid color id for argument custom_colors: "wrong key".'):
         qdarktheme.load_stylesheet(custom_colors={"wrong key": "#121212"})
-    assert e.type == KeyError
 
     with pytest.raises(
         KeyError, match='invalid color id for argument custom_colors: "background>wrong child key".'
-    ) as e:
+    ):
         qdarktheme.load_stylesheet(custom_colors={"background>wrong child key": "#121212"})
-    assert e.type == KeyError
 
     with pytest.raises(
         KeyError, match='invalid color id for argument custom_colors: "background>wrong key>wrong key".'
-    ) as e:
+    ):
         qdarktheme.load_stylesheet(custom_colors={"background>wrong key>wrong key": "#121212"})
-    assert e.type == KeyError
 
 
 def test_clear_cache() -> None:

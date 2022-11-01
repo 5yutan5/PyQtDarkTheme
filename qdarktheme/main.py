@@ -41,11 +41,10 @@ def _marge_colors(color_schema: dict[str, str | dict], custom_colors: dict[str, 
                     color_info["base"] = color_format
             elif len(child_key) == 1:
                 color_info = color_schema[parent_key]
-                if isinstance(color_info, str):
-                    raise KeyError
-                # Check if child_key is valid.
-                color_info[child_key[0]]
-                color_info[child_key[0]] = color_format
+                if isinstance(color_info, dict):
+                    # Check if child_key is valid.
+                    color_info[child_key[0]]
+                    color_info[child_key[0]] = color_format
             else:
                 raise KeyError
         except KeyError:
