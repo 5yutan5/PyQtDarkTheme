@@ -65,7 +65,7 @@ def load_stylesheet(
         corner_shape: The corner shape. There are `rounded` and `sharp` shape.
         custom_colors: The custom color map. Overrides the default color for color id you set.
         border: The corner shape. There are `rounded` and `sharp` shape.
-                This argument is deprecated since v2.0.0. Please use `corner_shape` instead.
+                This argument is deprecated since v1.2.0. Please use `corner_shape` instead.
                 This argument override value of argument `corner_shape`.
 
     Raises:
