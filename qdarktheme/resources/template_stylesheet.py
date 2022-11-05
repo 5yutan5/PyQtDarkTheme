@@ -799,19 +799,19 @@ QTreeView::branch:open:has-children:!has-siblings:disabled,
 QTreeView::branch:open:has-children:has-siblings:disabled  {
     image: {{ foreground|color(state="disabled")|url(id="expand_less", rotate=180) }};
 }
-QColumnView > .QWidget > .QListView::left-arrow {
+QListView::left-arrow {
     margin: -2px;
     image: {{ foreground|color(state="icon.unfocused")|url(id="chevron_right", rotate=180) }};
 }
-QColumnView > .QWidget > .QListView::right-arrow {
+QListView::right-arrow {
     margin: -2px;
     image: {{ foreground|color(state="icon.unfocused")|url(id="chevron_right") }};
 }
-QColumnView > .QWidget > .QListView::left-arrow:selected:!disabled {
+QListView::left-arrow:selected:!disabled {
     margin: -2px;
     image: {{ foreground|color(state="icon")|url(id="chevron_right", rotate=180) }};
 }
-QColumnView > .QWidget > .QListView::right-arrow:selected:!disabled {
+QListView::right-arrow:selected:!disabled {
     margin: -2px;
     image: {{ foreground|color(state="icon")|url(id="chevron_right") }};
 }
