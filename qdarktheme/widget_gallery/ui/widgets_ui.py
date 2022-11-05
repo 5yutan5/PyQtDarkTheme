@@ -249,6 +249,7 @@ class _Group3(QGroupBox):
 
         btn_toggle_alternating.setCheckable(True)
         btn_toggle_alternating.toggled.connect(toggle_alternating)
+        btn_toggle_alternating.setChecked(True)
 
         # layout
         tab_widget.addTab(tab_table, "Table")
