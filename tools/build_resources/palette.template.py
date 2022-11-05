@@ -20,7 +20,7 @@ def mk_q_palette(mk_template: partial[Template], color_map: dict[str, str | dict
     # base
     palette.setColor(QPalette.ColorRole.WindowText, _mk_q_color("{{ foreground|color|palette }}"))
     palette.setColor(
-        QPalette.ColorRole.Button, _mk_q_color("{{ itemViewSectionHeader.background|color|palette }}")
+        QPalette.ColorRole.Button, _mk_q_color("{{ treeSectionHeader.background|color|palette }}")
     )
     palette.setColor(
         QPalette.ColorRole.Text, _mk_q_color('{{ foreground|color(state="icon")|palette }}')
@@ -33,7 +33,7 @@ def mk_q_palette(mk_template: partial[Template], color_map: dict[str, str | dict
     palette.setColor(QPalette.ColorRole.Link, _mk_q_color("{{ primary|color|palette }}"))
     palette.setColor(
         QPalette.ColorRole.AlternateBase,
-        _mk_q_color("{{ itemView.alternateBackground|color|palette }}"),
+        _mk_q_color("{{ list.alternateBackground|color|palette }}"),
     )
     palette.setColor(
         QPalette.ColorRole.ToolTipBase, _mk_q_color('{{ background|color(state="popup")|palette }}')
@@ -103,7 +103,7 @@ def mk_q_palette(mk_template: partial[Template], color_map: dict[str, str | dict
     palette.setColor(
         QPalette.ColorGroup.Inactive,
         QPalette.ColorRole.Highlight,
-        _mk_q_color('{{ primary|color(state="itemView.inactiveSelectionBackground")|palette }}'),
+        _mk_q_color('{{ primary|color(state="list.inactiveSelectionBackground")|palette }}'),
     )
     palette.setColor(
         QPalette.ColorGroup.Inactive,
