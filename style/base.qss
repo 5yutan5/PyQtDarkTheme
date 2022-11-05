@@ -1172,6 +1172,7 @@ QCalendarWidget > QTableView {
     border-radius: {{ corner-shape|corner(size=4) }}px;
     border-top-left-radius: {{ corner-shape|corner(size=0) }};
     border-top-right-radius: {{ corner-shape|corner(size=0) }};
+    alternate-background-color: {{ table.alternateBackground|color }}
 }
 
 /*
