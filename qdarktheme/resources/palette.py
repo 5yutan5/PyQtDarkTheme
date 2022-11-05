@@ -103,7 +103,7 @@ def mk_q_palette(mk_template: partial[Template], color_map: dict[str, str | dict
     palette.setColor(
         QPalette.ColorGroup.Inactive,
         QPalette.ColorRole.Highlight,
-        _mk_q_color("{{ itemView.inactiveSelectionBackground|color|palette }}"),
+        _mk_q_color('{{ primary|color(state="itemView.inactiveSelectionBackground")|palette }}'),
     )
     palette.setColor(
         QPalette.ColorGroup.Inactive,
