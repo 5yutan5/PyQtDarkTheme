@@ -937,6 +937,7 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qcombobox
 --------------------------------------------------------------------------- */
 /* Control QAbstractItemView selection and alternate colors with Pseudo-States instead of properties. */
 QAbstractItemView {
+    padding: 0;
     alternate-background-color: transparent;
     selection-background-color: transparent;
 }
@@ -970,6 +971,9 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qlistview
 examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtreeview
 
 --------------------------------------------------------------------------- */
+QListView {
+    padding: 1px
+}
 QListView,
 QTreeView {
     background: {{ background|color(state="list") }};
@@ -1007,10 +1011,10 @@ QTreeView::branch:open:has-children:!has-siblings:disabled,
 QTreeView::branch:open:has-children:has-siblings:disabled  {
     image: {{ foreground|color(state="disabled")|url(id="expand_less", rotate=180) }};
 }
-QTreeView > .QHeaderView {
+QTreeView > QHeaderView {
     background: {{ background|color(state="list") }};
 }
-QTreeView > .QHeaderView::section {
+QTreeView > QHeaderView::section {
     background: {{ treeSectionHeader.background|color }};
 }
 
@@ -1027,12 +1031,16 @@ QListView::right-arrow {
     image: {{ foreground|color(state="icon.unfocused")|url(id="chevron_right") }};
 }
 QListView::left-arrow:selected:!disabled {
-    margin: -2px;
     image: {{ foreground|color(state="icon")|url(id="chevron_right", rotate=180) }};
 }
 QListView::right-arrow:selected:!disabled {
-    margin: -2px;
     image: {{ foreground|color(state="icon")|url(id="chevron_right") }};
+}
+QListView::left-arrow:disabled {
+    image: {{ foreground|color(state="disabled")|url(id="chevron_right", rotate=180) }};
+}
+QListView::right-arrow:disabled {
+    image: {{ foreground|color(state="disabled")|url(id="chevron_right") }};
 }
 
 /* QColumnView ------------------------------------------------------------
@@ -1078,10 +1086,11 @@ QTableView QTableCornerButton::section:pressed {
     background: {{ primary|color(state="table.selectionBackground") }};
 }
 
-QTableView > .QHeaderView {
+QTableView > QHeaderView {
     background: {{ background|color(state="table") }};
+    border-radius:  {{ corner-shape|corner(size=3) }};
 }
-QTableView > .QHeaderView::section {
+QTableView > QHeaderView::section {
     background: {{ tableSectionHeader.background|color }}
 }
 
@@ -1132,6 +1141,11 @@ QHeaderView::up-arrow:horizontal {
 }
 QHeaderView::up-arrow:disabled:horizontal {
     image: {{ foreground|color(state="disabled")|url(id="expand_less") }};
+}
+QHeaderView::down-arrow:vertical,
+QHeaderView::up-arrow:vertical {
+    width: 0;
+    height: 0;
 }
 
 /* QCalendarWidget --------------------------------------------------------

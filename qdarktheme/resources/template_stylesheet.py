@@ -741,6 +741,7 @@ QPlainTextEdit:!active {
     {{ textarea.inactiveSelectionBackground|color|env(value="selection-background-color: ${}", version="<5.15.0") }}
 }
 QAbstractItemView {
+    padding: 0;
     alternate-background-color: transparent;
     selection-background-color: transparent;
 }
@@ -765,6 +766,9 @@ QAbstractItemView QComboBox,
 QAbstractItemView QAbstractButton {
     padding: 0;
     margin: 1px;
+}
+QListView {
+    padding: 1px
 }
 QListView,
 QTreeView {
@@ -803,10 +807,10 @@ QTreeView::branch:open:has-children:!has-siblings:disabled,
 QTreeView::branch:open:has-children:has-siblings:disabled  {
     image: {{ foreground|color(state="disabled")|url(id="expand_less", rotate=180) }};
 }
-QTreeView > .QHeaderView {
+QTreeView > QHeaderView {
     background: {{ background|color(state="list") }};
 }
-QTreeView > .QHeaderView::section {
+QTreeView > QHeaderView::section {
     background: {{ treeSectionHeader.background|color }};
 }
 QListView::left-arrow {
@@ -818,12 +822,16 @@ QListView::right-arrow {
     image: {{ foreground|color(state="icon.unfocused")|url(id="chevron_right") }};
 }
 QListView::left-arrow:selected:!disabled {
-    margin: -2px;
     image: {{ foreground|color(state="icon")|url(id="chevron_right", rotate=180) }};
 }
 QListView::right-arrow:selected:!disabled {
-    margin: -2px;
     image: {{ foreground|color(state="icon")|url(id="chevron_right") }};
+}
+QListView::left-arrow:disabled {
+    image: {{ foreground|color(state="disabled")|url(id="chevron_right", rotate=180) }};
+}
+QListView::right-arrow:disabled {
+    image: {{ foreground|color(state="disabled")|url(id="chevron_right") }};
 }
 QColumnView {
     background: {{ background|color(state="list") }}
@@ -857,10 +865,11 @@ QTableView QTableCornerButton::section {
 QTableView QTableCornerButton::section:pressed {
     background: {{ primary|color(state="table.selectionBackground") }};
 }
-QTableView > .QHeaderView {
+QTableView > QHeaderView {
     background: {{ background|color(state="table") }};
+    border-radius:  {{ corner-shape|corner(size=3) }};
 }
-QTableView > .QHeaderView::section {
+QTableView > QHeaderView::section {
     background: {{ tableSectionHeader.background|color }}
 }
 QHeaderView {
@@ -905,6 +914,11 @@ QHeaderView::up-arrow:horizontal {
 }
 QHeaderView::up-arrow:disabled:horizontal {
     image: {{ foreground|color(state="disabled")|url(id="expand_less") }};
+}
+QHeaderView::down-arrow:vertical,
+QHeaderView::up-arrow:vertical {
+    width: 0;
+    height: 0;
 }
 QCalendarWidget {
     border: none;
