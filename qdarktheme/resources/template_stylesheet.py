@@ -741,26 +741,23 @@ QPlainTextEdit:!active {
     {{ textarea.inactiveSelectionBackground|color|env(value="selection-background-color: ${}", version="<5.15.0") }}
 }
 QAbstractItemView {
-    alternate-background-color: {{ itemView.alternateBackground|color }};
-    selection-background-color: {{ primary|color(state="itemView.selectionBackground") }};
+    alternate-background-color: transparent;
+    selection-background-color: transparent;
 }
-QTreeView,
-QTableView,
-QTableView:disabled,
-QTreeView:disabled {
-    selection-background-color: {{ background|color }};
+QAbstractItemView:disabled {
+    selection-background-color: transparent;
+}
+QAbstractItemView::item:alternate,
+QAbstractItemView::branch:alternate {
+    background: {{ itemView.alternateBackground|color }};
 }
 QAbstractItemView::item:selected,
-QTreeView::branch:selected {
+QAbstractItemView::branch:selected {
     background: {{ primary|color(state="itemView.selectionBackground") }};
 }
 QAbstractItemView::item:selected:!active,
-QTreeView::branch:selected:!active {
-    background: {{ itemView.inactiveSelectionBackground|color }};
-}
-QAbstractItemView::item:!selected:hover,
-QTreeView::branch:!selected:hover {
-    background: {{ itemView.hoverBackground|color }};
+QAbstractItemView::branch:selected:!active {
+    background: {{ primary|color(state="itemView.inactiveSelectionBackground") }};
 }
 QAbstractItemView QLineEdit,
 QAbstractItemView QAbstractSpinBox,
@@ -768,6 +765,11 @@ QAbstractItemView QComboBox,
 QAbstractItemView QAbstractButton {
     padding: 0;
     margin: 1px;
+}
+QListView::item:!selected:hover,
+QTreeView::item:!selected:hover,
+QTreeView::branch:!selected:hover {
+    background: {{ itemView.hoverBackground|color }};
 }
 QTreeView::branch {
     border-image: {{ tree.inactiveIndentGuidesStroke|color|url(id="vertical_line") }} 0;
@@ -797,9 +799,41 @@ QTreeView::branch:open:has-children:!has-siblings:disabled,
 QTreeView::branch:open:has-children:has-siblings:disabled  {
     image: {{ foreground|color(state="disabled")|url(id="expand_less", rotate=180) }};
 }
+QColumnView > .QWidget > QWidget::left-arrow {
+    margin: -2px;
+    image: {{ foreground|color(state="icon.unfocused")|url(id="chevron_right", rotate=180) }};
+}
+QColumnView > .QWidget > QWidget::right-arrow {
+    margin: -2px;
+    image: {{ foreground|color(state="icon.unfocused")|url(id="chevron_right") }};
+}
+QColumnViewArrow > .QWidget > QWidget::left-arrow:selected:!disabled {
+    margin: -2px;
+    image: {{ foreground|color(state="icon")|url(id="chevron_right", rotate=180) }};
+}
+QColumnView > .QWidget > QWidget::right-arrow:selected:!disabled {
+    margin: -2px;
+    image: {{ foreground|color(state="icon")|url(id="chevron_right") }};
+}
+QColumnViewGrip {
+    margin: -4px;
+    image: {{ foreground|color(state="icon")|url(id="drag_handle", rotate=90) }}
+}
+QColumnViewGrip:disabled {
+    image: {{ foreground|color(state="disabled")|url(id="drag_handle", rotate=90) }}
+}
 QTableView {
     gridline-color: {{ itemViewSectionHeader.background|color }};
     background: {{ background|color(state="table") }};
+}
+QTableView::item:alternate {
+    background: {{ table.alternateBackground|color }};
+}
+QTableView::item:selected {
+    background: {{ primary|color(state="table.selectionBackground") }};
+}
+QTableView::item:selected:!active {
+    background: {{ primary|color(state="table.inactiveSelectionBackground") }};
 }
 QTableView QTableCornerButton::section {
     margin: 0 1px 1px 0;
@@ -819,14 +853,9 @@ QHeaderView {
     border-radius: {{ corner-shape|corner(size=0) }};
 }
 QHeaderView::section {
-    text-align: left;
-    padding: 0 4px;
+    padding-left: 4px;
     border: none;
     background: {{ itemViewSectionHeader.background|color }};
-}
-QHeaderView::section:horizontal:on:!disabled,
-QHeaderView::section:vertical:on:!disabled {
-    border-color: {{ primary|color }};
 }
 QHeaderView::section:horizontal {
     border-top: 2px solid transparent;
@@ -836,22 +865,28 @@ QHeaderView::section:vertical {
     border-left: 2px solid transparent;
     margin-bottom: 1px;
 }
+QHeaderView::section:on:!disabled,
+QHeaderView::section:pressed {
+    border-color: {{ primary|color }};
+}
 QHeaderView::section:last,
 QHeaderView::section:only-one {
     margin: 0;
 }
-QHeaderView::down-arrow {
-    margin: -2px -6px -6px -6px;
+QHeaderView::down-arrow:horizontal {
+    margin-left: -14px;
+    subcontrol-position: center right;
     image: {{ foreground|color(state="icon")|url(id="expand_less", rotate=180) }};
 }
-QHeaderView::down-arrow:disabled {
+QHeaderView::down-arrow:disabled:horizontal {
     image: {{ foreground|color(state="disabled")|url(id="expand_less", rotate=180) }};
 }
-QHeaderView::up-arrow {
-    margin: -2px -6px -6px -6px;
+QHeaderView::up-arrow:horizontal {
+    margin-left: -14px;
+    subcontrol-position: center right;
     image: {{ foreground|color(state="icon")|url(id="expand_less") }};
 }
-QHeaderView::up-arrow:disabled {
+QHeaderView::up-arrow:disabled:horizontal {
     image: {{ foreground|color(state="disabled")|url(id="expand_less") }};
 }
 QCalendarWidget {

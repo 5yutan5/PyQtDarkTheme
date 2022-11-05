@@ -63,17 +63,12 @@
             "$ref": "#/definitions/color_code"
         },
         "itemView.alternateBackground": {
-            "description": "Background color for QAbstractItemView, QColumnView, QHeaderView, QListView, QTableView, and QTreeView alternating rows.",
+            "description": "Background color for QAbstractItemView, QColumnView, QListView, and QTreeView alternating rows.",
             "group": "Item view",
             "$ref": "#/definitions/color_code"
         },
         "itemView.hoverBackground": {
-            "description": "QAbstractItemView, QColumnView, QHeaderView, QListView, QTableView, and QTreeView background color when hovering over items using the mouse.",
-            "group": "Item view",
-            "$ref": "#/definitions/color_code"
-        },
-        "itemView.inactiveSelectionBackground": {
-            "description": "QAbstractItemView, QColumnView, QHeaderView, QListView, QTableView, and QTreeView background color for the selected item when the widget is inactive.",
+            "description": "QAbstractItemView, QColumnView, QListView and QTreeView background color when hovering over items using the mouse.",
             "group": "Item view",
             "$ref": "#/definitions/color_code"
         },
@@ -155,6 +150,11 @@
         "tabCloseButton.hoverBackground": {
             "description": "Background color of close button in an QTabBar.",
             "group": "Tabs",
+            "$ref": "#/definitions/color_code"
+        },
+        "table.alternateBackground": {
+            "description": "Background color for QTableView/QTableWidget alternating rows.",
+            "group": "Table",
             "$ref": "#/definitions/color_code"
         },
         "textarea.inactiveSelectionBackground": {
@@ -348,6 +348,11 @@
                     "group": "Button control",
                     "$ref": "#/definitions/color_style"
                 },
+                "itemView.inactiveSelectionBackground": {
+                    "description": "QAbstractItemView, QColumnView, QHeaderView, QListView, QTableView, and QTreeView background color for the selected item when the widget is inactive.",
+                    "group": "Item view",
+                    "$ref": "#/definitions/color_style"
+                },
                 "itemView.selectionBackground": {
                     "description": "Background color for QAbstractItemView, QColumnView, QHeaderView, QListView, QTableView, and QTreeView when selected item or texts.",
                     "group": "Item view",
@@ -368,6 +373,16 @@
                     "group": "Slider control",
                     "$ref": "#/definitions/color_style"
                 },
+                "table.selectionBackground": {
+                    "description": "QTableView/QTableWidget background color when selected item.",
+                    "group": "Table",
+                    "$ref": "#/definitions/color_style"
+                },
+                "table.inactiveSelectionBackground": {
+                    "description": "QTableView/QTableWidget background color for the selected item when the widget is inactive.",
+                    "group": "Table",
+                    "$ref": "#/definitions/color_style"
+                },
                 "textarea.selectionBackground": {
                     "description": "Background color of text selections in the QTextEdit, QTextBrowser and QPlainTextEdit.",
                     "group": "Textarea",
@@ -380,10 +395,13 @@
                 "button.hoverBackground",
                 "defaultButton.activeBackground",
                 "defaultButton.hoverBackground",
+                "itemView.inactiveSelectionBackground",
                 "itemView.selectionBackground",
                 "progressBar.background",
                 "selection.background",
                 "sliderHandle.activeBackground",
+                "table.selectionBackground",
+                "table.inactiveSelectionBackground",
                 "textarea.selectionBackground"
             ]
         }
@@ -396,11 +414,11 @@
         "inputButton.hoverBackground",
         "itemView.alternateBackground",
         "itemView.hoverBackground",
+        "itemViewSectionHeader.background",
         "linkVisited",
         "popupItem.checkbox.background",
         "popupItem.selectionBackground",
         "primary",
-        "itemViewSectionHeader.background",
         "scrollbar.background",
         "scrollbarSlider.activeBackground",
         "scrollbarSlider.disabledBackground",
@@ -411,6 +429,7 @@
         "tab.activeBackground",
         "tab.hoverBackground",
         "tabCloseButton.hoverBackground",
+        "table.alternateBackground",
         "textarea.inactiveSelectionBackground",
         "toolbar.activeBackground",
         "toolbar.background",

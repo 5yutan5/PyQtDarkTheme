@@ -1,10 +1,9 @@
 {
     "input.background": "#f8f9fa",
-    "itemView.alternateBackground": "#00000009",
-    "itemView.hoverBackground": "#00000018",
-    "itemView.inactiveSelectionBackground": "#00000015",
-    "itemViewSectionHeader.background": "#dadce0",
     "inputButton.hoverBackground": "#00000018",
+    "itemView.alternateBackground": "#00000009",
+    "itemView.hoverBackground": "#00000013",
+    "itemViewSectionHeader.background": "#dadce0",
     "linkVisited": "#660098",
     "menubar.selectionBackground": "#00000020",
     "popupItem.checkbox.background": "#00000019",
@@ -19,8 +18,9 @@
     "statusBarItem.hoverBackground": "#00000015",
     "tab.activeBackground": "#00000000",
     "tab.hoverBackground": "#00000015",
-    "textarea.inactiveSelectionBackground": "#00000015",
     "tabCloseButton.hoverBackground": "#00000020",
+    "table.alternateBackground": "#00000012",
+    "textarea.inactiveSelectionBackground": "#00000015",
     "toolbar.activeBackground": "#00000024",
     "toolbar.background": "#ebebeb",
     "toolbar.hoverBackground": "#00000015",
@@ -94,6 +94,10 @@
         "defaultButton.hoverBackground": {
             "lighten": 0.1
         },
+        "itemView.inactiveSelectionBackground": {
+            "transparent": 0.09,
+            "darken": 0.43
+        },
         "itemView.selectionBackground": {
             "transparent": 0.35,
             "lighten": 0.2
@@ -107,6 +111,14 @@
         },
         "sliderHandle.activeBackground": {
             "lighten": 0.2
+        },
+        "table.selectionBackground": {
+            "transparent": 0.5,
+            "lighten": 0.1
+        },
+        "table.inactiveSelectionBackground": {
+            "transparent": 0.09,
+            "darken": 0.43
         },
         "textarea.selectionBackground": {
             "transparent": 0.5,
