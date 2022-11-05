@@ -34,9 +34,9 @@
     "groups": {
         "Base colors": "Base color for application.",
         "Button control": "Colors for QPushButton, QToolButton and QDockWidget title button.",
-        "Input": "Colors for QAbstractSpinBox, QComboBox and QLineEdit.",
-        "Item view": "Colors for QColumnView, QHeaderView, QListView, QTableView, and QTreeView.",
+        "Input": "Colors for QAbstractSpinBox, QSpinBox, QComboBox and QLineEdit.",
         "Link colors": "Colors for link.",
+        "Lists and trees": "Colors for QListView/QListWidget and QTreeView/QTreeWidget and QColumnView.",
         "Menubar": "Colors for QMenuBar.",
         "Popup": "Colors for QMenu and QToolTip.",
         "Progress bar": "Colors for QProgressBar.",
@@ -48,7 +48,6 @@
         "Table": "Colors for QTableView/QTableWidget.",
         "Title": "Colors for title components.",
         "Toolbar": "Colors for QToolBar.",
-        "Tree": "Colors for QTreeView.",
         "Panel": "Colors for panel."
     },
     "properties": {
@@ -62,24 +61,19 @@
             "group": "Input",
             "$ref": "#/definitions/color_code"
         },
-        "itemView.alternateBackground": {
-            "description": "Background color for QAbstractItemView, QColumnView, QListView, and QTreeView alternating rows.",
-            "group": "Item view",
-            "$ref": "#/definitions/color_code"
-        },
-        "itemView.hoverBackground": {
-            "description": "QAbstractItemView, QColumnView, QListView and QTreeView background color when hovering over items using the mouse.",
-            "group": "Item view",
-            "$ref": "#/definitions/color_code"
-        },
-        "itemViewSectionHeader.background": {
-            "description": "QHeaderView background color.",
-            "group": "Item view",
-            "$ref": "#/definitions/color_code"
-        },
         "linkVisited": {
             "description": "Foreground color for already visited hyperlinks.",
             "group": "Link colors",
+            "$ref": "#/definitions/color_code"
+        },
+        "list.alternateBackground": {
+            "description": "Background color for QListView/QListWidget, QTreeView/QTreeWidget and QColumnView alternating rows.",
+            "group": "Lists and trees",
+            "$ref": "#/definitions/color_code"
+        },
+        "list.hoverBackground": {
+            "description": "QListView/QListWidget, QTreeView/QTreeWidget and QColumnView background color when hovering over items using the mouse.",
+            "group": "Lists and trees",
             "$ref": "#/definitions/color_code"
         },
         "menubar.selectionBackground": {
@@ -157,6 +151,11 @@
             "group": "Table",
             "$ref": "#/definitions/color_code"
         },
+        "tableSectionHeader.background": {
+            "description": "QTableView/QTableWidget section header background color.",
+            "group": "Table",
+            "$ref": "#/definitions/color_code"
+        },
         "textarea.inactiveSelectionBackground": {
             "description": "QTextEdit, QTextBrowser and QPlainTextEdit background color for the selected item when the widget is inactive.",
             "group": "Textarea",
@@ -179,12 +178,17 @@
         },
         "tree.inactiveIndentGuidesStroke": {
             "description": "QTreeView stroke color for indent guides when QTreeView is inactive.",
-            "group": "Tree",
+            "group": "Lists and trees",
             "$ref": "#/definitions/color_code"
         },
         "tree.indentGuidesStroke": {
             "description": "QTreeView stroke color for indent guides.",
-            "group": "Tree",
+            "group": "Lists and trees",
+            "$ref": "#/definitions/color_code"
+        },
+        "treeSectionHeader.background": {
+            "description": "QTreeView section header background color.",
+            "group": "Lists and trees",
             "$ref": "#/definitions/color_code"
         },
         "background": {
@@ -195,6 +199,11 @@
                     "description": "Overall background color. This color is only used if not overridden by a widget.",
                     "group": "Base colors",
                     "$ref": "#/definitions/color_code"
+                },
+                "list": {
+                    "description": "Background color for QListView/QListWidget, QTreeView/QTreeWidget and QColumnView.",
+                    "group": "Lists and trees",
+                    "$ref": "#/definitions/color_style"
                 },
                 "panel": {
                     "description": "Background color of QFrame when the frameShape property is Panel.",
@@ -224,6 +233,7 @@
             },
             "required": [
                 "base",
+                "list",
                 "panel",
                 "popup",
                 "table",
@@ -348,14 +358,14 @@
                     "group": "Button control",
                     "$ref": "#/definitions/color_style"
                 },
-                "itemView.inactiveSelectionBackground": {
-                    "description": "QAbstractItemView, QColumnView, QHeaderView, QListView, QTableView, and QTreeView background color for the selected item when the widget is inactive.",
-                    "group": "Item view",
+                "list.inactiveSelectionBackground": {
+                    "description": "QListView/QListWidget, QTreeView/QTreeWidget and QColumnView background color for the selected item when the widget is inactive.",
+                    "group": "Lists and trees",
                     "$ref": "#/definitions/color_style"
                 },
-                "itemView.selectionBackground": {
-                    "description": "Background color for QAbstractItemView, QColumnView, QHeaderView, QListView, QTableView, and QTreeView when selected item or texts.",
-                    "group": "Item view",
+                "list.selectionBackground": {
+                    "description": "Background color for QListView/QListWidget, QTreeView/QTreeWidget and QColumnView when selected item or texts.",
+                    "group": "Lists and trees",
                     "$ref": "#/definitions/color_style"
                 },
                 "progressBar.background": {
@@ -395,8 +405,8 @@
                 "button.hoverBackground",
                 "defaultButton.activeBackground",
                 "defaultButton.hoverBackground",
-                "itemView.inactiveSelectionBackground",
-                "itemView.selectionBackground",
+                "list.inactiveSelectionBackground",
+                "list.selectionBackground",
                 "progressBar.background",
                 "selection.background",
                 "sliderHandle.activeBackground",
@@ -412,9 +422,8 @@
         "foreground",
         "input.background",
         "inputButton.hoverBackground",
-        "itemView.alternateBackground",
-        "itemView.hoverBackground",
-        "itemViewSectionHeader.background",
+        "list.alternateBackground",
+        "list.hoverBackground",
         "linkVisited",
         "popupItem.checkbox.background",
         "popupItem.selectionBackground",
@@ -430,11 +439,13 @@
         "tab.hoverBackground",
         "tabCloseButton.hoverBackground",
         "table.alternateBackground",
+        "tableSectionHeader.background",
         "textarea.inactiveSelectionBackground",
         "toolbar.activeBackground",
         "toolbar.background",
         "toolbar.hoverBackground",
         "tree.inactiveIndentGuidesStroke",
-        "tree.indentGuidesStroke"
+        "tree.indentGuidesStroke",
+        "treeSectionHeader.background"
     ]
 }
