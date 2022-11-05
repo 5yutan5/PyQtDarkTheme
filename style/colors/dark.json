@@ -1,10 +1,8 @@
 {
     "input.background": "#3f4042",
     "inputButton.hoverBackground": "#ffffff25",
-    "itemView.alternateBackground": "#ffffff09",
-    "itemView.hoverBackground": "#ffffff18",
-    "itemView.inactiveSelectionBackground": "#ffffff15",
-    "itemViewSectionHeader.background": "#3f4042",
+    "list.alternateBackground": "#ffffff0c",
+    "list.hoverBackground": "#ffffff13",
     "linkVisited": "#c58af8",
     "menubar.selectionBackground": "#ffffff25",
     "popupItem.checkbox.background": "#ffffff19",
@@ -20,14 +18,18 @@
     "tab.activeBackground": "#ffffff00",
     "tab.hoverBackground": "#ffffff18",
     "tabCloseButton.hoverBackground": "#ffffff25",
+    "table.alternateBackground": "#ffffff15",
+    "tableSectionHeader.background": "#3f4042",
     "textarea.inactiveSelectionBackground": "#ffffff20",
     "toolbar.activeBackground": "#ffffff34",
     "toolbar.background": "#333333",
     "toolbar.hoverBackground": "#ffffff22",
     "tree.inactiveIndentGuidesStroke": "#ffffff35",
     "tree.indentGuidesStroke": "#ffffff60",
+    "treeSectionHeader.background": "#3f4042",
     "background": {
         "base": "#202124",
+        "list": {},
         "panel": {
             "darken": 0.3
         },
@@ -96,9 +98,13 @@
         "defaultButton.hoverBackground": {
             "darken": 0.06
         },
-        "itemView.selectionBackground": {
-            "transparent": 0.37,
-            "darken": 0.2
+        "list.inactiveSelectionBackground": {
+            "transparent": 0.15,
+            "lighten": 0.2
+        },
+        "list.selectionBackground": {
+            "transparent": 0.7,
+            "darken": 0.3
         },
         "progressBar.background": {
             "darken": 0.1
@@ -110,6 +116,14 @@
         },
         "sliderHandle.activeBackground": {
             "darken": 0.09
+        },
+        "table.selectionBackground": {
+            "transparent": 0.7,
+            "darken": 0.3
+        },
+        "table.inactiveSelectionBackground": {
+            "transparent": 0.18,
+            "lighten": 0.2
         },
         "textarea.selectionBackground": {
             "transparent": 0.4,
