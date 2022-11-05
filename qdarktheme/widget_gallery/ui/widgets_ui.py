@@ -193,9 +193,7 @@ class _TableModel(QAbstractTableModel):
             return None
         if orientation == Qt.Orientation.Horizontal:
             return ["Normal", "Checkbox", "Spinbox", "LineEdit"][section]
-        if orientation == Qt.Orientation.Vertical:
-            return section * 100
-        return super().headerData(section, orientation, role)
+        return section * 100
 
 
 class _Group3(QGroupBox):
