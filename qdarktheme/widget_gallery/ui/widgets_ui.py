@@ -4,9 +4,10 @@ from __future__ import annotations
 from typing import Any
 
 from qdarktheme.qtpy.QtCore import QAbstractTableModel, QModelIndex, Qt
-from qdarktheme.qtpy.QtGui import QIcon, QTextOption
+from qdarktheme.qtpy.QtGui import QIcon, QStandardItem, QStandardItemModel, QTextOption
 from qdarktheme.qtpy.QtWidgets import (
     QCheckBox,
+    QColumnView,
     QComboBox,
     QDateTimeEdit,
     QDial,
@@ -205,6 +206,8 @@ class _Group3(QGroupBox):
         tab_table = QTableView()
         tab_list = QListWidget()
         tab_tree = QTreeWidget()
+        tab_column = QColumnView()
+        btn_toggle_alternating = QPushButton("Alternating")
 
         # Setup widgets
         self.setCheckable(True)
@@ -221,7 +224,6 @@ class _Group3(QGroupBox):
         tab_table.setSortingEnabled(True)
 
         tab_list.addItems([f"Item {i+1}" for i in range(30)])
-        tab_list.setAlternatingRowColors(True)
 
         tab_tree.setColumnCount(2)
         for i in range(5):
@@ -230,14 +232,34 @@ class _Group3(QGroupBox):
                 item.addChild(QTreeWidgetItem([f"Child Item {i+1}_{j+1}" for _ in range(2)]))
             tab_tree.insertTopLevelItem(i, item)
 
+        tab_column_model = QStandardItemModel()
+        tab_column_model.setHorizontalHeaderLabels(("Header 1", "Header 2"))
+        for row in range(5):
+            item = QStandardItem(f"Item {row+1}")
+            for column in range(15):
+                item.setChild(column, QStandardItem(f"Child Item {row+1}_{column+1}"))
+            tab_column_model.setItem(row, item)
+        tab_column.setModel(tab_column_model)
+
+        def toggle_alternating(checked: bool):
+            tab_table.setAlternatingRowColors(checked)
+            tab_list.setAlternatingRowColors(checked)
+            tab_tree.setAlternatingRowColors(checked)
+            tab_column.setAlternatingRowColors(checked)
+
+        btn_toggle_alternating.setCheckable(True)
+        btn_toggle_alternating.toggled.connect(toggle_alternating)
+
         # layout
         tab_widget.addTab(tab_table, "Table")
         tab_widget.addTab(tab_text_edit, "Text Edit")
         tab_widget.addTab(tab_list, "List")
         tab_widget.addTab(tab_tree, "Tree")
+        tab_widget.addTab(tab_column, "Column")
 
         v_layout_main = QVBoxLayout(self)
         v_layout_main.addWidget(tab_widget)
+        v_layout_main.addWidget(btn_toggle_alternating)
 
 
 class _Group4(QGroupBox):
