@@ -799,19 +799,19 @@ QTreeView::branch:open:has-children:!has-siblings:disabled,
 QTreeView::branch:open:has-children:has-siblings:disabled  {
     image: {{ foreground|color(state="disabled")|url(id="expand_less", rotate=180) }};
 }
-QColumnView > .QWidget > QWidget::left-arrow {
+QColumnView > .QWidget > .QListView::left-arrow {
     margin: -2px;
     image: {{ foreground|color(state="icon.unfocused")|url(id="chevron_right", rotate=180) }};
 }
-QColumnView > .QWidget > QWidget::right-arrow {
+QColumnView > .QWidget > .QListView::right-arrow {
     margin: -2px;
     image: {{ foreground|color(state="icon.unfocused")|url(id="chevron_right") }};
 }
-QColumnViewArrow > .QWidget > QWidget::left-arrow:selected:!disabled {
+QColumnView > .QWidget > .QListView::left-arrow:selected:!disabled {
     margin: -2px;
     image: {{ foreground|color(state="icon")|url(id="chevron_right", rotate=180) }};
 }
-QColumnView > .QWidget > QWidget::right-arrow:selected:!disabled {
+QColumnView > .QWidget > .QListView::right-arrow:selected:!disabled {
     margin: -2px;
     image: {{ foreground|color(state="icon")|url(id="chevron_right") }};
 }
@@ -874,7 +874,7 @@ QHeaderView::section:only-one {
     margin: 0;
 }
 QHeaderView::down-arrow:horizontal {
-    margin-left: -14px;
+    margin-left: -19px;
     subcontrol-position: center right;
     image: {{ foreground|color(state="icon")|url(id="expand_less", rotate=180) }};
 }
@@ -882,7 +882,7 @@ QHeaderView::down-arrow:disabled:horizontal {
     image: {{ foreground|color(state="disabled")|url(id="expand_less", rotate=180) }};
 }
 QHeaderView::up-arrow:horizontal {
-    margin-left: -14px;
+    margin-left: -19px;
     subcontrol-position: center right;
     image: {{ foreground|color(state="icon")|url(id="expand_less") }};
 }
