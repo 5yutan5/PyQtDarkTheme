@@ -176,12 +176,17 @@ QToolBar > QToolButton {
     padding: 3px;
     border-radius: {{ corner-shape|corner(size=4) }}px;
 }
-QToolBar > QToolButton:hover {
+QToolBar > QToolButton:hover,
+QToolBar > QToolButton::menu-button:hover {
     background: {{ toolbar.hoverBackground|color }};
 }
+QToolBar > QToolButton::menu-button {
+    border-top-right-radius: {{ corner-shape|corner(size=4) }}px;
+    border-bottom-right-radius: {{ corner-shape|corner(size=4) }}px;
+}
 QToolBar > QToolButton:pressed,
-QToolBar > QToolButton::menu-button:pressed:!disabled,
-QToolBar > QToolButton:checked:!disabled {
+QToolBar > QToolButton::menu-button:pressed:enabled,
+QToolBar > QToolButton:checked:enabled {
     background: {{ toolbar.activeBackground|color }};
 }
 QToolBar > QToolButton#qt_toolbar_ext_button {
@@ -362,7 +367,7 @@ QPushButton:hover {
 QPushButton:pressed {
     background: {{ primary|color(state="button.activeBackground") }};
 }
-QPushButton:checked:!disabled {
+QPushButton:checked:enabled {
     background: {{ primary|color(state="button.activeBackground") }};
 }
 QPushButton:default:hover {
@@ -385,16 +390,17 @@ QToolButton {
     spacing: 2px;
     border-radius: {{ corner-shape|corner(size=2) }}px;
 }
-QToolButton:hover {
+QToolButton:hover,
+QToolButton::menu-button:hover {
     background: {{ primary|color(state="button.hoverBackground") }};
 }
 QToolButton:pressed,
 QToolButton:checked:pressed,
-QToolButton::menu-button:pressed:!disabled {
+QToolButton::menu-button:pressed:enabled {
     background: {{ primary|color(state="button.activeBackground") }};
 }
-QToolButton:selected:!disabled,
-QToolButton:checked:!disabled {
+QToolButton:selected:enabled,
+QToolButton:checked:enabled {
     background: {{ primary|color(state="button.activeBackground") }};
 }
 QToolButton::menu-indicator {
@@ -414,8 +420,8 @@ QToolButton::menu-button {
     subcontrol-origin: margin;
     border: none;
     width: 17px;
-    border-top-right-radius: {{ corner-shape|corner(size=4) }}px;
-    border-bottom-right-radius: {{ corner-shape|corner(size=4) }}px;
+    border-top-right-radius: {{ corner-shape|corner(size=2) }}px;
+    border-bottom-right-radius: {{ corner-shape|corner(size=2) }}px;
     image: {{ foreground|color(state="icon")|url(id="expand_less", rotate=180) }};
 }
 QToolButton::menu-button:disabled {
@@ -537,16 +543,16 @@ QTabBar::tab {
     border-style: solid;
 }
 QTabBar::tab:hover,
-QTabBar::tab:selected:hover:!disabled {
+QTabBar::tab:selected:hover:enabled {
     background: {{ tab.hoverBackground|color }};
 }
-QTabBar::tab:selected:!disabled {
+QTabBar::tab:selected:enabled {
     color: {{ primary|color }};
     background: {{ tab.activeBackground|color }};
     border-color: {{ primary|color }};
 }
 QTabBar::tab:selected:disabled,
-QTabBar::tab:only-one:selected:!disabled {
+QTabBar::tab:only-one:selected:enabled {
     border-color: {{ border|color }};
 }
 QTabBar::tab:top {
@@ -681,7 +687,7 @@ QToolBox::tab {
     border-top-left-radius: {{ corner-shape|corner(size=4) }}px;
     border-top-right-radius: {{ corner-shape|corner(size=4) }}px;
 }
-QToolBox::tab:selected:!disabled {
+QToolBox::tab:selected:enabled {
     border-bottom: 2px solid {{ primary|color }};
 }
 QSplitter::handle {
@@ -828,10 +834,10 @@ QListView::right-arrow {
     margin: -2px;
     image: {{ foreground|color(state="icon.unfocused")|url(id="chevron_right") }};
 }
-QListView::left-arrow:selected:!disabled {
+QListView::left-arrow:selected:enabled {
     image: {{ foreground|color(state="icon")|url(id="chevron_right", rotate=180) }};
 }
-QListView::right-arrow:selected:!disabled {
+QListView::right-arrow:selected:enabled {
     image: {{ foreground|color(state="icon")|url(id="chevron_right") }};
 }
 QListView::left-arrow:disabled {
@@ -898,7 +904,7 @@ QHeaderView::section:vertical {
     border-left: 2px solid transparent;
     margin-bottom: 1px;
 }
-QHeaderView::section:on:!disabled,
+QHeaderView::section:on:enabled,
 QHeaderView::section:pressed {
     border-color: {{ primary|color }};
 }
