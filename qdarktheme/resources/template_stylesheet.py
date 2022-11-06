@@ -431,7 +431,7 @@ QToolButton[
 }
 QComboBox {
     min-height: 1.5em;
-    padding: 0 4px;
+    padding: 0 8px 0 4px;
     background: {{ input.background|color }};
     border: 1px solid {{ border|color(state="input") }};
     border-radius: {{ corner-shape|corner(size=4) }}px;
@@ -441,8 +441,11 @@ QComboBox:open {
     border-color: {{ primary|color }};
 }
 QComboBox::drop-down {
-    border: none;
-    padding-right: 4px;
+    margin: 2px 2px 2px -6px;
+    border-radius: {{ corner-shape|corner(size=4) }};
+}
+QComboBox[editable=true]::drop-down:hover {
+    background: {{ inputButton.hoverBackground|color }};
 }
 QComboBox::down-arrow {
     image: {{ foreground|color(state="icon")|url(id="expand_less", rotate=180) }};
@@ -450,17 +453,20 @@ QComboBox::down-arrow {
 QComboBox::down-arrow:disabled {
     image: {{ foreground|color(state="disabled")|url(id="expand_less", rotate=180) }};
 }
+QComboBox[editable=true]::down-arrow:open {
+    image: {{ foreground|color(state="icon")|url(id="expand_less") }};
+}
+QComboBox[editable=true]::down-arrow:open:disabled {
+    image: {{ foreground|color(state="disabled")|url(id="expand_less") }};
+}
 QComboBox::item:selected {
     border: none;
     background: {{ primary|color(state="list.selectionBackground") }};
 }
-QComboBox QAbstractItemView {
+QComboBox QListView {
     background: {{ background|color(state="popup") }};
-    margin: 0;
-    border: 1px solid {{ border|color }};
-    padding: 2px;
 }
-QComboBox QAbstractItemView[
+QComboBox QListView[
 {{ |env(value="frameShape=\\\"0\\\"", version="<6.0.0")}}
 {{ |env(value="frameShape=NoFrame", version=">=6.0.0") }}
 ] {
@@ -762,7 +768,6 @@ QAbstractItemView::branch:selected:!active {
 }
 QAbstractItemView QLineEdit,
 QAbstractItemView QAbstractSpinBox,
-QAbstractItemView QComboBox,
 QAbstractItemView QAbstractButton {
     padding: 0;
     margin: 1px;
@@ -977,34 +982,33 @@ QAbstractSpinBox:focus {
 }
 QAbstractSpinBox::up-button,
 QAbstractSpinBox::down-button {
-    subcontrol-origin: border;
-    width: 12px;
-    height: 4px;
-    padding: 3px;
+    subcontrol-position: center right;
     border-radius: {{ corner-shape|corner(size=4) }}px;
 }
-QAbstractSpinBox::up-button:hover,
-QAbstractSpinBox::down-button:hover {
+QAbstractSpinBox::up-button:hover:on,
+QAbstractSpinBox::down-button:hover:on {
     background: {{ inputButton.hoverBackground|color }};
 }
 QAbstractSpinBox::up-button {
-    subcontrol-position: top right;
-    margin: 3px 3px 1px 1px;
+    bottom: 5px;
+    right: 4px;
 }
-QAbstractSpinBox::up-arrow {
+QAbstractSpinBox::up-arrow:on {
     image: {{ foreground|color(state="icon")|url(id="arrow_drop_up") }};
 }
-QAbstractSpinBox::up-arrow:disabled {
+QAbstractSpinBox::up-arrow:disabled,
+QAbstractSpinBox::up-arrow:off {
     image: {{ foreground|color(state="disabled")|url(id="arrow_drop_up") }};
 }
 QAbstractSpinBox::down-button {
-    subcontrol-position: bottom right;
-    margin: 1px 3px 3px 1px;
+    top: 5px;
+    right: 4px;
 }
-QAbstractSpinBox::down-arrow {
+QAbstractSpinBox::down-arrow:on {
     image: {{ foreground|color(state="icon")|url(id="arrow_drop_up", rotate=180) }};
 }
-QAbstractSpinBox::down-arrow:disabled {
+QAbstractSpinBox::down-arrow:disabled,
+QAbstractSpinBox::down-arrow:off {
     image: {{ foreground|color(state="disabled")|url(id="arrow_drop_up", rotate=180) }};
 }
 QDateTimeEdit::drop-down {
@@ -1035,16 +1039,19 @@ QFontDialog QListView {
 QFontDialog QScrollBar:vertical {
     margin: 0;
 }
-QComboBox::indicator:checked,
-QMenu::indicator:checked {
-    width: 18px;
-    image: {{ foreground|color(state="icon")|url(id="check") }};
-}
+QComboBox::indicator,
 QMenu::indicator {
     width: 18px;
+    height: 18px;
+}
+QMenu::indicator {
     background: {{ popupItem.checkbox.background|color }};
     margin-left: 3px;
     border-radius: {{ corner-shape|corner(size=4) }}px;
+}
+QComboBox::indicator:checked,
+QMenu::indicator:checked {
+    image: {{ foreground|color(state="icon")|url(id="check") }};
 }
 QCheckBox,
 QRadioButton {
@@ -1116,13 +1123,12 @@ QStatusBar > QMenu {
 PlotWidget {
     padding: 0;
 }
-ParameterTree > .QWidget > .QWidget > .QWidget > QAbstractSpinBox::up-button,
-ParameterTree > .QWidget > .QWidget > .QWidget > QAbstractSpinBox::down-button {
-    margin: 2px 3px 1px 1px;
-    padding: 2px;
-}
 ParameterTree > .QWidget > .QWidget > .QWidget > QComboBox{
     min-height: 1.2em;
+}
+ParameterTree::item,
+ParameterTree > .QWidget {
+    background: {{ background|color(state="list") }};
 }
 
 """  # noqa: E501
