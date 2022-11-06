@@ -210,7 +210,7 @@ QMenu::separator {
     background: {{ border|color }};
 }
 QMenu::item {
-    padding: 4px 28px;
+    padding: 4px 19px;
 }
 QMenu::item:selected {
     background: {{ popupItem.selectionBackground|color }};
