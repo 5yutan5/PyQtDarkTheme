@@ -103,8 +103,8 @@
             "lighten": 0.2
         },
         "list.selectionBackground": {
-            "transparent": 0.7,
-            "darken": 0.3
+            "transparent": 0.4,
+            "darken": 0.4
         },
         "progressBar.background": {
             "darken": 0.1
@@ -118,7 +118,7 @@
             "darken": 0.09
         },
         "table.selectionBackground": {
-            "transparent": 0.7,
+            "transparent": 0.55,
             "darken": 0.3
         },
         "table.inactiveSelectionBackground": {
