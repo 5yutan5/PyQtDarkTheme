@@ -176,12 +176,17 @@ QToolBar > QToolButton {
     padding: 3px;
     border-radius: {{ corner-shape|corner(size=4) }}px;
 }
-QToolBar > QToolButton:hover {
+QToolBar > QToolButton:hover,
+QToolBar > QToolButton::menu-button:hover {
     background: {{ toolbar.hoverBackground|color }};
 }
+QToolBar > QToolButton::menu-button {
+    border-top-right-radius: {{ corner-shape|corner(size=4) }}px;
+    border-bottom-right-radius: {{ corner-shape|corner(size=4) }}px;
+}
 QToolBar > QToolButton:pressed,
-QToolBar > QToolButton::menu-button:pressed:!disabled,
-QToolBar > QToolButton:checked:!disabled {
+QToolBar > QToolButton::menu-button:pressed:enabled,
+QToolBar > QToolButton:checked:enabled {
     background: {{ toolbar.activeBackground|color }};
 }
 QToolBar > QToolButton#qt_toolbar_ext_button {
@@ -205,7 +210,7 @@ QMenu::separator {
     background: {{ border|color }};
 }
 QMenu::item {
-    padding: 4px 28px;
+    padding: 4px 19px;
 }
 QMenu::item:selected {
     background: {{ popupItem.selectionBackground|color }};
@@ -362,16 +367,18 @@ QPushButton:hover {
 QPushButton:pressed {
     background: {{ primary|color(state="button.activeBackground") }};
 }
-QPushButton:checked:!disabled {
+QPushButton:checked:enabled {
     background: {{ primary|color(state="button.activeBackground") }};
 }
 QPushButton:default:hover {
     background: {{ primary|color(state="defaultButton.hoverBackground") }};
 }
-QPushButton:default:pressed {
+QPushButton:default:pressed,
+QPushButton:default:checked {
     background: {{ primary|color(state="defaultButton.activeBackground") }};
 }
-QPushButton:default:disabled {
+QPushButton:default:disabled,
+QPushButton:default:checked:disabled {
     background: {{ foreground|color(state="defaultButton.disabledBackground") }};
 }
 QDialogButtonBox QPushButton {
@@ -383,16 +390,17 @@ QToolButton {
     spacing: 2px;
     border-radius: {{ corner-shape|corner(size=2) }}px;
 }
-QToolButton:hover {
+QToolButton:hover,
+QToolButton::menu-button:hover {
     background: {{ primary|color(state="button.hoverBackground") }};
 }
 QToolButton:pressed,
 QToolButton:checked:pressed,
-QToolButton::menu-button:pressed:!disabled {
+QToolButton::menu-button:pressed:enabled {
     background: {{ primary|color(state="button.activeBackground") }};
 }
-QToolButton:selected:!disabled,
-QToolButton:checked:!disabled {
+QToolButton:selected:enabled,
+QToolButton:checked:enabled {
     background: {{ primary|color(state="button.activeBackground") }};
 }
 QToolButton::menu-indicator {
@@ -412,8 +420,8 @@ QToolButton::menu-button {
     subcontrol-origin: margin;
     border: none;
     width: 17px;
-    border-top-right-radius: {{ corner-shape|corner(size=4) }}px;
-    border-bottom-right-radius: {{ corner-shape|corner(size=4) }}px;
+    border-top-right-radius: {{ corner-shape|corner(size=2) }}px;
+    border-bottom-right-radius: {{ corner-shape|corner(size=2) }}px;
     image: {{ foreground|color(state="icon")|url(id="expand_less", rotate=180) }};
 }
 QToolButton::menu-button:disabled {
@@ -431,7 +439,7 @@ QToolButton[
 }
 QComboBox {
     min-height: 1.5em;
-    padding: 0 4px;
+    padding: 0 8px 0 4px;
     background: {{ input.background|color }};
     border: 1px solid {{ border|color(state="input") }};
     border-radius: {{ corner-shape|corner(size=4) }}px;
@@ -441,8 +449,11 @@ QComboBox:open {
     border-color: {{ primary|color }};
 }
 QComboBox::drop-down {
-    border: none;
-    padding-right: 4px;
+    margin: 2px 2px 2px -6px;
+    border-radius: {{ corner-shape|corner(size=4) }};
+}
+QComboBox[editable=true]::drop-down:hover {
+    background: {{ inputButton.hoverBackground|color }};
 }
 QComboBox::down-arrow {
     image: {{ foreground|color(state="icon")|url(id="expand_less", rotate=180) }};
@@ -450,17 +461,20 @@ QComboBox::down-arrow {
 QComboBox::down-arrow:disabled {
     image: {{ foreground|color(state="disabled")|url(id="expand_less", rotate=180) }};
 }
+QComboBox[editable=true]::down-arrow:open {
+    image: {{ foreground|color(state="icon")|url(id="expand_less") }};
+}
+QComboBox[editable=true]::down-arrow:open:disabled {
+    image: {{ foreground|color(state="disabled")|url(id="expand_less") }};
+}
 QComboBox::item:selected {
     border: none;
     background: {{ primary|color(state="list.selectionBackground") }};
 }
-QComboBox QAbstractItemView {
+QComboBox QListView {
     background: {{ background|color(state="popup") }};
-    margin: 0;
-    border: 1px solid {{ border|color }};
-    padding: 2px;
 }
-QComboBox QAbstractItemView[
+QComboBox QListView[
 {{ |env(value="frameShape=\\\"0\\\"", version="<6.0.0")}}
 {{ |env(value="frameShape=NoFrame", version=">=6.0.0") }}
 ] {
@@ -529,16 +543,16 @@ QTabBar::tab {
     border-style: solid;
 }
 QTabBar::tab:hover,
-QTabBar::tab:selected:hover:!disabled {
+QTabBar::tab:selected:hover:enabled {
     background: {{ tab.hoverBackground|color }};
 }
-QTabBar::tab:selected:!disabled {
+QTabBar::tab:selected:enabled {
     color: {{ primary|color }};
     background: {{ tab.activeBackground|color }};
     border-color: {{ primary|color }};
 }
 QTabBar::tab:selected:disabled,
-QTabBar::tab:only-one:selected:!disabled {
+QTabBar::tab:only-one:selected:enabled {
     border-color: {{ border|color }};
 }
 QTabBar::tab:top {
@@ -673,7 +687,7 @@ QToolBox::tab {
     border-top-left-radius: {{ corner-shape|corner(size=4) }}px;
     border-top-right-radius: {{ corner-shape|corner(size=4) }}px;
 }
-QToolBox::tab:selected:!disabled {
+QToolBox::tab:selected:enabled {
     border-bottom: 2px solid {{ primary|color }};
 }
 QSplitter::handle {
@@ -762,7 +776,6 @@ QAbstractItemView::branch:selected:!active {
 }
 QAbstractItemView QLineEdit,
 QAbstractItemView QAbstractSpinBox,
-QAbstractItemView QComboBox,
 QAbstractItemView QAbstractButton {
     padding: 0;
     margin: 1px;
@@ -821,10 +834,10 @@ QListView::right-arrow {
     margin: -2px;
     image: {{ foreground|color(state="icon.unfocused")|url(id="chevron_right") }};
 }
-QListView::left-arrow:selected:!disabled {
+QListView::left-arrow:selected:enabled {
     image: {{ foreground|color(state="icon")|url(id="chevron_right", rotate=180) }};
 }
-QListView::right-arrow:selected:!disabled {
+QListView::right-arrow:selected:enabled {
     image: {{ foreground|color(state="icon")|url(id="chevron_right") }};
 }
 QListView::left-arrow:disabled {
@@ -891,7 +904,7 @@ QHeaderView::section:vertical {
     border-left: 2px solid transparent;
     margin-bottom: 1px;
 }
-QHeaderView::section:on:!disabled,
+QHeaderView::section:on:enabled,
 QHeaderView::section:pressed {
     border-color: {{ primary|color }};
 }
@@ -977,34 +990,33 @@ QAbstractSpinBox:focus {
 }
 QAbstractSpinBox::up-button,
 QAbstractSpinBox::down-button {
-    subcontrol-origin: border;
-    width: 12px;
-    height: 4px;
-    padding: 3px;
+    subcontrol-position: center right;
     border-radius: {{ corner-shape|corner(size=4) }}px;
 }
-QAbstractSpinBox::up-button:hover,
-QAbstractSpinBox::down-button:hover {
+QAbstractSpinBox::up-button:hover:on,
+QAbstractSpinBox::down-button:hover:on {
     background: {{ inputButton.hoverBackground|color }};
 }
 QAbstractSpinBox::up-button {
-    subcontrol-position: top right;
-    margin: 3px 3px 1px 1px;
+    bottom: 5px;
+    right: 4px;
 }
-QAbstractSpinBox::up-arrow {
+QAbstractSpinBox::up-arrow:on {
     image: {{ foreground|color(state="icon")|url(id="arrow_drop_up") }};
 }
-QAbstractSpinBox::up-arrow:disabled {
+QAbstractSpinBox::up-arrow:disabled,
+QAbstractSpinBox::up-arrow:off {
     image: {{ foreground|color(state="disabled")|url(id="arrow_drop_up") }};
 }
 QAbstractSpinBox::down-button {
-    subcontrol-position: bottom right;
-    margin: 1px 3px 3px 1px;
+    top: 5px;
+    right: 4px;
 }
-QAbstractSpinBox::down-arrow {
+QAbstractSpinBox::down-arrow:on {
     image: {{ foreground|color(state="icon")|url(id="arrow_drop_up", rotate=180) }};
 }
-QAbstractSpinBox::down-arrow:disabled {
+QAbstractSpinBox::down-arrow:disabled,
+QAbstractSpinBox::down-arrow:off {
     image: {{ foreground|color(state="disabled")|url(id="arrow_drop_up", rotate=180) }};
 }
 QDateTimeEdit::drop-down {
@@ -1035,16 +1047,19 @@ QFontDialog QListView {
 QFontDialog QScrollBar:vertical {
     margin: 0;
 }
-QComboBox::indicator:checked,
-QMenu::indicator:checked {
-    width: 18px;
-    image: {{ foreground|color(state="icon")|url(id="check") }};
-}
+QComboBox::indicator,
 QMenu::indicator {
     width: 18px;
+    height: 18px;
+}
+QMenu::indicator {
     background: {{ popupItem.checkbox.background|color }};
     margin-left: 3px;
     border-radius: {{ corner-shape|corner(size=4) }}px;
+}
+QComboBox::indicator:checked,
+QMenu::indicator:checked {
+    image: {{ foreground|color(state="icon")|url(id="check") }};
 }
 QCheckBox,
 QRadioButton {
@@ -1116,13 +1131,12 @@ QStatusBar > QMenu {
 PlotWidget {
     padding: 0;
 }
-ParameterTree > .QWidget > .QWidget > .QWidget > QAbstractSpinBox::up-button,
-ParameterTree > .QWidget > .QWidget > .QWidget > QAbstractSpinBox::down-button {
-    margin: 2px 3px 1px 1px;
-    padding: 2px;
-}
 ParameterTree > .QWidget > .QWidget > .QWidget > QComboBox{
     min-height: 1.2em;
+}
+ParameterTree::item,
+ParameterTree > .QWidget {
+    background: {{ background|color(state="list") }};
 }
 
 """  # noqa: E501

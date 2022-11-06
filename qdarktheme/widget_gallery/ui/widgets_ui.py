@@ -48,7 +48,7 @@ class _Group1(QGroupBox):
 
         push_btn, push_btn_toggled = QPushButton("NORMAL"), QPushButton("TOGGLED")
         push_btn_flat, push_btn_flat_toggled = QPushButton("NORMAL"), QPushButton("TOGGLED")
-        tool_btn, tool_btn_toggled, tool_btn_text = QToolButton(), QToolButton(), QToolButton()
+        tool_btn, tool_btn_toggled, tool_btn_text, tool_btn_menu = (QToolButton() for _ in range(4))
         radio_btn_1, radio_btn_2 = QRadioButton("Normal 1"), QRadioButton("Normal 2")
         checkbox, checkbox_tristate = QCheckBox("Normal"), QCheckBox("Tristate")
 
@@ -63,8 +63,10 @@ class _Group1(QGroupBox):
         tool_btn.setIcon(QIcon("icons:favorite_border_24dp.svg"))
         tool_btn_toggled.setIcon(QIcon("icons:favorite_border_24dp.svg"))
         tool_btn_text.setIcon(QIcon("icons:favorite_border_24dp.svg"))
+        tool_btn_menu.setIcon(QIcon("icons:favorite_border_24dp.svg"))
         tool_btn_text.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
         tool_btn_text.setText("Text")
+        tool_btn_menu.setPopupMode(QToolButton.ToolButtonPopupMode.MenuButtonPopup)
         tool_btn_toggled.setCheckable(True)
         tool_btn_toggled.setChecked(True)
 
@@ -87,6 +89,7 @@ class _Group1(QGroupBox):
         v_layout_tool.addWidget(tool_btn)
         v_layout_tool.addWidget(tool_btn_toggled)
         v_layout_tool.addWidget(tool_btn_text)
+        v_layout_tool.addWidget(tool_btn_menu)
         group_tool.setLayout(v_layout_tool)
 
         v_layout_radio = QVBoxLayout()
