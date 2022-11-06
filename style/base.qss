@@ -459,10 +459,12 @@ QPushButton:checked:!disabled {
 QPushButton:default:hover {
     background: {{ primary|color(state="defaultButton.hoverBackground") }};
 }
-QPushButton:default:pressed {
+QPushButton:default:pressed,
+QPushButton:default:checked {
     background: {{ primary|color(state="defaultButton.activeBackground") }};
 }
-QPushButton:default:disabled {
+QPushButton:default:disabled,
+QPushButton:default:checked:disabled {
     background: {{ foreground|color(state="defaultButton.disabledBackground") }};
 }
 
