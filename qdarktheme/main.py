@@ -7,7 +7,6 @@ import warnings
 from functools import partial
 
 from qdarktheme import __version__, filter, resources
-from qdarktheme.color import Color
 from qdarktheme.template_engine import Template
 from qdarktheme.util import get_cash_root_path, get_logger
 
@@ -23,28 +22,18 @@ def _color_values(theme: str) -> dict[str, str | dict]:
 
 def _marge_colors(color_values: dict[str, str | dict], custom_colors: dict[str, str]):
     for color_id, color_format in custom_colors.items():
-        if not Color.check_hex_format(color_format):
-            raise ValueError(
-                f'invalid value for argument custom_colors: "{color_format}". '
-                "Only support following hexadecimal notations: #RGB, #RGBA, #RRGGBB and #RRGGBBAA. "
-                "R (red), G (green), B (blue), and A (alpha) are hexadecimal characters "
-                "(0-9, a-f or A-F)."
-            ) from None
-
-        parent_key, *child_key = color_id.split(">")
         try:
+            parent_key, *child_key = color_id.split(">")
             color_info = color_values[parent_key]
             if len(child_key) == 0:
                 if isinstance(color_info, str):
                     color_values[parent_key] = color_format
                 else:
                     color_info["base"] = color_format
-            elif len(child_key) == 1:
-                color_info = color_values[parent_key]
-                if isinstance(color_info, dict):
-                    # Check if child_key is valid.
-                    color_info[child_key[0]]
-                    color_info[child_key[0]] = color_format
+            elif len(child_key) == 1 and isinstance(color_info, dict):
+                # Check if child_key is valid.
+                color_info[child_key[0]]
+                color_info[child_key[0]] = color_format
             else:
                 raise KeyError
         except KeyError:

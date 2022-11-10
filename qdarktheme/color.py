@@ -126,14 +126,20 @@ class Color:
         return str(self.rgba)
 
     @staticmethod
-    def check_hex_format(hex: str) -> bool:
+    def _check_hex_format(hex_format: str) -> None:
         """Check if string is hex format."""
-        hex = hex.lstrip("#")
         try:
+            hex = hex_format.lstrip("#")
+            if not len(hex) in (3, 4, 6, 8):
+                raise ValueError
             int(hex, 16)
-            return True
         except ValueError:
-            return False
+            raise ValueError(
+                f'invalid hex color format: "{hex_format}". '
+                "Only support following hexadecimal notations: #RGB, #RGBA, #RRGGBB and #RRGGBBAA. "
+                "R (red), G (green), B (blue), and A (alpha) are hexadecimal characters "
+                "(0-9, a-f or A-F)."
+            ) from None
 
     @staticmethod
     def from_hex(hex: str) -> Color:
@@ -145,6 +151,7 @@ class Color:
         Returns:
             Color: Color object converted from hex.
         """
+        Color._check_hex_format(hex)
         hex = hex.lstrip("#")
         r, g, b, a = 255, 0, 0, 1
         if len(hex) == 3:  # #RGB format
