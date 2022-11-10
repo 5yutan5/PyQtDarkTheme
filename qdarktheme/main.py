@@ -14,14 +14,14 @@ from qdarktheme.util import get_cash_root_path, get_logger
 _logger = get_logger(__name__)
 
 
-def _color_schema(theme: str) -> dict[str, str | dict]:
+def _color_values(theme: str) -> dict[str, str | dict]:
     try:
-        return json.loads(resources.COLOR_SCHEMAS[theme])
+        return json.loads(resources.COLOR_VALUES[theme])
     except KeyError:
         raise ValueError(f'invalid argument, not a dark or light: "{theme}"') from None
 
 
-def _marge_colors(color_schema: dict[str, str | dict], custom_colors: dict[str, str]):
+def _marge_colors(color_values: dict[str, str | dict], custom_colors: dict[str, str]):
     for color_id, color_format in custom_colors.items():
         if not Color.check_hex_format(color_format):
             raise ValueError(
@@ -33,14 +33,14 @@ def _marge_colors(color_schema: dict[str, str | dict], custom_colors: dict[str, 
 
         parent_key, *child_key = color_id.split(">")
         try:
-            color_info = color_schema[parent_key]
+            color_info = color_values[parent_key]
             if len(child_key) == 0:
                 if isinstance(color_info, str):
-                    color_schema[parent_key] = color_format
+                    color_values[parent_key] = color_format
                 else:
                     color_info["base"] = color_format
             elif len(child_key) == 1:
-                color_info = color_schema[parent_key]
+                color_info = color_values[parent_key]
                 if isinstance(color_info, dict):
                     # Check if child_key is valid.
                     color_info[child_key[0]]
@@ -101,7 +101,7 @@ def load_stylesheet(
             app = QApplication([])
             app.setStyleSheet(qdarktheme.load_stylesheet(custom_colors={"primary": "#D0BCFF"}))
     """
-    color_schema = _color_schema(theme)
+    color_values = _color_values(theme)
     if corner_shape not in ("rounded", "sharp"):
         raise ValueError(f'invalid argument, not a rounded or sharp: "{corner_shape}"')
     if border not in (None, "rounded", "sharp"):
@@ -117,14 +117,14 @@ def load_stylesheet(
     get_cash_root_path(__version__).mkdir(parents=True, exist_ok=True)
 
     if custom_colors is not None:
-        _marge_colors(color_schema, custom_colors)
+        _marge_colors(color_values, custom_colors)
 
     # Build stylesheet
     template = Template(
         resources.TEMPLATE_STYLESHEET,
         {"color": filter.color, "corner": filter.corner, "env": filter.env, "url": filter.url},
     )
-    replacements = dict(color_schema, **{"corner-shape": corner_shape})
+    replacements = dict(color_values, **{"corner-shape": corner_shape})
     return template.render(replacements)
 
 
@@ -175,12 +175,12 @@ def load_palette(theme: str = "dark", custom_colors: dict[str, str] | None = Non
             app = QApplication([])
             app.setPalette(custom_colors={"primary": "#D0BCFF"})
     """
-    color_schema = _color_schema(theme)
+    color_values = _color_values(theme)
     if custom_colors is not None:
-        _marge_colors(color_schema, custom_colors)
+        _marge_colors(color_values, custom_colors)
 
     mk_template = partial(Template, filters={"color": filter.color, "palette": filter.palette_format})
-    return resources.mk_q_palette(mk_template, color_schema)
+    return resources.mk_q_palette(mk_template, color_values)
 
 
 def get_themes() -> tuple[str, ...]:
