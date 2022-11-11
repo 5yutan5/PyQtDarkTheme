@@ -110,6 +110,12 @@ def test_load_stylesheet_with_wrong_color_id(wrong_color_id) -> None:
         qdarktheme.load_stylesheet(custom_colors={wrong_color_id: "#121212"})
 
 
+def test_load_stylesheet_when_failing_to_detect_system_theme(mocker) -> None:
+    """Verify `load_stylesheet(theme="auto")` works when failing to detect system theme."""
+    mocker.patch("darkdetect.theme", return_value=None)
+    qdarktheme.load_stylesheet()
+
+
 def test_clear_cache() -> None:
     """Verify `clear_cache()`."""
     qdarktheme.load_stylesheet()

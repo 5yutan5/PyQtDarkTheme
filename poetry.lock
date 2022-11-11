@@ -753,6 +753,20 @@ python-versions = "*"
 pytest = ">=4.0.0"
 
 [[package]]
+name = "pytest-mock"
+version = "3.10.0"
+description = "Thin-wrapper around the mock package for easier use with pytest"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+pytest = ">=5.0"
+
+[package.extras]
+dev = ["pre-commit", "pytest-asyncio", "tox"]
+
+[[package]]
 name = "pytest-qt"
 version = "4.2.0"
 description = "pytest support for PyQt and PySide applications"
@@ -1194,7 +1208,7 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7,<3.12"
-content-hash = "36a0f9379e960148f52ed6db93ef06fbad5fc9f4bad00ed00f895d95273f6c3c"
+content-hash = "2fdb8285bfc3e5fa7f07f5d317d282595b07cd39d73553bf3faafb9dba0f540f"
 
 [metadata.files]
 alabaster = [
@@ -1602,6 +1616,10 @@ pytest-cov = [
 pytest-github-actions-annotate-failures = [
     {file = "pytest-github-actions-annotate-failures-0.1.7.tar.gz", hash = "sha256:c6af8f9d13f1f09ef4c104a30875a4975db131ddbba979c8e48fdc456c8dde1f"},
     {file = "pytest_github_actions_annotate_failures-0.1.7-py2.py3-none-any.whl", hash = "sha256:c4a7346d1d95f731a6b53e9a45f10ca56593978149266dd7526876cce403ea38"},
+]
+pytest-mock = [
+    {file = "pytest-mock-3.10.0.tar.gz", hash = "sha256:fbbdb085ef7c252a326fd8cdcac0aa3b1333d8811f131bdcc701002e1be7ed4f"},
+    {file = "pytest_mock-3.10.0-py3-none-any.whl", hash = "sha256:f4c973eeae0282963eb293eb173ce91b091a79c1334455acfac9ddee8a1c784b"},
 ]
 pytest-qt = [
     {file = "pytest-qt-4.2.0.tar.gz", hash = "sha256:00a17b586dd530b6d7a9399923a40489ca4a9a309719011175f55dc6b5dc8f41"},
