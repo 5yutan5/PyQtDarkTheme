@@ -113,7 +113,7 @@ def test_load_stylesheet_with_wrong_color_id(wrong_color_id) -> None:
 def test_load_stylesheet_when_failing_to_detect_system_theme(mocker) -> None:
     """Verify `load_stylesheet(theme="auto")` works when failing to detect system theme."""
     mocker.patch("darkdetect.theme", return_value=None)
-    qdarktheme.load_stylesheet()
+    qdarktheme.load_stylesheet("auto")
 
 
 def test_clear_cache() -> None:
