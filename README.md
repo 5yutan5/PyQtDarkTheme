@@ -139,7 +139,7 @@ You can customize theme color.
 stylesheet = qdarktheme.load_stylesheet(custom_colors={"primary": "#D0BCFF"})
 ```
 
-Further color id can be found in our theme color docs:
+Further information for customizing color can be found in our theme color docs:
 
 - [Theme Color](https://pyqtdarktheme.readthedocs.io/en/latest/reference/theme_color.html)
 

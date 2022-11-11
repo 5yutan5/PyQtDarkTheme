@@ -82,6 +82,7 @@ def load_stylesheet(
             use the theme set in argument ``default_theme``.
         corner_shape: The corner shape. There are `rounded` and `sharp` shape.
         custom_colors: The custom color map. Overrides the default color for color id you set.
+            Also you can customize a specific theme only. See example 6.
         default_theme: The default theme name.
             The theme set by this argument will be used when system theme detection fails.
         border: The corner shape. There are `rounded` and `sharp` shape.
@@ -125,6 +126,20 @@ def load_stylesheet(
 
             app = QApplication([])
             app.setStyleSheet(qdarktheme.load_stylesheet(custom_colors={"primary": "#D0BCFF"}))
+
+        6. Customize a specific theme only ::
+
+            app = QApplication([])
+            app.setStyleSheet(
+                qdarktheme.load_stylesheet(
+                    theme="auto",
+                    custom_colors={
+                        "[dark]": {
+                            "primary": "#D0BCFF",
+                        }
+                    },
+                )
+            )
     """
     if theme == "auto":
         theme = _detect_system_theme(default_theme)
@@ -182,6 +197,7 @@ def load_palette(
             If failed to detect system theme,
             use the theme set in argument ``default_theme``.
         custom_colors: The custom color map. Overrides the default color for color id you set.
+            Also you can customize a specific theme only. See example 5.
         default_theme: The default theme name.
             The theme set by this argument will be used when system theme detection fails.
 
@@ -207,15 +223,29 @@ def load_palette(
             app = QApplication([])
             app.setPalette(qdarktheme.load_palette("light"))
 
-        4. Automatic detection of system theme ::
+        3. Automatic detection of system theme ::
 
             app = QApplication([])
             app.setPalette(qdarktheme.load_palette("auto"))
 
-        5. Customize color ::
+        4. Customize color ::
 
             app = QApplication([])
             app.setPalette(custom_colors={"primary": "#D0BCFF"})
+
+        5. Customize a specific theme only ::
+
+            app = QApplication([])
+            app.setStyleSheet(
+                qdarktheme.load_stylesheet(
+                    theme="auto",
+                    custom_colors={
+                        "[dark]": {
+                            "primary": "#D0BCFF",
+                        }
+                    },
+                )
+            )
     """
     if theme == "auto":
         theme = _detect_system_theme(default_theme)

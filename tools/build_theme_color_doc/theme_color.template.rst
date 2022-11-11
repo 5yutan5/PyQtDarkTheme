@@ -5,11 +5,25 @@ You can customize your theme color with the argument ``custom_colors`` of ``qdar
 
 .. code-block:: python
 
-    import qdarktheme
+  import qdarktheme
 
-    qdarktheme.load_stylesheet(custom_colors={"primary": "#D0BCFF"})
-    # or
-    qdarktheme.load_palette(custom_colors={"primary": "#D0BCFF"})
+  qdarktheme.load_stylesheet(custom_colors={"primary": "#D0BCFF"})
+  # or
+  qdarktheme.load_palette(custom_colors={"primary": "#D0BCFF"})
+
+To customize a specific theme only, use the following syntax:
+
+.. code-block:: python
+
+  import qdarktheme
+
+  qdarktheme.load_stylesheet(
+      custom_colors={
+          "[dark]": {
+              "primary": "#D0BCFF",
+          }
+      }
+  )
 
 Color formats
 -------------
