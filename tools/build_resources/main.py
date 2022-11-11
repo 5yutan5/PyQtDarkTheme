@@ -19,7 +19,7 @@ def _remove_qss_comment(stylesheet: str) -> str:
 
 def _mk_root_init_file(output_path: Path, themes: list[str], doc_string: str = "") -> None:
     code = f"{doc_string}\n"
-    code += "from qdarktheme.resources.color_schema import COLOR_SCHEMAS\n"
+    code += "from qdarktheme.resources.color_values import COLOR_VALUES\n"
     code += "from qdarktheme.resources.palette import mk_q_palette\n"
     code += "from qdarktheme.resources.svg import SVG_RESOURCES\n"
     code += "from qdarktheme.resources.template_stylesheet import TEMPLATE_STYLESHEET\n\n"
@@ -57,11 +57,11 @@ def _mk_palette_file(output: Path):
     output.write_text(palette)
 
 
-def _mk_color_schema_resource(color_schemas: dict[str, dict], output: Path):
-    code = '"""Color schemas."""\n\n'
-    code += "COLOR_SCHEMAS = {\n"
-    for theme, color_schema in sorted(color_schemas.items()):
-        code += f"""    "{theme}": '{json.dumps(color_schema, sort_keys=True)}',  # noqa: E501\n"""
+def _mk_color_resource(color_values: dict[str, dict], output: Path):
+    code = '"""Default color values."""\n\n'
+    code += "COLOR_VALUES = {\n"
+    for theme, color_value in sorted(color_values.items()):
+        code += f"""    "{theme}": '{json.dumps(color_value, sort_keys=True)}',  # noqa: E501\n"""
     code += "}\n"
     output.write_text(code)
 
@@ -69,8 +69,8 @@ def _mk_color_schema_resource(color_schemas: dict[str, dict], output: Path):
 def build_resources(build_path: Path, theme_file_paths: list[Path], root_init_file_doc: str) -> None:
     """Build resources for qdarktheme module."""
     themes = tuple(path.stem for path in theme_file_paths)
-    color_schemas = {path.stem: json.loads(path.read_bytes()) for path in theme_file_paths}
-    _mk_color_schema_resource(color_schemas, output=build_path / "color_schema.py")
+    color_values = {path.stem: json.loads(path.read_bytes()) for path in theme_file_paths}
+    _mk_color_resource(color_values, output=build_path / "color_values.py")
     _mk_palette_file(output=build_path / "palette.py")
     _mk_svg_resource(output=build_path / "svg.py")
     _mk_template_stylesheet(output=build_path / "template_stylesheet.py")

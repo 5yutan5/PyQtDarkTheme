@@ -7,44 +7,58 @@ import warnings
 from functools import partial
 
 from qdarktheme import __version__, filter, resources
-from qdarktheme.color import Color
 from qdarktheme.template_engine import Template
 from qdarktheme.util import get_cash_root_path, get_logger
 
 _logger = get_logger(__name__)
 
 
-def _color_schema(theme: str) -> dict[str, str | dict]:
+def _detect_system_theme(default_theme: str) -> str:
+    import darkdetect
+
+    system_theme = darkdetect.theme()
+    if system_theme is None:
+        _logger.info(f'failed to detect system theme, qdarktheme use "{default_theme}" theme.')
+        return default_theme
+    return system_theme.lower()
+
+
+def _color_values(theme: str) -> dict[str, str | dict]:
     try:
-        return json.loads(resources.COLOR_SCHEMAS[theme])
+        return json.loads(resources.COLOR_VALUES[theme])
     except KeyError:
         raise ValueError(f'invalid argument, not a dark or light: "{theme}"') from None
 
 
-def _marge_colors(color_schema: dict[str, str | dict], custom_colors: dict[str, str]):
-    for color_id, color_format in custom_colors.items():
-        if not Color.check_hex_format(color_format):
-            raise ValueError(
-                f'invalid value for argument custom_colors: "{color_format}". '
-                "Only support following hexadecimal notations: #RGB, #RGBA, #RRGGBB and #RRGGBBAA. "
-                "R (red), G (green), B (blue), and A (alpha) are hexadecimal characters "
-                "(0-9, a-f or A-F)."
-            ) from None
+def _mix_theme_colors(custom_colors: dict[str, str | dict[str, str]], theme: str) -> dict[str, str]:
+    colors = {id: color for id, color in custom_colors.items() if isinstance(color, str)}
+    custom_colors_with_theme = custom_colors.get(f"[{theme}]")
+    if isinstance(custom_colors_with_theme, dict):
+        colors.update(custom_colors_with_theme)
+    elif isinstance(custom_colors_with_theme, str):
+        raise ValueError(
+            "invalid value for argument custom_colors, not a dict type: "
+            f'"{custom_colors_with_theme}" of "[{theme}]" key.'
+        )
+    return colors
 
-        parent_key, *child_key = color_id.split(">")
+
+def _marge_colors(
+    color_values: dict[str, str | dict], custom_colors: dict[str, str | dict[str, str]], theme: str
+):
+    for color_id, color in _mix_theme_colors(custom_colors, theme).items():
         try:
-            color_info = color_schema[parent_key]
+            parent_key, *child_key = color_id.split(">")
+            color_value = color_values[parent_key]
             if len(child_key) == 0:
-                if isinstance(color_info, str):
-                    color_schema[parent_key] = color_format
+                if isinstance(color_value, dict):
+                    color_value["base"] = color
                 else:
-                    color_info["base"] = color_format
-            elif len(child_key) == 1:
-                color_info = color_schema[parent_key]
-                if isinstance(color_info, dict):
-                    # Check if child_key is valid.
-                    color_info[child_key[0]]
-                    color_info[child_key[0]] = color_format
+                    color_values[parent_key] = color
+            elif len(child_key) == 1 and isinstance(color_value, dict):
+                # Check if child_key exists.
+                color_value[child_key[0]]
+                color_value[child_key[0]] = color
             else:
                 raise KeyError
         except KeyError:
@@ -54,19 +68,26 @@ def _marge_colors(color_schema: dict[str, str | dict], custom_colors: dict[str, 
 def load_stylesheet(
     theme: str = "dark",
     corner_shape: str = "rounded",
-    custom_colors: dict[str, str] | None = None,
+    custom_colors: dict[str, str | dict[str, str]] | None = None,
     *,
+    default_theme: str = "dark",
     border: str | None = None,
 ) -> str:
     """Load the style sheet which looks like flat design. There are `dark` and `light` theme.
 
     Args:
-        theme: The name of the theme. There are `dark` and `light` theme.
+        theme: The theme name. There are `dark`, `light` and `auto`.
+            If ``auto``, try to detect system theme.
+            If failed to detect system theme,
+            use the theme set in argument ``default_theme``.
         corner_shape: The corner shape. There are `rounded` and `sharp` shape.
         custom_colors: The custom color map. Overrides the default color for color id you set.
+            Also you can customize a specific theme only. See example 6.
+        default_theme: The default theme name.
+            The theme set by this argument will be used when system theme detection fails.
         border: The corner shape. There are `rounded` and `sharp` shape.
-                This argument is deprecated since v1.2.0. Please use `corner_shape` instead.
-                This argument override value of argument `corner_shape`.
+            This argument is deprecated since v1.2.0. Please use `corner_shape` instead.
+            This argument override value of argument `corner_shape`.
 
     Raises:
         ValueError: If the arguments of this method is wrong.
@@ -90,18 +111,39 @@ def load_stylesheet(
             app = QApplication([])
             app.setStyleSheet(qdarktheme.load_stylesheet("light"))
 
-        3. Sharp corner ::
+        3. Automatic detection of system theme ::
+
+            app = QApplication([])
+            app.setStyleSheet(qdarktheme.load_stylesheet("auto"))
+
+        4. Sharp corner ::
 
             # Change corner shape to sharp.
             app = QApplication([])
             app.setStyleSheet(qdarktheme.load_stylesheet(corner_shape="sharp"))
 
-        4. Customize color ::
+        5. Customize color ::
 
             app = QApplication([])
             app.setStyleSheet(qdarktheme.load_stylesheet(custom_colors={"primary": "#D0BCFF"}))
+
+        6. Customize a specific theme only ::
+
+            app = QApplication([])
+            app.setStyleSheet(
+                qdarktheme.load_stylesheet(
+                    theme="auto",
+                    custom_colors={
+                        "[dark]": {
+                            "primary": "#D0BCFF",
+                        }
+                    },
+                )
+            )
     """
-    color_schema = _color_schema(theme)
+    if theme == "auto":
+        theme = _detect_system_theme(default_theme)
+    color_values = _color_values(theme)
     if corner_shape not in ("rounded", "sharp"):
         raise ValueError(f'invalid argument, not a rounded or sharp: "{corner_shape}"')
     if border not in (None, "rounded", "sharp"):
@@ -117,14 +159,14 @@ def load_stylesheet(
     get_cash_root_path(__version__).mkdir(parents=True, exist_ok=True)
 
     if custom_colors is not None:
-        _marge_colors(color_schema, custom_colors)
+        _marge_colors(color_values, custom_colors, theme)
 
     # Build stylesheet
     template = Template(
         resources.TEMPLATE_STYLESHEET,
         {"color": filter.color, "corner": filter.corner, "env": filter.env, "url": filter.url},
     )
-    replacements = dict(color_schema, **{"corner-shape": corner_shape})
+    replacements = dict(color_values, **{"corner-shape": corner_shape})
     return template.render(replacements)
 
 
@@ -141,12 +183,23 @@ def clear_cache() -> None:
         _logger.info("There is no caches")
 
 
-def load_palette(theme: str = "dark", custom_colors: dict[str, str] | None = None):
+def load_palette(
+    theme: str = "dark",
+    custom_colors: dict[str, str | dict[str, str]] | None = None,
+    *,
+    default_theme: str = "dark",
+):
     """Load the QPalette for the dark or light theme.
 
     Args:
-        theme: The name of the theme. Available theme are `dark` and `light`.
+        theme: The theme name. There are `dark`, `light` and `auto`.
+            If ``auto``, try to detect system theme.
+            If failed to detect system theme,
+            use the theme set in argument ``default_theme``.
         custom_colors: The custom color map. Overrides the default color for color id you set.
+            Also you can customize a specific theme only. See example 5.
+        default_theme: The default theme name.
+            The theme set by this argument will be used when system theme detection fails.
 
     Raises:
         TypeError: If the arg name of theme is wrong.
@@ -170,17 +223,38 @@ def load_palette(theme: str = "dark", custom_colors: dict[str, str] | None = Non
             app = QApplication([])
             app.setPalette(qdarktheme.load_palette("light"))
 
-        3. Customize color ::
+        3. Automatic detection of system theme ::
+
+            app = QApplication([])
+            app.setPalette(qdarktheme.load_palette("auto"))
+
+        4. Customize color ::
 
             app = QApplication([])
             app.setPalette(custom_colors={"primary": "#D0BCFF"})
+
+        5. Customize a specific theme only ::
+
+            app = QApplication([])
+            app.setStyleSheet(
+                qdarktheme.load_stylesheet(
+                    theme="auto",
+                    custom_colors={
+                        "[dark]": {
+                            "primary": "#D0BCFF",
+                        }
+                    },
+                )
+            )
     """
-    color_schema = _color_schema(theme)
+    if theme == "auto":
+        theme = _detect_system_theme(default_theme)
+    color_values = _color_values(theme)
     if custom_colors is not None:
-        _marge_colors(color_schema, custom_colors)
+        _marge_colors(color_values, custom_colors, theme)
 
     mk_template = partial(Template, filters={"color": filter.color, "palette": filter.palette_format})
-    return resources.mk_q_palette(mk_template, color_schema)
+    return resources.mk_q_palette(mk_template, color_values)
 
 
 def get_themes() -> tuple[str, ...]:

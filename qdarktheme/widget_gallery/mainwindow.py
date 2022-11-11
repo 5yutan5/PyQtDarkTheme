@@ -35,7 +35,7 @@ class _WidgetGalleryUI:
         )
         self.action_enable = QAction(QIcon("icons:circle_24dp.svg"), "Enable")
         self.action_disable = QAction(QIcon("icons:clear_24dp.svg"), "Disable")
-        self.actions_theme = [QAction(theme, main_win) for theme in ["dark", "light"]]
+        self.actions_theme = [QAction(theme, main_win) for theme in ["auto", "dark", "light"]]
         self.actions_page = (
             QAction(QIcon("icons:widgets_24dp.svg"), "Move to widgets"),
             QAction(QIcon("icons:flip_to_front_24dp.svg"), "Move to dock"),

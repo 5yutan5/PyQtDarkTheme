@@ -94,4 +94,4 @@ repos:
         language: python
         pass_filenames: false
         types: [python]
-        additional_dependencies: ['pyright', 'PyQt6', 'pytest', 'pytest-qt']
+        additional_dependencies: ['pyright', 'PyQt6', 'darkdetect', 'pytest', 'pytest-qt']

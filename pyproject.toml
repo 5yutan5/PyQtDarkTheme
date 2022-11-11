@@ -29,6 +29,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = ">=3.7,<3.12"
+darkdetect = "^0.7.1"
 
 [tool.poetry.group.dev.dependencies]
 black = "^22.10.0"
@@ -57,6 +58,7 @@ pytest-cov = { version = "^4.0.0", extras = ["toml"] }
 pytest-randomly = "^3.12.0"
 pytest-qt = "^4.2.0"
 pytest-xvfb = "^2.0.0"
+pytest-mock = "^3.10.0"
 
 [tool.poetry.group.docs.dependencies]
 # Latest of Sphinx and flake8 cause dependency comflict.
@@ -109,11 +111,6 @@ exclude_lines = ["pragma: no cover", "if __name__ == .__main__.:"]
 
 [tool.coverage.run]
 omit = ["qdarktheme/qtpy/**"]
-
-[tool.pytest.ini_options]
-markers = [
-    "available_qt: marks tests as test to do only when there is qt-binding",
-]
 
 [tool.pyright]
 typeCheckingMode = "basic"

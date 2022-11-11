@@ -13,7 +13,7 @@ elif QT_API == "PyQt6":
 elif QT_API == "PyQt5":
     from PyQt5.QtCore import *  # type: ignore  # noqa: F403
 
-    Slot = pyqtSlot  # noqa: F405
-    Signal = pyqtSignal  # noqa: F405
+    Slot = pyqtSlot  # type: ignore  # noqa: F405
+    Signal = pyqtSignal  # type: ignore  # noqa: F405
 elif QT_API == "PySide2":
     from PySide2.QtCore import *  # type: ignore  # noqa: F403

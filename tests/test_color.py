@@ -1,4 +1,6 @@
 """Test for the color manager."""
+import re
+
 import pytest
 
 from qdarktheme.color import _HSLA, _RGBA, Color
@@ -89,3 +91,31 @@ def test_rgba_from_hsla(rgba, hsla) -> None:
 def test_rgba_from_hex(hex, rgba) -> None:
     """Verify that converting from hex to rgba correctly."""
     assert Color.from_hex(hex).rgba == _RGBA(*rgba)
+
+
+@pytest.mark.parametrize(
+    "wrong_hex",
+    [
+        ("#"),
+        ("#1"),
+        ("#12"),
+        ("#12345"),
+        ("#1234567"),
+        ("#123456789"),
+        ("123#"),
+        ("#00000g"),
+        ("#he00ff"),
+    ],
+)
+def test_color_from_wrong_hex(wrong_hex) -> None:
+    """Verify we raise ValueError when using wrong hexadecimal notations."""
+    with pytest.raises(
+        ValueError,
+        match=re.escape(
+            f'invalid hex color format: "{wrong_hex}". '
+            "Only support following hexadecimal notations: #RGB, #RGBA, #RRGGBB and #RRGGBBAA. "
+            "R (red), G (green), B (blue), and A (alpha) are hexadecimal characters "
+            "(0-9, a-f or A-F)."
+        ),
+    ):
+        Color.from_hex(wrong_hex)
