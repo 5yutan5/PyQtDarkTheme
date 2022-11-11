@@ -66,12 +66,9 @@ By using `darkdetect <https://github.com/albertosottile/darkdetect>`_, You can e
 
         .. code-block:: python
 
+            @Slot()
             def sync_theme_with_system() -> None:
-                theme = darkdetect.theme().lower()
-                # Return None if darkdetect fails to detect a theme.
-                if theme is None:
-                    theme = "dark"
-                stylesheet = qdarktheme.load_stylesheet(theme)
+                stylesheet = qdarktheme.load_stylesheet("auto")
                 QApplication.instance().setStyleSheet(stylesheet)
 
 

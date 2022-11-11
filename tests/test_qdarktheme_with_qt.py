@@ -11,6 +11,7 @@ import qdarktheme
     [
         # Test theme
         ("dark", None),
+        ("light", None),
         # Test theme and custom_colors
         ("dark", {}),
         ("dark", {"foreground": "#112233"}),
@@ -19,6 +20,13 @@ import qdarktheme
         ("dark", {"foreground": "#112"}),
         ("dark", {"foreground": "#11223344"}),
         ("dark", {"foreground": "#1122"}),
+        # Test automatic theme
+        ("auto", None),
+        ("auto", {"foreground": "#112233"}),
+        ("auto", {"[dark]": {"foreground": "#112233"}}),
+        ("auto", {"foreground": "#112233", "[dark]": {"foreground": "#112233"}}),
+        ("auto", {"foreground": "#112233", "[light]": {"foreground": "#112233"}}),
+        ("auto", {"[dark]": {"foreground": "#112233"}, "[light]": {"foreground": "#112233"}}),
     ],
 )
 def test_load_palette(theme, custom_colors) -> None:
