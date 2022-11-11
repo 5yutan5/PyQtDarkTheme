@@ -58,7 +58,7 @@ You can easily switch between light and dark theme.
             :start-at: import sys
 
 On some operating systems we can detect if a dark or light mode is selected system-wide.
-By using `darkdetect <https://github.com/albertosottile/darkdetect>`_, You can easily sync your application theme with this operating system theme.
+By setting ``auto`` to theme, You can easily sync your application theme with this operating system theme.
 
 .. tab-set::
 
@@ -66,7 +66,6 @@ By using `darkdetect <https://github.com/albertosottile/darkdetect>`_, You can e
 
         .. code-block:: python
 
-            @Slot()
             def sync_theme_with_system() -> None:
                 stylesheet = qdarktheme.load_stylesheet("auto")
                 QApplication.instance().setStyleSheet(stylesheet)

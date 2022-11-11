@@ -91,6 +91,12 @@ app.exec()
 app.setStyleSheet(qdarktheme.load_stylesheet("light"))
 ```
 
+### Automatic detection of system theme
+
+```Python
+app.setStyleSheet(qdarktheme.load_stylesheet("auto"))
+```
+
 ### Dark and Light palette
 
 You can get color of dark and light theme by loading QPalette.
