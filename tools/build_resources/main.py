@@ -1,4 +1,4 @@
-"""The main module of build resources program."""
+"""The main module for building resources."""
 from __future__ import annotations
 
 import json
@@ -7,7 +7,6 @@ import shutil
 from filecmp import cmpfiles
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from urllib import request
 
 from qdarktheme._util import get_logger, get_qdarktheme_root_path
 from tools.util import get_style_path
@@ -32,30 +31,20 @@ def _remove_qss_comment(stylesheet: str) -> str:
     return re.sub(r"\n\s*\n", "\n", stylesheet)
 
 
-def _mk_root_init_file(output_path: Path, themes: list[str], doc_string: str = "") -> None:
+def _mk_root_init_file(output: Path, themes: list[str], doc_string: str = "") -> None:
     code = f"{doc_string}\n"
     code += "from qdarktheme._resources._color_values import COLOR_VALUES\n"
     code += "from qdarktheme._resources._palette import mk_q_palette\n"
     code += "from qdarktheme._resources._svg import SVG_RESOURCES\n"
     code += "from qdarktheme._resources._template_stylesheet import TEMPLATE_STYLESHEET\n\n"
     code += f"""THEMES = {str(tuple(themes)).replace("'", '"')}\n"""
-    (output_path / "__init__.py").write_text(code)
-
-
-def _download_material_svg(name: str, style: str) -> str:
-    url = f"https://raw.githubusercontent.com/marella/material-design-icons/main/svg/{style}/{name}.svg"
-    with request.urlopen(url) as response:
-        svg: str = response.read().decode()
-        return re.compile(r'xmlns="[\s\S]*?" ').sub("", svg)
+    (output / "__init__.py").write_text(code)
 
 
 def _mk_svg_resource(svg_dir: Path, output: Path):
-    material_icons: dict[str, str] = json.loads((svg_dir / "material_design_icons.json").read_text())
-    svg_resources = {
-        name: _download_material_svg(name, style) for name, style in material_icons.items()
-    }
-    for svg_file in (svg_dir / "original").glob("*.svg"):
-        svg_resources[svg_file.stem] = svg_file.read_text()
+    svg_resources = {svg_file.stem: svg_file.read_text() for svg_file in svg_dir.glob("*/*.svg")}
+    for name, svg_resource in svg_resources.items():
+        svg_resources[name] = re.compile(r'xmlns="[\s\S]*?" ').sub("", svg_resource)
 
     code = '"""SVG resource."""\n\n'
     code += 'SVG_RESOURCES = """\n'
@@ -64,8 +53,8 @@ def _mk_svg_resource(svg_dir: Path, output: Path):
     output.write_text(code)
 
 
-def _mk_template_stylesheet(stylesheet_path: Path, output: Path):
-    stylesheet = stylesheet_path.read_text()
+def _mk_template_stylesheet(base_stylesheet_file: Path, output: Path):
+    stylesheet = base_stylesheet_file.read_text()
     stylesheet = _remove_qss_comment(stylesheet)
 
     code = '"""Template stylesheet."""\n\n'
@@ -75,9 +64,9 @@ def _mk_template_stylesheet(stylesheet_path: Path, output: Path):
     output.write_text(code)
 
 
-def _mk_palette_file(palette_path: Path, output: Path):
-    palette = palette_path.read_text()
-    output.write_text(palette)
+def _mk_palette_file(template_palette_path: Path, output: Path):
+    template_palette = template_palette_path.read_text()
+    output.write_text(template_palette)
 
 
 def _mk_color_resource(color_values: dict[str, dict], output: Path):
