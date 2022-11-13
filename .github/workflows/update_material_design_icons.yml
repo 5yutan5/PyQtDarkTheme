@@ -1,4 +1,4 @@
-name: Automatic Update of svg for material design icons
+name: Automatically update svg
 
 on:
   schedule:
@@ -22,29 +22,40 @@ jobs:
         with:
             ssh-key: ${{ secrets.DEPLOY_KEY }}
       - uses: git-actions/set-user@v1
+      - uses: snok/install-poetry@v1
+      - run: poetry install --only main
       - uses: actions/setup-python@v4
         with:
           python-version: "3.11"
       - name: Check branch
         id: branch
-        run: git rev-parse --verify ${{ env.BRANCH_NAME }} || echo exists=$($?) >> $GITHUB_OUTPUT
-      - name: Create new branch
-        if: steps.branch.outputs.exists == 1
+        run: |
+          status=0
+          git rev-parse --verify ${{ env.BRANCH_NAME }} || status=$?
+          echo $status
+          echo exists=$($status) >> $GITHUB_OUTPUT
+      - if: steps.branch.outputs.exists != '0'
         run: git branch ${{ env.BRANCH_NAME }}
       - run: git switch ${{ env.BRANCH_NAME }}
       - name: Download svg of material design icons and update resources
         run: |
-          python tools/download_material_icons.py
-          python -m tools.build_resources
+          poetry run python tools/download_material_icons.py
+          poetry run python -m tools.build_resources
       - name: Check diff
         id: diff
         run: |
           git add -N .  # Include new files
-          echo diff=$(git diff --name-only | wc -l)
-      - run: git commit -am ${{ env.COMMIT_MESSAGE }}
-      - name: Create PR
-        if: steps.diff.outputs.count > 0 && steps.branch.outputs.exists == 1 && github.event.inputs.dry != '1'
-        run: gh pr create -t ${{ env.PR_TITLE }} -b 'Change to latest svg for material design icons'
+          echo count=$(git diff --name-only | wc -l) >> $GITHUB_OUTPUT
+      - if: steps.diff.outputs.count != 0
+        run: git commit -am "${{ env.COMMIT_MESSAGE }}"
       - name: Push changes
-        if: steps.diff.outputs.count > 0 && steps.branch.outputs.exists != 1 && github.event.inputs.dry != '1'
-        run: git push
+        if: steps.diff.outputs.count > 0 && github.event.inputs.dry != '1'
+        run: git push -u origin ${{ env.BRANCH_NAME }}
+      - name: Create PR
+        if: steps.diff.outputs.count > 0 && steps.branch.outputs.exists != '0' && github.event.inputs.dry != '1'
+        run: |
+          gh pr create \
+          -t "${{ env.PR_TITLE }}" \
+          -b 'Update svg of material design icons'
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
