@@ -1,16 +1,20 @@
-name: linter
+name: Code checker
 on:
   pull_request:
   push:
     branches: [main]
 
 jobs:
-  lint:
-    name: markdown yaml py-type
+  check-code:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-python@v4
+
+    - name: Check resources
+      uses: pre-commit/action@v3.0.0
+      with:
+        extra_args: build-resources
 
     - name: Lint python type
       uses: pre-commit/action@v3.0.0
