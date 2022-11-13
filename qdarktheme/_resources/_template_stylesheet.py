@@ -154,11 +154,11 @@ QToolBar {
 }
 QToolBar::handle:horizontal {
     width: 20px;
-    image: {{ foreground|color(state="icon")|url(id="drag_indicator_horizontal") }};
+    image: {{ foreground|color(state="icon")|url(id="drag_indicator") }};
 }
 QToolBar::handle:vertical {
     height: 20px;
-    image: {{ foreground|color(state="icon")|url(id="drag_indicator_horizontal", rotate=90) }};
+    image: {{ foreground|color(state="icon")|url(id="drag_indicator", rotate=90) }};
 }
 QToolBar::separator {
     background: {{ border|color }};

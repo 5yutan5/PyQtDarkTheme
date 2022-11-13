@@ -7,6 +7,7 @@ import shutil
 from filecmp import cmpfiles
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from urllib import request
 
 from qdarktheme._util import get_logger, get_qdarktheme_root_path
 from tools.util import get_style_path
@@ -41,11 +42,20 @@ def _mk_root_init_file(output_path: Path, themes: list[str], doc_string: str = "
     (output_path / "__init__.py").write_text(code)
 
 
-def _mk_svg_resource(svg_dir_path: Path, output: Path):
-    svg_resources = {svg_path.stem: svg_path.read_text() for svg_path in svg_dir_path.glob("*.svg")}
+def _download_material_svg(name: str, style: str) -> str:
+    url = f"https://raw.githubusercontent.com/marella/material-design-icons/main/svg/{style}/{name}.svg"
+    with request.urlopen(url) as response:
+        svg: str = response.read().decode()
+        return re.compile(r'xmlns="[\s\S]*?" ').sub("", svg)
+
+
+def _mk_svg_resource(svg_dir: Path, output: Path):
+    material_icons: dict[str, str] = json.loads((svg_dir / "material_design_icons.json").read_text())
     svg_resources = {
-        name: re.compile(r'xmlns="[\s\S]*?" ').sub("", svg) for name, svg in svg_resources.items()
+        name: _download_material_svg(name, style) for name, style in material_icons.items()
     }
+    for svg_file in (svg_dir / "original").glob("*.svg"):
+        svg_resources[svg_file.stem] = svg_file.read_text()
 
     code = '"""SVG resource."""\n\n'
     code += 'SVG_RESOURCES = """\n'
