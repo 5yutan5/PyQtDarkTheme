@@ -80,5 +80,6 @@
     "python.linting.flake8Enabled": true,
     "python.formatting.provider": "black",
     "esbonio.sphinx.confDir": "${workspaceFolder}/docs/source",
-    "restructuredtext.linter.rstcheck.executablePath": "rstcheck"
+    "restructuredtext.linter.rstcheck.executablePath": "rstcheck",
+    "svg.preview.background": "dark-transparent"
 }

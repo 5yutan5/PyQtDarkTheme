@@ -85,11 +85,11 @@ def url(color: Color, id: str, rotate: int = 0) -> str:
     if svg_path.exists():
         return url
     svg = _svg_resources()[id]
-    svg_color = color.to_svg_tiny_color_format()
+    svg_color = f"fill={color.to_svg_tiny_color_format()}"
     # Rotate svg. See https://stackoverflow.com/a/15139069/13452582
     svg_transform = "" if rotate == 0 else f' transform="rotate({rotate}, 12, 12)"'
 
-    svg = svg.replace('"#FFFFFF"', svg_color + svg_transform)
+    svg = svg.replace("<svg ", f"<svg {svg_color}{svg_transform} ")
     svg_path.write_text(svg)
     return url
 
