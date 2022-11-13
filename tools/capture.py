@@ -11,7 +11,7 @@ import qdarktheme
 from qdarktheme.qtpy.QtCore import Qt, QTimer, Slot
 from qdarktheme.qtpy.QtGui import QGuiApplication
 from qdarktheme.qtpy.QtWidgets import QApplication
-from qdarktheme.widget_gallery.mainwindow import WidgetGallery
+from qdarktheme.widget_gallery.main_window import WidgetGallery
 
 
 def _parse_args() -> argparse.Namespace:

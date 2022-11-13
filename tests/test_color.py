@@ -3,7 +3,7 @@ import re
 
 import pytest
 
-from qdarktheme.color import _HSLA, _RGBA, Color
+from qdarktheme._color import _HSLA, _RGBA, Color
 
 
 @pytest.mark.parametrize(

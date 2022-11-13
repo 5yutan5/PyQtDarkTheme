@@ -1,5 +1,6 @@
 """Main module of widget gallery."""
 import qdarktheme
+from qdarktheme._util import get_qdarktheme_root_path
 from qdarktheme.qtpy.QtCore import QDir, Qt, Slot
 from qdarktheme.qtpy.QtGui import QAction, QActionGroup, QFont, QIcon
 from qdarktheme.qtpy.QtWidgets import (
@@ -18,7 +19,6 @@ from qdarktheme.qtpy.QtWidgets import (
     QToolButton,
     QWidget,
 )
-from qdarktheme.util import get_qdarktheme_root_path
 from qdarktheme.widget_gallery.ui.dock_ui import DockUI
 from qdarktheme.widget_gallery.ui.frame_ui import FrameUI
 from qdarktheme.widget_gallery.ui.mdi_ui import MdiUI

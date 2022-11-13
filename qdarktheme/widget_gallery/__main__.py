@@ -4,7 +4,7 @@ import sys
 import qdarktheme
 from qdarktheme.qtpy.QtCore import Qt
 from qdarktheme.qtpy.QtWidgets import QApplication
-from qdarktheme.widget_gallery.mainwindow import WidgetGallery
+from qdarktheme.widget_gallery.main_window import WidgetGallery
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

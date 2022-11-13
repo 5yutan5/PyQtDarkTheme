@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from functools import partial
 
-from qdarktheme.template_engine import Template
+from qdarktheme._template_engine import Template
 
 
 def mk_q_palette(mk_template: partial[Template], color_map: dict[str, str | dict]):

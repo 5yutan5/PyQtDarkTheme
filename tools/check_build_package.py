@@ -4,9 +4,9 @@ import sys
 from importlib.metadata import version
 
 import qdarktheme
-from qdarktheme.util import get_logger
+from qdarktheme._util import get_logger
 
-logger = get_logger(__name__)
+_logger = get_logger(__name__)
 
 
 def _parse_args() -> argparse.Namespace:
@@ -27,19 +27,19 @@ def _test_qdarktheme() -> None:
 
 def _main() -> None:
     args = _parse_args()
-    tag_v: str = args.tag_version.replace("v", "")
+    git_tag_v: str = args.tag_version.replace("v", "")
     package_v = version("pyqtdarktheme")
-    if tag_v == package_v == qdarktheme.__version__:
-        logger.info("The package version, module version and tag version are the same.")
+    if git_tag_v == package_v == qdarktheme.__version__:
+        _logger.info("The package version, module version and tag version are the same.")
     else:
-        logger.info("The version names of package and tag are different.")
-        logger.info("tag version(GitHub tags)         : ", tag_v)
-        logger.info("package version(pyproject.toml)  : ", package_v)
-        logger.info("module version(__version__)      : ", qdarktheme.__version__)
+        _logger.info("The version names of package and tag are different.")
+        _logger.info("tag version(GitHub tags)         : ", git_tag_v)
+        _logger.info("package version(pyproject.toml)  : ", package_v)
+        _logger.info("module version(__version__)      : ", qdarktheme.__version__)
         sys.exit(1)
 
     _test_qdarktheme()
-    logger.info("Test finished successfully!")
+    _logger.info("Test finished successfully!")
 
 
 if __name__ == "__main__":

@@ -6,7 +6,7 @@ import re
 from dataclasses import dataclass
 from itertools import chain, zip_longest
 
-from qdarktheme.util import multi_replace
+from qdarktheme._util import multi_replace
 
 
 @dataclass(unsafe_hash=True, frozen=True)

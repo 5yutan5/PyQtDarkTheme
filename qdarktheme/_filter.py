@@ -5,11 +5,11 @@ import json
 import platform
 from functools import lru_cache
 
-from qdarktheme import __version__, resources
-from qdarktheme.color import Color
+from qdarktheme import __version__, _resources
+from qdarktheme._color import Color
+from qdarktheme._util import analyze_version_str, get_cash_root_path, get_logger
 from qdarktheme.qtpy import __version__ as qt_version
 from qdarktheme.qtpy.qt_compat import QT_API
-from qdarktheme.util import analyze_version_str, get_cash_root_path, get_logger
 
 _logger = get_logger(__name__)
 
@@ -34,7 +34,7 @@ if None in (qt_version, QT_API):
 
 @lru_cache()
 def _svg_resources() -> dict[str, str]:
-    return json.loads(resources.SVG_RESOURCES)
+    return json.loads(_resources.SVG_RESOURCES)
 
 
 def color(color_info: str | dict[str, str | dict], state: str | None = None) -> Color:

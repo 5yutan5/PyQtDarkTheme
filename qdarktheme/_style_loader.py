@@ -1,4 +1,4 @@
-"""Main file of qdarktheme."""
+"""Module for loading style data for Qt."""
 from __future__ import annotations
 
 import json
@@ -6,9 +6,9 @@ import shutil
 import warnings
 from functools import partial
 
-from qdarktheme import __version__, filter, resources
-from qdarktheme.template_engine import Template
-from qdarktheme.util import get_cash_root_path, get_logger
+from qdarktheme import __version__, _filter, _resources
+from qdarktheme._template_engine import Template
+from qdarktheme._util import get_cash_root_path, get_logger
 
 _logger = get_logger(__name__)
 
@@ -25,7 +25,7 @@ def _detect_system_theme(default_theme: str) -> str:
 
 def _color_values(theme: str) -> dict[str, str | dict]:
     try:
-        return json.loads(resources.COLOR_VALUES[theme])
+        return json.loads(_resources.COLOR_VALUES[theme])
     except KeyError:
         raise ValueError(f'invalid argument, not a dark or light: "{theme}"') from None
 
@@ -163,8 +163,8 @@ def load_stylesheet(
 
     # Build stylesheet
     template = Template(
-        resources.TEMPLATE_STYLESHEET,
-        {"color": filter.color, "corner": filter.corner, "env": filter.env, "url": filter.url},
+        _resources.TEMPLATE_STYLESHEET,
+        {"color": _filter.color, "corner": _filter.corner, "env": _filter.env, "url": _filter.url},
     )
     replacements = dict(color_values, **{"corner-shape": corner_shape})
     return template.render(replacements)
@@ -253,8 +253,8 @@ def load_palette(
     if custom_colors is not None:
         _marge_colors(color_values, custom_colors, theme)
 
-    mk_template = partial(Template, filters={"color": filter.color, "palette": filter.palette_format})
-    return resources.mk_q_palette(mk_template, color_values)
+    mk_template = partial(Template, filters={"color": _filter.color, "palette": _filter.palette_format})
+    return _resources.mk_q_palette(mk_template, color_values)
 
 
 def get_themes() -> tuple[str, ...]:
@@ -263,4 +263,4 @@ def get_themes() -> tuple[str, ...]:
     Returns:
         Tuple of available theme names.
     """
-    return resources.THEMES
+    return _resources.THEMES
