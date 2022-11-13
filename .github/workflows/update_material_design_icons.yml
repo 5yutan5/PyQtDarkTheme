@@ -1,50 +1,29 @@
-name: Automatic Update of svg for material design icons
+name: Automatically update svg
 
 on:
   schedule:
     - cron: '23 1 * * *' # Runs at 01:23 UTC every day
   workflow_dispatch:
-    inputs:
-      dry:
-        description: Dry Run
-        default: '1'
-
-env:
-  BRANCH_NAME: 'auto-update-svg'
-  COMMIT_MESSAGE: 'Update svg of material design icons'
-  PR_TITLE: 'Automatic update svg for material design icons'
 
 jobs:
   update-svg-of-material-design-icons:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-            ssh-key: ${{ secrets.DEPLOY_KEY }}
-      - uses: git-actions/set-user@v1
+      - run: pipx install poetry
       - uses: actions/setup-python@v4
         with:
           python-version: "3.11"
-      - name: Check branch
-        id: branch
-        run: git rev-parse --verify ${{ env.BRANCH_NAME }} || echo exists=$($?) >> $GITHUB_OUTPUT
-      - name: Create new branch
-        if: steps.branch.outputs.exists == 1
-        run: git branch ${{ env.BRANCH_NAME }}
-      - run: git switch ${{ env.BRANCH_NAME }}
-      - name: Download svg of material design icons and update resources
+          cache: 'poetry'
+      - run: poetry install --only main
+      - name: Download and update svg
         run: |
-          python tools/download_material_icons.py
-          python -m tools.build_resources
-      - name: Check diff
-        id: diff
-        run: |
-          git add -N .  # Include new files
-          echo diff=$(git diff --name-only | wc -l)
-      - run: git commit -am ${{ env.COMMIT_MESSAGE }}
-      - name: Create PR
-        if: steps.diff.outputs.count > 0 && steps.branch.outputs.exists == 1 && github.event.inputs.dry != '1'
-        run: gh pr create -t ${{ env.PR_TITLE }} -b 'Change to latest svg for material design icons'
-      - name: Push changes
-        if: steps.diff.outputs.count > 0 && steps.branch.outputs.exists != 1 && github.event.inputs.dry != '1'
-        run: git push
+          poetry run python tools/download_material_icons.py
+          poetry run python -m tools.build_resources
+      - uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          commit-message: Update svg of material design icons
+          title: Automated update svg of material design icons
+          body: This is an auto-generated PR with svg updates.
+          branch: auto-update-svg
