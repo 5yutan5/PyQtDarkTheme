@@ -2,6 +2,7 @@
 name: tests
 
 on:  # yamllint disable-line rule:truthy
+  workflow_dispatch:
   pull_request:
   push:
     branches: [main]
@@ -51,14 +52,6 @@ jobs:
         with:
           python-version: ${{ matrix.py }}
 
-      - name: Get full Python version
-        id: full-py-version
-        run: |
-          echo version=$(python -c " \
-            import sys; \
-            print('-'.join(str(v) for v in sys.version_info)) \
-            ") >> $GITHUB_OUTPUT
-
       - name: Cache ./.venv
         id: cache-venv
         uses: actions/cache@v3.0.11
@@ -67,7 +60,7 @@ jobs:
           key: |
             venv-\
               ${{ runner.os }}-\
-              ${{ steps.full-py-version.outputs.version }}-\
+              ${{ env.pythonLocation }}-\
               ${{ matrix.qt }}-\
               ${{ hashFiles('**/poetry.lock') }}
 
