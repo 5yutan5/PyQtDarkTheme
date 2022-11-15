@@ -20,7 +20,7 @@ jobs:
       - name: Download latest svg and update style
         run: |
           poetry run python -c \
-            " from tools import material_icons; material_icons.update_icons() "
+            "from tools import material_icons; material_icons.update_icons()"
           poetry run python -m tools.build_styles
       - uses: peter-evans/create-pull-request@v4
         with:
