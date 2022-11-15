@@ -5,9 +5,9 @@ ci:
 repos:
   - repo: local
     hooks:
-      - id: build-resources
-        name: Build resources
-        entry: python -m tools.build_resources
+      - id: build-styles
+        name: Build styles
+        entry: python -m tools.build_styles
         language: python
         pass_filenames: false
 
@@ -17,12 +17,23 @@ repos:
       - id: trailing-whitespace
         args: [--markdown-linebreak-ext=md]
       - id: end-of-file-fixer
-        exclude: (?x)(^.*/.*\.svg$)
+        exclude: \.svg$
       - id: check-json
       - id: check-toml
       - id: check-yaml
       - id: name-tests-test
         args: [--pytest-test-first]
+
+  - repo: https://github.com/DavidAnson/markdownlint-cli2
+    rev: v0.5.1
+    hooks:
+      - id: markdownlint-cli2
+
+  - repo: https://github.com/adrienverge/yamllint.git
+    rev: v1.28.0
+    hooks:
+      - id: yamllint
+
 
   - repo: https://github.com/asottile/pyupgrade
     rev: v3.2.2
