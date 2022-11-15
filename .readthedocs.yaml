@@ -7,8 +7,9 @@ build:
     python: "3.10"
   jobs:
     post_create_environment:
-      - pipx install poetry
-      - poetry install
+      - asdf plugin add poetry
+      - asdf install poetry latest
+      - asdf global poetry latest
       - poetry export --only docs -o requirements.txt
       - poetry run python -m tools.build_theme_color_doc
 
