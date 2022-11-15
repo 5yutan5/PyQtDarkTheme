@@ -1,5 +1,7 @@
+---
 name: tests
-on:
+
+on:  # yamllint disable-line rule:truthy
   pull_request:
   push:
     branches: [main]
@@ -44,66 +46,94 @@ jobs:
     name: ${{ matrix.os }} py-${{ matrix.py }} qt-${{ matrix.qt }}
 
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-python@v4
-      with:
-        python-version: ${{ matrix.py }}
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.py }}
 
-    - name: Get full Python version
-      id: full-py-version
-      run: echo version=$(python -c "import sys; print('-'.join(str(v) for v in sys.version_info))") >> $GITHUB_OUTPUT
+      - name: Get full Python version
+        id: full-py-version
+        run: |
+          echo version=$(python -c " \
+            import sys; \
+            print('-'.join(str(v) for v in sys.version_info)) \
+            ") >> $GITHUB_OUTPUT
 
-    - name: Cache ./.venv
-      id: cache-venv
-      uses: actions/cache@v3.0.11
-      with:
-        path: .venv
-        key: venv-${{ runner.os }}-${{ steps.full-py-version.outputs.version }}-${{ matrix.qt }}-${{ hashFiles('**/poetry.lock') }}
+      - name: Cache ./.venv
+        id: cache-venv
+        uses: actions/cache@v3.0.11
+        with:
+          path: .venv
+          key: |
+            venv-\
+              ${{ runner.os }}-\
+              ${{ steps.full-py-version.outputs.version }}-\
+              ${{ matrix.qt }}-\
+              ${{ hashFiles('**/poetry.lock') }}
 
-    - uses: snok/install-poetry@v1
-      with:
-        virtualenvs-in-project: true
+      - uses: snok/install-poetry@v1
+        with:
+          virtualenvs-in-project: true
 
-    - name: Install dependencies
-      if: steps.cache-venv.outputs.cache-hit != 'true'
-      run: poetry install --only dev,github-actions,test,main
+      - name: Install dependencies
+        if: steps.cache-venv.outputs.cache-hit != 'true'
+        run: poetry install --only dev,github-actions,test,main
 
-    - name: Install Qt dependencies
-      if: matrix.qt != 'none' && steps.cache-venv.outputs.cache-hit != 'true'
-      run: poetry run pip install -U ${{ matrix.qt }}
+      - name: Install Qt dependencies
+        if: matrix.qt != 'none' && steps.cache-venv.outputs.cache-hit != 'true'
+        run: poetry run pip install -U ${{ matrix.qt }}
 
-    - name: Install Linux dependencies
-      if: runner.os == 'Linux'
-      run: |
-        sudo apt-get update -y
-        sudo apt-get install --no-install-recommends -y libxkbcommon-x11-0 x11-utils libyaml-dev libegl1-mesa libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libopengl0
+      - name: Install Linux dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install --no-install-recommends -y \
+            libxkbcommon-x11-0 \
+            x11-utils libyaml-dev \
+            libegl1-mesa \
+            libxcb-icccm4 \
+            libxcb-image0 \
+            libxcb-keysyms1 \
+            libxcb-randr0 \
+            libxcb-render-util0 \
+            libxcb-xinerama0 \
+            libopengl0
 
-    - name: Run pytest
-      if: matrix.qt != 'none'
-      run: poetry run pytest --cov --cov-report=term-missing --cov-report=xml
+      - name: Run pytest
+        if: matrix.qt != 'none'
+        run: poetry run pytest --cov --cov-report=term-missing --cov-report=xml
 
-    - name: Run pytest without Qt lib
-      if: matrix.qt == 'none'
-      run: |
-        poetry run pytest --cov --cov-report=term-missing --cov-report=xml --ignore=tests/test_widget_gallery.py --ignore=tests/test_qdarktheme_with_qt.py -p no:pytest-qt
+      - name: Run pytest without Qt lib
+        if: matrix.qt == 'none'
+        run: |
+          poetry run pytest \
+            --cov \
+            --cov-report=term-missing \
+            --cov-report=xml \
+            --ignore=tests/test_widget_gallery.py \
+            --ignore=tests/test_qdarktheme_with_qt.py \
+            -p no:pytest-qt
 
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        fail_ci_if_error: true
-        token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }}
 
-    - name: Capture img of WidgetGallery
-      if: matrix.qt != 'none'
-      run: poetry run python ./tools/capture.py -i ${{runner.os}}-py${{matrix.py}}-${{matrix.qt}} -d ${{ env.TEST_IMG_OUTPUT_PATH}}
+      - name: Capture img of WidgetGallery
+        if: matrix.qt != 'none'
+        run: |
+          poetry run python ./tools/capture.py \
+            -i ${{runner.os}}-py${{matrix.py}}-${{matrix.qt}} \
+            -d ${{ env.TEST_IMG_OUTPUT_PATH}}
 
-    - name: Archive img of WidgetGallery
-      if: matrix.qt != 'none'
-      uses: actions/upload-artifact@v3
-      with:
-        name: widget-img
-        path: ./${{ env.TEST_IMG_OUTPUT_PATH}}/*.png
+      - name: Archive img of WidgetGallery
+        if: matrix.qt != 'none'
+        uses: actions/upload-artifact@v3
+        with:
+          name: widget-img
+          path: ./${{ env.TEST_IMG_OUTPUT_PATH}}/*.png
 
-    - name: Test freezing-pkg(PyInstaller)
-      if: matrix.qt != 'none' && runner.os != 'Linux'
-      run: poetry run python -m tools.test_freezing_lib
+      - name: Test freezing-pkg(PyInstaller)
+        if: matrix.qt != 'none' && runner.os != 'Linux'
+        run: poetry run python -m tools.test_freezing_lib

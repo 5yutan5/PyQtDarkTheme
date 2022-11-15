@@ -1,3 +1,4 @@
+---
 ci:
   # Replace use some hooks of pre-commit.ci with our own github actions.
   # See https://github.com/pre-commit-ci/issues/issues/55.
