@@ -18,6 +18,8 @@ repos:
         args: [--markdown-linebreak-ext=md]
       - id: end-of-file-fixer
         exclude: \.svg$
+      - id: pretty-format-json
+        args: ["--autofix", "--no-sort-keys"]
       - id: check-json
       - id: check-toml
       - id: check-yaml
@@ -34,6 +36,14 @@ repos:
     hooks:
       - id: yamllint
 
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 0.19.1
+    hooks:
+      - id: check-jsonschema
+        name: Validate color map json files with json schema
+        files: ^style/colors
+        exclude: ^style/colors/validate.json$
+        args: ["--schemafile", "style/colors/validate.json"]
 
   - repo: https://github.com/asottile/pyupgrade
     rev: v3.2.2
