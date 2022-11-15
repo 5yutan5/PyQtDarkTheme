@@ -151,5 +151,5 @@ cython_debug/
 # System information folder for mac
 *.DS_Store
 
-# Original
+# PyQtDarkTheme
 docs/source/reference/theme_color.rst
