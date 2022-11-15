@@ -1,6 +1,7 @@
+---
 name: Automated icon update
 
-on:
+on:  # yamllint disable-line rule:truthy
   schedule:
     - cron: '23 1 * * *' # Runs at 01:23 UTC every day
   workflow_dispatch:
@@ -18,7 +19,10 @@ jobs:
       - run: poetry install --only main
       - name: Download latest svg and update style
         run: |
-          poetry run python -c "from tools import material_icons; material_icons.update_icons()"
+          poetry run python -c " \
+            from tools import material_icons; \
+            material_icons.update_icons() \
+            "
           poetry run python -m tools.build_styles
       - uses: peter-evans/create-pull-request@v4
         with:
