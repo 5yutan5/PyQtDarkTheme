@@ -1,0 +1,29 @@
+name: Automated icon update
+
+on:
+  schedule:
+    - cron: '23 1 * * *' # Runs at 01:23 UTC every day
+  workflow_dispatch:
+
+jobs:
+  update-material-design-icons:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: pipx install poetry
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: 'poetry'
+      - run: poetry install --only main
+      - name: Download latest svg and update style
+        run: |
+          poetry run python -c "from tools import material_icons; material_icons.update_icons()"
+          poetry run python -m tools.build_styles
+      - uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.PAT }}
+          commit-message: Update material design icons
+          title: Automated update material design icons
+          body: This is an auto-generated PR with icon updates.
+          branch: auto-update-svg

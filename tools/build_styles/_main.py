@@ -9,6 +9,7 @@ from filecmp import cmpfiles
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
+from tools import material_icons
 from tools._util import get_style_path
 
 logging.basicConfig(level=logging.INFO)
@@ -46,6 +47,8 @@ def _mk_root_init_file(output: Path, themes: list[str], doc_string: str = "") ->
 
 
 def _mk_svg_resource(svg_dir: Path, output: Path):
+    material_icons.reflect_icon_conf_changes()
+
     svg_resources = {svg_file.stem: svg_file.read_text() for svg_file in svg_dir.glob("*/*.svg")}
     for name, svg_resource in svg_resources.items():
         svg_resources[name] = re.compile(r'xmlns="[\s\S]*?" ').sub("", svg_resource)
