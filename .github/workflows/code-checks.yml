@@ -12,10 +12,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - run: pipx install poetry
       - uses: actions/setup-python@v4
         with:
           python-version: "3.11"
+          cache: 'poetry'
       - uses: pre-commit/action@v3.0.0
       - uses: pre-commit-ci/lite-action@v1.0.0
         if: always()
+      - name: Install dependencies for pyright
+        run: |
+          poetry install --only main,test
+          poetry run pip install PyQt6
       - uses: jakebailey/pyright-action@v1
