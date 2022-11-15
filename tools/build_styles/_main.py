@@ -1,27 +1,31 @@
-"""The main module for building resources."""
+"""Main module for building style resources for qdarktheme."""
 from __future__ import annotations
 
 import json
+import logging
 import re
 import shutil
 from filecmp import cmpfiles
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-from qdarktheme._util import get_logger, get_qdarktheme_root_path
-from tools.util import get_style_path
+from tools._util import get_style_path
 
-_logger = get_logger(__name__)
+logging.basicConfig(level=logging.INFO)
 
 _ROOT_INIT_DOC = '''"""Package including resources.
 
 **Warning**
 
 This package created programmatically. All changes made in this file will be lost!
-Created by the `qdarktheme/tools/build_resources`.
+Created by the `PyQtDarkTheme/tools/build_styles`.
 
 """
 '''
+
+
+def _get_dist_path() -> Path:
+    return Path(__file__).parent.parent.parent / "qdarktheme" / "_resources"
 
 
 def _remove_qss_comment(stylesheet: str) -> str:
@@ -78,7 +82,7 @@ def _mk_color_resource(color_values: dict[str, dict], output: Path):
     output.write_text(code)
 
 
-def _build_resources(build_path: Path) -> None:
+def _build_styles(build_path: Path) -> None:
     style_path = get_style_path()
     theme_paths = [path for path in style_path.glob("colors/*.json") if path.name != "validate.json"]
     themes = sorted(path.stem for path in theme_paths)
@@ -107,19 +111,19 @@ def _compare_all_files(dir1: Path, dir2: Path) -> list[str]:
 
 
 def main() -> None:
-    """Build resources for qdarktheme."""
-    dist_dir_path = get_qdarktheme_root_path() / "_resources"
+    """Build style resources for qdarktheme."""
+    dist_dir_path = _get_dist_path()
 
     with TemporaryDirectory() as temp_dir:
-        _build_resources(Path(temp_dir))
+        _build_styles(Path(temp_dir))
         # Refresh dist dir
         changed_files = _compare_all_files(dist_dir_path, Path(temp_dir))
         if len(changed_files) == 0:
-            _logger.info("There is no change")
+            logging.info("There is no change of qdarktheme module")
             return
 
         shutil.rmtree(dist_dir_path, ignore_errors=True)
         shutil.copytree(temp_dir, dist_dir_path)
 
-    _logger.info("Build finished!")
-    _logger.info("Changed contents: %s", changed_files)
+    logging.info("Build finished!")
+    logging.info("Changed some contents in qdarktheme module: %s", changed_files)

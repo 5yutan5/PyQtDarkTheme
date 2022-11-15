@@ -3,7 +3,7 @@
 **Warning**
 
 This package created programmatically. All changes made in this file will be lost!
-Created by the `qdarktheme/tools/build_resources`.
+Created by the `PyQtDarkTheme/tools/build_styles`.
 
 """
 
