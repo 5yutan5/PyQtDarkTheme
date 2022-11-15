@@ -7,7 +7,7 @@ from importlib import resources
 from pathlib import Path
 
 from qdarktheme._color import Color
-from tools.util import get_style_path
+from tools._util import get_style_path
 
 _DEFAULT_DARK_COLORS: dict = json.loads((get_style_path() / "colors" / "dark.json").read_bytes())
 _DEFAULT_LIGHT_COLORS: dict = json.loads((get_style_path() / "colors" / "light.json").read_bytes())

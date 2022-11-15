@@ -1,18 +1,18 @@
 """Module for downloading svg of material design icons."""
 import json
+import logging
 from pathlib import Path
 from urllib import request
 
-from qdarktheme._util import get_logger
-from tools.util import get_style_path
+from tools._util import get_style_path
 
-_logger = get_logger(__name__)
+logging.basicConfig(level=logging.INFO)
 
 
 def _download_material_icons_svg(name: str, style: str, output_dir: Path) -> None:
     url = f"https://raw.githubusercontent.com/marella/material-design-icons/main/svg/{style}/{name}.svg"
     output_path = output_dir / f"{name}.svg"
-    _logger.info("Downloading: %s", url)
+    logging.info("Downloading: %s", url)
     with request.urlopen(url) as response:
         svg: str = response.read().decode()
         output_path.write_text(svg)
