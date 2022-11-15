@@ -36,6 +36,7 @@
     "filecmp",
     "icccm",
     "isort",
+    "jakebailey",
     "jsonschema",
     "keysyms",
     "libegl",

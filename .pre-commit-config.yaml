@@ -1,8 +1,6 @@
 ---
 ci:
-  # Replace use some hooks of pre-commit.ci with our own github actions.
-  # See https://github.com/pre-commit-ci/issues/issues/55.
-  skip: ['pyright']
+  autofix_prs: false
 repos:
   - repo: local
     hooks:
@@ -109,16 +107,16 @@ repos:
       - id: python-no-log-warn
       - id: python-use-type-annotations
 
-  - repo: local
-    hooks:
-      - id: pyright
-        name: pyright
-        entry: pyright
-        language: python
-        pass_filenames: false
-        types: [python]
-        additional_dependencies:
-          - PyQt6
-          - darkdetect
-          - pytest
-          - pytest-qt
+# This hook has bug on Windows.
+# See https://github.com/RobertCraigie/pyright-python/issues/45
+# Run pyright with GitHub actions until this bug is resolved.
+
+#   - repo: https://github.com/RobertCraigie/pyright-python
+#     rev: v1.1.279
+#     hooks:
+#     - id: pyright
+#       additional_dependencies:
+#         - PyQt6
+#         - darkdetect
+#         - pytest
+#         - pytest-qt
