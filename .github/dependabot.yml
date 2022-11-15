@@ -4,6 +4,14 @@ updates:
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
+      # Match pre-commit.ci automated update time.
       interval: "weekly"
       time: "18:00"
       day: "monday"
+    ignore:
+      - dependency-name: "python"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
