@@ -62,17 +62,9 @@ pytest-mock = "^3.10.0"
 [tool.poetry.group.docs.dependencies]
 # Latest of Sphinx and flake8 cause dependency comflict.
 # Temporarily keep the Sphinx at v4.x.
-# Latest of Sphinx is v5.x.
+# Latest Sphinx version is v5.x.
 Sphinx = "^4.3.1"
 rstcheck = {extras = ["toml"], version = "^6.1.0"}
-pydata-sphinx-theme = "^0.11.0"
-sphinx-design = "^0.3.0"
-sphinx-copybutton = "^0.5.0"
-
-[tool.poetry.group.read-the-docs]
-optional = true
-
-[tool.poetry.group.read-the-docs.dependencies]
 pydata-sphinx-theme = "^0.11.0"
 sphinx-design = "^0.3.0"
 sphinx-copybutton = "^0.5.0"

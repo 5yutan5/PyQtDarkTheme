@@ -7,8 +7,8 @@ build:
   jobs:
     post_create_environment:
       - pipx install poetry
-      - poetry export --only read-the-docs -o requirements.txt
       - poetry install
+      - poetry export --only docs -o requirements.txt
       - poetry run python -m tools.build_theme_color_doc
 
 python:
