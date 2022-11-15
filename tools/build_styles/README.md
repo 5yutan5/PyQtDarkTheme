@@ -13,3 +13,5 @@ resources
 ├── _svg.py
 └── _template_stylesheet.py
 ```
+
+Original data is in `{projectRootFolder}/style`. For more information about styles, see the `{projectRootFolder}/style/README.md`.
