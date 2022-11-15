@@ -8,14 +8,13 @@ on:
     branches: [main]
 
 jobs:
-  pre-commit:
+  code-checks:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
           python-version: "3.11"
-          cache: 'pip'
       - uses: pre-commit/action@v3.0.0
       - uses: pre-commit-ci/lite-action@v1.0.0
         if: always()
