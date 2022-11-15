@@ -1,12 +1,12 @@
 {
-    "version": "2.0.0",
-    "command": "bash",
-    "tasks": [
-        {
-            "label": "Check style",
-            "type": "shell",
-            "command": "poetry run python -m tools.build_resources && poetry run python -m qdarktheme.widget_gallery",
-            "problemMatcher": []
-        }
-    ]
+  "version": "2.0.0",
+  "command": "bash",
+  "tasks": [
+    {
+      "label": "Check style",
+      "type": "shell",
+      "command": "poetry run python -m tools.build_styles && poetry run python -m qdarktheme.widget_gallery",
+      "problemMatcher": []
+    }
+  ]
 }
