@@ -23,26 +23,19 @@ jobs:
       matrix:
         os: [ubuntu-latest, macOS-latest, windows-latest]
         py: ['3.7', '3.8', '3.9', '3.10']
-        qt-lib: ['pyqt', 'pyside', 'none']
+        qt-lib: ['pyqt', 'pyside']
         include:
           - {py: '3.7', qt-lib: 'pyqt', qt: 'PyQt5~=5.15.0'}
           - {py: '3.7', qt-lib: 'pyside', qt: 'PySide2'}
-          - {py: '3.7', qt-lib: 'none', qt: 'none'}
           - {py: '3.8', qt-lib: 'pyqt', qt: 'PyQt5'}
           - {py: '3.8', qt-lib: 'pyside', qt: 'PySide6-Essentials'}
-          - {py: '3.8', qt-lib: 'none', qt: 'none'}
           - {py: '3.9', qt-lib: 'pyqt', qt: 'PyQt6'}
           - {py: '3.9', qt-lib: 'pyside', qt: 'PySide6-Essentials'}
-          - {py: '3.9', qt-lib: 'none', qt: 'none'}
           - {py: '3.10', qt-lib: 'pyqt', qt: 'PyQt6'}
           - {py: '3.10', qt-lib: 'pyside', qt: 'PySide6-Essentials'}
-          - {py: '3.10', qt-lib: 'none', qt: 'none'}
           - {py: '3.11', qt-lib: 'pyqt', qt: 'PyQt6', os: ubuntu-latest}
-          - {py: '3.11', qt-lib: 'pyqt', qt: 'none', os: ubuntu-latest}
           - {py: '3.11', qt-lib: 'pyqt', qt: 'PyQt6', os: macOS-latest}
-          - {py: '3.11', qt-lib: 'pyqt', qt: 'none', os: macOS-latest}
           - {py: '3.11', qt-lib: 'pyqt', qt: 'PyQt6', os: windows-latest}
-          - {py: '3.11', qt-lib: 'pyqt', qt: 'none', os: windows-latest}
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.os }} py-${{ matrix.py }} qt-${{ matrix.qt }}
 
@@ -71,10 +64,9 @@ jobs:
 
       - name: Install dependencies
         if: steps.cache-venv.outputs.cache-hit != 'true'
-        run: poetry install --only dev,github-actions,test,main
+        run: poetry install --only github-actions,test,main
 
       - name: Install Qt dependencies
-        if: matrix.qt != 'none'
         run: poetry run pip install -U ${{ matrix.qt }}
 
       - name: Install Linux dependencies
@@ -95,11 +87,64 @@ jobs:
             libopengl0
 
       - name: Run pytest
-        if: matrix.qt != 'none'
         run: poetry run pytest --cov --cov-report=term-missing --cov-report=xml
 
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Capture img of WidgetGallery
+        run: |
+          poetry run python ./tools/capture.py \
+            -i ${{runner.os}}-py${{matrix.py}}-${{matrix.qt}} \
+            -d ${{ env.TEST_IMG_OUTPUT_PATH}}
+
+      - name: Archive WidgetGallery img
+        uses: actions/upload-artifact@v3
+        with:
+          name: widget-img
+          path: ./${{ env.TEST_IMG_OUTPUT_PATH}}/*.png
+
+
+  # Python version does not affect tests without Qt.
+  # So we don't need to test multiple python versions.
+  pytest-without-qt:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    name: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Poetry
+        run: |
+          pipx install poetry
+          poetry config virtualenvs.in-project true
+      - uses: actions/setup-python@v4
+        id: setup-python
+        with:
+          python-version: '3.11'
+
+      - name: Cache ./.venv (poetry dependencies)
+        id: cache-venv
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: "\
+            venv-without-qt\
+            ${{ runner.os }}-\
+            ${{ steps.setup-python.outputs.python-version }}-\
+            ${{ hashFiles('**/poetry.lock') }}"
+
+      - name: Install dependencies
+        if: steps.cache-venv.outputs.cache-hit != 'true'
+        run: poetry install --only github-actions,test,main
+
       - name: Run pytest without Qt lib
-        if: matrix.qt == 'none'
         run: |
           poetry run pytest \
             --cov \
@@ -115,19 +160,6 @@ jobs:
           fail_ci_if_error: true
           token: ${{ secrets.CODECOV_TOKEN }}
 
-      - name: Capture img of WidgetGallery
-        if: matrix.qt != 'none'
-        run: |
-          poetry run python ./tools/capture.py \
-            -i ${{runner.os}}-py${{matrix.py}}-${{matrix.qt}} \
-            -d ${{ env.TEST_IMG_OUTPUT_PATH}}
-
-      - name: Archive img of WidgetGallery
-        if: matrix.qt != 'none'
-        uses: actions/upload-artifact@v3
-        with:
-          name: widget-img
-          path: ./${{ env.TEST_IMG_OUTPUT_PATH}}/*.png
 
   pyinstaller:
     runs-on: ubuntu-latest
