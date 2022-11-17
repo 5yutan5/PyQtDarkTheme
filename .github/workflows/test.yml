@@ -17,7 +17,7 @@ env:
   PY_COLORS: 1  # For log color with pytest
 
 jobs:
-  tests:
+  pytest:
     strategy:
       fail-fast: false
       matrix:
@@ -129,6 +129,29 @@ jobs:
           name: widget-img
           path: ./${{ env.TEST_IMG_OUTPUT_PATH}}/*.png
 
-      - name: Test freezing-pkg(PyInstaller)
-        if: matrix.qt != 'none' && runner.os != 'Linux'
-        run: poetry run python -m tools.test_freezing_lib
+  pyinstaller:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        id: setup-python
+        with:
+          python-version: '3.11'
+
+      - name: Cache ./.venv (poetry dependencies)
+        id: cache-venv
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: "\
+            venv-test-PyInstaller-\
+            ${{ steps.setup-python.outputs.python-version }}"
+
+      - run: python -m venv .venv
+        if: steps.cache-venv.outputs.cache-hit != 'true'
+
+      - name: Install Python dependencies
+        run: python -m pip install -U PyInstaller PyQt6
+
+      - name: Test PyInstaller
+        run: python -m tools.test_freezing_lib

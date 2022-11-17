@@ -74,7 +74,6 @@ sphinx-copybutton = "^0.5.0"
 optional = true
 
 [tool.poetry.group.github-actions.dependencies]
-pyinstaller = "^5.6.1"
 pytest-github-actions-annotate-failures = "^0.1.7"
 
 [build-system]
