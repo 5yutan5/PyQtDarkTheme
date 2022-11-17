@@ -1,27 +1,58 @@
 ---
 name: Code Checks
 
-on:
+on: # yamllint disable-line rule:truthy
   pull_request:
-    branches: [main]
   push:
     branches: [main]
 
 jobs:
-  code-checks:
+  pre-commit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: pipx install poetry
+      - name: Setup Poetry
+        run: |
+          pipx install poetry
+          poetry config virtualenvs.in-project true
       - uses: actions/setup-python@v4
         with:
-          python-version: "3.11"
+          python-version: '3.11'
           cache: 'poetry'
+      - run: poetry install --only dev
+      # Hack to make pre-commit/action to use virtual env pre-commit.
+      # pre-commit/action installs pre-commit using following command:
+      # `python -m pip install pre-commit`
+      # But `python` doesn't run virtual env interpreter when PATH is default.
+      # Override PATH to use virtual env interpreter.
+      # This change force run the virtual env pre-commit.
+      - name: Set Poetry virtual env path to PATH
+        run: echo ${{ github.workspace }}/.venv/bin >> $GITHUB_PATH
       - uses: pre-commit/action@v3.0.0
       - uses: pre-commit-ci/lite-action@v1.0.0
         if: always()
+
+  pyright:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Poetry
+        run: |
+          pipx install poetry
+          poetry config virtualenvs.in-project true
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'poetry'
       - name: Install dependencies for pyright
         run: |
           poetry install --only main,test
           poetry run pip install PyQt6
+      - run: poetry run pip list
+      # Pyright uses dependencies of the interpreter run with the `python`.
+      # But `python` doesn't run virtual env interpreter when PATH is default.
+      # Override PATH to use virtual env interpreter.
+      # This change makes pyright use dependencies of virtual env interpreter.
+      - name: Set Poetry virtual env path to PATH
+        run: echo ${{ github.workspace }}/.venv/bin >> $GITHUB_PATH
       - uses: jakebailey/pyright-action@v1
