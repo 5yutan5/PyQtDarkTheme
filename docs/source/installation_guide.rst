@@ -5,7 +5,7 @@ Dependencies
 ------------
 
 * Python 3.7+
-* Qt 5.11+
+* Qt 5.15+
 * PySide6, PyQt6, PyQt5 or PySide2
 
 Installation
