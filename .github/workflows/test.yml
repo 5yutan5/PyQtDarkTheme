@@ -48,32 +48,33 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - name: Setup Poetry
+        run: |
+          pipx install poetry
+          poetry config virtualenvs.in-project true
       - uses: actions/setup-python@v4
+        id: setup-python
         with:
           python-version: ${{ matrix.py }}
 
-      - name: Cache ./.venv
+      - name: Cache ./.venv (poetry dependencies)
         id: cache-venv
-        uses: actions/cache@v3.0.11
+        uses: actions/cache@v3
         with:
           path: .venv
-          key: |
+          key: "\
             venv-\
-              ${{ runner.os }}-\
-              ${{ env.pythonLocation }}-\
-              ${{ matrix.qt }}-\
-              ${{ hashFiles('**/poetry.lock') }}
-
-      - uses: snok/install-poetry@v1
-        with:
-          virtualenvs-in-project: true
+            ${{ runner.os }}-\
+            ${{ steps.setup-python.outputs.python-version }}-\
+            ${{ matrix.qt }}-\
+            ${{ hashFiles('**/poetry.lock') }}"
 
       - name: Install dependencies
         if: steps.cache-venv.outputs.cache-hit != 'true'
         run: poetry install --only dev,github-actions,test,main
 
       - name: Install Qt dependencies
-        if: matrix.qt != 'none' && steps.cache-venv.outputs.cache-hit != 'true'
+        if: matrix.qt != 'none'
         run: poetry run pip install -U ${{ matrix.qt }}
 
       - name: Install Linux dependencies
@@ -82,7 +83,8 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install --no-install-recommends -y \
             libxkbcommon-x11-0 \
-            x11-utils libyaml-dev \
+            x11-utils \
+            libyaml-dev \
             libegl1-mesa \
             libxcb-icccm4 \
             libxcb-image0 \
