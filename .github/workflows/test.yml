@@ -13,7 +13,11 @@ defaults:
 
 env:
   PYTHONIOENCODING: 'utf-8'  # For log color
-  PY_COLORS: 1  # For log color with pytest
+
+  # This enable log color of pytest.
+  # --color=yes option is not working on GitHub Action.
+  # See https://github.com/pytest-dev/pytest/issues/1397.
+  PY_COLORS: 1
 
 jobs:
   pytest:
@@ -87,7 +91,12 @@ jobs:
             libopengl0
 
       - name: Run pytest
-        run: poetry run pytest --cov --cov-report=term-missing --cov-report=xml
+        run: |
+          poetry run pytest \
+            --cov \
+            --cov-report=term-missing \
+            --cov-report=xml \
+            -n auto
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
@@ -150,7 +159,8 @@ jobs:
             --cov-report=xml \
             --ignore=tests/test_widget_gallery.py \
             --ignore=tests/test_qdarktheme_with_qt.py \
-            -p no:pytest-qt
+            -p no:pytest-qt \
+            -n auto
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3

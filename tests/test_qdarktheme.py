@@ -116,8 +116,17 @@ def test_load_stylesheet_when_failing_to_detect_system_theme(mocker) -> None:
     qdarktheme.load_stylesheet("auto")
 
 
-def test_clear_cache() -> None:
+def test_clear_cache(mocker) -> None:
     """Verify `clear_cache()`."""
+    from pathlib import Path
+
+    # qdarktheme cache save to system home path.
+    # Cannot clear cache because another tests use cache in home path.
+    # This mock make home path dummy home path.
+    dummy_home_path = Path("__dummy")
+    dummy_home_path.mkdir(exist_ok=True)
+    mocker.patch("pathlib.Path.home", return_value=dummy_home_path)
+
     qdarktheme.load_stylesheet()
     qdarktheme.clear_cache()
     # Test function when there is no cache.

@@ -58,6 +58,7 @@ pytest-randomly = "^3.12.0"
 pytest-qt = "^4.2.0"
 pytest-xvfb = "^2.0.0"
 pytest-mock = "^3.10.0"
+pytest-xdist = "^3.0.2"
 
 [tool.poetry.group.docs.dependencies]
 # Latest of Sphinx and flake8 cause dependency comflict.
