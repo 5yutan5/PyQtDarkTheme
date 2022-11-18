@@ -12,7 +12,6 @@ defaults:
     shell: bash
 
 env:
-  TEST_IMG_OUTPUT_PATH: 'dist'
   PYTHONIOENCODING: 'utf-8'  # For log color
   PY_COLORS: 1  # For log color with pytest
 
@@ -33,11 +32,12 @@ jobs:
           - {py: '3.9', qt-lib: 'pyside', qt: 'PySide6-Essentials'}
           - {py: '3.10', qt-lib: 'pyqt', qt: 'PyQt6'}
           - {py: '3.10', qt-lib: 'pyside', qt: 'PySide6-Essentials'}
-          - {py: '3.11', qt-lib: 'pyqt', qt: 'PyQt6', os: ubuntu-latest}
-          - {py: '3.11', qt-lib: 'pyqt', qt: 'PyQt6', os: macOS-latest}
-          - {py: '3.11', qt-lib: 'pyqt', qt: 'PyQt6', os: windows-latest}
+          - {os: ubuntu-latest, py: '3.11', qt-lib: 'pyqt', qt: 'PyQt6'}
+          - {os: macOS-latest, py: '3.11', qt-lib: 'pyqt', qt: 'PyQt6'}
+          - {os: windows-latest, py: '3.11', qt-lib: 'pyqt', qt: 'PyQt6'}
+    env:
+      TEST_IMG_OUTPUT_PATH: 'dist'
     runs-on: ${{ matrix.os }}
-    name: ${{ matrix.os }} py-${{ matrix.py }} qt-${{ matrix.qt }}
 
     steps:
       - uses: actions/checkout@v3
@@ -99,13 +99,13 @@ jobs:
         run: |
           poetry run python ./tools/capture.py \
             -i ${{runner.os}}-py${{matrix.py}}-${{matrix.qt}} \
-            -d ${{ env.TEST_IMG_OUTPUT_PATH}}
+            -d ${{ env.TEST_IMG_OUTPUT_PATH }}
 
       - name: Archive WidgetGallery img
         uses: actions/upload-artifact@v3
         with:
           name: widget-img
-          path: ./${{ env.TEST_IMG_OUTPUT_PATH}}/*.png
+          path: ./${{ env.TEST_IMG_OUTPUT_PATH }}/*.png
 
 
   # Python version does not affect tests without Qt.
@@ -116,7 +116,6 @@ jobs:
       matrix:
         os: [ubuntu-latest, macOS-latest, windows-latest]
     runs-on: ${{ matrix.os }}
-    name: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v3
@@ -140,9 +139,8 @@ jobs:
             ${{ steps.setup-python.outputs.python-version }}-\
             ${{ hashFiles('**/poetry.lock') }}"
 
-      - name: Install dependencies
+      - run: poetry install --only github-actions,test,main
         if: steps.cache-venv.outputs.cache-hit != 'true'
-        run: poetry install --only github-actions,test,main
 
       - name: Run pytest without Qt lib
         run: |
@@ -161,7 +159,9 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
 
 
-  pyinstaller:
+  PyInstaller:
+    env:
+      TEST_FILE_NAME: test_with_PyInstaller.py
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -183,7 +183,29 @@ jobs:
         if: steps.cache-venv.outputs.cache-hit != 'true'
 
       - name: Install Python dependencies
-        run: python -m pip install -U PyInstaller PyQt6
+        run: .venv/bin/python -m pip install -U . PyInstaller
 
-      - name: Test PyInstaller
-        run: python -m tools.test_freezing_lib
+      - name: Make test file
+        run: |
+          cat <<'EOL' >> ${{ env.TEST_FILE_NAME }}
+          import logging
+          import qdarktheme
+          logging.basicConfig(level=logging.INFO)
+          logging.info("qdarktheme version: %s", qdarktheme.__version__)
+          logging.info("Available themes: %s", qdarktheme.get_themes())
+          logging.info("Checking load_stylesheet() ...")
+          qdarktheme.load_stylesheet()
+          logging.info("Checking clear_cache() ...")
+          qdarktheme.clear_cache()
+          EOL
+          cat -n ${{ env.TEST_FILE_NAME }}
+
+      - name: Build test app
+        run: |
+          .venv/bin/python -m PyInstaller -y --onefile \
+            ${{ env.TEST_FILE_NAME }} \
+            --name test_app \
+            --distpath ./dist
+
+      - name: Test build app
+        run: ./dist/test_app
