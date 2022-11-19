@@ -183,7 +183,7 @@ python-versions = "*"
 
 [[package]]
 name = "exceptiongroup"
-version = "1.0.3"
+version = "1.0.4"
 description = "Backport of PEP 654 (exception groups)"
 category = "dev"
 optional = false
@@ -363,7 +363,7 @@ importlib-metadata = {version = ">=0.9", markers = "python_version < \"3.8\""}
 
 [[package]]
 name = "identify"
-version = "2.5.8"
+version = "2.5.9"
 description = "File identification library for Python"
 category = "dev"
 optional = false
@@ -948,18 +948,18 @@ test = ["cython", "html5lib", "pytest", "pytest-cov", "typed-ast"]
 
 [[package]]
 name = "sphinx-copybutton"
-version = "0.5.0"
+version = "0.5.1"
 description = "Add a copy button to each of your code cells."
 category = "dev"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 
 [package.dependencies]
 sphinx = ">=1.8"
 
 [package.extras]
 code-style = ["pre-commit (==2.12.1)"]
-rtd = ["ipython", "myst-nb", "sphinx", "sphinx-book-theme"]
+rtd = ["ipython", "myst-nb", "sphinx", "sphinx-book-theme", "sphinx-examples"]
 
 [[package]]
 name = "sphinx-design"
@@ -1158,7 +1158,7 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7,<3.12"
-content-hash = "e64616827c990965f6c95511a3472f197eb6fa1ec9b22d234388027bb6e49d20"
+content-hash = "458b34857b494db9f3dfe9d7d9bed6402989f0452f4ee48117da640c9591d9b1"
 
 [metadata.files]
 alabaster = [
@@ -1297,8 +1297,8 @@ eradicate = [
     {file = "eradicate-2.1.0.tar.gz", hash = "sha256:aac7384ab25b1bf21c4c012de9b4bf8398945a14c98c911545b2ea50ab558014"},
 ]
 exceptiongroup = [
-    {file = "exceptiongroup-1.0.3-py3-none-any.whl", hash = "sha256:6002703c7d31fb9950ddc8780840f67880c440895dc1151dd551553aa1246e4a"},
-    {file = "exceptiongroup-1.0.3.tar.gz", hash = "sha256:76cac74b5207c5997678a1c7105cb6f14213c9c63c096a38cfcb529d83ce5c02"},
+    {file = "exceptiongroup-1.0.4-py3-none-any.whl", hash = "sha256:542adf9dea4055530d6e1279602fa5cb11dab2395fa650b8674eaec35fc4a828"},
+    {file = "exceptiongroup-1.0.4.tar.gz", hash = "sha256:bd14967b79cd9bdb54d97323216f8fdf533e278df937aa2a90089e7d6e06e5ec"},
 ]
 execnet = [
     {file = "execnet-1.9.0-py2.py3-none-any.whl", hash = "sha256:a295f7cc774947aac58dde7fdc85f4aa00c42adf5d8f5468fc630c1acf30a142"},
@@ -1357,8 +1357,8 @@ flake8-simplify = [
     {file = "flake8_simplify-0.19.3.tar.gz", hash = "sha256:2fb083bf5142a98d9c9554755cf2f56f8926eb4a33eae30c0809041b1546879e"},
 ]
 identify = [
-    {file = "identify-2.5.8-py2.py3-none-any.whl", hash = "sha256:48b7925fe122720088aeb7a6c34f17b27e706b72c61070f27fe3789094233440"},
-    {file = "identify-2.5.8.tar.gz", hash = "sha256:7a214a10313b9489a0d61467db2856ae8d0b8306fc923e03a9effa53d8aedc58"},
+    {file = "identify-2.5.9-py2.py3-none-any.whl", hash = "sha256:a390fb696e164dbddb047a0db26e57972ae52fbd037ae68797e5ae2f4492485d"},
+    {file = "identify-2.5.9.tar.gz", hash = "sha256:906036344ca769539610436e40a684e170c3648b552194980bb7b617a8daeb9f"},
 ]
 idna = [
     {file = "idna-3.4-py3-none-any.whl", hash = "sha256:90b77e79eaa3eba6de819a0c442c0b4ceefc341a7a2ab77d7562bf49f425c5c2"},
@@ -1650,8 +1650,8 @@ sphinx = [
     {file = "Sphinx-4.3.2.tar.gz", hash = "sha256:0a8836751a68306b3fe97ecbe44db786f8479c3bf4b80e3a7f5c838657b4698c"},
 ]
 sphinx-copybutton = [
-    {file = "sphinx-copybutton-0.5.0.tar.gz", hash = "sha256:a0c059daadd03c27ba750da534a92a63e7a36a7736dcf684f26ee346199787f6"},
-    {file = "sphinx_copybutton-0.5.0-py3-none-any.whl", hash = "sha256:9684dec7434bd73f0eea58dda93f9bb879d24bff2d8b187b1f2ec08dfe7b5f48"},
+    {file = "sphinx-copybutton-0.5.1.tar.gz", hash = "sha256:366251e28a6f6041514bfb5439425210418d6c750e98d3a695b73e56866a677a"},
+    {file = "sphinx_copybutton-0.5.1-py3-none-any.whl", hash = "sha256:0842851b5955087a7ec7fc870b622cb168618ad408dee42692e9a5c97d071da8"},
 ]
 sphinx-design = [
     {file = "sphinx_design-0.3.0-py3-none-any.whl", hash = "sha256:823c1dd74f31efb3285ec2f1254caefed29d762a40cd676f58413a1e4ed5cc96"},
