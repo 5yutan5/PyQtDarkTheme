@@ -12,6 +12,8 @@ defaults:
     shell: bash
 
 env:
+  # Some (Poetry) logs will be corrupted on Windows of GitHub actions.
+  # Changing the encoding to utf-8 fixes this problem.
   PYTHONIOENCODING: 'utf-8'  # For log color
 
   # This enable log color of pytest.
@@ -25,23 +27,26 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macOS-latest, windows-latest]
-        py: ['3.7', '3.8', '3.9', '3.10']
+        py: ['3.7', '3.8', '3.9', '3.10', '3.11']
         qt-lib: ['pyqt', 'pyside']
         include:
+          # I think it's no need to test all of the matrix combinations.
+          # Test our supporting python and Qt library only once on each os.
           - {py: '3.7', qt-lib: 'pyqt', qt: 'PyQt5~=5.15.0'}
-          - {py: '3.7', qt-lib: 'pyside', qt: 'PySide2'}
-          - {py: '3.8', qt-lib: 'pyqt', qt: 'PyQt5'}
-          - {py: '3.8', qt-lib: 'pyside', qt: 'PySide6-Essentials'}
+          - {py: '3.8', qt-lib: 'pyside', qt: 'PySide2~=5.15.0'}
           - {py: '3.9', qt-lib: 'pyqt', qt: 'PyQt6'}
-          - {py: '3.9', qt-lib: 'pyside', qt: 'PySide6-Essentials'}
-          - {py: '3.10', qt-lib: 'pyqt', qt: 'PyQt6'}
           - {py: '3.10', qt-lib: 'pyside', qt: 'PySide6-Essentials'}
-          - {os: ubuntu-latest, py: '3.11', qt-lib: 'pyqt', qt: 'PyQt6'}
-          - {os: macOS-latest, py: '3.11', qt-lib: 'pyqt', qt: 'PyQt6'}
-          - {os: windows-latest, py: '3.11', qt-lib: 'pyqt', qt: 'PyQt6'}
+          - {py: '3.11', qt-lib: 'pyqt', qt: 'PyQt6'}
+        exclude:
+          - {py: '3.7', qt-lib: 'pyside'}
+          - {py: '3.8', qt-lib: 'pyqt'}
+          - {py: '3.9', qt-lib: 'pyside'}
+          - {py: '3.10', qt-lib: 'pyqt'}
+          - {py: '3.11', qt-lib: 'pyside'}
     env:
       TEST_IMG_OUTPUT_PATH: 'dist'
     runs-on: ${{ matrix.os }}
+    name: pytest (${{ matrix.os }}, ${{ matrix.py }}, ${{ matrix.qt }})
 
     steps:
       - uses: actions/checkout@v3
