@@ -50,7 +50,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: 5yutan5/setup-poetry-env@v1.0.1
+      - uses: 5yutan5/setup-poetry-env@v1.1.0
         with:
           python-version: ${{ matrix.py }}
           additional-dependency-cache-key: ${{ matrix.qt }}
@@ -113,7 +113,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: 5yutan5/setup-poetry-env@v1.0.1
+      - uses: 5yutan5/setup-poetry-env@v1.1.0
         with:
           python-version: '3.11'
           poetry-install--only: 'github-actions,test,main'
@@ -142,7 +142,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: 5yutan5/setup-poetry-env@v1.0.1
+      - uses: 5yutan5/setup-poetry-env@v1.1.0
         with:
           python-version: '3.11'
           poetry-install--only: main

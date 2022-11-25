@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: 5yutan5/setup-poetry-env@v1.0.1
+      - uses: 5yutan5/setup-poetry-env@v1.1.0
         with:
           python-version: ${{ matrix.py }}
           poetry-install--only: dev
@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: 5yutan5/setup-poetry-env@v1
+      - uses: 5yutan5/setup-poetry-env@v1.1.0
         with:
           python-version: ${{ matrix.py }}
           poetry-install--only: main,test
