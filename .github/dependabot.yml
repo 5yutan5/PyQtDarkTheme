@@ -10,8 +10,12 @@ updates:
       day: "monday"
     ignore:
       - dependency-name: "python"
+    commit-message:
+      prefix: ⬆
 
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
+    commit-message:
+      prefix: ⬆
