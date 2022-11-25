@@ -16,6 +16,7 @@ jobs:
           python-version: ${{ matrix.py }}
           poetry-install--only: dev
           poetry-install--no-root: 'true'
+          poetry-virtualenvs-in-project: 'true'
       # Hack to make pre-commit/action to use virtual env pre-commit.
       # pre-commit/action installs pre-commit using following command:
       # `python -m pip install pre-commit`
@@ -25,7 +26,7 @@ jobs:
       - name: Set Poetry virtual env path to PATH
         run: echo ${{ github.workspace }}/.venv/bin >> $GITHUB_PATH
       - uses: pre-commit/action@v3.0.0
-      - uses: pre-commit-ci/lite-action@v1.0.1
+      - uses: pre-commit-ci/lite-action@v1.0.0
         if: always()
 
   pyright:
@@ -36,6 +37,7 @@ jobs:
         with:
           python-version: ${{ matrix.py }}
           poetry-install--only: main,test
+          poetry-virtualenvs-in-project: 'true'
       - run: poetry run pip install PyQt6
       # Pyright uses dependencies of the interpreter run with the `python`.
       # But `python` doesn't run virtual env interpreter when PATH is default.
