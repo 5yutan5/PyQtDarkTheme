@@ -50,33 +50,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Setup Poetry
-        run: |
-          pipx install poetry
-          poetry config virtualenvs.in-project true
-      - uses: actions/setup-python@v4
-        id: setup-python
+      - uses: 5yutan5/setup-poetry-env@v1.1.0
         with:
           python-version: ${{ matrix.py }}
+          additional-dependency-cache-key: ${{ matrix.qt }}
+          poetry-install--only: github-actions,test,main
 
-      - name: Cache ./.venv (poetry dependencies)
-        id: cache-venv
-        uses: actions/cache@v3
-        with:
-          path: .venv
-          key: "\
-            venv-\
-            ${{ runner.os }}-\
-            ${{ steps.setup-python.outputs.python-version }}-\
-            ${{ matrix.qt }}-\
-            ${{ hashFiles('**/poetry.lock') }}"
-
-      - name: Install dependencies
-        if: steps.cache-venv.outputs.cache-hit != 'true'
-        run: poetry install --only github-actions,test,main
-
-      - name: Install Qt dependencies
-        run: poetry run pip install -U ${{ matrix.qt }}
+      - run: poetry run pip install -U ${{ matrix.qt }}
 
       - name: Install Linux dependencies
         if: runner.os == 'Linux'
@@ -133,28 +113,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Setup Poetry
-        run: |
-          pipx install poetry
-          poetry config virtualenvs.in-project true
-      - uses: actions/setup-python@v4
-        id: setup-python
+      - uses: 5yutan5/setup-poetry-env@v1.1.0
         with:
           python-version: '3.11'
-
-      - name: Cache ./.venv (poetry dependencies)
-        id: cache-venv
-        uses: actions/cache@v3
-        with:
-          path: .venv
-          key: "\
-            venv-without-qt\
-            ${{ runner.os }}-\
-            ${{ steps.setup-python.outputs.python-version }}-\
-            ${{ hashFiles('**/poetry.lock') }}"
-
-      - run: poetry install --only github-actions,test,main
-        if: steps.cache-venv.outputs.cache-hit != 'true'
+          poetry-install--only: 'github-actions,test,main'
 
       - name: Run pytest without Qt lib
         run: |
@@ -180,25 +142,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        id: setup-python
+      - uses: 5yutan5/setup-poetry-env@v1.1.0
         with:
           python-version: '3.11'
+          poetry-install--only: main
+          additional-dependency-cache-key: PyInstaller
 
-      - name: Cache ./.venv (poetry dependencies)
-        id: cache-venv
-        uses: actions/cache@v3
-        with:
-          path: .venv
-          key: "\
-            venv-test-PyInstaller-\
-            ${{ steps.setup-python.outputs.python-version }}"
-
-      - run: python -m venv .venv
-        if: steps.cache-venv.outputs.cache-hit != 'true'
-
-      - name: Install Python dependencies
-        run: .venv/bin/python -m pip install -U . PyInstaller
+      - run: poetry run pip install -U PyInstaller
 
       - name: Make test file
         run: |
@@ -217,7 +167,7 @@ jobs:
 
       - name: Build test app
         run: |
-          .venv/bin/python -m PyInstaller -y --onefile \
+          poetry run python -m PyInstaller -y --onefile \
             ${{ env.TEST_FILE_NAME }} \
             --name test_app \
             --distpath ./dist
