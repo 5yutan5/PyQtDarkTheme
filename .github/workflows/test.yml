@@ -167,7 +167,7 @@ jobs:
 
       - name: Build test app
         run: |
-          poetry run PyInstaller -y --onefile \
+          poetry run python -m PyInstaller -y --onefile \
             ${{ env.TEST_FILE_NAME }} \
             --name test_app \
             --distpath ./dist
