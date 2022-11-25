@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: 5yutan5/setup-poetry-env@v1
+      - uses: 5yutan5/setup-poetry-env@v1.0.1
         with:
           python-version: ${{ matrix.py }}
           poetry-install--only: dev
@@ -25,7 +25,7 @@ jobs:
       - name: Set Poetry virtual env path to PATH
         run: echo ${{ github.workspace }}/.venv/bin >> $GITHUB_PATH
       - uses: pre-commit/action@v3.0.0
-      - uses: pre-commit-ci/lite-action@v1.0.0
+      - uses: pre-commit-ci/lite-action@v1.0.1
         if: always()
 
   pyright:
