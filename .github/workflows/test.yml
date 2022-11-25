@@ -147,7 +147,11 @@ jobs:
           python-version: '3.11'
           poetry-install--only: main
           additional-dependency-cache-key: PyInstaller
-      - run: poetry run pip install -U PyInstaller
+
+      - run: |
+          poetry run pip install -U PyInstaller
+          poetry run pip list
+          poetry run python -m pip list
 
       - name: Make test file
         run: |
@@ -166,7 +170,7 @@ jobs:
 
       - name: Build test app
         run: |
-          poetry run PyInstaller -y --onefile \
+          poetry run python -m PyInstaller -y --onefile \
             ${{ env.TEST_FILE_NAME }} \
             --name test_app \
             --distpath ./dist
