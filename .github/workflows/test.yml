@@ -58,22 +58,7 @@ jobs:
 
       - run: poetry run pip install -U ${{ matrix.qt }}
 
-      - name: Install Linux dependencies
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install --no-install-recommends -y \
-            libxkbcommon-x11-0 \
-            x11-utils \
-            libyaml-dev \
-            libegl1-mesa \
-            libxcb-icccm4 \
-            libxcb-image0 \
-            libxcb-keysyms1 \
-            libxcb-randr0 \
-            libxcb-render-util0 \
-            libxcb-xinerama0 \
-            libopengl0
+      - uses: tlambert03/setup-qt-libs@v1
 
       - name: Run pytest
         run: |
