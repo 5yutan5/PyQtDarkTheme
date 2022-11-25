@@ -11,12 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: pipx install poetry
-      - uses: actions/setup-python@v4
+      - uses: 5yutan5/setup-poetry-env@v1
         with:
-          python-version: "3.11"
-          cache: 'poetry'
-      - run: poetry install --only main
+          python-version: ${{ matrix.py }}
+          poetry-install--only: main
       - name: Download latest svg and update style
         run: |
           poetry run python -c \
