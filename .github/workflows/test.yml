@@ -47,12 +47,11 @@ jobs:
       - name: Capture WidgetGallery img
         run: >-
           poetry run python ./tools/capture.py
-          -i ${{runner.os}}-py${{matrix.py}}-${{matrix.qt}}
-          -d dist
+          --name ${{runner.os}}-py${{matrix.py}}-${{matrix.qt}}
 
       - uses: actions/upload-artifact@v3
         with:
-          path: ./dist/*.png
+          path: ./*.png
 
   pytest-without-qt:
     strategy:
