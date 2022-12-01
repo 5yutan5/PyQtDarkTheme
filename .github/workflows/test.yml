@@ -41,15 +41,14 @@ jobs:
           additional-dependency-cache-key: ${{ matrix.qt }}
           poetry-install--only: github-actions,test,main
       - run: poetry run pip install -U ${{ matrix.qt }}
+
       - run: >-
           poetry run pytest --color=yes
           --cov
-          --cov-report=term-missing
           --cov-report=xml
           -n auto
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v3
         with:
           fail_ci_if_error: true
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -60,19 +59,16 @@ jobs:
           -i ${{runner.os}}-py${{matrix.py}}-${{matrix.qt}}
           -d dist
 
-      - name: Archive WidgetGallery img
-        uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v3
         with:
           name: widget-img
           path: ./dist/*.png
 
-
-  # Python version does not affect tests without Qt.
-  # So we don't need to test multiple python versions.
   pytest-without-qt:
     strategy:
       fail-fast: false
       matrix:
+        # Python version does not affect tests without Qt.
         os: [ubuntu-latest, macOS-latest, windows-latest]
     runs-on: ${{ matrix.os }}
 
@@ -82,22 +78,20 @@ jobs:
         with:
           python-version: '3.11'
           poetry-install--only: github-actions,test,main
+
       - run: >-
           poetry run pytest --color=yes
           --cov
-          --cov-report=term-missing
           --cov-report=xml
           --ignore=tests/test_widget_gallery.py
           --ignore=tests/test_qdarktheme_with_qt.py
           -p no:pytest-qt
           -n auto
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v3
         with:
           fail_ci_if_error: true
           token: ${{ secrets.CODECOV_TOKEN }}
-
 
   PyInstaller:
     env:
@@ -123,11 +117,9 @@ jobs:
           EOL
           cat -n ${{ env.TEST_FILE_NAME }}
 
-      - name: Build test app
-        run: |
-          poetry run python -m PyInstaller -y --onefile \
-            ${{ env.TEST_FILE_NAME }} \
-            --name test_app \
-            --distpath ./dist
-
+      - run: >-
+          poetry run python -m PyInstaller -y --onefile
+          ${{ env.TEST_FILE_NAME }}
+          --name test_app
+          --distpath ./dist
       - run: ./dist/test_app
