@@ -98,7 +98,5 @@ jobs:
           EOL
           cat -n test.py
 
-      - run: >-
-          poetry run PyInstaller -y --onefile test.py
-          --name test_app
+      - run: poetry run python -m PyInstaller -y --onefile test.py -n test_app
       - run: ./dist/test_app
