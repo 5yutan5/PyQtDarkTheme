@@ -2,97 +2,59 @@
 name: tests
 
 on:  # yamllint disable-line rule:truthy
-  workflow_dispatch:
   pull_request:
   push:
     branches: [main]
-
-defaults:
-  run:
-    shell: bash
-
-env:
-  # Some (Poetry) logs will be corrupted on Windows of GitHub actions.
-  # Changing the encoding to utf-8 fixes this problem.
-  PYTHONIOENCODING: 'utf-8'  # For log color
-
-  # This enable log color of pytest.
-  # --color=yes option is not working on GitHub Action.
-  # See https://github.com/pytest-dev/pytest/issues/1397.
-  PY_COLORS: 1
 
 jobs:
   pytest:
     strategy:
       fail-fast: false
-      matrix:
+      matrix:  # Test each python and Qt-lib only once on each os.
         os: [ubuntu-latest, macOS-latest, windows-latest]
         py: ['3.7', '3.8', '3.9', '3.10', '3.11']
-        qt-lib: ['pyqt', 'pyside']
         include:
-          # I think it's no need to test all of the matrix combinations.
-          # Test our supporting python and Qt library only once on each os.
-          - {py: '3.7', qt-lib: 'pyqt', qt: 'PyQt5~=5.15.0'}
-          - {py: '3.8', qt-lib: 'pyside', qt: 'PySide2~=5.15.0'}
-          - {py: '3.9', qt-lib: 'pyqt', qt: 'PyQt6'}
-          - {py: '3.10', qt-lib: 'pyside', qt: 'PySide6-Essentials'}
-          - {py: '3.11', qt-lib: 'pyqt', qt: 'PyQt6'}
-        exclude:
-          - {py: '3.7', qt-lib: 'pyside'}
-          - {py: '3.8', qt-lib: 'pyqt'}
-          - {py: '3.9', qt-lib: 'pyside'}
-          - {py: '3.10', qt-lib: 'pyqt'}
-          - {py: '3.11', qt-lib: 'pyside'}
-    env:
-      TEST_IMG_OUTPUT_PATH: 'dist'
+          - {py: '3.7', qt: PyQt5~=5.15.0}
+          - {py: '3.8', qt: PySide2~=5.15.0}
+          - {py: '3.9', qt: PyQt6}
+          - {py: '3.10', qt: PySide6-Essentials}
+          - {py: '3.11', qt: PyQt6}
     runs-on: ${{ matrix.os }}
     name: pytest (${{ matrix.os }}, ${{ matrix.py }}, ${{ matrix.qt }})
 
     steps:
       - uses: actions/checkout@v3
+      - uses: tlambert03/setup-qt-libs@v1
       - uses: 5yutan5/setup-poetry-env@v1.1.0
         with:
           python-version: ${{ matrix.py }}
           additional-dependency-cache-key: ${{ matrix.qt }}
           poetry-install--only: github-actions,test,main
-
       - run: poetry run pip install -U ${{ matrix.qt }}
 
-      - uses: tlambert03/setup-qt-libs@v1
+      - run: >-
+          poetry run pytest --color=yes -n auto --cov
+          --cov-report=term-missing --cov-report=xml
 
-      - name: Run pytest
-        run: |
-          poetry run pytest \
-            --cov \
-            --cov-report=term-missing \
-            --cov-report=xml \
-            -n auto
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v3
         with:
           fail_ci_if_error: true
           token: ${{ secrets.CODECOV_TOKEN }}
 
-      - name: Capture img of WidgetGallery
-        run: |
-          poetry run python ./tools/capture.py \
-            -i ${{runner.os}}-py${{matrix.py}}-${{matrix.qt}} \
-            -d ${{ env.TEST_IMG_OUTPUT_PATH }}
+      - name: Capture WidgetGallery img
+        run: >-
+          poetry run python ./tools/capture.py
+          -i ${{runner.os}}-py${{matrix.py}}-${{matrix.qt}}
+          -d dist
 
-      - name: Archive WidgetGallery img
-        uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v3
         with:
-          name: widget-img
-          path: ./${{ env.TEST_IMG_OUTPUT_PATH }}/*.png
+          path: ./dist/*.png
 
-
-  # Python version does not affect tests without Qt.
-  # So we don't need to test multiple python versions.
   pytest-without-qt:
     strategy:
       fail-fast: false
-      matrix:
+      matrix:  # Python version does not affect tests without Qt.
         os: [ubuntu-latest, macOS-latest, windows-latest]
     runs-on: ${{ matrix.os }}
 
@@ -101,29 +63,21 @@ jobs:
       - uses: 5yutan5/setup-poetry-env@v1.1.0
         with:
           python-version: '3.11'
-          poetry-install--only: 'github-actions,test,main'
+          poetry-install--only: github-actions,test,main
 
-      - name: Run pytest without Qt lib
-        run: |
-          poetry run pytest \
-            --cov \
-            --cov-report=term-missing \
-            --cov-report=xml \
-            --ignore=tests/test_widget_gallery.py \
-            --ignore=tests/test_qdarktheme_with_qt.py \
-            -p no:pytest-qt \
-            -n auto
+      - run: >-
+          poetry run pytest --color=yes -n auto --cov
+          --cov-report=term-missing --cov-report=xml
+          --ignore=tests/test_widget_gallery.py
+          --ignore=tests/test_qdarktheme_with_qt.py
+          -p no:pytest-qt
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v3
         with:
           fail_ci_if_error: true
           token: ${{ secrets.CODECOV_TOKEN }}
 
-
   PyInstaller:
-    env:
-      TEST_FILE_NAME: test_with_PyInstaller.py
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -132,30 +86,15 @@ jobs:
           python-version: '3.11'
           poetry-install--only: main
           additional-dependency-cache-key: PyInstaller
-
       - run: poetry run pip install -U PyInstaller
 
       - name: Make test file
         run: |
-          cat <<'EOL' >> ${{ env.TEST_FILE_NAME }}
-          import logging
+          cat <<'EOL' >> test.py
           import qdarktheme
-          logging.basicConfig(level=logging.INFO)
-          logging.info("qdarktheme version: %s", qdarktheme.__version__)
-          logging.info("Available themes: %s", qdarktheme.get_themes())
-          logging.info("Checking load_stylesheet() ...")
-          qdarktheme.load_stylesheet()
-          logging.info("Checking clear_cache() ...")
-          qdarktheme.clear_cache()
+          qdarktheme.load_stylesheet('auto')
           EOL
-          cat -n ${{ env.TEST_FILE_NAME }}
+          cat -n test.py
 
-      - name: Build test app
-        run: |
-          poetry run python -m PyInstaller -y --onefile \
-            ${{ env.TEST_FILE_NAME }} \
-            --name test_app \
-            --distpath ./dist
-
-      - name: Test build app
-        run: ./dist/test_app
+      - run: poetry run python -m PyInstaller test.py -n test_app -F
+      - run: ./dist/test_app
