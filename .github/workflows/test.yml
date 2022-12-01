@@ -45,6 +45,7 @@ jobs:
       - run: >-
           poetry run pytest --color=yes
           --cov
+          --cov-report=term-missing
           --cov-report=xml
           -n auto
 
@@ -82,6 +83,7 @@ jobs:
       - run: >-
           poetry run pytest --color=yes
           --cov
+          --cov-report=term-missing
           --cov-report=xml
           --ignore=tests/test_widget_gallery.py
           --ignore=tests/test_qdarktheme_with_qt.py
