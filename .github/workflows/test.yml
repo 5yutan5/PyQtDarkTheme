@@ -42,7 +42,7 @@ jobs:
           poetry-install--only: github-actions,test,main
       - run: poetry run pip install -U ${{ matrix.qt }}
       - run: >-
-          poetry run pytest
+          poetry run pytest --color=yes
           --cov
           --cov-report=term-missing
           --cov-report=xml
@@ -83,7 +83,7 @@ jobs:
           python-version: '3.11'
           poetry-install--only: github-actions,test,main
       - run: >-
-          poetry run pytest
+          poetry run pytest --color=yes
           --cov
           --cov-report=term-missing
           --cov-report=xml
