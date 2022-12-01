@@ -13,21 +13,12 @@ jobs:
       matrix:
         os: [ubuntu-latest, macOS-latest, windows-latest]
         py: ['3.7', '3.8', '3.9', '3.10', '3.11']
-        qt-lib: ['pyqt', 'pyside']
-        include:
-          # I think it's no need to test all of the matrix combinations.
-          # Test our supporting python and Qt library only once on each os.
-          - {py: '3.7', qt-lib: 'pyqt', qt: 'PyQt5~=5.15.0'}
-          - {py: '3.8', qt-lib: 'pyside', qt: 'PySide2~=5.15.0'}
-          - {py: '3.9', qt-lib: 'pyqt', qt: 'PyQt6'}
-          - {py: '3.10', qt-lib: 'pyside', qt: 'PySide6-Essentials'}
-          - {py: '3.11', qt-lib: 'pyqt', qt: 'PyQt6'}
-        exclude:
-          - {py: '3.7', qt-lib: 'pyside'}
-          - {py: '3.8', qt-lib: 'pyqt'}
-          - {py: '3.9', qt-lib: 'pyside'}
-          - {py: '3.10', qt-lib: 'pyqt'}
-          - {py: '3.11', qt-lib: 'pyside'}
+        include:  # Test each python and Qt-lib only once on each os.
+          - {py: '3.7', qt: 'PyQt5~=5.15.0'}
+          - {py: '3.8', qt: 'PySide2~=5.15.0'}
+          - {py: '3.9', qt: 'PyQt6'}
+          - {py: '3.10', qt: 'PySide6-Essentials'}
+          - {py: '3.11', qt: 'PyQt6'}
     runs-on: ${{ matrix.os }}
     name: pytest (${{ matrix.os }}, ${{ matrix.py }}, ${{ matrix.qt }})
 
@@ -115,5 +106,4 @@ jobs:
       - run: >-
           poetry run python -m PyInstaller -y --onefile test.py
           --name test_app
-          --distpath ./dist
       - run: ./dist/test_app
