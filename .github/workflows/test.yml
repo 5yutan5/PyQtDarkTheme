@@ -33,7 +33,7 @@ jobs:
       - run: poetry run pip install -U ${{ matrix.qt }}
 
       - run: >-
-          poetry run pytest --color=yes -n auto --cov
+          poetry run pytest --color=yes --cov
           --cov-report=term-missing --cov-report=xml
 
       - uses: codecov/codecov-action@v3
@@ -66,7 +66,7 @@ jobs:
           poetry-install--only: github-actions,test,main
 
       - run: >-
-          poetry run pytest --color=yes -n auto --cov
+          poetry run pytest --color=yes --cov
           --cov-report=term-missing --cov-report=xml
           --ignore=tests/test_widget_gallery.py
           --ignore=tests/test_qdarktheme_with_qt.py
