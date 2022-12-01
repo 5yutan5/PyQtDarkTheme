@@ -7,16 +7,8 @@ on:  # yamllint disable-line rule:truthy
   push:
     branches: [main]
 
-defaults:
-  run:
-    shell: bash
-
 env:
-  # Some (Poetry) logs will be corrupted on Windows of GitHub actions.
-  # Changing the encoding to utf-8 fixes this problem.
-  PYTHONIOENCODING: 'utf-8'  # For log color
-
-  # This enable log color of pytest.
+  # This enable pytest log color.
   # --color=yes option is not working on GitHub Action.
   # See https://github.com/pytest-dev/pytest/issues/1397.
   PY_COLORS: 1
@@ -43,25 +35,20 @@ jobs:
           - {py: '3.9', qt-lib: 'pyside'}
           - {py: '3.10', qt-lib: 'pyqt'}
           - {py: '3.11', qt-lib: 'pyside'}
-    env:
-      TEST_IMG_OUTPUT_PATH: 'dist'
     runs-on: ${{ matrix.os }}
     name: pytest (${{ matrix.os }}, ${{ matrix.py }}, ${{ matrix.qt }})
 
     steps:
       - uses: actions/checkout@v3
+      - uses: tlambert03/setup-qt-libs@v1
       - uses: 5yutan5/setup-poetry-env@v1.1.0
         with:
           python-version: ${{ matrix.py }}
           additional-dependency-cache-key: ${{ matrix.qt }}
           poetry-install--only: github-actions,test,main
-
       - run: poetry run pip install -U ${{ matrix.qt }}
 
-      - uses: tlambert03/setup-qt-libs@v1
-
-      - name: Run pytest
-        run: |
+      - run: |
           poetry run pytest \
             --cov \
             --cov-report=term-missing \
@@ -74,17 +61,17 @@ jobs:
           fail_ci_if_error: true
           token: ${{ secrets.CODECOV_TOKEN }}
 
-      - name: Capture img of WidgetGallery
+      - name: Capture WidgetGallery img
         run: |
           poetry run python ./tools/capture.py \
             -i ${{runner.os}}-py${{matrix.py}}-${{matrix.qt}} \
-            -d ${{ env.TEST_IMG_OUTPUT_PATH }}
+            -d dist
 
       - name: Archive WidgetGallery img
         uses: actions/upload-artifact@v3
         with:
           name: widget-img
-          path: ./${{ env.TEST_IMG_OUTPUT_PATH }}/*.png
+          path: ./dist/*.png
 
 
   # Python version does not affect tests without Qt.
@@ -101,10 +88,9 @@ jobs:
       - uses: 5yutan5/setup-poetry-env@v1.1.0
         with:
           python-version: '3.11'
-          poetry-install--only: 'github-actions,test,main'
+          poetry-install--only: github-actions,test,main
 
-      - name: Run pytest without Qt lib
-        run: |
+      - run: |
           poetry run pytest \
             --cov \
             --cov-report=term-missing \
@@ -132,20 +118,15 @@ jobs:
           python-version: '3.11'
           poetry-install--only: main
           additional-dependency-cache-key: PyInstaller
-
       - run: poetry run pip install -U PyInstaller
 
       - name: Make test file
         run: |
           cat <<'EOL' >> ${{ env.TEST_FILE_NAME }}
-          import logging
           import qdarktheme
-          logging.basicConfig(level=logging.INFO)
-          logging.info("qdarktheme version: %s", qdarktheme.__version__)
-          logging.info("Available themes: %s", qdarktheme.get_themes())
-          logging.info("Checking load_stylesheet() ...")
-          qdarktheme.load_stylesheet()
-          logging.info("Checking clear_cache() ...")
+          print("Checking load_stylesheet("auto") ...")
+          qdarktheme.load_stylesheet("auto")
+          print("Checking clear_cache() ...")
           qdarktheme.clear_cache()
           EOL
           cat -n ${{ env.TEST_FILE_NAME }}
@@ -157,5 +138,4 @@ jobs:
             --name test_app \
             --distpath ./dist
 
-      - name: Test build app
-        run: ./dist/test_app
+      - run: ./dist/test_app
