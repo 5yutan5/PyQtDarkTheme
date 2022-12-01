@@ -53,7 +53,7 @@ pyproject-flake8 = "^5.0.4.post1"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^7.2.0"
-pytest-cov = { version = "^4.0.0", extras = ["toml"] }
+pytest-cov = "^4.0.0"
 pytest-randomly = "^3.12.0"
 pytest-qt = "^4.2.0"
 pytest-xvfb = "^2.0.0"
