@@ -76,10 +76,8 @@ repos:
     rev: 5.0.4
     hooks:
       - id: flake8
-        entry: pflake8
         additional_dependencies: &flake8_dependencies
-          - pyproject-flake8
-          - pep8-naming
+          - flake8-pyproject
           - flake8-pie
           - flake8-print
           - flake8-return
@@ -90,6 +88,7 @@ repos:
           - flake8-eradicate
           - flake8-rst-docstrings
           - flake8-pytest-style
+          - pep8-naming
 
   - repo: https://github.com/asottile/yesqa
     rev: v1.4.0
@@ -106,17 +105,3 @@ repos:
       - id: python-no-eval
       - id: python-no-log-warn
       - id: python-use-type-annotations
-
-# This hook has bug on Windows.
-# See https://github.com/RobertCraigie/pyright-python/issues/45
-# Run pyright with GitHub actions until this bug is resolved.
-
-#   - repo: https://github.com/RobertCraigie/pyright-python
-#     rev: v1.1.279
-#     hooks:
-#     - id: pyright
-#       additional_dependencies:
-#         - PyQt6
-#         - darkdetect
-#         - pytest
-#         - pytest-qt
