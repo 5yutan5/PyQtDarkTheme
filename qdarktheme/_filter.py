@@ -37,6 +37,16 @@ def _svg_resources() -> dict[str, str]:
     return json.loads(_resources.SVG_RESOURCES)
 
 
+def _transform(color: Color, color_state: dict[str, float]) -> Color:
+    if color_state.get("transparent"):
+        color = color.transparent(color_state["transparent"])
+    if color_state.get("darken"):
+        color = color.darken(color_state["darken"])
+    if color_state.get("lighten"):
+        return color.lighten(color_state["lighten"])
+    return color
+
+
 def color(color_info: str | dict[str, str | dict], state: str | None = None) -> Color:
     """Filter for template engine. This filter convert color info data to color object."""
     if isinstance(color_info, str):
@@ -48,17 +58,8 @@ def color(color_info: str | dict[str, str | dict], state: str | None = None) -> 
     if state is None:
         return color
 
-    color_state = color_info[state]
-    if isinstance(color_state, str):
-        return Color.from_hex(color_state)
-
-    if color_state.get("transparent"):
-        color = color.transparent(color_state["transparent"])
-    if color_state.get("darken"):
-        color = color.darken(color_state["darken"])
-    if color_state.get("lighten"):
-        return color.lighten(color_state["lighten"])
-    return color
+    transforms = color_info[state]
+    return Color.from_hex(transforms) if isinstance(transforms, str) else _transform(color, transforms)
 
 
 def svg_format(color: Color) -> str:

@@ -48,19 +48,17 @@ def _marge_colors(
 ):
     for color_id, color in _mix_theme_colors(custom_colors, theme).items():
         try:
-            parent_key, *child_key = color_id.split(">")
+            parent_key, *child_keys = color_id.split(">")
             color_value = color_values[parent_key]
-            if len(child_key) == 0:
-                if isinstance(color_value, dict):
-                    color_value["base"] = color
-                else:
-                    color_values[parent_key] = color
-            elif len(child_key) == 1 and isinstance(color_value, dict):
-                # Check if child_key exists.
-                color_value[child_key[0]]
-                color_value[child_key[0]] = color
-            else:
+            if len(child_keys) > 1 or (isinstance(color_value, str) and len(child_keys) != 0):
                 raise KeyError
+
+            if isinstance(color_value, str):
+                color_values[parent_key] = color
+            else:
+                child_key = "base" if len(child_keys) == 0 else child_keys[0]
+                color_value[child_key]  # Check if child_key exists.
+                color_value[child_key] = color
         except KeyError:
             raise KeyError(f'invalid color id for argument custom_colors: "{color_id}".') from None
 
