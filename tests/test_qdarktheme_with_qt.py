@@ -1,9 +1,8 @@
 """Tests for the main program with Qt."""
-import sys
-
 import pytest
 
 import qdarktheme
+from qdarktheme.qtpy.QtWidgets import QApplication
 
 
 @pytest.mark.parametrize(
@@ -34,25 +33,11 @@ def test_load_palette(theme, custom_colors) -> None:
     qdarktheme.load_palette(theme, custom_colors)
 
 
-def test_apply_stylesheet_to_qt_app() -> None:
+def test_apply_stylesheet_to_qt_app(qapp: QApplication) -> None:
     """Verify that the function `load_stylesheet()` runs without error."""
-    from qdarktheme.qtpy.QtCore import Qt
-    from qdarktheme.qtpy.QtWidgets import QApplication
-
-    app = QApplication.instance() if QApplication.instance() else QApplication(sys.argv)
-    if hasattr(Qt.ApplicationAttribute, "AA_UseHighDpiPixmaps"):
-        app.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)  # type: ignore
-
-    app.setStyleSheet(qdarktheme.load_stylesheet())
+    qapp.setStyleSheet(qdarktheme.load_stylesheet())
 
 
-def test_apply_palette_to_qt_app() -> None:
+def test_apply_palette_to_qt_app(qapp: QApplication) -> None:
     """Verify that the function `load_palette()` runs without error."""
-    from qdarktheme.qtpy.QtCore import Qt
-    from qdarktheme.qtpy.QtWidgets import QApplication
-
-    app = QApplication.instance() if QApplication.instance() else QApplication(sys.argv)
-    if hasattr(Qt.ApplicationAttribute, "AA_UseHighDpiPixmaps"):
-        app.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)  # type: ignore
-
-    app.setPalette(qdarktheme.load_palette())
+    qapp.setPalette(qdarktheme.load_palette())

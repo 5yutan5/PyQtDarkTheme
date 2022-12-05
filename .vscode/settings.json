@@ -46,6 +46,7 @@
     "pytest",
     "pytestqt",
     "pyupgrade",
+    "qapp",
     "qdarktheme",
     "QLCD",
     "qproperty",
