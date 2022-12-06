@@ -1,7 +1,11 @@
 """Tests for the main program with Qt."""
+import platform
+import re
+
 import pytest
 
 import qdarktheme
+from qdarktheme.qtpy.QtGui import QPalette
 from qdarktheme.qtpy.QtWidgets import QApplication
 
 
@@ -41,3 +45,41 @@ def test_apply_stylesheet_to_qt_app(qapp: QApplication) -> None:
 def test_apply_palette_to_qt_app(qapp: QApplication) -> None:
     """Verify that the function `load_palette()` runs without error."""
     qapp.setPalette(qdarktheme.load_palette())
+
+
+@pytest.mark.parametrize(
+    ("theme", "additional_qss", "high_dpi"),
+    [
+        ("dark", None, True),
+        ("dark", "QWidget{color: red;}", True),
+        ("dark", None, False),
+    ],
+)
+def test_setup_style(qapp: QApplication, theme, additional_qss, high_dpi) -> None:
+    """Verify that the function `setup_style()` runs without error."""
+    qdarktheme.setup_style(theme, additional_qss=additional_qss, high_dpi=high_dpi)
+
+
+def test_stop_sync(qapp: QApplication) -> None:
+    """Verify that the function `stop_sync()` runs without error."""
+    qdarktheme.setup_style()
+    qdarktheme.stop_sync()
+
+
+def test_setup_style_without_qapp(mocker) -> None:
+    """Verify we raise Exception when qapp is none."""
+    mocker.patch("qdarktheme.qtpy.QtWidgets.QApplication.instance", return_value=None)
+    with pytest.raises(
+        Exception, match=re.escape("setup_style() must be called after instantiation of QApplication.")
+    ):
+        qdarktheme.setup_style()
+
+
+if platform.system() == "Darwin":
+
+    def test_theme_event_filter(qapp: QApplication) -> None:
+        """Verify that the internal class `ThemeEventFilter` runs without error."""
+        qdarktheme.setup_style()
+        qapp.setPalette(QPalette())
+        # Test whether to skip changes if theme is the same
+        qapp.setPalette(QPalette())

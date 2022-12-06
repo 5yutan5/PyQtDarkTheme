@@ -2,16 +2,12 @@
 import sys
 
 import qdarktheme
-from qdarktheme.qtpy.QtCore import Qt
 from qdarktheme.qtpy.QtWidgets import QApplication
 from qdarktheme.widget_gallery.main_window import WidgetGallery
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    if hasattr(Qt.ApplicationAttribute, "AA_UseHighDpiPixmaps"):  # Enable High DPI display with Qt5
-        app.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)  # type: ignore
+    qdarktheme.setup_style()
     win = WidgetGallery()
-    win.menuBar().setNativeMenuBar(False)
-    app.setStyleSheet(qdarktheme.load_stylesheet("auto"))
     win.show()
     app.exec()
