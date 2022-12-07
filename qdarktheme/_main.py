@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import os
 import platform
-from threading import Thread
 
 import darkdetect
 
@@ -39,15 +38,35 @@ def _create_theme_event_filter(app, *args, **kargs):
     return ThemeEventFilter()
 
 
+def _create_theme_listener(app, *args, **kargs):
+    from qdarktheme.qtpy.QtCore import QObject, QThread, Signal
+
+    class ThemeChanger(QObject):
+        sig_change_theme = Signal(str)
+
+        def __init__(self) -> None:
+            super().__init__()
+            self.sig_change_theme.connect(lambda _: _apply_style(app, *args, **kargs))
+
+    class ThemeListener(QThread):
+        def __init__(self) -> None:
+            super().__init__()
+            self.theme_changer = ThemeChanger()
+            self.finished.connect(self.theme_changer.deleteLater)
+
+        def run(self) -> None:
+            darkdetect.listener(self.theme_changer.sig_change_theme.emit)
+
+    return ThemeListener()
+
+
 def _sync_theme_with_system(app, *args, **kargs) -> None:
     global _listener
     if platform.system() == "Darwin":
         _listener = _create_theme_event_filter(app, *args, **kargs)
         app.installEventFilter(_listener)
     else:
-        _listener = Thread(
-            target=darkdetect.listener, args=(lambda: _apply_style(app, *args, **kargs),), daemon=True
-        )
+        _listener = _create_theme_listener(app, *args, **kargs)
         _listener.start()
 
 
@@ -65,14 +84,17 @@ def _enable_hi_dpi(app) -> None:
 
 def stop_sync() -> None:
     """Stop sync with system theme."""
+    from qdarktheme.qtpy.QtCore import QThread
     from qdarktheme.qtpy.QtWidgets import QApplication
 
     app: QApplication | None = QApplication.instance()
-    if not app:
+    if not app or not _listener:
         return
 
-    if isinstance(_listener, Thread):
-        _listener.join()
+    if isinstance(_listener, QThread):
+        _listener.quit()
+        _listener.terminate()
+        _listener.wait()
     else:
         app.removeEventFilter(_listener)
 
