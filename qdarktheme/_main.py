@@ -88,6 +88,7 @@ def stop_sync() -> None:
 
     if isinstance(_listener, QThread):
         _listener.terminate()
+        _listener.exit(-1)
     else:
         app.removeEventFilter(_listener)
     _listener.deleteLater()
