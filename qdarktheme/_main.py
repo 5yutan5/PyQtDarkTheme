@@ -88,10 +88,9 @@ def stop_sync() -> None:
 
     if isinstance(_listener, QThread):
         _listener.terminate()
-        _listener.deleteLater()
     else:
         app.removeEventFilter(_listener)
-        _listener.deleteLater()
+    _listener.deleteLater()
     _listener = None
 
 
@@ -181,7 +180,7 @@ def setup_style(
 
     _apply_style(app, additional_qss, theme, corner_shape, custom_colors, default_theme=default_theme)
 
-    if theme == "auto":
+    if theme == "auto" and darkdetect.theme() is not None:
         _sync_theme_with_system(
             app, additional_qss, theme, corner_shape, custom_colors, default_theme=default_theme
         )
