@@ -63,7 +63,10 @@ def _create_theme_listener(app, *args, **kargs):
         def run(self) -> None:
             darkdetect.listener(self._sig_listen_os_theme.emit)
 
-    return ThemeListener()
+    listener = ThemeListener()
+    app.aboutToQuit(listener.terminate)
+
+    return listener
 
 
 def _sync_theme_with_system(app, *args, **kargs) -> None:
