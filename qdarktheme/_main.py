@@ -39,23 +39,17 @@ def _create_theme_event_filter(app, *args, **kargs):
 
 
 def _create_theme_listener(app, *args, **kargs):
-    from qdarktheme.qtpy.QtCore import QObject, QThread, Signal
+    from qdarktheme.qtpy.QtCore import QThread, Signal
 
-    class ThemeChanger(QObject):
+    class ThemeListener(QThread):
         sig_change_theme = Signal(str)
 
         def __init__(self) -> None:
             super().__init__()
             self.sig_change_theme.connect(lambda _: _apply_style(app, *args, **kargs))
 
-    class ThemeListener(QThread):
-        def __init__(self) -> None:
-            super().__init__()
-            self.theme_changer = ThemeChanger()
-            self.finished.connect(self.theme_changer.deleteLater)
-
         def run(self) -> None:
-            darkdetect.listener(self.theme_changer.sig_change_theme.emit)
+            darkdetect.listener(self.sig_change_theme.emit)
 
     return ThemeListener()
 
@@ -93,9 +87,7 @@ def stop_sync() -> None:
         return
 
     if isinstance(_listener, QThread):
-        _listener.quit()
         _listener.terminate()
-        _listener.wait()
         _listener.deleteLater()
     else:
         app.removeEventFilter(_listener)
