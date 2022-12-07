@@ -20,19 +20,26 @@ def _apply_style(app, additional_qss: str | None, *args, **kargs) -> None:
 
 
 def _create_theme_event_filter(app, *args, **kargs):
-    from qdarktheme.qtpy.QtCore import QEvent, QObject
+    from qdarktheme.qtpy.QtCore import QEvent, QObject, Signal
 
     class ThemeEventFilter(QObject):
-        _theme = None
+        sig_run = Signal(bool)
+
+        def __init__(self) -> None:
+            super().__init__()
+            self.setProperty("is_running", True)
+            self._theme = darkdetect.theme()
+            self.sig_run.connect(lambda state: self.setProperty("is_running", state))
 
         def eventFilter(self, q_object: QObject, event: QEvent) -> bool:  # noqa: N802
-            if q_object != app:
+            if q_object != app and not self.property("is_running"):
                 return super().eventFilter(q_object, event)
-            theme = darkdetect.theme()
-            if event.type() == QEvent.Type.ApplicationPaletteChange and self._theme != theme:
-                self._theme = theme
-                _apply_style(app, *args, **kargs)
-                return True
+            if event.type() == QEvent.Type.ApplicationPaletteChange:
+                theme = darkdetect.theme()
+                if self._theme != theme:
+                    self._theme = theme
+                    _apply_style(app, *args, **kargs)
+                    return True
             return False
 
     return ThemeEventFilter()
@@ -42,20 +49,29 @@ def _create_theme_listener(app, *args, **kargs):
     from qdarktheme.qtpy.QtCore import QThread, Signal
 
     class ThemeListener(QThread):
-        sig_change_theme = Signal(str)
+        sig_run = Signal(bool)
+        _sig_listen_os_theme = Signal(str)
 
         def __init__(self) -> None:
             super().__init__()
-            self.sig_change_theme.connect(lambda _: _apply_style(app, *args, **kargs))
+            self.setProperty("is_running", True)
+            self.sig_run.connect(lambda state: self.setProperty("is_running", state))
+            self._sig_listen_os_theme.connect(
+                lambda _: self.property("is_running") and _apply_style(app, *args, **kargs)
+            )
 
         def run(self) -> None:
-            darkdetect.listener(self.sig_change_theme.emit)
+            darkdetect.listener(self._sig_listen_os_theme.emit)
 
     return ThemeListener()
 
 
 def _sync_theme_with_system(app, *args, **kargs) -> None:
     global _listener
+    if _listener is not None:
+        _listener.sig_run.emit(True)
+        return
+
     if platform.system() == "Darwin":
         _listener = _create_theme_event_filter(app, *args, **kargs)
         app.installEventFilter(_listener)
@@ -78,21 +94,13 @@ def _enable_hi_dpi(app) -> None:
 
 def stop_sync() -> None:
     """Stop sync with system theme."""
-    from qdarktheme.qtpy.QtCore import QThread
     from qdarktheme.qtpy.QtWidgets import QApplication
 
     app: QApplication | None = QApplication.instance()
     global _listener
     if not app or not _listener:
         return
-
-    if isinstance(_listener, QThread):
-        _listener.terminate()
-        _listener.exit(-1)
-    else:
-        app.removeEventFilter(_listener)
-    _listener.deleteLater()
-    _listener = None
+    _listener.sig_run.emit(False)
 
 
 def setup_style(
@@ -181,7 +189,7 @@ def setup_style(
 
     _apply_style(app, additional_qss, theme, corner_shape, custom_colors, default_theme=default_theme)
 
-    if theme == "auto" and darkdetect.theme() is not None and _listener is None:
+    if theme == "auto" and darkdetect.theme() is not None:
         _sync_theme_with_system(
             app, additional_qss, theme, corner_shape, custom_colors, default_theme=default_theme
         )
