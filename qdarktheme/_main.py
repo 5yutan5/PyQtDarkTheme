@@ -88,6 +88,7 @@ def stop_sync() -> None:
     from qdarktheme.qtpy.QtWidgets import QApplication
 
     app: QApplication | None = QApplication.instance()
+    global _listener
     if not app or not _listener:
         return
 
@@ -95,8 +96,11 @@ def stop_sync() -> None:
         _listener.quit()
         _listener.terminate()
         _listener.wait()
+        _listener.deleteLater()
     else:
         app.removeEventFilter(_listener)
+        _listener.deleteLater()
+    _listener = None
 
 
 def setup_style(
