@@ -175,12 +175,12 @@ def setup_style(
         raise Exception("setup_style() must be called after instantiation of QApplication.")
     if high_dpi:
         _enable_hi_dpi(app)
-    if theme != "auto" or _listener is not None:
+    if theme != "auto":
         stop_sync()
 
     _apply_style(app, additional_qss, theme, corner_shape, custom_colors, default_theme=default_theme)
 
-    if theme == "auto" and darkdetect.theme() is not None:
+    if theme == "auto" and darkdetect.theme() is not None and _listener is None:
         _sync_theme_with_system(
             app, additional_qss, theme, corner_shape, custom_colors, default_theme=default_theme
         )
