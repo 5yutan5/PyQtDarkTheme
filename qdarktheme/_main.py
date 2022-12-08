@@ -66,6 +66,7 @@ def _create_theme_listener(app, *args, **kargs):
 
         def kill(self) -> None:
             self.terminate()
+            self.deleteLater()
 
     listener = ThemeListener()
     atexit.register(listener.kill)
