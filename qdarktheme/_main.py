@@ -33,15 +33,17 @@ def _create_theme_event_filter(app, *args, **kargs):
             self.sig_run.connect(lambda state: self.setProperty("is_running", state))
 
         def eventFilter(self, q_object: QObject, event: QEvent) -> bool:  # noqa: N802
-            if q_object != app and not self.property("is_running"):
-                return super().eventFilter(q_object, event)
-            if event.type() == QEvent.Type.ApplicationPaletteChange:
+            if (
+                self.property("is_running")
+                and q_object == app
+                and event.type() == QEvent.Type.ApplicationPaletteChange
+            ):
                 theme = darkdetect.theme()
                 if self._theme != theme:
                     self._theme = theme
                     _apply_style(app, *args, **kargs)
                     return True
-            return False
+            return super().eventFilter(q_object, event)
 
     return ThemeEventFilter()
 
