@@ -50,14 +50,18 @@ def test_apply_palette_to_qt_app(qapp: QApplication) -> None:
 @pytest.mark.parametrize(
     ("theme", "additional_qss", "high_dpi"),
     [
-        ("dark", None, True),
-        ("dark", "QWidget{color: red;}", True),
-        ("dark", None, False),
+        ("dark", None),
+        ("dark", "QWidget{color: red;}"),
     ],
 )
-def test_setup_style(qapp: QApplication, theme, additional_qss, high_dpi) -> None:
+def test_setup_style(qapp: QApplication, theme, additional_qss) -> None:
     """Verify that the function `setup_style()` runs without error."""
-    qdarktheme.setup_style(theme, additional_qss=additional_qss, high_dpi=high_dpi)
+    qdarktheme.setup_style(theme, additional_qss=additional_qss)
+
+
+def test_enable_high_dpi(qapp: QApplication) -> None:
+    """Verify that the function `enable_high_dpi()` runs without error."""
+    qdarktheme.enable_hi_dpi()
 
 
 def test_stop_sync(qapp: QApplication) -> None:
