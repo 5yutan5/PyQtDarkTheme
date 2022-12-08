@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import atexit
 import os
 import platform
 
@@ -64,7 +65,7 @@ def _create_theme_listener(app, *args, **kargs):
             darkdetect.listener(self._sig_listen_os_theme.emit)
 
     listener = ThemeListener()
-    app.aboutToQuit.connect(listener.terminate)
+    atexit.register(listener.terminate)
 
     return listener
 
