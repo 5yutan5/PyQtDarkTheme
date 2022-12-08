@@ -48,7 +48,7 @@ def test_apply_palette_to_qt_app(qapp: QApplication) -> None:
 
 
 @pytest.mark.parametrize(
-    ("theme", "additional_qss", "high_dpi"),
+    ("theme", "additional_qss"),
     [
         ("dark", None),
         ("dark", "QWidget{color: red;}"),
