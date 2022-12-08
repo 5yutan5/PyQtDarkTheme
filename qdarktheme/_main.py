@@ -90,23 +90,31 @@ def _sync_theme_with_system(app, *args, **kargs) -> None:
         _listener.start()
 
 
-def _enable_hi_dpi(app) -> None:
+def enable_hi_dpi() -> None:
+    """Allow to HiDPI.
+
+    This function must be set before instantiation of QApplication..
+    For Qt6 bindings, HiDPI “just works” without using this function.
+    """
     from qdarktheme.qtpy.QtCore import Qt
+    from qdarktheme.qtpy.QtGui import QGuiApplication
 
     if hasattr(Qt.ApplicationAttribute, "AA_UseHighDpiPixmaps"):
-        app.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)  # type: ignore
+        QGuiApplication.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)  # type: ignore
     if hasattr(Qt.ApplicationAttribute, "AA_EnableHighDpiScaling"):
-        app.setAttribute(Qt.ApplicationAttribute.AA_EnableHighDpiScaling)  # type: ignore
+        QGuiApplication.setAttribute(Qt.ApplicationAttribute.AA_EnableHighDpiScaling)  # type: ignore
     if hasattr(Qt, "HighDpiScaleFactorRoundingPolicy"):
         os.environ["QT_ENABLE_HIGHDPI_SCALING"] = "1"
-        app.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
+        QGuiApplication.setHighDpiScaleFactorRoundingPolicy(
+            Qt.HighDpiScaleFactorRoundingPolicy.PassThrough
+        )
 
 
 def stop_sync() -> None:
     """Stop sync with system theme."""
     from qdarktheme.qtpy.QtWidgets import QApplication
 
-    app: QApplication | None = QApplication.instance()
+    app = QApplication.instance()
     global _listener
     if not app or not _listener:
         return
@@ -120,7 +128,6 @@ def setup_style(
     additional_qss: str | None = None,
     *,
     default_theme: str = "dark",
-    high_dpi: bool = True,
 ) -> None:
     """Apply the style which looks like flat design to the Qt App completely.
 
@@ -189,11 +196,9 @@ def setup_style(
     """
     from qdarktheme.qtpy.QtWidgets import QApplication
 
-    app: QApplication | None = QApplication.instance()
+    app = QApplication.instance()
     if not app:
         raise Exception("setup_style() must be called after instantiation of QApplication.")
-    if high_dpi:
-        _enable_hi_dpi(app)
     if theme != "auto":
         stop_sync()
 

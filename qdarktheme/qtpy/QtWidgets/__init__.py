@@ -4,7 +4,7 @@ from __future__ import annotations
 from collections.abc import Sequence
 
 from qdarktheme.qtpy.qt_compat import QT_API
-from qdarktheme.qtpy.QtCore import Qt
+from qdarktheme.qtpy.QtCore import QCoreApplication, Qt
 from qdarktheme.qtpy.QtGui import QPalette
 
 if QT_API == "PySide6":
@@ -38,9 +38,10 @@ class Application(QApplication):  # type: ignore  # noqa: F405
         """Override QApplication method."""
         return super().setStyleSheet(sheet)
 
-    def setAttribute(self, attribute: Qt.ApplicationAttribute, on: bool = True) -> None:  # noqa: N802
+    @staticmethod
+    def setAttribute(attribute: Qt.ApplicationAttribute, on: bool = True) -> None:  # noqa: N802
         """Override QApplication method."""
-        super().setAttribute(attribute, on)
+        QCoreApplication.setAttribute(attribute, on)
 
     def setPalette(self, palette: QPalette, className: str | None = None) -> None:  # noqa: N802, N803
         """Override QApplication method."""

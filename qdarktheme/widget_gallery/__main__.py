@@ -6,6 +6,7 @@ from qdarktheme.qtpy.QtWidgets import QApplication
 from qdarktheme.widget_gallery.main_window import WidgetGallery
 
 if __name__ == "__main__":
+    qdarktheme.enable_hi_dpi()
     app = QApplication(sys.argv)
     qdarktheme.setup_style()
     win = WidgetGallery()
