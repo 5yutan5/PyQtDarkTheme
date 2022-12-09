@@ -28,6 +28,17 @@ PyQtDarkTheme applies a flat theme to your Qt applications.
 
         .. literalinclude:: ../../examples/apply_theme/pyqtgraph.py
 
+Enable HiDPI
+------------
+
+If you want to enable HiDPI, you can use ``qdarktheme.enable_hi_dpi()``. For Qt6 bindings, HiDPI “just works” without using this function.
+
+.. code-block:: python
+
+    # enable_hi_dpi() must be called before instantiation of QApplication.
+    qdarktheme.enable_hi_dpi()
+    app = QApplication(sys.argv)
+
 Toggle dark/light Theme
 -----------------------
 
@@ -175,17 +186,13 @@ You can apply dark and light color to your Qt Application using QPalette of PyQt
 
 And you can get theme color from QPalette of PyQtDarkTheme.
 
-.. tab-set::
+.. code-block:: Python
 
-    .. tab-item:: Source
+    import qdarktheme
 
-        .. code-block:: Python
-
-            import qdarktheme
-
-            dark_palette = qdarktheme.load_palette()
-            link_color = dark_palette.link().color()
-            link_rgb = link_color.getRgb()
+    dark_palette = qdarktheme.load_palette()
+    link_color = dark_palette.link().color()
+    link_rgb = link_color.getRgb()
 
 Use stylesheet
 --------------
