@@ -66,69 +66,44 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton
 import qdarktheme
 
 app = QApplication(sys.argv)
+# Apply the complete dark theme to your Qt App.
+qdarktheme.setup_theme()
+
 main_win = QMainWindow()
 push_button = QPushButton("PyQtDarkTheme!!")
 main_win.setCentralWidget(push_button)
 
-# Apply dark theme to Qt application
-app.setStyleSheet(qdarktheme.load_stylesheet())
-
 main_win.show()
 
 app.exec()
-
-```
-
-> ⚠ The image quality may be lower on Qt5(PyQt5, PySide2) due to the use of svg. You can add the following attribute to improve the quality of images.
->
-> ```Python
-> app.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)
-> ```
-
-### Light theme
-
-```Python
-app.setStyleSheet(qdarktheme.load_stylesheet("light"))
-```
-
-### Automatic detection of system theme
-
-```Python
-app.setStyleSheet(qdarktheme.load_stylesheet("auto"))
-```
-
-### Dark and Light palette
-
-You can get color of dark and light theme by loading QPalette.
-To load palette, run:
-
-```Python
-palette = qdarktheme.load_palette()
-# or
-palette = qdarktheme.load_palette("light")
-```
-
-For example, you can apply a link color to your application.
-
-```Python
-import sys
-
-from PyQt5.QtGui import QPalette
-from PyQt5.QtWidgets import QApplication
-
-import qdarktheme
-
-app = QApplication(sys.argv)
-dark_palette = qdarktheme.load_palette()
-palette = app.palette()
-palette.setColor(QPalette.ColorRole.Link, dark_palette.link().color())
-app.setPalette(palette)
-
 ```
 
 Further information can be found in our docs:
 
 - [Usage Guide](https://pyqtdarktheme.readthedocs.io/en/latest/how_to_use.html)
+
+### Enable HiDPI
+
+```Python
+# enable_hi_dpi() must be called before instantiation of QApplication.
+qdarktheme.enable_hi_dpi()
+app = QApplication(sys.argv)
+qdarktheme.setup_theme()
+```
+
+For Qt6 bindings, HiDPI “just works” without using this function.
+
+### Light theme
+
+```Python
+qdarktheme.setup_theme("light")
+```
+
+### Sync with OS's theme
+
+```Python
+qdarktheme.setup_theme("auto")
+```
 
 ### Customizing colors
 
@@ -136,7 +111,7 @@ You can customize theme color.
 
 ```python
 # Customize accent color.
-stylesheet = qdarktheme.load_stylesheet(custom_colors={"primary": "#D0BCFF"})
+qdarktheme.setup_theme(custom_colors={"primary": "#D0BCFF"})
 ```
 
 Further information for customizing color can be found in our theme color docs:
@@ -149,7 +124,16 @@ You can change the corner style.
 
 ```python
 # Default is "rounded".
-stylesheet = qdarktheme.load_stylesheet(corner_shape="sharp")
+stylesheet = qdarktheme.setup_theme(corner_shape="sharp")
+```
+
+### QPalette and stylesheet
+
+You can also only load QPalette and stylesheet. `qdarktheme.setup_theme` uses following functions internally.
+
+```Python
+palette = qdarktheme.load_palette(theme="dark")
+stylesheet = qdarktheme.load_stylesheet(theme="dark")
 ```
 
 ## Example

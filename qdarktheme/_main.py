@@ -112,24 +112,24 @@ def enable_hi_dpi() -> None:
 
 def stop_sync() -> None:
     """Stop sync with system theme."""
-    from qdarktheme.qtpy.QtWidgets import QApplication
+    from qdarktheme.qtpy.QtCore import QCoreApplication
 
-    app = QApplication.instance()
+    app = QCoreApplication.instance()
     global _listener
     if not app or not _listener:
         return
     _listener.sig_run.emit(False)
 
 
-def setup_style(
-    theme: str = "auto",
+def setup_theme(
+    theme: str = "dark",
     corner_shape: str = "rounded",
     custom_colors: dict[str, str | dict[str, str]] | None = None,
     additional_qss: str | None = None,
     *,
     default_theme: str = "dark",
 ) -> None:
-    """Apply the style which looks like flat design to the Qt App completely.
+    """Apply the theme which looks like flat design to the Qt App completely.
 
     This function doesn't only set the Qt stylesheet,
     it applies the complete style to your Qt application using QPalette etc.
@@ -147,9 +147,6 @@ def setup_style(
         additional_qss: Additional stylesheet text. You can add your original stylesheet text.
         default_theme: The default theme name.
             The theme set by this argument will be used when system theme detection fails.
-        high_dpi: If ``True``, enable HiDPI.
-            For Qt6 bindings, this functionally “just works” without having to set ``True``.
-
 
     Raises:
         ValueError: If the argument is wrong.
@@ -164,28 +161,28 @@ def setup_style(
         1. Setup style and sync to system theme ::
 
             app = QApplication([])
-            qdarktheme.setup_style()
+            qdarktheme.setup_theme()
 
         2. Use Dark Theme ::
 
             app = QApplication([])
-            qdarktheme.setup_style("dark")
+            qdarktheme.setup_theme("dark")
 
         3. Sharp corner ::
 
             # Change corner shape to sharp.
             app = QApplication([])
-            qdarktheme.setup_style(corner_shape="sharp")
+            qdarktheme.setup_theme(corner_shape="sharp")
 
         4. Customize color ::
 
             app = QApplication([])
-            qdarktheme.setup_style(custom_colors={"primary": "#D0BCFF"})
+            qdarktheme.setup_theme(custom_colors={"primary": "#D0BCFF"})
 
         5. Customize a specific theme only ::
 
             app = QApplication([])
-            qdarktheme.setup_style(
+            qdarktheme.setup_theme(
                 theme="auto",
                 custom_colors={
                     "[dark]": {
@@ -194,11 +191,11 @@ def setup_style(
                 },
             )
     """
-    from qdarktheme.qtpy.QtWidgets import QApplication
+    from qdarktheme.qtpy.QtCore import QCoreApplication
 
-    app = QApplication.instance()
+    app = QCoreApplication.instance()
     if not app:
-        raise Exception("setup_style() must be called after instantiation of QApplication.")
+        raise Exception("setup_theme() must be called after instantiation of QApplication.")
     if theme != "auto":
         stop_sync()
 

@@ -8,7 +8,7 @@ from qdarktheme.widget_gallery.main_window import WidgetGallery
 if __name__ == "__main__":
     qdarktheme.enable_hi_dpi()
     app = QApplication(sys.argv)
-    qdarktheme.setup_style()
+    qdarktheme.setup_theme("auto")
     win = WidgetGallery()
     win.show()
     app.exec()

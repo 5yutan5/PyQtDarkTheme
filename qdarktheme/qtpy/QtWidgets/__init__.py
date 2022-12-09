@@ -4,8 +4,6 @@ from __future__ import annotations
 from collections.abc import Sequence
 
 from qdarktheme.qtpy.qt_compat import QT_API
-from qdarktheme.qtpy.QtCore import QCoreApplication, Qt
-from qdarktheme.qtpy.QtGui import QPalette
 
 if QT_API == "PySide6":
     from PySide6.QtWidgets import *  # type: ignore  # noqa: F403
@@ -33,19 +31,6 @@ class Application(QApplication):  # type: ignore  # noqa: F405
     def exit(self, returnCode: int = 0) -> None:  # noqa: N803
         """Override QApplication method."""
         return super().exit(returnCode)
-
-    def setStyleSheet(self, sheet: str) -> None:  # noqa: N802
-        """Override QApplication method."""
-        return super().setStyleSheet(sheet)
-
-    @staticmethod
-    def setAttribute(attribute: Qt.ApplicationAttribute, on: bool = True) -> None:  # noqa: N802
-        """Override QApplication method."""
-        QCoreApplication.setAttribute(attribute, on)
-
-    def setPalette(self, palette: QPalette, className: str | None = None) -> None:  # noqa: N802, N803
-        """Override QApplication method."""
-        super().setPalette(palette, className)
 
 
 QApplication = Application

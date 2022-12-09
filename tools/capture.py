@@ -29,7 +29,7 @@ class _Application(QApplication):
     @Slot()
     def _capture_window_img(self) -> None:
         for theme in qdarktheme.get_themes():
-            qdarktheme.setup_style(theme)
+            qdarktheme.setup_theme(theme)
             self._gallery.setGeometry(QGuiApplication.primaryScreen().geometry())
             self._gallery.grab().save(f"{self._img_name}-{theme}.png")
         self.exit()
