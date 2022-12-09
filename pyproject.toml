@@ -96,12 +96,6 @@ line-length = 104
 profile = "black"
 line_length = 104
 
-[tool.coverage.report]
-exclude_lines = ["pragma: no cover", "if __name__ == .__main__.:"]
-
-[tool.coverage.run]
-omit = ["qdarktheme/qtpy/**"]
-
 [tool.pyright]
 typeCheckingMode = "basic"
 ignore = ["examples"]
