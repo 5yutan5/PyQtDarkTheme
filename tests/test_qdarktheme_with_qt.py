@@ -81,8 +81,10 @@ def test_setup_theme_without_qapp(mocker) -> None:
 
 if platform.system() == "Darwin":
 
-    def test_theme_event_filter(qapp: QGuiApplication) -> None:
+    def test_theme_event_filter(qapp: QGuiApplication, mocker) -> None:
         """Verify that the internal class `ThemeEventFilter` runs without error."""
         qdarktheme.setup_theme("auto")
+        mocker.patch("darkdetect.theme", return_value="light")
         qapp.setPalette(QPalette())
+        mocker.patch("darkdetect.theme", return_value="dark")
         qapp.setPalette(QPalette())
