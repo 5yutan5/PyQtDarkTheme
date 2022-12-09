@@ -84,7 +84,7 @@ build-backend = "poetry.core.masonry.api"
 max-line-length = 104
 max-complexity = 6
 docstring-convention = "google"
-per-file-ignores = ["**/__init__.py:F401", "examples/**:D103"]
+per-file-ignores = ["**/__init__.py:F401", "examples/**:D103,D100"]
 
 # See https://github.com/peterjc/flake8-rst-docstrings#configuration
 extend-ignore = ["RST201", "RST203", "RST301"]
@@ -95,12 +95,6 @@ line-length = 104
 [tool.isort]
 profile = "black"
 line_length = 104
-
-[tool.coverage.report]
-exclude_lines = ["pragma: no cover", "if __name__ == .__main__.:"]
-
-[tool.coverage.run]
-omit = ["qdarktheme/qtpy/**"]
 
 [tool.pyright]
 typeCheckingMode = "basic"

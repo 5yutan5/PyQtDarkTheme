@@ -1,4 +1,3 @@
-"""Demonstrate a toggle dark and light theme with PyQtGraph."""
 import sys
 
 import pyqtgraph as pg
@@ -8,6 +7,8 @@ from PySide6.QtWidgets import QApplication, QComboBox, QMainWindow, QVBoxLayout,
 import qdarktheme
 
 app = QApplication(sys.argv)
+qdarktheme.setup_theme
+
 main_win = QMainWindow()
 combo_box = QComboBox()
 plot_widget = pg.PlotWidget()
@@ -15,8 +16,7 @@ plot_widget = pg.PlotWidget()
 
 @Slot(str)
 def toggle_theme(theme) -> None:
-    stylesheet = qdarktheme.load_stylesheet(theme)
-    QApplication.instance().setStyleSheet(stylesheet)
+    qdarktheme.setup_theme(theme)
     plot_widget.setBackground("k" if theme == "dark" else "w")
 
 
@@ -30,9 +30,6 @@ layout.addWidget(plot_widget)
 central_widget = QWidget()
 central_widget.setLayout(layout)
 main_win.setCentralWidget(central_widget)
-
-# Apply dark theme
-app.setStyleSheet(qdarktheme.load_stylesheet())
 
 main_win.show()
 

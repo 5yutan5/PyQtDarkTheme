@@ -11,6 +11,7 @@ build:
       - asdf install poetry latest
       - asdf global poetry latest
       - poetry export --only docs -o requirements.txt
+      - poetry install --only main
       - poetry run python -m tools.build_theme_color_doc
 
 python:

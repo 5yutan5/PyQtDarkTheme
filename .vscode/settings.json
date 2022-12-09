@@ -30,6 +30,7 @@
     "isort",
     "jakebailey",
     "jsonschema",
+    "kargs",
     "linebreak",
     "markdownlint",
     "maxdepth",

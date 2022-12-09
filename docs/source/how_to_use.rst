@@ -4,39 +4,45 @@ How to use PyQtDarkTheme
 
 Apply dark theme to your Qt Application
 ---------------------------------------
-PyQtDarkTheme applies a flat theme to your Qt applications using Qt stylesheets system.
+PyQtDarkTheme applies a flat theme to your Qt applications.
 
 .. tab-set::
 
     .. tab-item:: PySide6
 
-        .. literalinclude:: ../../examples/apply_dark_theme/pyside6.py
-            :start-at: import sys
+        .. literalinclude:: ../../examples/apply_theme/pyside6.py
 
     .. tab-item:: PyQt6
 
-        .. literalinclude:: ../../examples/apply_dark_theme/pyqt6.py
-            :start-at: import sys
+        .. literalinclude:: ../../examples/apply_theme/pyqt6.py
 
     .. tab-item:: PySide2
 
-        .. literalinclude:: ../../examples/apply_dark_theme/pyside2.py
-            :start-at: import sys
+        .. literalinclude:: ../../examples/apply_theme/pyside2.py
 
     .. tab-item:: PyQt5
 
-        .. literalinclude:: ../../examples/apply_dark_theme/pyqt5.py
-            :start-at: import sys
+        .. literalinclude:: ../../examples/apply_theme/pyqt5.py
 
     .. tab-item:: pyqtgraph
 
-        .. literalinclude:: ../../examples/apply_dark_theme/pyqtgraph.py
-            :start-at: import pyqtgraph as pg
+        .. literalinclude:: ../../examples/apply_theme/pyqtgraph.py
+
+Enable HiDPI
+------------
+
+If you want to enable HiDPI, you can use ``qdarktheme.enable_hi_dpi()``. For Qt6 bindings, HiDPI “just works” without using this function.
+
+.. code-block:: python
+
+    # enable_hi_dpi() must be called before instantiation of QApplication.
+    qdarktheme.enable_hi_dpi()
+    app = QApplication(sys.argv)
 
 Toggle dark/light Theme
 -----------------------
 
-You can easily switch between light and dark theme.
+If you add ``theme`` argument as "auto", your Qt Application sync with OS's theme.
 
 .. tab-set::
 
@@ -44,40 +50,27 @@ You can easily switch between light and dark theme.
 
         .. code-block:: python
 
-            def toggle_theme(theme) -> None:
-                stylesheet = qdarktheme.load_stylesheet(theme)
-                QApplication.instance().setStyleSheet(stylesheet)
+            qdarktheme.setup_theme("auto")
 
+    .. tab-item:: Full source
 
-            signal.connect(toggle_theme)
+        .. literalinclude:: ../../examples/toggle_theme/sync_with_os_theme.py
 
+You can also switch between light and dark theme manually.
+
+.. tab-set::
+
+    .. tab-item:: Source
+
+        .. code-block:: python
+
+            combo_box = QComboBox()
+            combo_box.addItems(qdarktheme.get_themes())
+            combo_box.currentTextChanged.connect(qdarktheme.setup_theme)
 
     .. tab-item:: Full source
 
         .. literalinclude:: ../../examples/toggle_theme/toggle_dark_light.py
-            :start-at: import sys
-
-On some operating systems we can detect if a dark or light mode is selected system-wide.
-By setting ``auto`` to theme, You can easily sync your application theme with this operating system theme.
-
-.. tab-set::
-
-    .. tab-item:: Source
-
-        .. code-block:: python
-
-            def sync_theme_with_system() -> None:
-                stylesheet = qdarktheme.load_stylesheet("auto")
-                QApplication.instance().setStyleSheet(stylesheet)
-
-
-            app.paletteChanged.connect(sync_theme_with_system)
-
-
-    .. tab-item:: Full source
-
-        .. literalinclude:: ../../examples/toggle_theme/sync_system_theme.py
-            :start-at: import sys
 
 Toggle dark/light Theme with pyqtgraph
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -91,18 +84,15 @@ You can also switch between light and dark theme with pyqtgraph.
         .. code-block:: python
 
             def toggle_theme(theme) -> None:
-                stylesheet = qdarktheme.load_stylesheet(theme)
-                QApplication.instance().setStyleSheet(stylesheet)
+                qdarktheme.setup_theme(theme)
                 plot_widget.setBackground("k" if theme == "dark" else "w")
 
 
             signal.connect(toggle_theme)
 
-
     .. tab-item:: Full source
 
         .. literalinclude:: ../../examples/toggle_theme/toggle_with_pyqtgraph.py
-            :start-at: import sys
 
 Theme customization
 -------------------
@@ -115,12 +105,11 @@ You can customize theme color.
 
         .. code-block:: python
 
-            qdarktheme.load_stylesheet(custom_colors={"primary": "#D0BCFF"})
+            qdarktheme.setup_theme(custom_colors={"primary": "#D0BCFF"})
 
     .. tab-item:: Full source
 
         .. literalinclude:: ../../examples/customize_color/customize_accent_color.py
-            :start-at: import sys
 
     .. tab-item:: Result
 
@@ -136,22 +125,47 @@ You can also change border corner shape.
 
         .. code-block:: Python
 
-            qdarktheme.load_stylesheet(corner_shape="sharp")
+            qdarktheme.setup_theme(corner_shape="sharp")
 
     .. tab-item:: Full source
 
         .. literalinclude:: ../../examples/customize_style/change_corner_to_sharp.py
-            :start-at: import sys
 
     .. tab-item:: Result
 
         .. image:: ../../examples/customize_style/change_corner_to_sharp.png
             :class: dark-light
 
+Append your own stylesheets
+---------------------------
+
+.. tab-set::
+
+    .. tab-item:: Source
+
+        .. code-block:: Python
+
+            qss = """
+            QPushButton {
+                border-width: 2px;
+                border-style: dashed;
+            }
+            """
+            qdarktheme.setup_theme(additional_qss=qss)
+
+    .. tab-item:: Full source
+
+        .. literalinclude:: ../../examples/customize_style/append_stylesheet.py
+
+    .. tab-item:: Result
+
+        .. image:: ../../examples/customize_style/append_stylesheet.png
+            :class: dark-light
+
 Use QPalette to your Qt Application
 -----------------------------------
 
-You can also apply dark and light color to your Qt Application using QPalette of PyQtDarkTheme.
+You can apply dark and light color to your Qt Application using QPalette of PyQtDarkTheme.
 
 .. tab-set::
 
@@ -164,7 +178,6 @@ You can also apply dark and light color to your Qt Application using QPalette of
     .. tab-item:: Full source
 
         .. literalinclude:: ../../examples/qpalette/apply_dark_palette.py
-            :start-at: import sys
 
     .. tab-item:: Gallery
 
@@ -173,17 +186,27 @@ You can also apply dark and light color to your Qt Application using QPalette of
 
 And you can get theme color from QPalette of PyQtDarkTheme.
 
+.. code-block:: Python
+
+    import qdarktheme
+
+    dark_palette = qdarktheme.load_palette()
+    link_color = dark_palette.link().color()
+    link_rgb = link_color.getRgb()
+
+Use stylesheet
+--------------
+
+If you want to use Qt stylesheet of PyQtDarkTheme, use following function.
+
 .. tab-set::
 
     .. tab-item:: Source
 
         .. code-block:: Python
 
-            dark_palette = qdarktheme.load_palette()
-            palette = app.palette()
-            palette.setColor(QPalette.ColorRole.Link, dark_palette.link().color())
+            qdarktheme.load_stylesheet()
 
-    .. tab-item:: Full Source
+    .. tab-item:: Full source
 
-        .. literalinclude:: ../../examples/qpalette/get_theme_color.py
-            :start-at: import sys
+        .. literalinclude:: ../../examples/use_stylesheet/apply_stylesheet.py

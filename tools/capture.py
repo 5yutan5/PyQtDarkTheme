@@ -7,7 +7,7 @@ import platform
 import sys
 
 import qdarktheme
-from qdarktheme.qtpy.QtCore import Qt, QTimer, Slot
+from qdarktheme.qtpy.QtCore import QTimer, Slot
 from qdarktheme.qtpy.QtGui import QGuiApplication
 from qdarktheme.qtpy.QtWidgets import QApplication
 from qdarktheme.widget_gallery.main_window import WidgetGallery
@@ -23,17 +23,13 @@ class _Application(QApplication):
     def __init__(self, img_name: str) -> None:
         super().__init__(sys.argv)
         self._img_name = img_name.replace("~=", "-")
-
-        if hasattr(Qt.ApplicationAttribute, "AA_UseHighDpiPixmaps"):
-            self.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)  # type: ignore
-
         self._gallery = WidgetGallery()
         self._gallery.show()
 
     @Slot()
     def _capture_window_img(self) -> None:
         for theme in qdarktheme.get_themes():
-            self.setStyleSheet(qdarktheme.load_stylesheet(theme))
+            qdarktheme.setup_theme(theme)
             self._gallery.setGeometry(QGuiApplication.primaryScreen().geometry())
             self._gallery.grab().save(f"{self._img_name}-{theme}.png")
         self.exit()

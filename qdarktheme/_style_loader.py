@@ -186,6 +186,7 @@ def load_palette(
     custom_colors: dict[str, str | dict[str, str]] | None = None,
     *,
     default_theme: str = "dark",
+    for_stylesheet: bool = False,
 ):
     """Load the QPalette for the dark or light theme.
 
@@ -198,6 +199,8 @@ def load_palette(
             Also you can customize a specific theme only. See example 5.
         default_theme: The default theme name.
             The theme set by this argument will be used when system theme detection fails.
+        for_stylesheet: If True, only includes colors that cannot be set in stylesheets, such as
+            ``link`` and ``placeholder``.
 
     Raises:
         TypeError: If the arg name of theme is wrong.
@@ -252,7 +255,7 @@ def load_palette(
         _marge_colors(color_values, custom_colors, theme)
 
     mk_template = partial(Template, filters={"color": _filter.color, "palette": _filter.palette_format})
-    return _resources.mk_q_palette(mk_template, color_values)
+    return _resources.mk_q_palette(mk_template, color_values, for_stylesheet)
 
 
 def get_themes() -> tuple[str, ...]:

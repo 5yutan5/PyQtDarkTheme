@@ -4,7 +4,6 @@ from qdarktheme._util import get_qdarktheme_root_path
 from qdarktheme.qtpy.QtCore import QDir, Qt, Slot
 from qdarktheme.qtpy.QtGui import QAction, QActionGroup, QFont, QIcon
 from qdarktheme.qtpy.QtWidgets import (
-    QApplication,
     QColorDialog,
     QFileDialog,
     QFontDialog,
@@ -200,16 +199,12 @@ class WidgetGallery(QMainWindow):
     @Slot()
     def _change_theme(self) -> None:
         self._theme = self.sender().text()  # type: ignore
-        QApplication.instance().setStyleSheet(
-            qdarktheme.load_stylesheet(self._theme, self._corner_shape)
-        )
+        qdarktheme.setup_theme(self._theme, self._corner_shape)
 
     @Slot()
     def _change_corner_radius(self) -> None:
         self._corner_shape: str = self.sender().text()  # type: ignore
-        QApplication.instance().setStyleSheet(
-            qdarktheme.load_stylesheet(self._theme, self._corner_shape)
-        )
+        qdarktheme.setup_theme(self._theme, self._corner_shape)
 
     @Slot()
     def _popup_message_box(self) -> None:

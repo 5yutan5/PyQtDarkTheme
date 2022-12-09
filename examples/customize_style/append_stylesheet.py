@@ -1,12 +1,18 @@
 import sys
 
-from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton
+from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton
 
 import qdarktheme
 
 app = QApplication(sys.argv)
-# Change border corner shape to sharp.
-qdarktheme.setup_theme(corner_shape="sharp")
+# Additional stylesheet
+qss = """
+QPushButton {
+    border-width: 2px;
+    border-style: dashed;
+}
+"""
+qdarktheme.setup_theme(additional_qss=qss)
 
 main_win = QMainWindow()
 main_win.setContentsMargins(10, 10, 10, 10)

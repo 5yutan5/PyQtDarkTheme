@@ -1,15 +1,13 @@
 Theme Color
 ===========
 
-You can customize your theme color with the argument ``custom_colors`` of ``qdarktheme.load_stylesheet`` and ``qdarktheme.load_palette``.
+You can customize your theme color with the argument ``custom_colors`` of ``qdarktheme.setup_theme``, ``qdarktheme.load_stylesheet`` and ``qdarktheme.load_palette``.
 
 .. code-block:: python
 
   import qdarktheme
 
-  qdarktheme.load_stylesheet(custom_colors={"primary": "#D0BCFF"})
-  # or
-  qdarktheme.load_palette(custom_colors={"primary": "#D0BCFF"})
+  qdarktheme.setup_theme(custom_colors={"primary": "#D0BCFF"})
 
 To customize a specific theme only, use the following syntax:
 
@@ -17,7 +15,7 @@ To customize a specific theme only, use the following syntax:
 
   import qdarktheme
 
-  qdarktheme.load_stylesheet(
+  qdarktheme.setup_theme(
       custom_colors={
           "[dark]": {
               "primary": "#D0BCFF",

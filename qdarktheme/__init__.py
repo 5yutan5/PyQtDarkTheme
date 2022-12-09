@@ -42,4 +42,5 @@ https://github.com/ColinDuquesnoy/QDarkStyleSheet/blob/master/LICENSE.rst
 # Version of PyQtDarkTheme
 __version__ = "1.2.1"
 
+from qdarktheme._main import enable_hi_dpi, setup_theme, stop_sync
 from qdarktheme._style_loader import clear_cache, get_themes, load_palette, load_stylesheet
