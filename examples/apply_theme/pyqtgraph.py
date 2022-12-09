@@ -4,6 +4,7 @@ from pyqtgraph.Qt.QtGui import QMainWindow, QPushButton
 import qdarktheme
 
 app = pg.mkQApp()
+# Apply dark theme.
 qdarktheme.setup_theme()
 
 main_win = QMainWindow()

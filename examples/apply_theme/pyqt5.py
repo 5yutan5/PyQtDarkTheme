@@ -4,9 +4,11 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton
 
 import qdarktheme
 
+# Enable HiDPI.
 qdarktheme.enable_hi_dpi()
 
 app = QApplication(sys.argv)
+# Apply dark theme.
 qdarktheme.setup_theme()
 
 main_win = QMainWindow()

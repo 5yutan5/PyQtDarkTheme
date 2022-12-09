@@ -85,3 +85,4 @@ if platform.system() == "Darwin":
         """Verify that the internal class `ThemeEventFilter` runs without error."""
         qdarktheme.setup_theme("auto")
         qapp.setPalette(QPalette())
+        qapp.setPalette(QPalette())
