@@ -35,6 +35,10 @@ def test_svg_colored_chain():
     svg2 = Svg("arrow_upward").colored(Color.from_hex("#ffffff55")).colored(Color.from_hex("#ff0000"))
     assert str(svg1) == str(svg2)
 
+    svg3 = Svg("arrow_upward").colored(Color.from_hex("#ffffff30"))
+    svg4 = Svg("arrow_upward").colored(Color.from_hex("#ffffff90")).colored(Color.from_hex("#ffffff30"))
+    assert str(svg3) == str(svg4)
+
 
 def test_svg_rotate_chain():
     """Verify that ``Svg.rotate`` chain build correct SVG."""
