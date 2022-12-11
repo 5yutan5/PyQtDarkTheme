@@ -158,6 +158,8 @@ def load_stylesheet(
     if custom_colors is not None:
         _marge_colors(color_values, custom_colors, theme)
 
+    get_cash_root_path(__version__).mkdir(parents=True, exist_ok=True)
+
     # Build stylesheet
     template = Template(
         _resources.TEMPLATE_STYLESHEET,
@@ -174,8 +176,9 @@ def clear_cache() -> None:
     You can clear the caches by running this method.
     """
     try:
-        shutil.rmtree(get_cash_root_path(__version__))
-        _logger.info(f"The caches({get_cash_root_path(__version__)}) has been deleted")
+        cache_path = get_cash_root_path(__version__)
+        shutil.rmtree(cache_path)
+        _logger.info(f"The caches({cache_path}) has been deleted")
     except FileNotFoundError:
         _logger.info("There is no caches")
 
