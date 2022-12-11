@@ -57,7 +57,7 @@ class Svg:
 
         # Remove SVG opacity
         if new_svg_opacity is None and current_svg_opacity is not None:
-            self._source = self._source.replace(current_svg_opacity.group(), "")
+            self._source = self._source.replace(" " + current_svg_opacity.group(), "")
         return self
 
     def rotate(self, rotate: int) -> Svg:
