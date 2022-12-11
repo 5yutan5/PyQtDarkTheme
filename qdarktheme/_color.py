@@ -142,6 +142,12 @@ class Color:
             ) from None
 
     @staticmethod
+    def from_rgba(r: int, g: int, b: int, a: int) -> Color:
+        """Convert rgba to Color object."""
+        rgba = _RGBA(r, g, b, a / 255)
+        return Color(rgba)
+
+    @staticmethod
     def from_hex(hex: str) -> Color:
         """Convert hex string to Color object.
 
@@ -209,8 +215,8 @@ class Color:
         """
         r, g, b, a = self.rgba
         if a == 1:
-            return f'"#{self._to_hex()}"'
-        return f'"rgb({r}, {g}, {b})" fill-opacity="{a}"'
+            return f'fill="#{self._to_hex()}"'
+        return f'fill="rgb({r},{g},{b})" fill-opacity="{a}"'
 
     def lighten(self, factor: float) -> Color:
         """Lighten color."""

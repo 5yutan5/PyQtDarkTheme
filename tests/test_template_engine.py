@@ -1,7 +1,7 @@
 """Tests for the template engine."""
 import pytest
 
-from qdarktheme._template_engine import Template
+from qdarktheme._template.engine import Template
 
 
 @pytest.mark.parametrize(

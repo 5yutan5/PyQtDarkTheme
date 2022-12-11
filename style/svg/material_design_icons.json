@@ -16,13 +16,22 @@
   "drag_indicator": "round",
   "east": "round",
   "expand_less": "round",
+  "fast_forward": "round",
+  "fast_rewind": "round",
   "flip_to_front": "round",
   "folder_open": "round",
   "help": "round",
   "horizontal_rule": "round",
   "indeterminate_check_box": "round",
+  "pause": "round",
+  "play_arrow": "round",
   "radio_button_checked": "round",
   "radio_button_unchecked": "round",
   "restart_alt": "round",
-  "save": "round"
+  "save": "round",
+  "skip_next": "round",
+  "skip_previous": "round",
+  "stop": "round",
+  "volume_mute": "round",
+  "volume_up": "round"
 }
