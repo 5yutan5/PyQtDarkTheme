@@ -19,7 +19,7 @@ from qdarktheme._icon.svg import Svg
             (0, 0, 0, 255),
             90,
             '<svg width="24"></svg>',
-            '<svg transform="rotate(90, 12, 12)" fill="fill="#000000"" width="24"></svg>',
+            '<svg transform="rotate(90, 12, 12)" fill="#000000" width="24"></svg>',
         ),
     ],
 )
