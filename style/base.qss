@@ -1235,7 +1235,10 @@ QCalendarWidget > QTableView {
     border-radius: {{ corner-shape|corner(size=4) }}px;
     border-top-left-radius: {{ corner-shape|corner(size=0) }};
     border-top-right-radius: {{ corner-shape|corner(size=0) }};
-    alternate-background-color: {{ table.alternateBackground|color }}
+    alternate-background-color: {{ table.alternateBackground|color }};
+    {{ corner-shape|corner(size=4)|env(value="border-radius: ${}px;", version="<6.0.0", os="Darwin") }}
+    /* Fix 207 */
+    {{ primary|color(state="table.selectionBackground")|env(value="selection-background-color: ${};", version="<6.0.0") }}
 }
 
 /*
