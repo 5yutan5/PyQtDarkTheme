@@ -12,4 +12,4 @@ from qdarktheme._resources._palette import mk_q_palette
 from qdarktheme._resources._svg import SVG_RESOURCES
 from qdarktheme._resources._template_stylesheet import TEMPLATE_STYLESHEET
 
-THEMES = ("dark", "light")
+THEMES = ("dark", "light", "auto")

@@ -38,6 +38,8 @@ def _remove_qss_comment(stylesheet: str) -> str:
 
 
 def _mk_root_init_file(output: Path, themes: list[str], doc_string: str) -> None:
+    themes.append("auto")
+
     code = f"{doc_string}\n"
     code += "from qdarktheme._resources._color_values import COLOR_VALUES\n"
     code += "from qdarktheme._resources._palette import mk_q_palette\n"
