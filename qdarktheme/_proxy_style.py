@@ -4,7 +4,7 @@ import platform
 
 from qdarktheme._icon.icon_engine import SvgIconEngine
 from qdarktheme._icon.svg import Svg
-from qdarktheme._resources import NEW_STANDARD_ICON_MAP
+from qdarktheme._resources.standard_icons import NEW_STANDARD_ICON_MAP
 from qdarktheme.qtpy.QtGui import QIcon
 from qdarktheme.qtpy.QtWidgets import QProxyStyle, QStyle, QStyleOption
 

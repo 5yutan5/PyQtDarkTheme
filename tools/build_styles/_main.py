@@ -41,7 +41,6 @@ def _mk_root_init_file(output: Path, themes: list[str], doc_string: str) -> None
     code = f"{doc_string}\n"
     code += "from qdarktheme._resources._color_values import COLOR_VALUES\n"
     code += "from qdarktheme._resources._palette import mk_q_palette\n"
-    code += "from qdarktheme._resources._standard_icons import NEW_STANDARD_ICON_MAP\n"
     code += "from qdarktheme._resources._svg import SVG_RESOURCES\n"
     code += "from qdarktheme._resources._template_stylesheet import TEMPLATE_STYLESHEET\n\n"
     code += f"""THEMES = {str(tuple(themes)).replace("'", '"')}\n"""
@@ -136,7 +135,7 @@ def _build_styles(build_path: Path) -> None:
     _mk_palette_file(style_path / "palette.template.py", output=build_path / "_palette.py")
     _mk_svg_resource(style_path / "svg", output=build_path / "_svg.py")
     _mk_standard_icon_map(
-        style_path / "svg/new_standard_icons.json", output=build_path / "_standard_icons.py"
+        style_path / "svg/new_standard_icons.json", output=build_path / "standard_icons.py"
     )
     _mk_template_stylesheet(style_path / "base.qss", output=build_path / "_template_stylesheet.py")
     _mk_root_init_file(build_path, themes, _ROOT_INIT_DOC)
