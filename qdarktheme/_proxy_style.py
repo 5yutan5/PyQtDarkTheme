@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import platform
 
 from qdarktheme._icon.icon_engine import SvgIconEngine
 from qdarktheme._icon.svg import Svg
@@ -24,6 +25,10 @@ class QDarkThemeStyle(QProxyStyle):
         standard_icon_name = str(standard_icon).split(".")[-1]
         icon_info = self._new_standard_icon_map.get(standard_icon_name)
         if icon_info is None:
+            return super().standardIcon(standard_icon, option, widget)
+
+        os_list = icon_info.get("os")
+        if os_list is not None and platform.system() not in os_list:
             return super().standardIcon(standard_icon, option, widget)
 
         rotate = icon_info.get("rotate", 0)
