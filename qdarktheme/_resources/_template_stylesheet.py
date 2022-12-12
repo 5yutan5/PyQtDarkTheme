@@ -32,7 +32,7 @@ QWidget {
     downarrow-icon:  {{ foreground|color(state="icon")|url(id="arrow_upward", rotate=180) }};
     uparrow-icon:  {{ foreground|color(state="icon")|url(id="arrow_upward") }};
     dockwidget-close-icon: {{ foreground|color(state="icon")|url(id="close") }};
-    lineedit-clear-button-icon: {{ foreground|color(state="icon")|url(id="close") }};
+    {{ foreground|color(state="icon")|url(id="close")|env(value="lineedit-clear-button-icon: ${};", version=">=6.0.0") }}
     home-icon: {{ foreground|color(state="icon")|url(id="home") }};
     trash-icon: {{ foreground|color(state="icon")|url(id="delete") }};
     dialog-ok-icon: {{ foreground|color(state="icon")|url(id="check") }};
