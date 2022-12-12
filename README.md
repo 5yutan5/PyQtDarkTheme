@@ -105,6 +105,8 @@ qdarktheme.setup_theme("light")
 qdarktheme.setup_theme("auto")
 ```
 
+![sync with os theme](https://raw.githubusercontent.com/5yutan5/PyQtDarkTheme/main/images/sync_with_os_theme.gif)
+
 ### Customizing colors
 
 You can customize theme color.
