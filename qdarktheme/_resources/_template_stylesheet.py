@@ -160,6 +160,12 @@ QToolBar::handle:vertical {
     height: 20px;
     image: {{ foreground|color(state="icon")|url(id="drag_indicator", rotate=90) }};
 }
+QToolBar::handle:horizontal:disabled {
+    image: {{ foreground|color(state="disabled")|url(id="drag_indicator") }};
+}
+QToolBar::handle:vertical:disabled {
+    image: {{ foreground|color(state="disabled")|url(id="drag_indicator", rotate=90) }};
+}
 QToolBar::separator {
     background: {{ border|color }};
 }
