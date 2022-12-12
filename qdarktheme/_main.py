@@ -95,7 +95,7 @@ def setup_theme(
 
     This function doesn't only set the Qt stylesheet,
     it applies the complete style to your Qt application using QPalette etc.
-    Also if theme is ``auto``, try to listen to changes to the OS's color scheme and switch to a
+    Also if theme is ``auto``, try to listen to changes to the OS's theme and switch to a
     matching theme accordingly.
 
     Args:

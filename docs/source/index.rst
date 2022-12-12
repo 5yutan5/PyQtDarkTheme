@@ -18,11 +18,12 @@ PyQtDarkTheme applies a flat dark theme to QtWidgets application(PySide and PyQt
 
 **Features:**
 
-* A flat Dark and Light theme
-* Support PySide and PyQt
-* Support PyInstaller
+* A flat dark/light theme
+* Support PySide, PyQt and PyInstaller
+* Sync with OS's theme (Mac, Windows, Linux)
 * Resolve the style differences between Qt versions
-* QPalette of dark and light theme
+* Provide dark/light theme QPalette
+* :ref:`Override Qt old standard icons <how_to_use:Use overridden Qt default icons>`.
 
 ++++
 

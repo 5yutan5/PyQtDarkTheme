@@ -21,8 +21,10 @@ Check out the [complete documentation](https://pyqtdarktheme.readthedocs.io).
 - A flat dark and light theme
 - Support PySide and PyQt
 - Support PyInstaller
+- Sync with OS's theme (Mac, Windows, Linux)
 - Resolve the style differences between Qt versions
-- QPalette of dark and light theme
+- Provide dark/light theme QPalette
+- Override Qt old standard icons
 
 ## Themes
 

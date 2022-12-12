@@ -36,6 +36,7 @@ release = version
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    "sphinx.ext.autosectionlabel",
     "sphinx.ext.viewcode",
     "sphinx.ext.napoleon",
     "sphinx.ext.todo",
@@ -43,10 +44,10 @@ extensions = [
     "sphinx_copybutton",
 ]
 
+autosectionlabel_prefix_document = True
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_build", "Thumbs.db", ".DS_Store"]
-
-
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for

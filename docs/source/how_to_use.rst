@@ -162,6 +162,36 @@ Append your own stylesheets
         .. image:: ../../examples/customize_style/append_stylesheet.png
             :class: dark-light
 
+Use overridden Qt default icons
+-------------------------------
+
+If you setup theme with ``qdarktheme.setup_theme``, qdarktheme override ``QStyle.standardIcon()``. So you can easily use some `Google Material Design Icons <https://fonts.google.com/icons>`_. And these icons change color that adjust to theme when theme is changed.
+
+.. tab-set::
+
+    .. tab-item:: Source
+
+        .. code-block:: Python
+
+            save_pixmap = QStyle.StandardPixmap.SP_DialogSaveButton
+            save_icon = win.style().standardIcon(save_pixmap)
+
+            push_button = QPushButton("Save")
+            push_button.setIcon(save_icon)
+
+    .. tab-item:: Full source
+
+        .. literalinclude:: ../../examples/icons/use_standard_icons.py
+
+    .. tab-item:: Result
+
+        .. image:: ../../examples/icons/use_standard_icons.png
+
+    .. tab-item:: Gallery
+
+        .. image:: ../../images/standard_icons.png
+
+
 Use QPalette to your Qt Application
 -----------------------------------
 
