@@ -22,6 +22,8 @@ class IconsUi:
         standard_pixmap_names = sorted(
             attr for attr in dir(QStyle.StandardPixmap) if attr.startswith("SP_")
         )
+        if len(standard_pixmap_names) == 0:
+            standard_pixmap_names = sorted(attr for attr in dir(QStyle) if attr.startswith("SP_"))
 
         for i, name in enumerate(standard_pixmap_names):
             button = QToolButton()
