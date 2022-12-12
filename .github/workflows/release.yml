@@ -12,6 +12,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - uses: tlambert03/setup-qt-libs@v1
       - uses: actions/setup-python@v4
         with:
           python-version: "3.11"
@@ -28,7 +29,6 @@ jobs:
         id: wheel-file-path
         run: echo path=$(ls dist/*.whl) >> $GITHUB_OUTPUT
 
-      - uses: tlambert03/setup-qt-libs@v1
 
       - name: Test build package
         run: |

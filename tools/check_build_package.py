@@ -22,7 +22,6 @@ def _parse_args() -> argparse.Namespace:
 def _test_qdarktheme() -> None:
     for theme in qdarktheme.get_themes():
         qdarktheme.load_stylesheet(theme)
-        qdarktheme.load_palette(theme)
 
 
 def _main() -> None:
