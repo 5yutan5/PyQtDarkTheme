@@ -792,6 +792,12 @@ QTreeView::item:!selected:hover,
 QTreeView::branch:!selected:hover {
     background: {{ list.hoverBackground|color }};
 }
+QTreeView::branch:!selected:hover,
+QTreeView::branch:alternate,
+QTreeView::branch:selected,
+QTreeView::branch:selected:!active {
+    {{ |env(value="background: transparent;", version=">=6.4.1") }}
+}
 QTreeView::branch {
     border-image: {{ tree.inactiveIndentGuidesStroke|color|url(id="vertical_line") }} 0;
 }
@@ -860,15 +866,17 @@ QColumnViewGrip:disabled {
 QTableView {
     gridline-color: {{ tableSectionHeader.background|color }};
     background: {{ background|color(state="table") }};
+    {{ primary|color(state="table.selectionBackground")|env(value="selection-background-color: ${};", version=">=6.4.1") }}
+    {{ table.alternateBackground|color|env(value="alternate-background-color: ${};", version=">=6.4.1") }}
+}
+QTableView:!active {
+    {{ primary|color(state="table.inactiveSelectionBackground")|env(value="selection-background-color: ${};", version="<6.4.1") }}
 }
 QTableView::item:alternate {
-    background: {{ table.alternateBackground|color }};
+    {{ table.alternateBackground|color|env(value="background: ${};", version="<6.4.1") }}
 }
 QTableView::item:selected {
-    background: {{ primary|color(state="table.selectionBackground") }};
-}
-QTableView::item:selected:!active {
-    background: {{ primary|color(state="table.inactiveSelectionBackground") }};
+    {{ primary|color(state="table.selectionBackground")|env(value="background: ${};", version="<6.4.1") }}
 }
 QTableView QTableCornerButton::section {
     margin: 0 1px 1px 0;
