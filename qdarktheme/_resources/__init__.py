@@ -9,7 +9,6 @@ Created by the `PyQtDarkTheme/tools/build_styles`.
 
 from qdarktheme._resources._color_values import COLOR_VALUES
 from qdarktheme._resources._palette import mk_q_palette
-from qdarktheme._resources._standard_icons import NEW_STANDARD_ICON_MAP
 from qdarktheme._resources._svg import SVG_RESOURCES
 from qdarktheme._resources._template_stylesheet import TEMPLATE_STYLESHEET
 
