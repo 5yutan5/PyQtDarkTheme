@@ -254,12 +254,11 @@ QToolBar > QToolButton::menu-button:pressed:enabled,
 QToolBar > QToolButton:checked:enabled {
     background: {{ toolbar.activeBackground|color }};
 }
-QToolBar > QToolButton#qt_toolbar_ext_button {
-    image: {{ foreground|color(state="icon")|url(id="double_arrow") }};
-    {{ |env(value="padding: 0; qproperty-icon: unset", os="Windows")}}
+QToolBar > QToolBarExtension {
+    qproperty-icon: {{ foreground|color(state="icon")|url(id="double_arrow") }};
 }
-QToolBar > QToolButton#qt_toolbar_ext_button:disabled {
-    image: {{ foreground|color(state="disabled")|url(id="double_arrow") }};
+QToolBar > QToolBarExtension:disabled {
+    qproperty-icon: {{ foreground|color(state="disabled")|url(id="double_arrow") }};
 }
 
 QToolBar > QWidget {
