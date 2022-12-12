@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 import platform
 
 from qdarktheme._icon.icon_engine import SvgIconEngine
@@ -16,14 +15,12 @@ class QDarkThemeStyle(QProxyStyle):
     def __init__(self):
         """Initialize style proxy."""
         super().__init__()
-        self._new_standard_icon_map: dict[str, dict] = json.loads(NEW_STANDARD_ICON_MAP)
 
     def standardIcon(  # noqa: N802
         self, standard_icon: QStyle.StandardPixmap, option: QStyleOption | None, widget
     ) -> QIcon:
         """Implement QProxyStyle.standardIcon."""
-        standard_icon_name = str(standard_icon).split(".")[-1]
-        icon_info = self._new_standard_icon_map.get(standard_icon_name)
+        icon_info = NEW_STANDARD_ICON_MAP.get(standard_icon)
         if icon_info is None:
             return super().standardIcon(standard_icon, option, widget)
 

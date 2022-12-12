@@ -7,6 +7,7 @@ import re
 import shutil
 from filecmp import cmpfiles
 from pathlib import Path
+from pprint import pformat
 from tempfile import TemporaryDirectory
 
 from tools import material_icons
@@ -62,10 +63,41 @@ def _mk_svg_resource(svg_dir: Path, output: Path):
 
 
 def _mk_standard_icon_map(icon_map_file: Path, output: Path):
-    code = '"""Icon map that overrides standard icons."""\n\n'
-    code += 'NEW_STANDARD_ICON_MAP = """\n'
-    code += icon_map_file.read_text()
-    code += '"""\n'
+    standard_icons: dict = json.loads(icon_map_file.read_text())
+
+    standard_icons_added_later = {}
+    for icon_name in list(standard_icons.keys()):
+        if icon_name in (
+            "SP_LineEditClearButton",
+            "SP_DialogYesToAllButton",
+            "SP_DialogNoToAllButton",
+            "SP_DialogSaveAllButton",
+            "SP_DialogAbortButton",
+            "SP_DialogRetryButton",
+            "SP_DialogIgnoreButton",
+            "SP_RestoreDefaultsButton",
+            "SP_TabCloseButton",
+        ):
+            standard_icons_added_later[icon_name] = standard_icons.pop(icon_name)
+
+    icon_map_code = pformat(standard_icons, sort_dicts=True, indent=4)
+    for icon_name in standard_icons.keys():
+        icon_map_code = icon_map_code.replace(f"'{icon_name}'", f"QStyle.StandardPixmap.{icon_name}")
+    icon_map_code = icon_map_code[0] + "\n " + icon_map_code[1:-1] + ",\n" + icon_map_code[-1]
+
+    add_icon_to_map_code = ""
+    for icon_name in sorted(standard_icons_added_later.keys()):
+        add_icon_to_map_code += f'\nif hasattr(QStyle.StandardPixmap, "{icon_name}"):\n'
+        add_icon_to_map_code += f"    NEW_STANDARD_ICON_MAP[QStyle.StandardPixmap.{icon_name}]"
+        add_icon_to_map_code += (
+            f" = {standard_icons_added_later[icon_name]}  # type: ignore  # noqa: E501\n"
+        )
+
+    code = '"""Icon map that overrides standard icons."""\n'
+    code += "from qdarktheme.qtpy.QtWidgets import QStyle\n\n"
+    code += "NEW_STANDARD_ICON_MAP = "
+    code += icon_map_code.replace("'", '"') + "\n"
+    code += add_icon_to_map_code.replace("'", '"')
     output.write_text(code)
 
 
