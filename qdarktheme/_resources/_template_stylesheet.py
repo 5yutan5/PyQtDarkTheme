@@ -999,7 +999,9 @@ QCalendarWidget > QTableView {
     border-radius: {{ corner-shape|corner(size=4) }}px;
     border-top-left-radius: {{ corner-shape|corner(size=0) }};
     border-top-right-radius: {{ corner-shape|corner(size=0) }};
-    alternate-background-color: {{ table.alternateBackground|color }}
+    alternate-background-color: {{ table.alternateBackground|color }};
+    {{ corner-shape|corner(size=4)|env(value="border-radius: ${}px;", version="<6.0.0", os="Darwin") }}
+    {{ primary|color(state="table.selectionBackground")|env(value="selection-background-color: ${};", version="<6.0.0") }}
 }
 QCalendarWidget > .QWidget > QToolButton#qt_calendar_prevmonth {
     qproperty-icon: {{ foreground|color(state="icon")|url(id="arrow_upward", rotate=270) }};
