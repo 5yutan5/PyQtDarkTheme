@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from functools import partial
 
-from qdarktheme._template_engine import Template
+from qdarktheme._template.engine import Template
 
 
 def mk_q_palette(
@@ -24,9 +24,6 @@ def mk_q_palette(
         palette.setColor(QPalette.ColorRole.WindowText, _mk_q_color("{{ foreground|color|palette }}"))
         palette.setColor(
             QPalette.ColorRole.Button, _mk_q_color("{{ treeSectionHeader.background|color|palette }}")
-        )
-        palette.setColor(
-            QPalette.ColorRole.Text, _mk_q_color('{{ foreground|color(state="icon")|palette }}')
         )
         palette.setColor(QPalette.ColorRole.ButtonText, _mk_q_color("{{ primary|color|palette }}"))
         palette.setColor(QPalette.ColorRole.Base, _mk_q_color("{{ background|color|palette }}"))
@@ -63,11 +60,6 @@ def mk_q_palette(
         )
         palette.setColor(
             QPalette.ColorGroup.Disabled,
-            QPalette.ColorRole.Text,
-            _mk_q_color('{{ foreground|color(state="disabled")|palette }}'),
-        )
-        palette.setColor(
-            QPalette.ColorGroup.Disabled,
             QPalette.ColorRole.ButtonText,
             _mk_q_color('{{ foreground|color(state="disabled")|palette }}'),
         )
@@ -94,6 +86,14 @@ def mk_q_palette(
             _mk_q_color("{{ foreground|color|palette }}"),
         )
 
+    palette.setColor(
+        QPalette.ColorRole.Text, _mk_q_color('{{ foreground|color(state="icon")|palette }}')
+    )
+    palette.setColor(
+        QPalette.ColorGroup.Disabled,
+        QPalette.ColorRole.Text,
+        _mk_q_color('{{ foreground|color(state="disabled")|palette }}'),
+    )
     palette.setColor(QPalette.ColorRole.Link, _mk_q_color("{{ primary|color|palette }}"))
     palette.setColor(QPalette.ColorRole.LinkVisited, _mk_q_color("{{ linkVisited|color|palette }}"))
     if hasattr(QPalette.ColorRole, "PlaceholderText"):

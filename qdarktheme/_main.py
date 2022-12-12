@@ -9,84 +9,46 @@ import darkdetect
 from qdarktheme._style_loader import load_palette, load_stylesheet
 
 _listener = None
+_proxy_style = None
 
 
-def _apply_style(app, additional_qss: str | None, *args, **kargs) -> None:
-    stylesheet = load_stylesheet(*args, **kargs)
+def _apply_style(app, additional_qss: str | None, **kargs) -> None:
+    from qdarktheme._proxy_style import QDarkThemeStyle
+
+    stylesheet = load_stylesheet(**kargs)
     if additional_qss is not None:
         stylesheet += additional_qss
     app.setStyleSheet(stylesheet)
 
-    app.setPalette(load_palette(args[0], args[2], for_stylesheet=True, **kargs))
+    app.setPalette(
+        load_palette(
+            kargs["theme"],
+            kargs["custom_colors"],
+            for_stylesheet=True,
+            default_theme=kargs["default_theme"],
+        )
+    )
+
+    global _proxy_style
+    if _proxy_style is None:
+        _proxy_style = QDarkThemeStyle()
+        app.setStyle(_proxy_style)
 
 
-def _create_theme_event_filter(app, *args, **kargs):
-    from qdarktheme.qtpy.QtCore import QEvent, QObject, Signal
+def _sync_theme_with_system(app, callback) -> None:
+    from qdarktheme._theme_listener import OSThemeSwitchListener
 
-    class ThemeEventFilter(QObject):
-        sig_run = Signal(bool)
-
-        def __init__(self) -> None:
-            super().__init__()
-            self.setProperty("is_running", True)
-            self._theme = darkdetect.theme()
-            self.sig_run.connect(lambda state: self.setProperty("is_running", state))
-
-        def eventFilter(self, q_object: QObject, event: QEvent) -> bool:  # noqa: N802
-            if (
-                self.property("is_running")
-                and q_object == app
-                and event.type() == QEvent.Type.ApplicationPaletteChange
-            ):
-                theme = darkdetect.theme()
-                if self._theme != theme:
-                    self._theme = theme
-                    _apply_style(app, *args, **kargs)
-                    return True
-            return super().eventFilter(q_object, event)
-
-    return ThemeEventFilter()
-
-
-def _create_theme_listener(app, *args, **kargs):
-    from qdarktheme.qtpy.QtCore import QThread, Signal
-
-    class ThemeListener(QThread):
-        sig_run = Signal(bool)
-        _sig_listen_os_theme = Signal(str)
-
-        def __init__(self) -> None:
-            super().__init__()
-            self.setProperty("is_running", True)
-            self.sig_run.connect(lambda state: self.setProperty("is_running", state))
-            self._sig_listen_os_theme.connect(
-                lambda _: self.property("is_running") and _apply_style(app, *args, **kargs)
-            )
-
-        def run(self) -> None:
-            darkdetect.listener(self._sig_listen_os_theme.emit)
-
-        def kill(self) -> None:
-            self.terminate()
-            self.deleteLater()
-
-    listener = ThemeListener()
-    atexit.register(listener.kill)
-
-    return listener
-
-
-def _sync_theme_with_system(app, *args, **kargs) -> None:
     global _listener
     if _listener is not None:
         _listener.sig_run.emit(True)
         return
 
+    _listener = OSThemeSwitchListener(callback)
+
     if platform.system() == "Darwin":
-        _listener = _create_theme_event_filter(app, *args, **kargs)
         app.installEventFilter(_listener)
     else:
-        _listener = _create_theme_listener(app, *args, **kargs)
+        atexit.register(_listener.kill)
         _listener.start()
 
 
@@ -199,9 +161,17 @@ def setup_theme(
     if theme != "auto":
         stop_sync()
 
-    _apply_style(app, additional_qss, theme, corner_shape, custom_colors, default_theme=default_theme)
+    def callback():
+        _apply_style(
+            app,
+            additional_qss,
+            theme=theme,
+            corner_shape=corner_shape,
+            custom_colors=custom_colors,
+            default_theme=default_theme,
+        )
+
+    callback()
 
     if theme == "auto" and darkdetect.theme() is not None:
-        _sync_theme_with_system(
-            app, additional_qss, theme, corner_shape, custom_colors, default_theme=default_theme
-        )
+        _sync_theme_with_system(app, callback)

@@ -3,8 +3,8 @@ import platform
 
 import pytest
 
-from qdarktheme import _filter
 from qdarktheme._color import Color
+from qdarktheme._template import filter
 from qdarktheme.qtpy.qt_compat import QT_API
 from qdarktheme.qtpy.qt_version import __version__
 
@@ -37,7 +37,7 @@ ANOTHER_OS = "Linux" if CURRENT_OS.lower() == "windows" else "windows"
 )
 def test_env_filter(text, output, qt_version, qt_api, os_name, expected_result) -> None:
     """Verify that the function `_Filter.env()` runs successfully when inputting various arguments."""
-    assert _filter.env(text, output, qt_version, qt_api, os_name) == expected_result
+    assert filter.env(text, output, qt_version, qt_api, os_name) == expected_result
 
 
 @pytest.mark.parametrize(
@@ -69,18 +69,4 @@ def test_env_filter(text, output, qt_version, qt_api, os_name, expected_result) 
 )
 def test_color_filter(color_info, color_state, expected_result) -> None:
     """Verify that the function `_Filter.color()` runs successfully when inputting various arguments."""
-    assert _filter.color(color_info, color_state)._to_hex() == expected_result
-
-
-@pytest.mark.parametrize(
-    ("hex", "expected_result"),
-    [
-        ("#112233", '\\"#112233\\"'),
-        ("#ffffffff", '\\"#ffffff\\"'),
-        ("#ffffff00", '\\"rgb(255, 255, 255)\\" fill-opacity=\\"0.0\\"'),
-        ("#00000000", '\\"rgb(0, 0, 0)\\" fill-opacity=\\"0.0\\"'),
-    ],
-)
-def test_svg_format_filter(hex, expected_result) -> None:
-    """Verify that the function `_Filter.color()` runs successfully when inputting various arguments."""
-    assert _filter.svg_format(Color.from_hex(hex)) == expected_result
+    assert filter.color(color_info, color_state)._to_hex() == expected_result

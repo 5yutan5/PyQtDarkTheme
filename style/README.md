@@ -51,6 +51,10 @@ The original icons of PyQtDarkTheme is in `svg/original`. You can add and edit t
 >
 > Don't use properties like `fill`, `fill-opacity` and `transform` which use in qdarktheme module.
 
+### Override Qt standard Icons
+
+Qt include [standard icons](https://doc.qt.io/qt-6/qstyle.html#StandardPixmap-enum). `qdarktheme.setup_theme` override standard icons to custom icons by using QProxyStyle. You can edit custom icons in `svg/new_standard_icons.json`.
+
 ## Style Sheet
 
 `base.qss` defines widget size/roundness, border size, padding, margin, icon, etc.

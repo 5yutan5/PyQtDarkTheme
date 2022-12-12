@@ -6,8 +6,9 @@ import shutil
 import warnings
 from functools import partial
 
-from qdarktheme import __version__, _filter, _resources
-from qdarktheme._template_engine import Template
+from qdarktheme import __version__, _resources
+from qdarktheme._template import filter
+from qdarktheme._template.engine import Template
 from qdarktheme._util import get_cash_root_path, get_logger
 
 _logger = get_logger(__name__)
@@ -154,15 +155,15 @@ def load_stylesheet(
         )
         corner_shape = border
 
-    get_cash_root_path(__version__).mkdir(parents=True, exist_ok=True)
-
     if custom_colors is not None:
         _marge_colors(color_values, custom_colors, theme)
+
+    get_cash_root_path(__version__).mkdir(parents=True, exist_ok=True)
 
     # Build stylesheet
     template = Template(
         _resources.TEMPLATE_STYLESHEET,
-        {"color": _filter.color, "corner": _filter.corner, "env": _filter.env, "url": _filter.url},
+        {"color": filter.color, "corner": filter.corner, "env": filter.env, "url": filter.url},
     )
     replacements = dict(color_values, **{"corner-shape": corner_shape})
     return template.render(replacements)
@@ -175,8 +176,9 @@ def clear_cache() -> None:
     You can clear the caches by running this method.
     """
     try:
-        shutil.rmtree(get_cash_root_path(__version__))
-        _logger.info(f"The caches({get_cash_root_path(__version__)}) has been deleted")
+        cache_path = get_cash_root_path(__version__)
+        shutil.rmtree(cache_path)
+        _logger.info(f"The caches({cache_path}) has been deleted")
     except FileNotFoundError:
         _logger.info("There is no caches")
 
@@ -254,7 +256,7 @@ def load_palette(
     if custom_colors is not None:
         _marge_colors(color_values, custom_colors, theme)
 
-    mk_template = partial(Template, filters={"color": _filter.color, "palette": _filter.palette_format})
+    mk_template = partial(Template, filters={"color": filter.color, "palette": filter.palette_format})
     return _resources.mk_q_palette(mk_template, color_values, for_stylesheet)
 
 

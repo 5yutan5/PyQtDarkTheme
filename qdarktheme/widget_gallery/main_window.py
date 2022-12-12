@@ -18,10 +18,11 @@ from qdarktheme.qtpy.QtWidgets import (
     QToolButton,
     QWidget,
 )
-from qdarktheme.widget_gallery.ui.dock_ui import DockUI
-from qdarktheme.widget_gallery.ui.frame_ui import FrameUI
-from qdarktheme.widget_gallery.ui.mdi_ui import MdiUI
-from qdarktheme.widget_gallery.ui.widgets_ui import WidgetsUI
+from qdarktheme.widget_gallery._ui.dock_ui import DockUI
+from qdarktheme.widget_gallery._ui.frame_ui import FrameUI
+from qdarktheme.widget_gallery._ui.icons_ui import IconsUi
+from qdarktheme.widget_gallery._ui.mdi_ui import MdiUI
+from qdarktheme.widget_gallery._ui.widgets_ui import WidgetsUI
 
 
 class _WidgetGalleryUI:
@@ -40,6 +41,7 @@ class _WidgetGalleryUI:
             QAction(QIcon("icons:flip_to_front_24dp.svg"), "Move to dock"),
             QAction(QIcon("icons:crop_din_24dp.svg"), "Move to frame"),
             QAction(QIcon("icons:branding_watermark_24dp.svg"), "Move to mdi"),
+            QAction(QIcon("icons:image_24dp.svg"), "Move to icons"),
         )
         self.actions_message_box = (
             QAction(text="Open question dialog"),
@@ -121,7 +123,7 @@ class _WidgetGalleryUI:
         self.action_enable.setEnabled(False)
 
         # Layout
-        for ui in (WidgetsUI, DockUI, FrameUI, MdiUI):
+        for ui in (WidgetsUI, DockUI, FrameUI, MdiUI, IconsUi):
             container = QWidget()
             ui().setup_ui(container)
             self.stack_widget.addWidget(container)
@@ -183,8 +185,10 @@ class WidgetGallery(QMainWindow):
             index = 1
         elif "frame" in action_name:
             index = 2
-        else:
+        elif "mdi" in action_name:
             index = 3
+        else:
+            index = 4
         self._ui.stack_widget.setCurrentIndex(index)
 
     @Slot()

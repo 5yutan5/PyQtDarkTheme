@@ -1,12 +1,11 @@
 """A module containing multiple filters used by template engine."""
 from __future__ import annotations
 
-import json
 import platform
-from functools import lru_cache
 
-from qdarktheme import __version__, _resources
+from qdarktheme import __version__
 from qdarktheme._color import Color
+from qdarktheme._icon.svg import Svg
 from qdarktheme._util import analyze_version_str, get_cash_root_path, get_logger
 from qdarktheme.qtpy import __version__ as qt_version
 from qdarktheme.qtpy.qt_compat import QT_API
@@ -30,11 +29,6 @@ if None in (qt_version, QT_API):
         "Maybe you need to install qt-binding. "
         "Available Qt-binding packages: PySide6, PyQt6, PyQt5, PySide2."
     )
-
-
-@lru_cache()
-def _svg_resources() -> dict[str, str]:
-    return json.loads(_resources.SVG_RESOURCES)
 
 
 def _transform(color: Color, color_state: dict[str, float]) -> Color:
@@ -62,14 +56,6 @@ def color(color_info: str | dict[str, str | dict], state: str | None = None) -> 
     return Color.from_hex(transforms) if isinstance(transforms, str) else _transform(color, transforms)
 
 
-def svg_format(color: Color) -> str:
-    """Filter for template engine. This filter convert color object to svg color format.
-
-    QtSvg does not support rgba format. So we need to convert color object to svg tiny color format.
-    """
-    return color.to_svg_tiny_color_format().replace('"', '\\"')
-
-
 def palette_format(color: Color) -> str:
     """Filter for template engine. This filter convert color object to ARGB hex format.
 
@@ -85,13 +71,8 @@ def url(color: Color, id: str, rotate: int = 0) -> str:
     url = f"url({svg_path.as_posix()})"
     if svg_path.exists():
         return url
-    svg = _svg_resources()[id]
-    svg_color = f"fill={color.to_svg_tiny_color_format()}"
-    # Rotate svg. See https://stackoverflow.com/a/15139069/13452582
-    svg_transform = "" if rotate == 0 else f' transform="rotate({rotate}, 12, 12)"'
-
-    svg = svg.replace("<svg ", f"<svg {svg_color}{svg_transform} ")
-    svg_path.write_text(svg)
+    svg = Svg(id).colored(color).rotate(rotate)
+    svg_path.write_text(str(svg))
     return url
 
 
