@@ -404,6 +404,9 @@ QPushButton:default:disabled,
 QPushButton:default:checked:disabled {
     background: {{ foreground|color(state="defaultButton.disabledBackground") }};
 }
+QDialogButtonBox {
+    dialogbuttonbox-buttons-have-icons: 0;
+}
 QDialogButtonBox QPushButton {
     min-width: 65px;
 }
