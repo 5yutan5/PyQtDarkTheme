@@ -35,18 +35,6 @@ QWidget {
     {{ foreground|color(state="icon")|url(id="close")|env(value="lineedit-clear-button-icon: ${};", version=">=6.0.0") }}
     home-icon: {{ foreground|color(state="icon")|url(id="home") }};
     trash-icon: {{ foreground|color(state="icon")|url(id="delete") }};
-    dialog-ok-icon: {{ foreground|color(state="icon")|url(id="check") }};
-    dialog-cancel-icon: {{ foreground|color(state="icon")|url(id="close") }};
-    dialog-yes-icon: {{ foreground|color(state="icon")|url(id="circle") }};
-    dialog-no-icon: {{ foreground|color(state="icon")|url(id="not_interested") }};
-    dialog-apply-icon: {{ foreground|color(state="icon")|url(id="check_circle") }};
-    dialog-reset-icon: {{ foreground|color(state="icon")|url(id="restart_alt") }};
-    dialog-save-icon: {{ foreground|color(state="icon")|url(id="save") }};
-    dialog-discard-icon: {{ foreground|color(state="icon")|url(id="delete") }};
-    dialog-close-icon: {{ foreground|color(state="icon")|url(id="close") }};
-    dialog-open-icon: {{ foreground|color(state="icon")|url(id="launch") }};
-    dialog-help-icon: {{ foreground|color(state="icon")|url(id="help") }};
-    dialog-reset-icon: {{ foreground|color(state="icon")|url(id="cleaning_services") }};
     filedialog-parent-directory-icon: {{ foreground|color(state="icon")|url(id="arrow_upward") }};
     filedialog-new-directory-icon: {{ foreground|color(state="icon")|url(id="create_new_folder") }};
     filedialog-detailedview-icon: {{ foreground|color(state="icon")|url(id="list") }};
