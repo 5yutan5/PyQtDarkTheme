@@ -271,26 +271,31 @@ class _Group4(QGroupBox):
         super().__init__("QToolBox")
         # Widgets
         toolbox = QToolBox()
-        slider = QSlider(Qt.Orientation.Horizontal)
+        h_slider, v_slider = QSlider(Qt.Orientation.Horizontal), QSlider(Qt.Orientation.Vertical)
         dial_ticks = QDial()
         progressbar = QProgressBar()
         lcd_number = QLCDNumber()
 
         # Setup widgets
         self.setCheckable(True)
-        toolbox.addItem(slider, "Slider")
-        toolbox.addItem(dial_ticks, "Dial")
-        toolbox.addItem(progressbar, "Progress Bar")
-        toolbox.addItem(lcd_number, "LCD Number")
-        slider.setValue(50)
+        # If the slider value is 50, it is not clear which orientation is active.
+        h_slider.setValue(30)
+        v_slider.setValue(30)
         dial_ticks.setNotchesVisible(True)
         progressbar.setValue(50)
         lcd_number.setSegmentStyle(QLCDNumber.SegmentStyle.Flat)
         lcd_number.display(123)
 
         # Layout
-        v_layout = QVBoxLayout(self)
-        v_layout.addWidget(toolbox)
+        slider_component = QWidget()
+        v_layout = QVBoxLayout(slider_component)
+        v_layout.addWidget(h_slider)
+        v_layout.addWidget(v_slider)
+        toolbox.addItem(slider_component, "Slider")
+        toolbox.addItem(dial_ticks, "Dial")
+        toolbox.addItem(progressbar, "Progress Bar")
+        toolbox.addItem(lcd_number, "LCD Number")
+        QVBoxLayout(self).addWidget(toolbox)
 
 
 class WidgetsUI:
