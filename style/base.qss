@@ -631,6 +631,8 @@ QSlider::groove:horizontal {
 QSlider::groove:vertical {
     width: 4px;
 }
+/* Horizontal slider active line is `::sub-page`. */
+/* Vertical slider active line is `::add-page`. */
 QSlider::sub-page:horizontal,
 QSlider::add-page:vertical,
 QSlider::handle {
