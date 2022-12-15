@@ -631,14 +631,18 @@ QSlider::groove:horizontal {
 QSlider::groove:vertical {
     width: 4px;
 }
-QSlider::sub-page, QSlider::handle {
+QSlider::sub-page:horizontal,
+QSlider::add-page:vertical,
+QSlider::handle {
     background: {{ primary|color }};
 }
-QSlider::sub-page:disabled,
+QSlider::sub-page:horizontal:disabled,
+QSlider::add-page:vertical:disabled,
 QSlider::handle:disabled {
     background: {{ foreground|color(state="slider.disabledBackground") }};
 }
-QSlider::add-page {
+QSlider::add-page:horizontal,
+QSlider::sub-page:vertical {
     background: {{ foreground|color(state="sliderTrack.inactiveBackground") }};
 }
 QSlider::handle:hover,
