@@ -5,6 +5,7 @@ import json
 import logging
 import re
 import shutil
+from collections import defaultdict
 from filecmp import cmpfiles
 from pathlib import Path
 from pprint import pformat
@@ -109,30 +110,30 @@ def _mk_standard_icon_map(icon_map_file: Path, output: Path):
     output.write_text(code)
 
 
+def _create_icon_definition(icon_id: str, rotate: int | None, qss_property: str) -> str:
+    url_placeholder = f'foreground|color(state="icon")|url(id="{icon_id}"'
+    if rotate is not None:
+        url_placeholder += f", rotate={rotate}"
+    url_placeholder += ")"
+    if qss_property == "lineedit-clear-button-icon":
+        return f'    {{{{ {url_placeholder})|env(value="{qss_property}:${{}};",version=">=6.0.0") }}}}'
+    return f"    {qss_property}: {{{{ {url_placeholder} }}}}"
+
+
 def _mk_template_standard_icon_stylesheet(icon_map_file: Path) -> str:
     standard_icons: dict[str, dict] = json.loads(icon_map_file.read_text())
-    definitions_by_selector: dict[tuple[str], set[str]] = {}
+    definitions_by_selector: defaultdict[tuple[str], set[str]] = defaultdict(set)
 
     for value in standard_icons.values():
-        if "qss" in value:
-            icon_id: str = value["id"]
-            rotate: str | None = value.get("rotate")
-            qss_property: str = value["qss"]["property"]
-            qss_widgets: tuple[str, ...] = tuple(sorted(value["qss"]["widgets"]))
-            if qss_property == "lineedit-clear-button-icon":
-                definition = f'    {{{{ foreground|color(state="icon")|url(id="{icon_id}")|'
-                definition += f'env(value="{qss_property}: ${{}};", version=">=6.0.0") }}}}'
-            else:
-                definition = (
-                    f'    {qss_property}: {{{{ foreground|color(state="icon")|url(id="{icon_id}"'
-                )
-                if rotate is not None:
-                    definition += f", rotate={rotate}"
-                definition += ") }}"
-
-            if definitions_by_selector.get(qss_widgets) is None:
-                definitions_by_selector[qss_widgets] = set()
-            definitions_by_selector[qss_widgets].add(definition)
+        if "qss" not in value:
+            continue
+        qss_widgets: tuple[str, ...] = tuple(sorted(value["qss"]["widgets"]))
+        definition = _create_icon_definition(
+            icon_id=value["id"],
+            rotate=value.get("rotate"),
+            qss_property=value["qss"]["property"],
+        )
+        definitions_by_selector[qss_widgets].add(definition)
 
     qss = ""
     for selector, definitions in sorted(definitions_by_selector.items()):

@@ -1148,7 +1148,7 @@ QFileDialog {
     forward-icon: {{ foreground|color(state="icon")|url(id="arrow_upward", rotate=90) }};
 }
 QLineEdit {
-    {{ foreground|color(state="icon")|url(id="close")|env(value="lineedit-clear-button-icon: ${};", version=">=6.0.0") }};
+    {{ foreground|color(state="icon")|url(id="close"))|env(value="lineedit-clear-button-icon:${};",version=">=6.0.0") }};
 }
 QMdiSubWindow {
     titlebar-maximize-icon: {{ foreground|color(state="icon")|url(id="fullscreen") }};
