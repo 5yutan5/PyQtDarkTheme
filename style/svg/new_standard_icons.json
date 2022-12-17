@@ -1,7 +1,13 @@
 {
   "SP_ArrowBack": {
     "id": "arrow_upward",
-    "rotate": 270
+    "rotate": 270,
+    "qss": {
+      "property": "backward-icon",
+      "widgets": [
+        "QFileDialog"
+      ]
+    }
   },
   "SP_ArrowDown": {
     "id": "arrow_upward",
@@ -9,15 +15,33 @@
   },
   "SP_ArrowForward": {
     "id": "arrow_upward",
-    "rotate": 90
+    "rotate": 90,
+    "qss": {
+      "property": "forward-icon",
+      "widgets": [
+        "QFileDialog"
+      ]
+    }
   },
   "SP_ArrowLeft": {
     "id": "arrow_upward",
-    "rotate": 270
+    "rotate": 270,
+    "qss": {
+      "property": "leftarrow-icon",
+      "widgets": [
+        "QCalendarWidget"
+      ]
+    }
   },
   "SP_ArrowRight": {
     "id": "arrow_upward",
-    "rotate": 90
+    "rotate": 90,
+    "qss": {
+      "property": "rightarrow-icon",
+      "widgets": [
+        "QCalendarWidget"
+      ]
+    }
   },
   "SP_ArrowUp": {
     "id": "arrow_upward"
@@ -29,7 +53,13 @@
     "id": "close"
   },
   "SP_CommandLink": {
-    "id": "east"
+    "id": "east",
+    "qss": {
+      "property": "qproperty-icon",
+      "widgets": [
+        "QCommandLinkButton"
+      ]
+    }
   },
   "SP_DialogAbortButton": {
     "id": "not_interested"
@@ -93,7 +123,13 @@
     "id": "search"
   },
   "SP_FileDialogDetailedView": {
-    "id": "list"
+    "id": "list",
+    "qss": {
+      "property": "filedialog-detailedview-icon",
+      "widgets": [
+        "QFileDialog"
+      ]
+    }
   },
   "SP_FileDialogEnd": {
     "id": "drive_file_move_rtl"
@@ -102,19 +138,43 @@
     "id": "info"
   },
   "SP_FileDialogListView": {
-    "id": "grid_view"
+    "id": "grid_view",
+    "qss": {
+      "property": "filedialog-listview-icon",
+      "widgets": [
+        "QFileDialog"
+      ]
+    }
   },
   "SP_FileDialogNewFolder": {
-    "id": "create_new_folder"
+    "id": "create_new_folder",
+    "qss": {
+      "property": "filedialog-new-directory-icon",
+      "widgets": [
+        "QFileDialog"
+      ]
+    }
   },
   "SP_FileDialogToParent": {
-    "id": "arrow_upward"
+    "id": "arrow_upward",
+    "qss": {
+      "property": "filedialog-parent-directory-icon",
+      "widgets": [
+        "QFileDialog"
+      ]
+    }
   },
   "SP_FileDialogStart": {
     "id": "drive_file_move"
   },
   "SP_LineEditClearButton": {
-    "id": "close"
+    "id": "close",
+    "qss": {
+      "property": "lineedit-clear-button-icon",
+      "widgets": [
+        "QLineEdit"
+      ]
+    }
   },
   "SP_MediaPlay": {
     "id": "play_arrow"
@@ -153,26 +213,58 @@
   "SP_DialogRetryButton": {
     "id": "refresh"
   },
-  "SP_TitleBarCloseButton": {
-    "id": "close"
-  },
   "SP_TabCloseButton": {
     "id": "close"
+  },
+  "SP_TitleBarCloseButton": {
+    "id": "close",
+    "qss": {
+      "property": "titlebar-close-icon",
+      "widgets": [
+        "QDockWidget",
+        "QMdiSubWindow"
+      ]
+    }
   },
   "SP_TitleBarContextHelpButton": {
     "id": "question_mark"
   },
   "SP_TitleBarMaxButton": {
-    "id": "fullscreen"
+    "id": "fullscreen",
+    "qss": {
+      "property": "titlebar-maximize-icon",
+      "widgets": [
+        "QMdiSubWindow"
+      ]
+    }
   },
   "SP_TitleBarMinButton": {
-    "id": "minimize"
+    "id": "minimize",
+    "qss": {
+      "property": "titlebar-minimize-icon",
+      "widgets": [
+        "QMdiSubWindow"
+      ]
+    }
   },
   "SP_TitleBarNormalButton": {
-    "id": "flip_to_front"
+    "id": "flip_to_front",
+    "qss": {
+      "property": "titlebar-normal-icon",
+      "widgets": [
+        "QDockWidget",
+        "QMdiSubWindow"
+      ]
+    }
   },
   "SP_ToolBarHorizontalExtensionButton": {
-    "id": "double_arrow"
+    "id": "double_arrow",
+    "qss": {
+      "property": "qproperty-icon",
+      "widgets": [
+        "QToolBarExtension"
+      ]
+    }
   },
   "SP_TitleBarShadeButton": {
     "id": "chevron_right",

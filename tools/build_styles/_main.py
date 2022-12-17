@@ -44,7 +44,10 @@ def _mk_root_init_file(output: Path, themes: list[str], doc_string: str) -> None
     code += "from qdarktheme._resources._color_values import COLOR_VALUES\n"
     code += "from qdarktheme._resources._palette import mk_q_palette\n"
     code += "from qdarktheme._resources._svg import SVG_RESOURCES\n"
-    code += "from qdarktheme._resources._template_stylesheet import TEMPLATE_STYLESHEET\n\n"
+    code += "from qdarktheme._resources._template_stylesheet import (\n"
+    code += "    TEMPLATE_STANDARD_ICONS_STYLESHEET,\n"
+    code += "    TEMPLATE_STYLESHEET,\n"
+    code += ")\n\n"
     code += f"""THEMES = {str(tuple(themes)).replace("'", '"')}\n"""
     (output / "__init__.py").write_text(code)
 
@@ -64,22 +67,26 @@ def _mk_svg_resource(svg_dir: Path, output: Path):
 
 
 def _mk_standard_icon_map(icon_map_file: Path, output: Path):
-    standard_icons: dict = json.loads(icon_map_file.read_text())
+    standard_icons: dict[str, dict] = json.loads(icon_map_file.read_text())
 
-    standard_icons_added_later = {}
-    for icon_name in list(standard_icons.keys()):
-        if icon_name in (
-            "SP_LineEditClearButton",
-            "SP_DialogYesToAllButton",
-            "SP_DialogNoToAllButton",
-            "SP_DialogSaveAllButton",
-            "SP_DialogAbortButton",
-            "SP_DialogRetryButton",
-            "SP_DialogIgnoreButton",
-            "SP_RestoreDefaultsButton",
-            "SP_TabCloseButton",
-        ):
-            standard_icons_added_later[icon_name] = standard_icons.pop(icon_name)
+    for standard_icon in standard_icons.values():
+        if "qss" in standard_icon:
+            del standard_icon["qss"]
+
+    incompatible_names = (
+        "SP_LineEditClearButton",
+        "SP_DialogYesToAllButton",
+        "SP_DialogNoToAllButton",
+        "SP_DialogSaveAllButton",
+        "SP_DialogAbortButton",
+        "SP_DialogRetryButton",
+        "SP_DialogIgnoreButton",
+        "SP_RestoreDefaultsButton",
+        "SP_TabCloseButton",
+    )
+    incompatible_standard_icons = {
+        name: standard_icons.pop(name) for name in list(standard_icons) if name in incompatible_names
+    }
 
     icon_map_code = pformat(standard_icons, sort_dicts=True, indent=4)
     for icon_name in standard_icons.keys():
@@ -87,11 +94,11 @@ def _mk_standard_icon_map(icon_map_file: Path, output: Path):
     icon_map_code = icon_map_code[0] + "\n " + icon_map_code[1:-1] + ",\n" + icon_map_code[-1]
 
     add_icon_to_map_code = ""
-    for icon_name in sorted(standard_icons_added_later.keys()):
+    for icon_name in sorted(incompatible_standard_icons.keys()):
         add_icon_to_map_code += f'\nif hasattr(QStyle.StandardPixmap, "{icon_name}"):\n'
         add_icon_to_map_code += f"    NEW_STANDARD_ICON_MAP[QStyle.StandardPixmap.{icon_name}]"
         add_icon_to_map_code += (
-            f" = {standard_icons_added_later[icon_name]}  # type: ignore  # noqa: E501\n"
+            f" = {incompatible_standard_icons[icon_name]}  # type: ignore  # noqa: E501\n"
         )
 
     code = '"""Icon map that overrides standard icons."""\n'
@@ -102,14 +109,50 @@ def _mk_standard_icon_map(icon_map_file: Path, output: Path):
     output.write_text(code)
 
 
-def _mk_template_stylesheet(base_stylesheet_file: Path, output: Path):
-    stylesheet = base_stylesheet_file.read_text()
-    stylesheet = _remove_qss_comment(stylesheet)
+def _mk_template_standard_icon_stylesheet(icon_map_file: Path) -> str:
+    standard_icons: dict[str, dict] = json.loads(icon_map_file.read_text())
+    definitions_by_selector: dict[tuple[str], set[str]] = {}
+
+    for value in standard_icons.values():
+        if "qss" in value:
+            icon_id: str = value["id"]
+            rotate: str | None = value.get("rotate")
+            qss_property: str = value["qss"]["property"]
+            qss_widgets: tuple[str, ...] = tuple(sorted(value["qss"]["widgets"]))
+            if qss_property == "lineedit-clear-button-icon":
+                definition = f'    {{{{ foreground|color(state="icon")|url(id="{icon_id}")|'
+                definition += f'env(value="{qss_property}: ${{}};", version=">=6.0.0") }}}}'
+            else:
+                definition = (
+                    f'    {qss_property}: {{{{ foreground|color(state="icon")|url(id="{icon_id}"'
+                )
+                if rotate is not None:
+                    definition += f", rotate={rotate}"
+                definition += ") }}"
+
+            if definitions_by_selector.get(qss_widgets) is None:
+                definitions_by_selector[qss_widgets] = set()
+            definitions_by_selector[qss_widgets].add(definition)
+
+    qss = ""
+    for selector, definitions in sorted(definitions_by_selector.items()):
+        qss += ",\n".join(selector) + " {\n"
+        qss += ";\n".join(sorted(definitions)) + ";\n"
+        qss += "}\n"
+    return qss
+
+
+def _mk_template_stylesheet(base_stylesheet_file: Path, icon_map_file: Path, output: Path):
+    base_qss = base_stylesheet_file.read_text()
+    base_qss = _remove_qss_comment(base_qss)
 
     code = '"""Template stylesheet."""\n\n'
     code += 'TEMPLATE_STYLESHEET = """\n'
-    code += stylesheet
+    code += base_qss
     code += '\n"""  # noqa: E501\n'
+    code += 'TEMPLATE_STANDARD_ICONS_STYLESHEET = """\n'
+    code += _mk_template_standard_icon_stylesheet(icon_map_file)
+    code += '"""  # noqa: E501\n'
     output.write_text(code)
 
 
@@ -139,7 +182,11 @@ def _build_styles(build_path: Path) -> None:
     _mk_standard_icon_map(
         style_path / "svg/new_standard_icons.json", output=build_path / "standard_icons.py"
     )
-    _mk_template_stylesheet(style_path / "base.qss", output=build_path / "_template_stylesheet.py")
+    _mk_template_stylesheet(
+        style_path / "base.qss",
+        style_path / "svg/new_standard_icons.json",
+        output=build_path / "_template_stylesheet.py",
+    )
     _mk_root_init_file(build_path, themes, _ROOT_INIT_DOC)
 
 

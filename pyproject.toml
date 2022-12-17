@@ -82,7 +82,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.flake8]
 max-line-length = 104
-max-complexity = 6
+max-complexity = 9
 docstring-convention = "google"
 per-file-ignores = ["**/__init__.py:F401", "examples/**:D103,D100"]
 
