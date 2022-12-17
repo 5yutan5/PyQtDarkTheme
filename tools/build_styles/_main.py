@@ -115,9 +115,9 @@ def _create_icon_definition(icon_id: str, rotate: int | None, qss_property: str)
     if rotate is not None:
         url_placeholder += f", rotate={rotate}"
     url_placeholder += ")"
-    if qss_property == "lineedit-clear-button-icon":
-        return f'    {{{{ {url_placeholder})|env(value="{qss_property}:${{}};",version=">=6.0.0") }}}}'
-    return f"    {qss_property}: {{{{ {url_placeholder} }}}}"
+    if qss_property != "lineedit-clear-button-icon":
+        return f"    {qss_property}: {{{{ {url_placeholder} }}}}"
+    return f'    {{{{ {url_placeholder})|env(value="{qss_property}: ${{}};", version=">=6.0.0") }}}}'
 
 
 def _mk_template_standard_icon_stylesheet(icon_map_file: Path) -> str:
