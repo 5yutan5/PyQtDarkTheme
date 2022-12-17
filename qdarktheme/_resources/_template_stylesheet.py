@@ -24,36 +24,6 @@ QWidget:disabled {
     selection-background-color: {{ foreground|color(state="disabledSelectionBackground") }};
     selection-color: {{ foreground|color(state="disabled") }};
 }
-QWidget {
-    backward-icon: {{ foreground|color(state="icon")|url(id="arrow_upward", rotate=270) }};
-    forward-icon: {{ foreground|color(state="icon")|url(id="arrow_upward", rotate=90) }};
-    leftarrow-icon: {{ foreground|color(state="icon")|url(id="arrow_upward", rotate=270) }};
-    rightarrow-icon: {{ foreground|color(state="icon")|url(id="arrow_upward", rotate=90) }};
-    downarrow-icon:  {{ foreground|color(state="icon")|url(id="arrow_upward", rotate=180) }};
-    uparrow-icon:  {{ foreground|color(state="icon")|url(id="arrow_upward") }};
-    dockwidget-close-icon: {{ foreground|color(state="icon")|url(id="close") }};
-    {{ foreground|color(state="icon")|url(id="close")|env(value="lineedit-clear-button-icon: ${};", version=">=6.0.0") }}
-    home-icon: {{ foreground|color(state="icon")|url(id="home") }};
-    trash-icon: {{ foreground|color(state="icon")|url(id="delete") }};
-    filedialog-parent-directory-icon: {{ foreground|color(state="icon")|url(id="arrow_upward") }};
-    filedialog-new-directory-icon: {{ foreground|color(state="icon")|url(id="create_new_folder") }};
-    filedialog-detailedview-icon: {{ foreground|color(state="icon")|url(id="list") }};
-    filedialog-listview-icon: {{ foreground|color(state="icon")|url(id="grid_view") }};
-    filedialog-infoview-icon: {{ foreground|color(state="icon")|url(id="info") }};
-    filedialog-start-icon: {{ foreground|color(state="icon")|url(id="drive_file_move") }};
-    filedialog-end-icon: {{ foreground|color(state="icon")|url(id="drive_file_move_rtl") }};
-    filedialog-contentsview-icon: {{ foreground|color(state="icon")|url(id="search") }};
-    titlebar-close-icon: {{ foreground|color(state="icon")|url(id="close") }};
-    titlebar-normal-icon: {{ foreground|color(state="icon")|url(id="flip_to_front") }};
-    titlebar-maximize-icon: {{ foreground|color(state="icon")|url(id="fullscreen") }};
-    titlebar-minimize-icon: {{ foreground|color(state="icon")|url(id="minimize") }};
-    titlebar-contexthelp-icon: {{ foreground|color(state="icon")|url(id="question_mark") }};
-    titlebar-shade-icon: {{ foreground|color(state="icon")|url(id="chevron_right", rotate=270) }};
-    titlebar-unshade-icon: {{ foreground|color(state="icon")|url(id="chevron_right", rotate=90) }};
-}
-QCommandLinkButton {
-    qproperty-icon: {{ primary|color|url(id="east") }};
-}
 QCheckBox:!window,
 QRadioButton:!window,
 QPushButton:!window,
@@ -200,12 +170,6 @@ QToolBar > QToolButton:pressed,
 QToolBar > QToolButton::menu-button:pressed:enabled,
 QToolBar > QToolButton:checked:enabled {
     background: {{ toolbar.activeBackground|color }};
-}
-QToolBar > QToolBarExtension {
-    qproperty-icon: {{ foreground|color(state="icon")|url(id="double_arrow") }};
-}
-QToolBar > QToolBarExtension:disabled {
-    qproperty-icon: {{ foreground|color(state="disabled")|url(id="double_arrow") }};
 }
 QToolBar > QWidget {
     background: transparent;
@@ -998,12 +962,6 @@ QCalendarWidget > QTableView {
     {{ corner-shape|corner(size=4)|env(value="border-radius: ${}px;", version="<6.0.0", os="Darwin") }}
     {{ primary|color(state="table.selectionBackground")|env(value="selection-background-color: ${};", version="<6.0.0") }}
 }
-QCalendarWidget > .QWidget > QToolButton#qt_calendar_prevmonth {
-    qproperty-icon: {{ foreground|color(state="icon")|url(id="arrow_upward", rotate=270) }};
-}
-QCalendarWidget > .QWidget > QToolButton#qt_calendar_nextmonth {
-    qproperty-icon: {{ foreground|color(state="icon")|url(id="arrow_upward", rotate=90) }};
-}
 QLineEdit,
 QAbstractSpinBox {
     padding: 3px 4px;
@@ -1167,4 +1125,36 @@ ParameterTree > .QWidget {
     background: {{ background|color(state="list") }};
 }
 
+"""  # noqa: E501
+TEMPLATE_STANDARD_ICONS_STYLESHEET = """
+QCalendarWidget {
+    leftarrow-icon: {{ foreground|color(state="icon")|url(id="arrow_upward", rotate=270) }};
+    rightarrow-icon: {{ foreground|color(state="icon")|url(id="arrow_upward", rotate=90) }};
+}
+QCommandLinkButton {
+    qproperty-icon: {{ foreground|color(state="icon")|url(id="east") }};
+}
+QDockWidget,
+QMdiSubWindow {
+    titlebar-close-icon: {{ foreground|color(state="icon")|url(id="close") }};
+    titlebar-normal-icon: {{ foreground|color(state="icon")|url(id="flip_to_front") }};
+}
+QFileDialog {
+    backward-icon: {{ foreground|color(state="icon")|url(id="arrow_upward", rotate=270) }};
+    filedialog-detailedview-icon: {{ foreground|color(state="icon")|url(id="list") }};
+    filedialog-listview-icon: {{ foreground|color(state="icon")|url(id="grid_view") }};
+    filedialog-new-directory-icon: {{ foreground|color(state="icon")|url(id="create_new_folder") }};
+    filedialog-parent-directory-icon: {{ foreground|color(state="icon")|url(id="arrow_upward") }};
+    forward-icon: {{ foreground|color(state="icon")|url(id="arrow_upward", rotate=90) }};
+}
+QLineEdit {
+    {{ foreground|color(state="icon")|url(id="close")|env(value="lineedit-clear-button-icon:${};",version=">=6.0.0") }};
+}
+QMdiSubWindow {
+    titlebar-maximize-icon: {{ foreground|color(state="icon")|url(id="fullscreen") }};
+    titlebar-minimize-icon: {{ foreground|color(state="icon")|url(id="minimize") }};
+}
+QToolBarExtension {
+    qproperty-icon: {{ foreground|color(state="icon")|url(id="double_arrow") }};
+}
 """  # noqa: E501

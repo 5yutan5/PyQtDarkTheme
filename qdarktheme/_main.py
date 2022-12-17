@@ -160,6 +160,7 @@ def setup_theme(
         raise Exception("setup_theme() must be called after instantiation of QApplication.")
     if theme != "auto":
         stop_sync()
+    app.setProperty("_qdarktheme_use_setup_style", True)
 
     def callback():
         _apply_style(

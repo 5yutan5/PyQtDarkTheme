@@ -160,9 +160,19 @@ def load_stylesheet(
 
     get_cash_root_path(__version__).mkdir(parents=True, exist_ok=True)
 
+    stylesheet = _resources.TEMPLATE_STYLESHEET
+    try:
+        from qdarktheme.qtpy.QtCore import QCoreApplication
+
+        app = QCoreApplication.instance()
+        if app is not None and not app.property("_qdarktheme_use_setup_style"):
+            stylesheet += _resources.TEMPLATE_STANDARD_ICONS_STYLESHEET
+    except Exception:  # noqa: PIE786
+        pass
+
     # Build stylesheet
     template = Template(
-        _resources.TEMPLATE_STYLESHEET,
+        stylesheet,
         {"color": filter.color, "corner": filter.corner, "env": filter.env, "url": filter.url},
     )
     replacements = dict(color_values, **{"corner-shape": corner_shape})
