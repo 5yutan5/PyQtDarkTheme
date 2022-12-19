@@ -113,11 +113,11 @@ def _mk_standard_icon_map(icon_map_file: Path, output: Path):
 def _create_icon_definition(icon_id: str, rotate: int | None, qss_property: str) -> str:
     url_placeholder = f'foreground|color(state="icon")|url(id="{icon_id}"'
     if rotate is not None:
-        url_placeholder += f", rotate={rotate}"
+        url_placeholder += f",rotate={rotate}"
     url_placeholder += ")"
     if qss_property == "lineedit-clear-button-icon":
-        return f'    {{{{ {url_placeholder}|env(value="{qss_property}:${{}};",version=">=6.0.0") }}}}'
-    return f"    {qss_property}: {{{{ {url_placeholder} }}}}"
+        return f' {{{{{url_placeholder}|env(value="{qss_property}:${{}};",version=">=6.0.0")}}}}'
+    return f"{qss_property}:{{{{{url_placeholder}}}}}"
 
 
 def _mk_template_standard_icon_stylesheet(icon_map_file: Path) -> str:
@@ -137,23 +137,26 @@ def _mk_template_standard_icon_stylesheet(icon_map_file: Path) -> str:
 
     qss = ""
     for selector, definitions in sorted(definitions_by_selector.items()):
-        qss += ",\n".join(selector) + " {\n"
-        qss += ";\n".join(sorted(definitions)) + ";\n"
-        qss += "}\n"
+        qss += ",".join(selector) + "{"
+        qss += ";".join(sorted(definitions)) + "}"
     return qss
 
 
 def _mk_template_stylesheet(base_stylesheet_file: Path, icon_map_file: Path, output: Path):
     base_qss = base_stylesheet_file.read_text()
     base_qss = _remove_qss_comment(base_qss)
+    base_qss = base_qss.replace("\n", "")
+    base_qss = re.sub(r" \s* ", " ", base_qss)
+    base_qss = re.sub(r"{{.*?}}", lambda match: match.group().replace(" ", ""), base_qss)
+    base_qss = base_qss.replace(";}", "}").replace("{ ", "{")
+    base_qss = base_qss.replace("{{{", "{ {{")
+    base_qss = base_qss.replace(": ", ":").replace("; ", ";")
 
     code = '"""Template stylesheet."""\n\n'
-    code += 'TEMPLATE_STYLESHEET = """\n'
-    code += base_qss
-    code += '\n"""  # noqa: E501\n'
-    code += 'TEMPLATE_STANDARD_ICONS_STYLESHEET = """\n'
+    code += f"TEMPLATE_STYLESHEET = '{base_qss}'  # noqa: E501\n"
+    code += "TEMPLATE_STANDARD_ICONS_STYLESHEET = '"
     code += _mk_template_standard_icon_stylesheet(icon_map_file)
-    code += '"""  # noqa: E501\n'
+    code += "'  # noqa: E501\n"
     output.write_text(code)
 
 

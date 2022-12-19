@@ -1,16 +1,3 @@
-* {
-    padding: 0;
-    margin: 0;
-    border: none;
-    border-style: none;
-    border-image: unset;
-    outline: none;
-}
-QToolBar * {
-    margin: 0;
-    padding: 0;
-}
-
 /* QWidget ----------------------------------------------------------------
 
 --------------------------------------------------------------------------- */
@@ -25,7 +12,9 @@ QWidget:disabled {
     selection-background-color: {{ foreground|color(state="disabledSelectionBackground") }};
     selection-color: {{ foreground|color(state="disabled") }};
 }
-
+QWidget:focus {
+    outline: none;
+}
 /* Top level widget -------------------------------------------------------
 
 --------------------------------------------------------------------------- */
@@ -101,6 +90,11 @@ QStatusBar QWidget {
     padding: 3px;
     border-radius: {{ corner-shape|corner(size=4) }}px;
 }
+/*
+`QStatusBar QWidget` selector also override QSizeGrip rule.
+The QSizeGrip should be hidden on this qss, but the padding is set by `QStatusBar QWidget`.
+Remove padding of QSizeGrip after `QStatusBar QWidget` sets `padding: 3px`.
+*/
 QStatusBar > .QSizeGrip {
     padding: 0;
 }
@@ -182,6 +176,8 @@ QToolBar {
     spacing: 2px;
     margin: 1px;
     background: {{ toolbar.background|color }};
+    /* QToolBar must override `border-style` to set the style. */
+    border-style: none;
 }
 QToolBar::handle:horizontal {
     width: 20px;
@@ -318,41 +314,29 @@ QScrollBar::handle:vertical:hover {
     margin: 14px 2px;
     {{ |env(value="margin: 0;", os="Darwin") }}
 }
-/* We hide background of QScrollBar */
-QScrollBar::sub-page, QScrollBar::add-page {
+/*
+Hide QScrollBar background.
+The `sub-page` and `add-page` are not colored by default on most OS, but are colored on Windows.
+*/
+QScrollBar::sub-page,
+QScrollBar::add-page {
     background: transparent;
 }
 QScrollBar::sub-line,
 QScrollBar::add-line {
     background: transparent;
-    width: 14px;
-    height: 14px;
-    margin: 2px;
-    subcontrol-origin: margin;
-    {{ |env(value="width: 0; height: 0; margin: 0", os="Darwin") }}
+    {{ |env(value="width: 0; height: 0", os="Darwin") }}
 }
-QScrollBar::sub-line:vertical {
-    subcontrol-position: top;
-}
-QScrollBar::add-line:vertical {
-    subcontrol-position: bottom;
-}
-QScrollBar::sub-line:horizontal {
-    subcontrol-position: left;
-}
-QScrollBar::add-line:horizontal {
-    subcontrol-position: right;
-}
-QScrollBar::up-arrow {
+QScrollBar::up-arrow:enabled {
     image: {{ scrollbarSlider.background|color|url(id="arrow_drop_up") }};
 }
-QScrollBar::right-arrow {
+QScrollBar::right-arrow:enabled {
     image: {{ scrollbarSlider.background|color|url(id="arrow_drop_up", rotate=90) }};
 }
-QScrollBar::down-arrow {
+QScrollBar::down-arrow:enabled {
     image: {{ scrollbarSlider.background|color|url(id="arrow_drop_up", rotate=180) }};
 }
-QScrollBar::left-arrow {
+QScrollBar::left-arrow:enabled {
     image: {{ scrollbarSlider.background|color|url(id="arrow_drop_up", rotate=270) }};
 }
 QScrollBar::up-arrow:hover {
@@ -366,18 +350,6 @@ QScrollBar::down-arrow:hover {
 }
 QScrollBar::left-arrow:hover {
     image: {{ scrollbarSlider.activeBackground|color|url(id="arrow_drop_up", rotate=270) }};
-}
-QScrollBar::up-arrow:disabled {
-    image: {{ scrollbarSlider.disabledBackground|color|url(id="arrow_drop_up") }};
-}
-QScrollBar::right-arrow:disabled {
-    image: {{ scrollbarSlider.disabledBackground|color|url(id="arrow_drop_up", rotate=90) }};
-}
-QScrollBar::down-arrow:disabled {
-    image: {{ scrollbarSlider.disabledBackground|color|url(id="arrow_drop_up", rotate=180) }};
-}
-QScrollBar::left-arrow:disabled {
-    image: {{ scrollbarSlider.disabledBackground|color|url(id="arrow_drop_up", rotate=270) }};
 }
 
 /* QProgressBar -----------------------------------------------------------
@@ -503,7 +475,7 @@ QToolButton::menu-button:disabled {
 /* MenuButtonPopup */
 QToolButton[
 {{ |env(value="popupMode=MenuButtonPopup", version="<6.0.0", qt="PySide2") }}
-{{ |env(value="popupMode=\\\"1\\\"", version="<6.0.0", qt="PyQt5") }}
+{{ |env(value="popupMode=\\"1\\"", version="<6.0.0", qt="PyQt5") }}
 {{ |env(value="popupMode=MenuButtonPopup", version=">=6.0.0") }}
 ] {
     padding-right: 1px;
@@ -558,7 +530,7 @@ QComboBox QListView {
 }
 /* QAbstractItemView in QComboBox is NoFrame. Override default settings and show border. */
 QComboBox QListView[
-{{ |env(value="frameShape=\\\"0\\\"", version="<6.0.0")}}
+{{ |env(value="frameShape=\\"0\\"", version="<6.0.0")}}
 {{ |env(value="frameShape=NoFrame", version=">=6.0.0") }}
 ] {
     border-color: {{ border|color }};
@@ -624,22 +596,18 @@ QTabWidget::pane {
     border: 1px solid {{ border|color }};
     border-radius: {{ corner-shape|corner(size=4) }}px;
 }
-QTabBar {
-    /* Not filling background color when drawBase property is true. So need to set drawBase to false. */
-    qproperty-drawBase: 0;
-}
-QTabBar::close-button:selected {
+QTabBar::close-button {
     image: {{ foreground|color(state="icon")|url(id="close") }};
+}
+QTabBar::close-button:hover {
+    background: {{ tabCloseButton.hoverBackground|color }};
+    border-radius: {{ corner-shape|corner(size=4) }}px;
 }
 QTabBar::close-button:!selected {
     image: {{ foreground|color(state="icon.unfocused")|url(id="close") }};
 }
 QTabBar::close-button:disabled {
     image: {{ foreground|color(state="disabled")|url(id="close") }};
-}
-QTabBar::close-button:hover {
-    background: {{ tabCloseButton.hoverBackground|color }};
-    border-radius: {{ corner-shape|corner(size=4) }}px;
 }
 QTabBar::tab {
     padding: 3px;
@@ -722,8 +690,8 @@ QDockWidget::title {
     background: {{ background|color(state="title") }};
 }
 /*
-Hover is already set in the QToolButton:hover, but it is not worked in
-QDockWidget::title. Therefore, we need to set it again here.
+`QDockWidget::close-button` and `QDockWidget::float-button` is not QToolButton.
+We need to set the button style again.
 */
 QDockWidget::close-button,
 QDockWidget::float-button {
@@ -754,7 +722,7 @@ QFrame {
 /* NoFrame */
 QFrame[
 {{ |env(value="frameShape=NoFrame", version="<6.0.0", qt="PySide2") }}
-{{ |env(value="frameShape=\\\"0\\\"", version="<6.0.0", qt="PyQt5") }}
+{{ |env(value="frameShape=\\"0\\"", version="<6.0.0", qt="PyQt5") }}
 {{ |env(value="frameShape=NoFrame", version=">=6.0.0") }}
 ] {
     border-color: transparent;
@@ -762,7 +730,7 @@ QFrame[
 }
 .QFrame[
 {{ |env(value="frameShape=NoFrame", version="<6.0.0", qt="PySide2") }}
-{{ |env(value="frameShape=\\\"0\\\"", version="<6.0.0", qt="PyQt5") }}
+{{ |env(value="frameShape=\\"0\\"", version="<6.0.0", qt="PyQt5") }}
 {{ |env(value="frameShape=NoFrame", version=">=6.0.0") }}
 ] {
     border: none;
@@ -770,7 +738,7 @@ QFrame[
 /* Panel */
 QFrame[
 {{ |env(value="frameShape=Panel", version="<6.0.0", qt="PySide2") }}
-{{ |env(value="frameShape=\\\"2\\\"", version="<6.0.0", qt="PyQt5") }}
+{{ |env(value="frameShape=\\"2\\"", version="<6.0.0", qt="PyQt5") }}
 {{ |env(value="frameShape=Panel", version=">=6.0.0") }}
 ] {
     border-color: {{ background|color(state="panel") }};
@@ -779,7 +747,7 @@ QFrame[
 /* HLine */
 QFrame[
 {{ |env(value="frameShape=HLine", version="<6.0.0", qt="PySide2") }}
-{{ |env(value="frameShape=\\\"4\\\"", version="<6.0.0", qt="PyQt5") }}
+{{ |env(value="frameShape=\\"4\\"", version="<6.0.0", qt="PyQt5") }}
 {{ |env(value="frameShape=HLine", version=">=6.0.0") }}
 ] {
     max-height: 2px;
@@ -789,7 +757,7 @@ QFrame[
 /* VLine */
 QFrame[
 {{ |env(value="frameShape=VLine", version="<6.0.0", qt="PySide2") }}
-{{ |env(value="frameShape=\\\"5\\\"", version="<6.0.0", qt="PyQt5") }}
+{{ |env(value="frameShape=\\"5\\"", version="<6.0.0", qt="PyQt5") }}
 {{ |env(value="frameShape=VLine", version=">=6.0.0") }}
 ] {
     max-width: 2px;
@@ -1263,12 +1231,8 @@ QDateTimeEdit QCalendarWidget QAbstractItemView {
 /* QFileDialog QFontDialog ------------------------------------------------
 
 --------------------------------------------------------------------------- */
-QFileDialog > QFrame QAbstractItemView {
+QFileDialog QFrame {
     border: none;
-}
-QFileDialog > QFrame > QFrame QFrame QFrame {
-    border: none;
-    padding: 0;
 }
 
 QFontDialog QListView {
