@@ -236,7 +236,8 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qmenu
 QMenu {
     background: {{ background|color(state="popup") }};
     padding: 8px 0;
-    border: 1px solid {{ border|color }};
+    {{ corner-shape|corner(size=4)|env(value="border-radius: ${}px;", version="<6.0.0", os="Darwin") }}
+    {{ corner-shape|corner(size=4)|env(value="border-radius: ${}px;", version=">=6.4.1", os="Darwin") }}
 }
 QMenu::separator {
     margin: 4px 0;
@@ -504,7 +505,7 @@ QComboBox::drop-down {
     margin: 2px 2px 2px -6px;
     border-radius: {{ corner-shape|corner(size=4) }};  /* This remove default style. */
 }
-QComboBox[editable=true]::drop-down:hover {
+QComboBox::drop-down:editable:hover {
     background: {{ inputButton.hoverBackground|color }};
 }
 QComboBox::down-arrow {
@@ -513,27 +514,33 @@ QComboBox::down-arrow {
 QComboBox::down-arrow:disabled {
     image: {{ foreground|color(state="disabled")|url(id="expand_less", rotate=180) }};
 }
-QComboBox[editable=true]::down-arrow:open {
+QComboBox::down-arrow:editable:open {
     image: {{ foreground|color(state="icon")|url(id="expand_less") }};
 }
-QComboBox[editable=true]::down-arrow:open:disabled {
+QComboBox::down-arrow:editable:open:disabled {
     image: {{ foreground|color(state="disabled")|url(id="expand_less") }};
 }
 /* Setting background color of selected item when editable is false. */
 QComboBox::item:selected {
     border: none;  /* This remove the border of indicator. */
     background: {{ primary|color(state="list.selectionBackground") }};
+    border-radius: {{ corner-shape|corner(size=4) }}px;
 }
 
-QComboBox QListView {
-    background: {{ background|color(state="popup") }};
-}
 /* QAbstractItemView in QComboBox is NoFrame. Override default settings and show border. */
 QComboBox QListView[
 {{ |env(value="frameShape=\\"0\\"", version="<6.0.0")}}
 {{ |env(value="frameShape=NoFrame", version=">=6.0.0") }}
 ] {
-    border-color: {{ border|color }};
+    margin: 0;
+    padding: 4px;
+    background: {{ background|color(state="popup") }};
+    border-radius: 0;
+    {{ corner-shape|corner(size=4)|env(value="border-radius: ${}px;", version="<6.0.0", os="Darwin") }}
+    {{ corner-shape|corner(size=4)|env(value="border-radius: ${}px;", version=">=6.4.1", os="Darwin") }}
+}
+QComboBox QListView::item {
+    border-radius: {{ corner-shape|corner(size=4) }}px;
 }
 
 
@@ -1320,23 +1327,6 @@ QRadioButton::indicator:checked {
 }
 QRadioButton::indicator:checked:disabled {
     image: {{ foreground|color(state="disabled")|url(id="radio_button_checked") }};
-}
-
-/* Rounded popup ----------------------------------------------------------
-
---------------------------------------------------------------------------- */
-QComboBox QAbstractItemView,
-QStatusBar > QMenu,
-QDateTimeEdit QCalendarWidget QAbstractItemView,
-QDateTimeEdit QCalendarWidget .QWidget {
-    margin: 0;
-    border-radius: {{ corner-shape|corner(size=0) }};
-    {{ corner-shape|corner(size=4)|env(value="border-radius: ${}px;", version="<6.0.0", os="Darwin") }}
-}
-/* In Qt6, the style crashes by rounded popup. */
-QMenu,
-QStatusBar > QMenu {
-    {{ corner-shape|corner(size=8)|env(value="border-radius: ${}px;", version="<6.0.0", os="Darwin") }}
 }
 
 /* PyQtGraph
