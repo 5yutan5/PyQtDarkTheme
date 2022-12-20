@@ -535,6 +535,7 @@ QComboBox QListView[
     margin: 0;
     padding: 4px;
     background: {{ background|color(state="popup") }};
+    {{ primary|color(state="list.selectionBackground")|env(value="selection-background-color: ${};", version="<6.0.0") }}
     border-radius: 0;
     {{ corner-shape|corner(size=4)|env(value="border-radius: ${}px;", version="<6.0.0", os="Darwin") }}
     {{ corner-shape|corner(size=4)|env(value="border-radius: ${}px;", version=">=6.4.1", os="Darwin") }}
