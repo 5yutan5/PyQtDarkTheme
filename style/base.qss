@@ -1078,13 +1078,13 @@ QHeaderView {
 }
 QHeaderView::section {
     border: none; /* This hide default grid. */
-    padding-left: 4px;
     background: {{ treeSectionHeader.background|color }};
 }
 QHeaderView::section:horizontal {
     margin-right: 1px; /* This make grid of section. */
 }
 QHeaderView::section:vertical {
+    padding-left: 4px; /* There is no left padding in the vertical header section. */
     margin-bottom: 1px; /* This make section grid. */
 }
 QHeaderView::section:on:enabled,
