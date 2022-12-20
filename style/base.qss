@@ -604,6 +604,13 @@ QTabWidget::pane {
     border: 1px solid {{ border|color }};
     border-radius: {{ corner-shape|corner(size=4) }}px;
 }
+QTabBar {
+    /*
+    Not filling background color when drawBase property is true. So need to set drawBase to false.
+    Default QTabBar is no need following declaration, but QMdiArea is need.
+    */
+    qproperty-drawBase: 0;
+}
 QTabBar::close-button {
     image: {{ foreground|color(state="icon")|url(id="close") }};
 }
