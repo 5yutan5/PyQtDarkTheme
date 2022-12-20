@@ -1073,27 +1073,23 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qheadervie
 
 --------------------------------------------------------------------------- */
 QHeaderView {
-    padding: 0;
-    margin: 0;
-    border: none;
-    border-radius: {{ corner-shape|corner(size=0) }};
+    margin: 0; /* Override QAbstractScrollArea rule. */
+    border: none; /* Override QFrame rule. */
 }
 QHeaderView::section {
-    padding-left: 4px;
-    border: none;
+    border: none; /* This hide default grid. */
     background: {{ treeSectionHeader.background|color }};
 }
 QHeaderView::section:horizontal {
-    border-top: 2px solid transparent;
     margin-right: 1px; /* This make grid of section. */
 }
 QHeaderView::section:vertical {
-    border-left: 2px solid transparent;
-    margin-bottom: 1px; /* This make grid of section. */
+    padding-left: 4px; /* There is no left padding in the vertical header section. */
+    margin-bottom: 1px; /* This make section grid. */
 }
 QHeaderView::section:on:enabled,
-QHeaderView::section:pressed {
-    border-color: {{ primary|color }};
+QHeaderView::section:on:pressed {
+    color: {{ primary|color }};
 }
 QHeaderView::section:last,
 QHeaderView::section:only-one {
@@ -1104,7 +1100,7 @@ QHeaderView::down-arrow:horizontal {
     subcontrol-position: center right;
     image: {{ foreground|color(state="icon")|url(id="expand_less", rotate=180) }};
 }
-QHeaderView::down-arrow:disabled:horizontal {
+QHeaderView::down-arrow:horizontal:disabled {
     image: {{ foreground|color(state="disabled")|url(id="expand_less", rotate=180) }};
 }
 QHeaderView::up-arrow:horizontal {
@@ -1112,9 +1108,14 @@ QHeaderView::up-arrow:horizontal {
     subcontrol-position: center right;
     image: {{ foreground|color(state="icon")|url(id="expand_less") }};
 }
-QHeaderView::up-arrow:disabled:horizontal {
+QHeaderView::up-arrow:horizontal:disabled {
     image: {{ foreground|color(state="disabled")|url(id="expand_less") }};
 }
+/*
+Longer text in the vertical QHeaderView section makes the section space too large.
+This is because a transparent arrow appears on the vertical QHeaderView.
+Remove the vertical QHeaderView arrow, and remove the section space.
+*/
 QHeaderView::down-arrow:vertical,
 QHeaderView::up-arrow:vertical {
     width: 0;
