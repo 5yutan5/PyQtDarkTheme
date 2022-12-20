@@ -236,8 +236,8 @@ examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qmenu
 QMenu {
     background: {{ background|color(state="popup") }};
     padding: 8px 0;
-    {{ corner-shape|corner(size=4)|env(value="border-radius: ${}px;", version="<6.0.0") }}
-    {{ corner-shape|corner(size=4)|env(value="border-radius: ${}px;", version=">=6.4.1") }}
+    {{ corner-shape|corner(size=4)|env(value="border-radius: ${}px;", version="<6.0.0", os="Darwin") }}
+    {{ corner-shape|corner(size=4)|env(value="border-radius: ${}px;", version=">=6.4.1", os="Darwin") }}
 }
 QMenu::separator {
     margin: 4px 0;
@@ -536,8 +536,8 @@ QComboBox QListView[
     padding: 4px;
     background: {{ background|color(state="popup") }};
     border-radius: 0;
-    {{ corner-shape|corner(size=4)|env(value="border-radius: ${}px;", version="<6.0.0") }}
-    {{ corner-shape|corner(size=4)|env(value="border-radius: ${}px;", version=">=6.4.1") }}
+    {{ corner-shape|corner(size=4)|env(value="border-radius: ${}px;", version="<6.0.0", os="Darwin") }}
+    {{ corner-shape|corner(size=4)|env(value="border-radius: ${}px;", version=">=6.4.1", os="Darwin") }}
 }
 QComboBox QListView::item {
     border-radius: {{ corner-shape|corner(size=4) }}px;
