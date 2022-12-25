@@ -93,17 +93,16 @@ def setup_theme(
 ) -> None:
     """Apply the theme which looks like flat design to the Qt App completely.
 
-    This function doesn't only set the Qt stylesheet,
-    it applies the complete style to your Qt application using QPalette etc.
-    Also if theme is ``auto``, try to listen to changes to the OS's theme and switch to a
-    matching theme accordingly.
+    This function applies the complete style to your Qt application. If the argument theme is ``auto``,
+    try to listen to changes to the OS's theme and switch the application theme accordingly.
 
     Args:
         theme: The theme name. There are `dark`, `light` and `auto`.
-            If ``auto``, try to sync with system theme and accent(only on Mac).
-            If failed to detect system theme, use the theme set in argument ``default_theme``.
-            When primary color including child color(eg. ``primary>selection.background``) set to
-            custom_colors, disable to sync with accent.
+            If ``auto``, try to sync with your OS's theme and accent (accent is only on Mac).
+            If failed to detect OS's theme, use the default theme set in argument ``default_theme``.
+            When primary color(``primary``) or primary child colors
+            (such as ``primary>selection.background``) are set to custom_colors,
+            disable to sync with the accent.
         corner_shape: The corner shape. There are `rounded` and `sharp` shape.
         custom_colors: The custom color map. Overrides the default color for color id you set.
             Also you can customize a specific theme only. See example 5.

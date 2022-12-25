@@ -1,6 +1,6 @@
 # Styles
 
-This folder contains style data of PyQtDarkTheme. If you have a better idea for this style, edit this folder and create PR.
+This folder contains the style data of PyQtDarkTheme. If you have a better idea for this style, edit this folder and create PR.
 
 ## How to build style to qdarktheme module
 
@@ -10,9 +10,9 @@ You need to run the following command to add the style changes to qdarktheme.
 python -m tools.build_styles
 ```
 
-If you are using VSCode, you can build style and run example app at the same time by running a `Check style` task.
+When using VSCode, you can build the style resource and show the widget gallery together by running a "Check style" task.
 
-Even if you forget to add the style changes, a pre-commit or GitHub actions will automatically build and add them.
+Even if you forget to add the style changes, pre-commit or GitHub actions will automatically build and add them.
 
 ## Colors
 
@@ -20,11 +20,11 @@ Currently, the supporting color format is only hexadecimal notations: #RGB, #RGB
 
 ## Theme colors
 
-Default color maps for dark/light theme is in `colors/themes/{theme_name}.json`.
+Default color maps for dark/light theme are in `colors/themes/{theme_name}.json`.
 
 Colors that depend on specific colors like `background>textarea` adjust darkness, lightness and transparency.
 
-If you think it's best to use additional theme color id for more highly customizable, you need to edit `colors/themes/{theme_name}.json` and `colors/themes/validate.json` to add color id for specific widgets or components.
+If you think it's best to use additional theme colors id for more highly customizable, you need to edit `colors/themes/{theme_name}.json` and `colors/themes/validate.json` to add color id for specific widgets or components.
 
 ## Accent colors
 
@@ -36,22 +36,22 @@ MacOS features accent colors. qdarktheme can detect these accent colors and set 
 
 ## Icon
 
-Currently PyQtDarkTheme uses only svg icons for styling. Svg resources is in `svg/`. Most of the icons use Google [Material Design Icons](https://github.com/google/material-design-icons).
+Currently, PyQtDarkTheme uses only SVG for styling. All SVG icons are in `svg/`. Most of the icons use Google [Material Design Icons](https://github.com/google/material-design-icons).
 
 ### Material Design Icons
 
-This svg icon is automatically downloaded from [material-icons](https://github.com/marella/material-icons), saved in `svg/material` and always kept up-to-date by GitHub actions. You don't need to download icons manually.
-If you want to add new svg of material design icons to this style, add the icon name and style to the `svg/material_design_icons.json` list.
+All SVG icons of Material Design Icons are automatically downloaded from [material-icons](https://github.com/marella/material-icons), saved in `svg/material`, and always kept up-to-date by GitHub actions. You don't need to download icons manually.
+If you want to add new material icons to this style, add the icon name and style to the `svg/material_design_icons.json` list.
 > **Warning**
 >
 > Don't edit `svg/material` manually.
 
 ### Original Icons
 
-The original icons of PyQtDarkTheme is in `svg/original`. You can add and edit this icon manually.
+PyQtDarkTheme also has own SVG icons in `svg/original`. You can add and edit its icons manually.
 > **Warning**
 >
-> PyQtDarkTheme supports simple svg like following code.
+> PyQtDarkTheme supports simple SVG like following code.
 >
 > ```svg
 > <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9 16.17 5.53 12.7a.996.996 0 1 0-1.41 1.41l4.18 4.18c.39.39 1.02.39 1.41 0L20.29 7.71a.996.996 0 1 0-1.41-1.41L9 16.17z"/></svg>
@@ -61,7 +61,7 @@ The original icons of PyQtDarkTheme is in `svg/original`. You can add and edit t
 
 ### Override Qt standard Icons
 
-Qt include [standard icons](https://doc.qt.io/qt-6/qstyle.html#StandardPixmap-enum). `qdarktheme.setup_theme` override standard icons to custom icons by using QProxyStyle. You can edit custom icons in `svg/new_standard_icons.json`.
+Qt has standard icons. `qdarktheme.setup_theme` can override its icons to custom icons by using QProxyStyle. You can edit custom icons in `svg/new_standard_icons.json`.
 
 ## Style Sheet
 

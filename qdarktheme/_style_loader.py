@@ -111,10 +111,11 @@ def load_stylesheet(
 
     Args:
         theme: The theme name. There are `dark`, `light` and `auto`.
-            If ``auto``, try to detect system theme and accent.
-            If failed to detect system theme, use the theme set in argument ``default_theme``.
-            When primary color including child color(eg. ``primary>selection.background``) set to
-            custom_colors, disable to detect accent.
+            If ``auto``, try to detect your OS's theme and accent (accent is only on Mac).
+            If failed to detect OS's theme, use the default theme set in argument ``default_theme``.
+            When primary color(``primary``) or primary child colors
+            (such as ``primary>selection.background``) are set to custom_colors,
+            disable to detect the accent.
         corner_shape: The corner shape. There are `rounded` and `sharp` shape.
         custom_colors: The custom color map. Overrides the default color for color id you set.
             Also you can customize a specific theme only. See example 6.

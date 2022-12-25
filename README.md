@@ -1,6 +1,6 @@
 # PyQtDarkTheme
 
-PyQtDarkTheme applies a flat dark theme to QtWidgets application(PySide and PyQt). There's a light theme too. Color and style balanced from a dark theme for easy viewing in daylight.
+PyQtDarkTheme applies a flat dark theme to QtWidgets application. There's a light theme too. Color balanced from the dark theme for easy viewing in daylight.
 
 Check out the [complete documentation](https://pyqtdarktheme.readthedocs.io).
 
@@ -20,7 +20,6 @@ Check out the [complete documentation](https://pyqtdarktheme.readthedocs.io).
 
 - A flat dark and light theme
 - Support PySide and PyQt
-- Support PyInstaller
 - Sync with OS's theme and accent (Mac, Windows, Linux)
 - Resolve the style differences between Qt versions
 - Provide dark/light theme QPalette
@@ -85,7 +84,7 @@ Further information can be found in our docs:
 ### Enable HiDPI
 
 ```Python
-# enable_hi_dpi() must be called before instantiation of QApplication.
+# enable_hi_dpi() must be called before the instantiation of QApplication.
 qdarktheme.enable_hi_dpi()
 app = QApplication(sys.argv)
 qdarktheme.setup_theme()
@@ -112,14 +111,14 @@ On macOS, qdarktheme also syncs with accent colors.
 
 ### Customizing colors
 
-You can customize theme color.
+You can customize the theme color.
 
 ```python
 # Customize accent color.
 qdarktheme.setup_theme(custom_colors={"primary": "#D0BCFF"})
 ```
 
-Further information for customizing color can be found in our theme color docs:
+For a list of all customizable colors, see the Theme Color Reference:
 
 - [Theme Color](https://pyqtdarktheme.readthedocs.io/en/latest/reference/theme_color.html)
 
@@ -134,7 +133,7 @@ stylesheet = qdarktheme.setup_theme(corner_shape="sharp")
 
 ### QPalette and stylesheet
 
-You can also only load QPalette and stylesheet. `qdarktheme.setup_theme` uses following functions internally.
+You can also only load QPalette and stylesheet. `qdarktheme.setup_theme` uses the following functions internally.
 
 ```Python
 palette = qdarktheme.load_palette(theme="dark")
