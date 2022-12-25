@@ -2,9 +2,9 @@
   "json.schemas": [
     {
       "fileMatch": [
-        "/style/colors/*"
+        "/style/colors/themes/*"
       ],
-      "url": "/style/colors/validate.json"
+      "url": "/style/colors/themes/validate.json"
     }
   ],
   "python.testing.pytestEnabled": true,
@@ -18,8 +18,10 @@
   "cSpell.words": [
     "AARRGGBB",
     "absolufy",
+    "alloc",
     "argb",
     "autofix",
+    "Autorelease",
     "backticks",
     "cmpfiles",
     "codecov",
@@ -27,14 +29,17 @@
     "docstrings",
     "Duquesnoy",
     "filecmp",
+    "HIGHDPI",
     "isort",
     "jakebailey",
     "jsonschema",
     "kargs",
+    "libobjc",
     "linebreak",
     "markdownlint",
     "maxdepth",
     "ncipollo",
+    "objc",
     "Pixmap",
     "Pixmaps",
     "pydata",

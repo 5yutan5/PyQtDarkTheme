@@ -1,0 +1,22 @@
+{
+  "dark": {
+    "graphite": "#898a8f",
+    "red": "#f6685e",
+    "orange": "#ff9800",
+    "yellow": "#ffeb3b",
+    "green": "#4caf50",
+    "blue": "#8ab4f7",
+    "purple": "#af52bf",
+    "pink": "#c7457f"
+  },
+  "light": {
+    "graphite": "#898a8f",
+    "red": "#f44336",
+    "orange": "#ff9800",
+    "yellow": "#f4c65f",
+    "green": "#4caf50",
+    "blue": "#1a73e8",
+    "purple": "#9c27b0",
+    "pink": "#c7457f"
+  }
+}

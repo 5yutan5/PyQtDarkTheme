@@ -10,7 +10,7 @@ from qdarktheme._color import Color
 
 @lru_cache()
 def _svg_resources() -> dict[str, str]:
-    return json.loads(_resources.SVG_RESOURCES)
+    return json.loads(_resources.svg.SVG_RESOURCES)
 
 
 class Svg:

@@ -42,7 +42,7 @@ If you want to enable HiDPI, you can use ``qdarktheme.enable_hi_dpi()``. For Qt6
 Toggle dark/light Theme
 -----------------------
 
-If you add ``theme`` argument as "auto", your Qt Application sync with OS's theme.
+If you add ``theme`` argument as "auto", your Qt Application sync with OS's theme. On macOS, qdarktheme also syncs with accent colors.
 
 .. tab-set::
 

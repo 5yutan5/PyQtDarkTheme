@@ -36,14 +36,14 @@ def _apply_style(app, additional_qss: str | None, **kargs) -> None:
 
 
 def _sync_theme_with_system(app, callback) -> None:
-    from qdarktheme._theme_listener import OSThemeSwitchListener
+    from qdarktheme._os_appearance import listener
 
     global _listener
     if _listener is not None:
         _listener.sig_run.emit(True)
         return
 
-    _listener = OSThemeSwitchListener(callback)
+    _listener = listener.OSThemeSwitchListener(callback)
 
     if platform.system() == "Darwin":
         app.installEventFilter(_listener)
@@ -100,9 +100,10 @@ def setup_theme(
 
     Args:
         theme: The theme name. There are `dark`, `light` and `auto`.
-            If ``auto``, try to sync with system theme.
-            If failed to detect system theme,
-            use the theme set in argument ``default_theme``.
+            If ``auto``, try to sync with system theme and accent(only on Mac).
+            If failed to detect system theme, use the theme set in argument ``default_theme``.
+            When primary color including child color(eg. ``primary>selection.background``) set to
+            custom_colors, disable to sync with accent.
         corner_shape: The corner shape. There are `rounded` and `sharp` shape.
         custom_colors: The custom color map. Overrides the default color for color id you set.
             Also you can customize a specific theme only. See example 5.

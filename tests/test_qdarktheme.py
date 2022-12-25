@@ -49,7 +49,7 @@ def test_load_stylesheet_with_border() -> None:
 
 def test_load_stylesheet_with_wrong_theme() -> None:
     """Verify we raise ValueError when using wrong theme name."""
-    with pytest.raises(ValueError, match='invalid argument, not a dark or light: "wrong_value"'):
+    with pytest.raises(ValueError, match='invalid argument, not a dark, light or auto: "wrong_value"'):
         qdarktheme.load_stylesheet("wrong_value")
 
 

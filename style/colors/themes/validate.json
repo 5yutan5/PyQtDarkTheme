@@ -1,0 +1,451 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "title": "The json schema for validating color map file",
+  "description": "The root schema comprises the entire JSON document.",
+  "definitions": {
+    "color_code": {
+      "type": "string",
+      "format": "color"
+    },
+    "color_style": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "transparent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "darken": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "lighten": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    }
+  },
+  "additionalProperties": false,
+  "groups": {
+    "Base colors": "Base color for application.",
+    "Button control": "Colors for QPushButton, QToolButton and QDockWidget title button.",
+    "Input": "Colors for QAbstractSpinBox, QSpinBox, QComboBox and QLineEdit.",
+    "Link colors": "Colors for link.",
+    "Lists and trees": "Colors for QListView/QListWidget and QTreeView/QTreeWidget and QColumnView.",
+    "Menubar": "Colors for QMenuBar.",
+    "Popup": "Colors for QMenu and QToolTip.",
+    "Progress bar": "Colors for QProgressBar.",
+    "Scrollbar control": "Colors for QScrollBar.",
+    "Slider control": "Colors for QSlider.",
+    "Statusbar colors": "Colors for QStatusBar.",
+    "Tabs": "Colors for QTabBar.",
+    "Textarea": "Colors for QTextEdit, QTextBrowser and QPlainTextEdit.",
+    "Table": "Colors for QTableView/QTableWidget.",
+    "Title": "Colors for title components.",
+    "Toolbar": "Colors for QToolBar.",
+    "Panel": "Colors for panel."
+  },
+  "properties": {
+    "input.background": {
+      "description": "Background color for QAbstractSpinBox, QComboBox and QLineEdit.",
+      "group": "Input",
+      "$ref": "#/definitions/color_code"
+    },
+    "inputButton.hoverBackground": {
+      "description": "Hover background color of button in QAbstractSpinBox.",
+      "group": "Input",
+      "$ref": "#/definitions/color_code"
+    },
+    "linkVisited": {
+      "description": "Foreground color for already visited hyperlinks.",
+      "group": "Link colors",
+      "$ref": "#/definitions/color_code"
+    },
+    "list.alternateBackground": {
+      "description": "Background color for QListView/QListWidget, QTreeView/QTreeWidget and QColumnView alternating rows.",
+      "group": "Lists and trees",
+      "$ref": "#/definitions/color_code"
+    },
+    "list.hoverBackground": {
+      "description": "QListView/QListWidget, QTreeView/QTreeWidget and QColumnView background color when hovering over items using the mouse.",
+      "group": "Lists and trees",
+      "$ref": "#/definitions/color_code"
+    },
+    "menubar.selectionBackground": {
+      "description": "Background color of the selected menu item in the QMenuBar.",
+      "group": "Menubar",
+      "$ref": "#/definitions/color_code"
+    },
+    "popupItem.checkbox.background": {
+      "description": "Background color of QCheckBox in QMenu.",
+      "group": "Popup",
+      "$ref": "#/definitions/color_code"
+    },
+    "popupItem.selectionBackground": {
+      "description": "Background color of the selected item in the QMenu.",
+      "group": "Popup",
+      "$ref": "#/definitions/color_code"
+    },
+    "scrollbar.background": {
+      "description": "QScrollBar background color. Available on OS other than mac.",
+      "group": "Scrollbar control",
+      "$ref": "#/definitions/color_code"
+    },
+    "scrollbarSlider.activeBackground": {
+      "description": "QScrollbar slider background color when clicked on.",
+      "group": "Scrollbar control",
+      "$ref": "#/definitions/color_code"
+    },
+    "scrollbarSlider.background": {
+      "description": "QScrollbar slider background color.",
+      "group": "Scrollbar control",
+      "$ref": "#/definitions/color_code"
+    },
+    "scrollbarSlider.disabledBackground": {
+      "description": "Scrollbar slider background color when disabled.",
+      "group": "Scrollbar control",
+      "$ref": "#/definitions/color_code"
+    },
+    "scrollbarSlider.hoverBackground": {
+      "description": "QScrollbar slider background color when hovering.",
+      "group": "Scrollbar control",
+      "$ref": "#/definitions/color_code"
+    },
+    "statusBar.background": {
+      "description": "QStatusBar background color.",
+      "group": "Statusbar colors",
+      "$ref": "#/definitions/color_code"
+    },
+    "statusBarItem.activeBackground": {
+      "description": "QStatusBar item background color when clicking.",
+      "group": "Statusbar colors",
+      "$ref": "#/definitions/color_code"
+    },
+    "statusBarItem.hoverBackground": {
+      "description": "QStatusBar item background color when hovering.",
+      "group": "Statusbar colors",
+      "$ref": "#/definitions/color_code"
+    },
+    "tab.activeBackground": {
+      "description": "Active Tab background color in an QTabBar.",
+      "group": "Tabs",
+      "$ref": "#/definitions/color_code"
+    },
+    "tab.hoverBackground": {
+      "description": "Tab background color when hovering in an QTabBar.",
+      "group": "Tabs",
+      "$ref": "#/definitions/color_code"
+    },
+    "tabCloseButton.hoverBackground": {
+      "description": "Background color of close button in an QTabBar.",
+      "group": "Tabs",
+      "$ref": "#/definitions/color_code"
+    },
+    "table.alternateBackground": {
+      "description": "Background color for QTableView/QTableWidget alternating rows.",
+      "group": "Table",
+      "$ref": "#/definitions/color_code"
+    },
+    "tableSectionHeader.background": {
+      "description": "QTableView/QTableWidget section header background color.",
+      "group": "Table",
+      "$ref": "#/definitions/color_code"
+    },
+    "textarea.inactiveSelectionBackground": {
+      "description": "QTextEdit, QTextBrowser and QPlainTextEdit background color for the selected item when the widget is inactive.",
+      "group": "Textarea",
+      "$ref": "#/definitions/color_code"
+    },
+    "toolbar.activeBackground": {
+      "description": "QToolBar button background color when clicking.",
+      "group": "Toolbar",
+      "$ref": "#/definitions/color_code"
+    },
+    "toolbar.background": {
+      "description": "QToolBar background color.",
+      "group": "Toolbar",
+      "$ref": "#/definitions/color_code"
+    },
+    "toolbar.hoverBackground": {
+      "description": "QToolbar background when hovering over items using the mouse.",
+      "group": "Toolbar",
+      "$ref": "#/definitions/color_code"
+    },
+    "tree.inactiveIndentGuidesStroke": {
+      "description": "QTreeView stroke color for indent guides when QTreeView is inactive.",
+      "group": "Lists and trees",
+      "$ref": "#/definitions/color_code"
+    },
+    "tree.indentGuidesStroke": {
+      "description": "QTreeView stroke color for indent guides.",
+      "group": "Lists and trees",
+      "$ref": "#/definitions/color_code"
+    },
+    "treeSectionHeader.background": {
+      "description": "QTreeView section header background color.",
+      "group": "Lists and trees",
+      "$ref": "#/definitions/color_code"
+    },
+    "background": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "base": {
+          "description": "Overall background color. This color is only used if not overridden by a widget.",
+          "group": "Base colors",
+          "$ref": "#/definitions/color_code"
+        },
+        "list": {
+          "description": "Background color for QListView/QListWidget, QTreeView/QTreeWidget and QColumnView.",
+          "group": "Lists and trees",
+          "$ref": "#/definitions/color_style"
+        },
+        "panel": {
+          "description": "Background color of QFrame when the frameShape property is Panel.",
+          "group": "Panel",
+          "$ref": "#/definitions/color_style"
+        },
+        "popup": {
+          "description": "Background color for QToolTip, QMenu and dropdown of QComboBox.",
+          "group": "Popup",
+          "$ref": "#/definitions/color_style"
+        },
+        "table": {
+          "description": "QTableView/QTableWidget background color.",
+          "group": "Table",
+          "$ref": "#/definitions/color_style"
+        },
+        "textarea": {
+          "description": "QTextEdit/QPlainTextEdit background color.",
+          "group": "Textarea",
+          "$ref": "#/definitions/color_style"
+        },
+        "title": {
+          "description": "Background color for QDockWidget title and QToolBox tab.",
+          "group": "Title",
+          "$ref": "#/definitions/color_style"
+        }
+      },
+      "required": [
+        "base",
+        "list",
+        "panel",
+        "popup",
+        "table",
+        "textarea",
+        "title"
+      ]
+    },
+    "border": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "base": {
+          "description": "Overall border color. This color is only used if not overridden by a widget.",
+          "group": "Base colors",
+          "$ref": "#/definitions/color_code"
+        },
+        "input": {
+          "description": "Border color for QAbstractSpinBox, QComboBox and QLineEdit.",
+          "group": "Input",
+          "$ref": "#/definitions/color_style"
+        }
+      },
+      "required": [
+        "base",
+        "input"
+      ]
+    },
+    "foreground": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "base": {
+          "description": "Overall foreground color. This color is only used if not overridden by a widget.",
+          "group": "Base colors",
+          "$ref": "#/definitions/color_code"
+        },
+        "defaultButton.disabledBackground": {
+          "description": "Default QPushButton background color when disabled.",
+          "group": "Button control",
+          "$ref": "#/definitions/color_style"
+        },
+        "disabled": {
+          "description": "Overall foreground color for disabled elements. This color is only used if not overridden by a widget.",
+          "group": "Base colors",
+          "$ref": "#/definitions/color_style"
+        },
+        "disabledSelectionBackground": {
+          "description": "Overall background color for the selected item when widgets are disabled.",
+          "group": "Base colors",
+          "$ref": "#/definitions/color_style"
+        },
+        "icon": {
+          "description": "The default color for icons.",
+          "group": "Base colors",
+          "$ref": "#/definitions/color_style"
+        },
+        "icon.unfocused": {
+          "description": "The default color for icons when unfocused. Currently, this color is only used for unselected tab close button of QTabBar.",
+          "group": "Base colors",
+          "$ref": "#/definitions/color_style"
+        },
+        "input.placeholder": {
+          "description": "QLineEdit and QComboBox(editable) foreground color for placeholder text.",
+          "group": "Input",
+          "$ref": "#/definitions/color_style"
+        },
+        "progressBar.disabledBackground": {
+          "description": "Active indicator color of QProgressBar when disabled.",
+          "group": "Progress bar",
+          "$ref": "#/definitions/color_style"
+        },
+        "slider.disabledBackground": {
+          "description": "Active track and handle color of QSlider when disabled.",
+          "group": "Slider control",
+          "$ref": "#/definitions/color_style"
+        },
+        "sliderTrack.inactiveBackground": {
+          "description": "Inactive track color of QSlider.",
+          "group": "Slider control",
+          "$ref": "#/definitions/color_style"
+        }
+      },
+      "required": [
+        "base",
+        "defaultButton.disabledBackground",
+        "disabled",
+        "disabledSelectionBackground",
+        "icon",
+        "icon.unfocused",
+        "input.placeholder",
+        "progressBar.disabledBackground",
+        "slider.disabledBackground",
+        "sliderTrack.inactiveBackground"
+      ]
+    },
+    "primary": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "base": {
+          "description": "Accent color.",
+          "group": "Base colors",
+          "$ref": "#/definitions/color_code"
+        },
+        "button.activeBackground": {
+          "description": "Background color for QPushButton, QToolButton and button on QDockWidget title when the widget is active(pressed or checked).",
+          "group": "Button control",
+          "$ref": "#/definitions/color_style"
+        },
+        "button.hoverBackground": {
+          "description": "Background color for QPushButton, QToolButton and button on QDockWidget title when hovering over buttons using the mouse.",
+          "group": "Button control",
+          "$ref": "#/definitions/color_style"
+        },
+        "defaultButton.activeBackground": {
+          "description": "QPushButton when the widget is active(pressed or checked).",
+          "group": "Button control",
+          "$ref": "#/definitions/color_style"
+        },
+        "defaultButton.hoverBackground": {
+          "description": "Background color for default QPushButton when hovering over buttons using the mouse.",
+          "group": "Button control",
+          "$ref": "#/definitions/color_style"
+        },
+        "list.inactiveSelectionBackground": {
+          "description": "QListView/QListWidget, QTreeView/QTreeWidget and QColumnView background color for the selected item when the widget is inactive.",
+          "group": "Lists and trees",
+          "$ref": "#/definitions/color_style"
+        },
+        "list.selectionBackground": {
+          "description": "Background color for QListView/QListWidget, QTreeView/QTreeWidget and QColumnView when selected item or texts.",
+          "group": "Lists and trees",
+          "$ref": "#/definitions/color_style"
+        },
+        "progressBar.background": {
+          "description": "Active indicator color of QProgressBar.",
+          "group": "Progress bar",
+          "$ref": "#/definitions/color_style"
+        },
+        "selection.background": {
+          "description": "Overall background color when selected item or texts. This color is only used if not overridden by a widget.",
+          "group": "Base colors",
+          "$ref": "#/definitions/color_style"
+        },
+        "sliderHandle.activeBackground": {
+          "description": "QSlider handle color when pressing or hovering over the handle using the mouse.",
+          "group": "Slider control",
+          "$ref": "#/definitions/color_style"
+        },
+        "table.selectionBackground": {
+          "description": "QTableView/QTableWidget background color when selected item.",
+          "group": "Table",
+          "$ref": "#/definitions/color_style"
+        },
+        "table.inactiveSelectionBackground": {
+          "description": "QTableView/QTableWidget background color for the selected item when the widget is inactive.",
+          "group": "Table",
+          "$ref": "#/definitions/color_style"
+        },
+        "textarea.selectionBackground": {
+          "description": "Background color of text selections in the QTextEdit, QTextBrowser and QPlainTextEdit.",
+          "group": "Textarea",
+          "$ref": "#/definitions/color_style"
+        }
+      },
+      "required": [
+        "base",
+        "button.activeBackground",
+        "button.hoverBackground",
+        "defaultButton.activeBackground",
+        "defaultButton.hoverBackground",
+        "list.inactiveSelectionBackground",
+        "list.selectionBackground",
+        "progressBar.background",
+        "selection.background",
+        "sliderHandle.activeBackground",
+        "table.selectionBackground",
+        "table.inactiveSelectionBackground",
+        "textarea.selectionBackground"
+      ]
+    }
+  },
+  "required": [
+    "background",
+    "border",
+    "foreground",
+    "input.background",
+    "inputButton.hoverBackground",
+    "list.alternateBackground",
+    "list.hoverBackground",
+    "linkVisited",
+    "popupItem.checkbox.background",
+    "popupItem.selectionBackground",
+    "primary",
+    "scrollbar.background",
+    "scrollbarSlider.activeBackground",
+    "scrollbarSlider.disabledBackground",
+    "scrollbarSlider.hoverBackground",
+    "statusBar.background",
+    "statusBarItem.activeBackground",
+    "statusBarItem.hoverBackground",
+    "tab.activeBackground",
+    "tab.hoverBackground",
+    "tabCloseButton.hoverBackground",
+    "table.alternateBackground",
+    "tableSectionHeader.background",
+    "textarea.inactiveSelectionBackground",
+    "toolbar.activeBackground",
+    "toolbar.background",
+    "toolbar.hoverBackground",
+    "tree.inactiveIndentGuidesStroke",
+    "tree.indentGuidesStroke",
+    "treeSectionHeader.background"
+  ]
+}
