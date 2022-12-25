@@ -463,7 +463,6 @@ QToolButton::menu-arrow {
 }
 QToolButton::menu-button {
     subcontrol-origin: margin;
-    border: none;
     width: 17px;
     border-top-right-radius: {{ corner-shape|corner(size=2) }}px;
     border-bottom-right-radius: {{ corner-shape|corner(size=2) }}px;
@@ -481,8 +480,8 @@ QToolButton[
 ] {
     padding-right: 1px;
     margin-right: 18px;
-    border-top-right-radius: {{ corner-shape|corner(size=0) }};
-    border-bottom-right-radius: {{ corner-shape|corner(size=0) }};
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 /* QComboBox --------------------------------------------------------------
@@ -792,9 +791,6 @@ QLCDNumber {
 examples: https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qtoolbox
 
 --------------------------------------------------------------------------- */
-QToolBox:selected {
-    border: 2px solid {{ primary|color }};
-}
 QToolBox::tab {
     background: {{ background|color(state="title") }};
     border-bottom: 2px solid {{ border|color }};
@@ -802,7 +798,7 @@ QToolBox::tab {
     border-top-right-radius: {{ corner-shape|corner(size=4) }}px;
 }
 QToolBox::tab:selected:enabled {
-    border-bottom: 2px solid {{ primary|color }};
+    border-bottom-color: {{ primary|color }};
 }
 
 /* QSplitter --------------------------------------------------------------
@@ -1133,41 +1129,24 @@ QHeaderView::up-arrow:vertical {
 /* QCalendarWidget --------------------------------------------------------
 
 --------------------------------------------------------------------------- */
-QCalendarWidget {
-    border: none;
-}
 QCalendarWidget > .QWidget {
     background: {{ background|color(state="table") }};
     border-bottom: 1px solid {{ border|color }};
-    border-radius: {{ corner-shape|corner(size=4) }}px;
-    border-bottom-left-radius: {{ corner-shape|corner(size=0) }};
-    border-bottom-right-radius: {{ corner-shape|corner(size=0) }};
+    border-top-left-radius: {{ corner-shape|corner(size=4) }}px;
+    border-top-right-radius: {{ corner-shape|corner(size=4) }}px;
 }
 QCalendarWidget > .QWidget > QWidget {
     padding: 1px;
 }
-QCalendarWidget > .QWidget > QSpinBox {
-    margin-left: 1px;
-}
-QCalendarWidget > .QWidget > QSpinBox::up-button,
-QCalendarWidget > .QWidget > QSpinBox::down-button {
-    margin: 1px 3px 1px 1px;
-}
 QCalendarWidget .QWidget > QToolButton {
     border-radius: {{ corner-shape|corner(size=4) }}px;
-}
-QCalendarWidget > .QWidget > QToolButton::menu-indicator {
-    height: 14px;
-    width: 14px;
-    top: 5px;
-    left: 3px;
 }
 QCalendarWidget > QTableView {
     margin: 0;
     border: none;
     border-radius: {{ corner-shape|corner(size=4) }}px;
-    border-top-left-radius: {{ corner-shape|corner(size=0) }};
-    border-top-right-radius: {{ corner-shape|corner(size=0) }};
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
     alternate-background-color: {{ table.alternateBackground|color }};
     {{ corner-shape|corner(size=4)|env(value="border-radius: ${}px;", version="<6.0.0", os="Darwin") }}
     /* Fix 207 */
@@ -1239,12 +1218,6 @@ QDateTimeEdit::down-arrow[calendarPopup=true] {
     image: none;
 }
 
-QDateTimeEdit QCalendarWidget QAbstractItemView {
-    /* Fix bug where the last line was off the calendar. */
-    padding: -1px;
-    border: none;
-}
-
 /* QFileDialog QFontDialog ------------------------------------------------
 
 --------------------------------------------------------------------------- */
@@ -1254,9 +1227,6 @@ QFileDialog QFrame {
 
 QFontDialog QListView {
     min-height: 60px;
-}
-QFontDialog QScrollBar:vertical {
-    margin: 0;
 }
 
 /* Check ------------------------------------------------------------------
