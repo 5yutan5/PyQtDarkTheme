@@ -42,11 +42,6 @@ def test_load_stylesheet(theme, corner_shape, custom_colors) -> None:
     qdarktheme.load_stylesheet(theme, corner_shape, custom_colors)
 
 
-def test_load_stylesheet_with_border() -> None:
-    """Verify that the function `load_stylesheet()` runs successfully when using border arguments."""
-    qdarktheme.load_stylesheet(border="sharp")
-
-
 def test_load_stylesheet_with_wrong_theme() -> None:
     """Verify we raise ValueError when using wrong theme name."""
     with pytest.raises(ValueError, match='invalid argument, not a dark, light or auto: "wrong_value"'):
@@ -57,18 +52,6 @@ def test_load_stylesheet_with_wrong_corner_shape() -> None:
     """Verify we raise ValueError when using wrong corner shape name."""
     with pytest.raises(ValueError, match='invalid argument, not a rounded or sharp: "wrong_value"'):
         qdarktheme.load_stylesheet(corner_shape="wrong_value")
-
-
-def test_load_stylesheet_with_wrong_border() -> None:
-    """Verify we raise ValueError when using wrong border name."""
-    with pytest.raises(ValueError, match='invalid argument, not a rounded or sharp: "wrong_value"'):
-        qdarktheme.load_stylesheet(border="wrong_value")
-
-
-def test_load_stylesheet_with_deprecation_border() -> None:
-    """Verify we raise FutureWarning when using deprecated border argument."""
-    with pytest.warns(FutureWarning):
-        qdarktheme.load_stylesheet(border="sharp")
 
 
 def test_load_stylesheet_with_wrong_color_format() -> None:

@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import json
 import shutil
-import warnings
 from functools import partial
 
 from qdarktheme import __version__, _os_appearance, _resources
@@ -105,7 +104,6 @@ def load_stylesheet(
     custom_colors: dict[str, str | dict[str, str]] | None = None,
     *,
     default_theme: str = "dark",
-    border: str | None = None,
 ) -> str:
     """Load the style sheet which looks like flat design. There are `dark` and `light` theme.
 
@@ -121,9 +119,6 @@ def load_stylesheet(
             Also you can customize a specific theme only. See example 6.
         default_theme: The default theme name.
             The theme set by this argument will be used when system theme detection fails.
-        border: The corner shape. There are `rounded` and `sharp` shape.
-            This argument is deprecated since v1.2.0. Please use `corner_shape` instead.
-            This argument override value of argument `corner_shape`.
 
     Raises:
         ValueError: If the arguments of this method is wrong.
@@ -183,15 +178,6 @@ def load_stylesheet(
     color_values = _color_values(theme)
     if corner_shape not in ("rounded", "sharp"):
         raise ValueError(f'invalid argument, not a rounded or sharp: "{corner_shape}"')
-    if border not in (None, "rounded", "sharp"):
-        raise ValueError(f'invalid argument, not a rounded or sharp: "{border}"')
-    if border is not None:
-        warnings.warn(
-            'deprecated argument, "border" is deprecated since v2.0.0. '
-            'Please use "corner_shape" instead.',
-            FutureWarning,
-        )
-        corner_shape = border
 
     if custom_colors is not None:
         _marge_colors(color_values, custom_colors, theme)
