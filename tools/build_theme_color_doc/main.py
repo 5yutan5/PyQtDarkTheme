@@ -9,8 +9,8 @@ from pathlib import Path
 from qdarktheme._color import Color
 from tools._util import get_style_path
 
-_DEFAULT_DARK_COLORS: dict = json.loads((get_style_path() / "colors" / "dark.json").read_bytes())
-_DEFAULT_LIGHT_COLORS: dict = json.loads((get_style_path() / "colors" / "light.json").read_bytes())
+_DEFAULT_DARK_COLORS: dict = json.loads((get_style_path() / "colors/themes/dark.json").read_bytes())
+_DEFAULT_LIGHT_COLORS: dict = json.loads((get_style_path() / "colors/themes/light.json").read_bytes())
 
 
 @dataclass
@@ -36,7 +36,9 @@ def _to_hex(base_color: str, color_info: dict[str, float]) -> str:
 
 
 def _parse_theme_color_files() -> dict[str, list[_ThemeColor]]:
-    validate_property: dict = json.loads((get_style_path() / "colors" / "validate.json").read_bytes())
+    validate_property: dict = json.loads(
+        (get_style_path() / "colors/themes/validate.json").read_bytes()
+    )
     theme_color_properties: dict[str, dict] = validate_property["properties"]
     groups: dict[str, str] = validate_property["groups"]
 
@@ -126,7 +128,9 @@ def _mk_color_section(theme_color: _ThemeColor) -> str:
 
 
 def _mk_color_list_section(theme_colors: dict[str, list[_ThemeColor]]) -> str:
-    validate_property: dict = json.loads((get_style_path() / "colors" / "validate.json").read_bytes())
+    validate_property: dict = json.loads(
+        (get_style_path() / "colors/themes/validate.json").read_bytes()
+    )
     groups: dict[str, str] = validate_property["groups"]
     doc_text = "\n"
     for group_name, group_description in sorted(groups.items()):
