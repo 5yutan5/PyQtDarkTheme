@@ -1,0 +1,134 @@
+{
+  "input.background": "#3f4042",
+  "inputButton.hoverBackground": "#ffffff25",
+  "list.alternateBackground": "#ffffff0c",
+  "list.hoverBackground": "#ffffff13",
+  "linkVisited": "#c58af8",
+  "menubar.selectionBackground": "#ffffff25",
+  "popupItem.checkbox.background": "#ffffff19",
+  "popupItem.selectionBackground": "#ffffff22",
+  "scrollbar.background": "#ffffff10",
+  "scrollbarSlider.activeBackground": "#ffffff60",
+  "scrollbarSlider.background": "#ffffff30",
+  "scrollbarSlider.disabledBackground": "#ffffff15",
+  "scrollbarSlider.hoverBackground": "#ffffff45",
+  "statusBar.background": "#2a2b2e",
+  "statusBarItem.activeBackground": "#ffffff34",
+  "statusBarItem.hoverBackground": "#ffffff22",
+  "tab.activeBackground": "#ffffff00",
+  "tab.hoverBackground": "#ffffff18",
+  "tabCloseButton.hoverBackground": "#ffffff25",
+  "table.alternateBackground": "#ffffff15",
+  "tableSectionHeader.background": "#3f4042",
+  "textarea.inactiveSelectionBackground": "#ffffff20",
+  "toolbar.activeBackground": "#ffffff34",
+  "toolbar.background": "#333333",
+  "toolbar.hoverBackground": "#ffffff22",
+  "tree.inactiveIndentGuidesStroke": "#ffffff35",
+  "tree.indentGuidesStroke": "#ffffff60",
+  "treeSectionHeader.background": "#3f4042",
+  "background": {
+    "base": "#202124",
+    "list": {},
+    "panel": {
+      "darken": 0.3
+    },
+    "popup": {
+      "lighten": 0.3
+    },
+    "table": {
+      "darken": 0.5
+    },
+    "textarea": {
+      "darken": 0.13
+    },
+    "title": {
+      "darken": 0.3
+    }
+  },
+  "border": {
+    "base": "#3f4042",
+    "input": {
+      "transparent": 0
+    }
+  },
+  "foreground": {
+    "base": "#e4e7eb",
+    "defaultButton.disabledBackground": {
+      "transparent": 0.2
+    },
+    "disabledSelectionBackground": {
+      "transparent": 0.2
+    },
+    "disabled": {
+      "transparent": 0.4
+    },
+    "icon": {
+      "darken": 0.01
+    },
+    "icon.unfocused": {
+      "transparent": 0.6
+    },
+    "input.placeholder": {
+      "transparent": 0.6
+    },
+    "progressBar.disabledBackground": {
+      "transparent": 0.2
+    },
+    "slider.disabledBackground": {
+      "transparent": 0.2
+    },
+    "sliderTrack.inactiveBackground": {
+      "transparent": 0.1
+    }
+  },
+  "primary": {
+    "base": "#8ab4f7",
+    "button.activeBackground": {
+      "transparent": 0.23,
+      "darken": 0.14
+    },
+    "button.hoverBackground": {
+      "transparent": 0.11,
+      "darken": 0.1
+    },
+    "defaultButton.activeBackground": {
+      "darken": 0.12
+    },
+    "defaultButton.hoverBackground": {
+      "darken": 0.06
+    },
+    "list.inactiveSelectionBackground": {
+      "transparent": 0.15,
+      "lighten": 0.2
+    },
+    "list.selectionBackground": {
+      "transparent": 0.4,
+      "darken": 0.2
+    },
+    "progressBar.background": {
+      "darken": 0.1
+    },
+    "selection.background": {
+      "transparent": 0.4,
+      "darken": 0.2,
+      "lighten": 0.1
+    },
+    "sliderHandle.activeBackground": {
+      "darken": 0.09
+    },
+    "table.selectionBackground": {
+      "transparent": 0.55,
+      "darken": 0.2
+    },
+    "table.inactiveSelectionBackground": {
+      "transparent": 0.18,
+      "lighten": 0.2
+    },
+    "textarea.selectionBackground": {
+      "transparent": 0.4,
+      "darken": 0.2,
+      "lighten": 0.1
+    }
+  }
+}

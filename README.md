@@ -21,7 +21,7 @@ Check out the [complete documentation](https://pyqtdarktheme.readthedocs.io).
 - A flat dark and light theme
 - Support PySide and PyQt
 - Support PyInstaller
-- Sync with OS's theme (Mac, Windows, Linux)
+- Sync with OS's theme and accent (Mac, Windows, Linux)
 - Resolve the style differences between Qt versions
 - Provide dark/light theme QPalette
 - Override Qt old standard icons
@@ -99,13 +99,16 @@ For Qt6 bindings, HiDPI “just works” without using this function.
 qdarktheme.setup_theme("light")
 ```
 
-### Sync with OS's theme
+### Sync with OS's theme and accent
 
 ```Python
 qdarktheme.setup_theme("auto")
 ```
 
 ![sync with os theme](https://raw.githubusercontent.com/5yutan5/PyQtDarkTheme/main/images/sync_with_os_theme.gif)
+
+On macOS, qdarktheme also syncs with accent colors.
+![sync with os accent](https://raw.githubusercontent.com/5yutan5/PyQtDarkTheme/main/images/sync_with_os_accent.gif)
 
 ### Customizing colors
 
@@ -148,7 +151,7 @@ python -m qdarktheme.widget_gallery
 
 ## License
 
-The svg files for the PyQtDarkTheme are derived [Material design icons](https://fonts.google.com/icons)(Apache License Version 2.0). Qt stylesheets are originally fork of [QDarkStyleSheet](https://github.com/ColinDuquesnoy/QDarkStyleSheet)(MIT License). Other files are covered by PyQtDarkTheme's MIT license.
+The svg files for the PyQtDarkTheme are derived [Material design icons](https://fonts.google.com/icons)(Apache License Version 2.0). Qt stylesheets are originally fork of [QDarkStyleSheet](https://github.com/ColinDuquesnoy/QDarkStyleSheet)(MIT License). Other files are covered by PyQtDarkTheme's MIT license. The accent detector(qdarktheme/_os_appearance/_accent/_mac_detect) is inspired by [darkdetect](https://github.com/albertosottile/darkdetect)(3-clause BSD License).
 
 ## Contributing
 

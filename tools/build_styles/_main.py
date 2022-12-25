@@ -42,13 +42,8 @@ def _mk_root_init_file(output: Path, themes: list[str], doc_string: str) -> None
     themes.append("auto")
 
     code = f"{doc_string}\n"
-    code += "from qdarktheme._resources._color_values import COLOR_VALUES\n"
-    code += "from qdarktheme._resources._palette import mk_q_palette\n"
-    code += "from qdarktheme._resources._svg import SVG_RESOURCES\n"
-    code += "from qdarktheme._resources._template_stylesheet import (\n"
-    code += "    TEMPLATE_STANDARD_ICONS_STYLESHEET,\n"
-    code += "    TEMPLATE_STYLESHEET,\n"
-    code += ")\n\n"
+    code += "from qdarktheme._resources import "
+    code += "colors, palette, stylesheets, svg\n\n"
     code += f"""THEMES = {str(tuple(themes)).replace("'", '"')}\n"""
     (output / "__init__.py").write_text(code)
 
@@ -165,31 +160,46 @@ def _mk_palette_file(template_palette_path: Path, output: Path):
     output.write_text(template_palette)
 
 
-def _mk_color_resource(color_values: dict[str, dict], output: Path):
+def _mk_color_resource(color_values: dict[str, dict], accent_colors_file: Path, output: Path):
+    accent_colors: dict[str, str] = json.loads(accent_colors_file.read_text())
+
     code = '"""Default color values."""\n\n'
-    code += "COLOR_VALUES = {\n"
+    code += "THEME_COLOR_VALUES = {\n"
     for theme, color_value in sorted(color_values.items()):
         code += f"""    "{theme}": '{json.dumps(color_value, sort_keys=True)}',  # noqa: E501\n"""
     code += "}\n"
+    code += "ACCENT_COLORS = "
+    code += (
+        json.dumps(accent_colors, sort_keys=True, indent=4)
+        .replace("\n}", ",\n}")
+        .replace('"\n', '",\n')
+    )
+    code += "\n"
     output.write_text(code)
 
 
 def _build_styles(build_path: Path) -> None:
     style_path = get_style_path()
-    theme_paths = [path for path in style_path.glob("colors/*.json") if path.name != "validate.json"]
+    theme_paths = [
+        path for path in style_path.glob("colors/themes/*.json") if path.name != "validate.json"
+    ]
     themes = sorted(path.stem for path in theme_paths)
     color_values = {path.stem: json.loads(path.read_bytes()) for path in theme_paths}
 
-    _mk_color_resource(color_values, output=build_path / "_color_values.py")
-    _mk_palette_file(style_path / "palette.template.py", output=build_path / "_palette.py")
-    _mk_svg_resource(style_path / "svg", output=build_path / "_svg.py")
+    _mk_color_resource(
+        color_values=color_values,
+        accent_colors_file=style_path / "colors/os_accent.json",
+        output=build_path / "colors.py",
+    )
+    _mk_palette_file(style_path / "palette.template.py", output=build_path / "palette.py")
+    _mk_svg_resource(style_path / "svg", output=build_path / "svg.py")
     _mk_standard_icon_map(
         style_path / "svg/new_standard_icons.json", output=build_path / "standard_icons.py"
     )
     _mk_template_stylesheet(
         style_path / "base.qss",
         style_path / "svg/new_standard_icons.json",
-        output=build_path / "_template_stylesheet.py",
+        output=build_path / "stylesheets.py",
     )
     _mk_root_init_file(build_path, themes, _ROOT_INIT_DOC)
 

@@ -41,9 +41,9 @@ repos:
     hooks:
       - id: check-jsonschema
         name: Validate color map json files with json schema
-        files: ^style/colors
-        exclude: ^style/colors/validate.json$
-        args: ["--schemafile", "style/colors/validate.json"]
+        files: ^style/colors/themes
+        exclude: ^style/colors/themes/validate.json$
+        args: ["--schemafile", "style/colors/themes/validate.json"]
 
   - repo: https://github.com/asottile/pyupgrade
     rev: v3.2.2

@@ -14,17 +14,25 @@ If you are using VSCode, you can build style and run example app at the same tim
 
 Even if you forget to add the style changes, a pre-commit or GitHub actions will automatically build and add them.
 
+## Colors
+
+Currently, the supporting color format is only hexadecimal notations: #RGB, #RGBA, #RRGGBB, and #RRGGBBAA.
+
 ## Theme colors
 
-Default color maps for dark/light theme is in `colors/{theme_name}.json`.
+Default color maps for dark/light theme is in `colors/themes/{theme_name}.json`.
 
-Color format is following hexadecimal notations: #RGB, #RGBA, #RRGGBB and #RRGGBBAA. Some colors have dependencies. Colors that depend on specific colors like `background>textarea` adjust darkness, lightness and transparency.
+Colors that depend on specific colors like `background>textarea` adjust darkness, lightness and transparency.
 
-If you think it's best to use additional theme color id for more highly customizable, you need to edit `colors/{theme_name}.json` and `colors/validate.json` to add color id for specific widgets or components.
+If you think it's best to use additional theme color id for more highly customizable, you need to edit `colors/themes/{theme_name}.json` and `colors/themes/validate.json` to add color id for specific widgets or components.
+
+## Accent colors
+
+MacOS features accent colors. qdarktheme can detect these accent colors and set the primary color to this accent color. The accent color setting file is `style/colors/os_accent.json`.
 
 ### About validate.json
 
-`colors/validate.json` is json schema for `colors/{theme_name}.json`. Code completion applies to `colors/{theme_name}.json` if you are using VSCode. Properties **groups**, **{color_id}.group** and **{color_id}.description** are used for automatic generation of color theme documentation.
+`colors/themes/validate.json` is json schema for `colors/themes/{theme_name}.json`. Code completion applies to `colors/themes/{theme_name}.json` if you are using VSCode. Properties **groups**, **{color_id}.group** and **{color_id}.description** are used for automatic generation of color theme documentation.
 
 ## Icon
 

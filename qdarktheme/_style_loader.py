@@ -6,7 +6,7 @@ import shutil
 import warnings
 from functools import partial
 
-from qdarktheme import __version__, _resources
+from qdarktheme import __version__, _os_appearance, _resources
 from qdarktheme._template import filter
 from qdarktheme._template.engine import Template
 from qdarktheme._util import get_cash_root_path, get_logger
@@ -26,9 +26,44 @@ def _detect_system_theme(default_theme: str) -> str:
 
 def _color_values(theme: str) -> dict[str, str | dict]:
     try:
-        return json.loads(_resources.COLOR_VALUES[theme])
+        return json.loads(_resources.colors.THEME_COLOR_VALUES[theme])
     except KeyError:
-        raise ValueError(f'invalid argument, not a dark or light: "{theme}"') from None
+        raise ValueError(f'invalid argument, not a dark, light or auto: "{theme}"') from None
+
+
+def _has_primary_color(custom_colors: dict[str, str | dict[str, str]], theme: str) -> bool:
+    if any("primary" in color for color in custom_colors):
+        return True
+    custom_colors_with_theme = custom_colors.get(f"[{theme}]")
+    if custom_colors_with_theme is None:
+        return False
+    if not isinstance(custom_colors_with_theme, dict):
+        raise ValueError(
+            "invalid value for argument custom_colors, not a dict type: "
+            f'"{custom_colors_with_theme}" of "[{theme}]" key.'
+        )
+    return any("primary" in color for color in custom_colors_with_theme)
+
+
+def _apply_os_accent_color(
+    custom_colors: dict[str, str | dict[str, str]] | None, theme: str
+) -> dict[str, str | dict[str, str]] | None:
+    accent = _os_appearance.accent()
+    if accent is None:
+        return custom_colors
+    try:
+        accent_color = _resources.colors.ACCENT_COLORS[theme].get(accent)
+    except KeyError:
+        raise ValueError(f'invalid argument, not a dark, light or auto: "{theme}"') from None
+    if accent_color is None:
+        return custom_colors
+
+    if custom_colors is None:
+        return {"primary": accent_color}
+    custom_colors = custom_colors.copy()
+    if not _has_primary_color(custom_colors, theme):
+        custom_colors["primary"] = accent_color
+    return custom_colors
 
 
 def _mix_theme_colors(custom_colors: dict[str, str | dict[str, str]], theme: str) -> dict[str, str]:
@@ -76,9 +111,10 @@ def load_stylesheet(
 
     Args:
         theme: The theme name. There are `dark`, `light` and `auto`.
-            If ``auto``, try to detect system theme.
-            If failed to detect system theme,
-            use the theme set in argument ``default_theme``.
+            If ``auto``, try to detect system theme and accent.
+            If failed to detect system theme, use the theme set in argument ``default_theme``.
+            When primary color including child color(eg. ``primary>selection.background``) set to
+            custom_colors, disable to detect accent.
         corner_shape: The corner shape. There are `rounded` and `sharp` shape.
         custom_colors: The custom color map. Overrides the default color for color id you set.
             Also you can customize a specific theme only. See example 6.
@@ -142,6 +178,7 @@ def load_stylesheet(
     """
     if theme == "auto":
         theme = _detect_system_theme(default_theme)
+        custom_colors = _apply_os_accent_color(custom_colors, theme)
     color_values = _color_values(theme)
     if corner_shape not in ("rounded", "sharp"):
         raise ValueError(f'invalid argument, not a rounded or sharp: "{corner_shape}"')
@@ -160,13 +197,13 @@ def load_stylesheet(
 
     get_cash_root_path(__version__).mkdir(parents=True, exist_ok=True)
 
-    stylesheet = _resources.TEMPLATE_STYLESHEET
+    stylesheet = _resources.stylesheets.TEMPLATE_STYLESHEET
     try:
         from qdarktheme.qtpy.QtCore import QCoreApplication
 
         app = QCoreApplication.instance()
         if app is not None and not app.property("_qdarktheme_use_setup_style"):
-            stylesheet += _resources.TEMPLATE_STANDARD_ICONS_STYLESHEET
+            stylesheet += _resources.stylesheets.TEMPLATE_STANDARD_ICONS_STYLESHEET
     except Exception:  # noqa: PIE786
         pass
 
@@ -205,8 +242,7 @@ def load_palette(
     Args:
         theme: The theme name. There are `dark`, `light` and `auto`.
             If ``auto``, try to detect system theme.
-            If failed to detect system theme,
-            use the theme set in argument ``default_theme``.
+            If failed to detect system theme, use the theme set in argument ``default_theme``.
         custom_colors: The custom color map. Overrides the default color for color id you set.
             Also you can customize a specific theme only. See example 5.
         default_theme: The default theme name.
@@ -267,7 +303,7 @@ def load_palette(
         _marge_colors(color_values, custom_colors, theme)
 
     mk_template = partial(Template, filters={"color": filter.color, "palette": filter.palette_format})
-    return _resources.mk_q_palette(mk_template, color_values, for_stylesheet)
+    return _resources.palette.q_palette(mk_template, color_values, for_stylesheet)
 
 
 def get_themes() -> tuple[str, ...]:
