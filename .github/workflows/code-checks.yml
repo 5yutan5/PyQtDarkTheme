@@ -26,7 +26,7 @@ jobs:
       - name: Set Poetry virtual env path to PATH
         run: echo ${{ github.workspace }}/.venv/bin >> $GITHUB_PATH
       - uses: pre-commit/action@v3.0.0
-      - uses: pre-commit-ci/lite-action@v1.0.0
+      - uses: pre-commit-ci/lite-action@v1.0.1
         if: always()
 
   pyright:
