@@ -108,6 +108,9 @@ qdarktheme.setup_theme("auto")
 On macOS, qdarktheme also syncs with accent colors.
 ![sync with os accent](https://raw.githubusercontent.com/5yutan5/PyQtDarkTheme/main/images/sync_with_os_accent.gif)
 
+it now supports also Windows 11
+![sync with os accent](https://raw.githubusercontent.com/5yutan5/PyQtDarkTheme/main/images/sync_with_os_accent_win.gif)
+
 ### Customizing colors
 
 You can customize the theme color.

@@ -51,12 +51,14 @@ def _apply_os_accent_color(
     if accent is None:
         return custom_colors
     try:
-        accent_color = _resources.colors.ACCENT_COLORS[theme].get(accent)
+        if accent[0] != "#":
+            accent_color = _resources.colors.ACCENT_COLORS[theme].get(accent)
+        else:
+            accent_color = accent
     except KeyError:
         raise ValueError(f'invalid argument, not a dark, light or auto: "{theme}"') from None
     if accent_color is None:
         return custom_colors
-
     if custom_colors is None:
         return {"primary": accent_color}
     custom_colors = custom_colors.copy()
