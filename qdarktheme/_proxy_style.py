@@ -14,7 +14,7 @@ class QDarkThemeStyle(QProxyStyle):
 
     def __init__(self):
         """Initialize style proxy."""
-        super().__init__()
+        super().__init__(None)
 
     def standardIcon(  # noqa: N802
         self, standard_icon: QStyle.StandardPixmap, option: QStyleOption | None, widget
