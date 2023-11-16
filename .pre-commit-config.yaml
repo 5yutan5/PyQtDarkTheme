@@ -89,7 +89,7 @@ repos:
           - flake8-rst-docstrings
           - flake8-pytest-style
           - pep8-naming
-        args: ['--ignore=E231']
+        args: ['--ignore=E231,W503']
 
   - repo: https://github.com/asottile/yesqa
     rev: v1.4.0
