@@ -79,7 +79,7 @@ class _HSLA:
         return self._s
 
     @property
-    def l(self) -> float:  # noqa: E741, E743
+    def l(self) -> float:  # noqa: E743
         return self._l
 
     @property
