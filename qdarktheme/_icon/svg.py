@@ -8,7 +8,7 @@ from qdarktheme import _resources
 from qdarktheme._color import Color
 
 
-@lru_cache()
+@lru_cache
 def _svg_resources() -> dict[str, str]:
     return json.loads(_resources.svg.SVG_RESOURCES)
 

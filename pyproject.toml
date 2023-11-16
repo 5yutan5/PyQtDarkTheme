@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "PyQtDarkTheme"
-version = "2.1.0"
+version = "2.2.0"
 description = "Flat dark theme for PySide and PyQt."
 authors = ["Yunosuke Ohsugi <63651161+5yutan5@users.noreply.github.com>"]
 license = "MIT"
@@ -20,21 +20,21 @@ classifiers = [
     "Operating System :: OS Independent",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.7,<3.12"
+python = ">=3.8,<3.13"
 darkdetect = "^0.7.1"
 
 [tool.poetry.group.dev.dependencies]
 black = "^22.10.0"
 isort = "^5.10.1"
-pre-commit = "^2.20.0"
+pre-commit = "^3.5.0"
 
 [tool.poetry.group.flake8.dependencies]
 flake8 = "^5.0.4"

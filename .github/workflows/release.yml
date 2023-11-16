@@ -15,7 +15,7 @@ jobs:
       - uses: tlambert03/setup-qt-libs@v1
       - uses: actions/setup-python@v4
         with:
-          python-version: "3.11"
+          python-version: "3.12"
       - uses: snok/install-poetry@v1
 
       - name: Get tag
