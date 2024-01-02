@@ -1,5 +1,7 @@
 # PyQtDarkTheme
 
+[简体中文](README.zh.md)
+
 PyQtDarkTheme applies a flat dark theme to QtWidgets application. There's a light theme too. Color balanced from the dark theme for easy viewing in daylight.
 
 Check out the [complete documentation](https://pyqtdarktheme.readthedocs.io).
