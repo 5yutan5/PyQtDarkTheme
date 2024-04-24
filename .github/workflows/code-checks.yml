@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: 5yutan5/setup-poetry-env@v1.1.0
         with:
-          python-version: '3.11'
+          python-version: '3.12'
           poetry-install--only: dev
           poetry-install--no-root: 'true'
           poetry-virtualenvs-in-project: 'true'
@@ -35,7 +35,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: 5yutan5/setup-poetry-env@v1.1.0
         with:
-          python-version: '3.11'
+          python-version: '3.12'
           poetry-install--only: main,test
           poetry-virtualenvs-in-project: 'true'
       - run: poetry run pip install PyQt6

@@ -11,7 +11,7 @@ repos:
         pass_filenames: false
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.3.0
+    rev: v4.5.0
     hooks:
       - id: trailing-whitespace
         args: [--markdown-linebreak-ext=md]
@@ -46,10 +46,10 @@ repos:
         args: ["--schemafile", "style/colors/themes/validate.json"]
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.2.2
+    rev: v3.15.0
     hooks:
       - id: pyupgrade
-        args: [--py37-plus]
+        args: [--py38-plus]
 
   - repo: https://github.com/psf/black
     rev: 22.10.0
@@ -68,7 +68,7 @@ repos:
       - id: absolufy-imports
 
   - repo: https://github.com/PyCQA/isort
-    rev: 5.10.1
+    rev: 5.11.5
     hooks:
       - id: isort
 
@@ -89,6 +89,7 @@ repos:
           - flake8-rst-docstrings
           - flake8-pytest-style
           - pep8-naming
+        args: ['--ignore=E231,W503']
 
   - repo: https://github.com/asottile/yesqa
     rev: v1.4.0
