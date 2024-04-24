@@ -11,7 +11,7 @@ repos:
         pass_filenames: false
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v4.6.0
     hooks:
       - id: trailing-whitespace
         args: [--markdown-linebreak-ext=md]
@@ -26,18 +26,18 @@ repos:
         args: [--pytest-test-first]
 
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.32.2
+    rev: v0.39.0
     hooks:
       - id: markdownlint
         args: [--disable, MD013]
 
   - repo: https://github.com/adrienverge/yamllint
-    rev: v1.28.0
+    rev: v1.35.1
     hooks:
       - id: yamllint
 
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.19.2
+    rev: 0.28.2
     hooks:
       - id: check-jsonschema
         name: Validate color map json files with json schema
@@ -46,18 +46,18 @@ repos:
         args: ["--schemafile", "style/colors/themes/validate.json"]
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.15.0
+    rev: v3.15.2
     hooks:
       - id: pyupgrade
         args: [--py38-plus]
 
   - repo: https://github.com/psf/black
-    rev: 22.10.0
+    rev: 24.4.0
     hooks:
       - id: black
 
   - repo: https://github.com/asottile/blacken-docs
-    rev: v1.12.1
+    rev: 1.16.0
     hooks:
       - id: blacken-docs
         additional_dependencies: [black]
@@ -68,12 +68,12 @@ repos:
       - id: absolufy-imports
 
   - repo: https://github.com/PyCQA/isort
-    rev: 5.11.5
+    rev: 5.13.2
     hooks:
       - id: isort
 
   - repo: https://github.com/PyCQA/flake8
-    rev: 5.0.4
+    rev: 7.0.0
     hooks:
       - id: flake8
         additional_dependencies: &flake8_dependencies
@@ -98,7 +98,7 @@ repos:
         additional_dependencies: *flake8_dependencies
 
   - repo: https://github.com/pre-commit/pygrep-hooks
-    rev: v1.9.0
+    rev: v1.10.0
     hooks:
       - id: rst-backticks
       - id: rst-directive-colons
