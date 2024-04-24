@@ -60,30 +60,35 @@ class _RGBA:
 
 
 class _HSLA:
-    def __init__(self, h: int, s: float, l: float, a: float = 1) -> None:  # noqa: E741
-        self._h = max(min(360, h), 0) | 0
-        self._s = _round_float(max(min(1, s), 0))
-        self._l = _round_float(max(min(1, l), 0))
-        self._a = _round_float(max(min(1, a), 0))
+    def __init__(self, hue: int, sat: float, lum: float, alpha: float = 1) -> None:
+        self._h = max(min(360, hue), 0) | 0
+        self._s = _round_float(max(min(1, sat), 0))
+        self._l = _round_float(max(min(1, lum), 0))
+        self._a = _round_float(max(min(1, alpha), 0))
 
     def __eq__(self, other: _HSLA) -> bool:
-        """Returns true if `h`, `s`, `l` and `a` are all the same."""
-        return [self.h, self.s, self.l, self.a] == [other.h, other.s, other.l, other.a]
+        """Returns true if `hue`, `sat`, `lum` and `alpha` are all the same."""
+        return [self.hue, self.sat, self.lum, self.alpha] == [
+            other.hue,
+            other.sat,
+            other.lum,
+            other.alpha,
+        ]
 
     @property
-    def h(self) -> int:
+    def hue(self) -> int:
         return self._h
 
     @property
-    def s(self) -> float:
+    def sat(self) -> float:
         return self._s
 
     @property
-    def l(self) -> float:  # noqa: E741, E743
+    def lum(self) -> float:
         return self._l
 
     @property
-    def a(self) -> float:
+    def alpha(self) -> float:
         return self._a
 
     @staticmethod
@@ -92,8 +97,8 @@ class _HSLA:
         return _HSLA(int(hls[0] * 360), hls[2], hls[1], rgba.a)
 
     def to_rgba(self) -> _RGBA:
-        rgb = colorsys.hls_to_rgb(self.h / 360, self.l, self.s)
-        return _RGBA(round(rgb[0] * 255), round(rgb[1] * 255), round(rgb[2] * 255), self.a)
+        rgb = colorsys.hls_to_rgb(self.hue / 360, self.lum, self.sat)
+        return _RGBA(round(rgb[0] * 255), round(rgb[1] * 255), round(rgb[2] * 255), self.alpha)
 
 
 class Color:
@@ -187,7 +192,7 @@ class Color:
         r, g, b, a = self.rgba.r, self.rgba.g, self.rgba.b, self.rgba.a
         hex_color = f"{math.floor(r):02x}{math.floor(g):02x}{math.floor(b):02x}"
         if a != 1:
-            hex_color += f"{math.floor(a*255):02x}"
+            hex_color += f"{math.floor(a * 255):02x}"
         return hex_color
 
     def to_hex_argb(self) -> str:
@@ -200,7 +205,7 @@ class Color:
             str: Hex converted from Color object.
         """
         r, g, b, a = self.rgba.r, self.rgba.g, self.rgba.b, self.rgba.a
-        hex_color = "" if a == 1 else f"{math.floor(a*255):02x}"
+        hex_color = "" if a == 1 else f"{math.floor(a * 255):02x}"
         hex_color += f"{math.floor(r):02x}{math.floor(g):02x}{math.floor(b):02x}"
         return hex_color
 
@@ -220,11 +225,15 @@ class Color:
 
     def lighten(self, factor: float) -> Color:
         """Lighten color."""
-        return Color(_HSLA(self.hsla.h, self.hsla.s, self.hsla.l + self.hsla.l * factor, self.hsla.a))
+        return Color(
+            _HSLA(self.hsla.hue, self.hsla.sat, self.hsla.lum + self.hsla.lum * factor, self.hsla.alpha)
+        )
 
     def darken(self, factor: float) -> Color:
         """Darken color."""
-        return Color(_HSLA(self.hsla.h, self.hsla.s, self.hsla.l - self.hsla.l * factor, self.hsla.a))
+        return Color(
+            _HSLA(self.hsla.hue, self.hsla.sat, self.hsla.lum - self.hsla.lum * factor, self.hsla.alpha)
+        )
 
     def transparent(self, factor: float) -> Color:
         """Make color transparent."""

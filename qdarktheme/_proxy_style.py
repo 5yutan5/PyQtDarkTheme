@@ -9,7 +9,7 @@ from qdarktheme.qtpy.QtGui import QIcon
 from qdarktheme.qtpy.QtWidgets import QProxyStyle, QStyle, QStyleOption
 
 
-class QDarkThemeStyle(QProxyStyle):
+class qdarkthemeStyle(QProxyStyle):
     """Style proxy to improve theme."""
 
     def __init__(self):

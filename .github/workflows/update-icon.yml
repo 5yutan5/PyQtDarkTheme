@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: 5yutan5/setup-poetry-env@v1.1.0
         with:
-          python-version: '3.11'
+          python-version: '3.12'
           poetry-install--only: main
       - name: Download latest svg and update style
         run: |
