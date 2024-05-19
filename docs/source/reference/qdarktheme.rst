@@ -1,7 +1,7 @@
 qdarktheme
 ==========
 
-``qdarktheme`` is a python module to apply original theme to PySide and PyQt.
+``qdarktheme`` 是一个 Python 模块，用于将原始主题应用于 PySide 和 PyQt。
 
 .. currentmodule:: qdarktheme
 

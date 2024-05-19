@@ -1,33 +1,33 @@
-Installation Guide
+安装指南
 ==================
 
-Dependencies
+依赖
 ------------
 
 * Python 3.7+
 * Qt 5.15+
-* PySide6, PyQt6, PyQt5 or PySide2
+* PySide6、PyQt6、PyQt5 或 PySide2
 
-Installation
+安装
 ------------
 
 .. tab-set::
 
     .. tab-item:: PyPi
 
-        PyQtDarkTheme can be installed via pip from `PyPI <https://pypi.org/project/pyqtdarktheme/>`__. ::
+        PyQtDarkTheme 可以通过 pip 从 `PyPI <https://pypi.org/project/pyqtdarktheme/>`__ 安装。::
 
           pip install pyqtdarktheme
 
     .. tab-item:: GitHub
 
-        To get access to the latest features and bugfixes you can install PyQtDarkTheme from GitHub. ::
+        为了获取最新功能和错误修复，你可以从 GitHub 安装 PyQtDarkTheme。::
 
           pip install git+https://github.com/5yutan5/PyQtDarkTheme.git@main
 
-Example App
+示例应用
 -----------
 
-PyQtDarkTheme includes example app that can be accessed by running: ::
+PyQtDarkTheme 包含了可以通过以下命令访问的示例应用程序：::
 
     python -m qdarktheme.widget_gallery

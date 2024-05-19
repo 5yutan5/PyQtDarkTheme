@@ -1,10 +1,10 @@
-API Reference
+API 参考
 =============
 
-This page gives an overview of all public qdarktheme objects, functions and theme color. All functions exposed in ``qdarktheme.*`` namespace are public.
+此页面提供了所有公开的 qdarktheme 对象、函数及主题颜色的概览。在 ``qdarktheme.*`` 命名空间中公开的所有函数都是公开的。
 
 .. toctree::
    :maxdepth: 2
 
    qdarktheme<qdarktheme.rst>
-   Theme Color<theme_color.rst>
+   主题颜色<theme_color.rst>

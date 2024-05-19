@@ -1,41 +1,41 @@
-PyQtDarkTheme documentation
+PyQtDarkTheme 文档
 ===========================
 
-PyQtDarkTheme applies a flat dark theme to QtWidgets application(PySide and PyQt). There's a light theme too. Color and style balanced from a dark theme for easy viewing in daylight.
+PyQtDarkTheme 提供了一个扁平化的深色主题给 QtWidgets 应用程序(PySide 和 PyQt)。也有一个浅色主题。颜色和样式是从深色主题中平衡选择的，以便在日光下易于查看。
 
 .. tab-set::
 
-    .. tab-item:: Dark
+    .. tab-item:: 深色
 
         .. image:: ../../images/widget_gallery_dark.png
             :class: dark-light
 
-    .. tab-item:: Light
+    .. tab-item:: 浅色
 
         .. image:: ../../images/widget_gallery_light.png
             :class: dark-light
 
-    .. tab-item:: Sync with OS's theme
+    .. tab-item:: 与操作系统主题同步
 
         .. image:: ../../images/sync_with_os_theme.gif
             :class: dark-light
 
 
-**Features:**
+**特性:**
 
-* A flat dark/light theme
-* Support PySide, PyQt and PyInstaller
-* Sync with OS's theme and accent (Mac, Windows, Linux)
-* Resolve the style differences between Qt versions
-* Provide dark/light theme QPalette
-* :ref:`Override Qt old standard icons <how_to_use:Use overridden Qt default icons>`.
+* 扁平化的深色/浅色主题
+* 支持 PySide, PyQt 和 PyInstaller
+* 与操作系统的主题和色调同步（Mac, Windows, Linux）
+* 解决 Qt 版本之间的样式差异
+* 提供深色/浅色主题的 QPalette
+* :ref:`覆盖 Qt 旧版标准图标 <how_to_use:Use overridden Qt default icons>`。
 
 ++++
 
 .. grid::
     :gutter: 2
 
-    .. grid-item-card:: Installation guide
+    .. grid-item-card:: 安装指南
         :text-align: center
         :link: installation_guide
         :link-type: doc
@@ -44,7 +44,7 @@ PyQtDarkTheme applies a flat dark theme to QtWidgets application(PySide and PyQt
         :material-regular:`install_desktop;5em;sd-text-primary`
         ^^^
 
-    .. grid-item-card:: How to use
+    .. grid-item-card:: 如何使用
         :text-align: center
         :link: how_to_use
         :link-type: doc
@@ -53,7 +53,7 @@ PyQtDarkTheme applies a flat dark theme to QtWidgets application(PySide and PyQt
         :material-regular:`menu_book;5em;sd-text-primary`
         ^^^
 
-    .. grid-item-card:: API reference
+    .. grid-item-card:: API 参考
         :text-align: center
         :link: reference/index
         :link-type: doc
@@ -62,7 +62,7 @@ PyQtDarkTheme applies a flat dark theme to QtWidgets application(PySide and PyQt
         :material-regular:`library_books;5em;sd-text-primary`
         ^^^
 
-    .. grid-item-card:: Contributing
+    .. grid-item-card:: 贡献
         :text-align: center
         :link: contributing
         :link-type: doc
@@ -75,7 +75,7 @@ PyQtDarkTheme applies a flat dark theme to QtWidgets application(PySide and PyQt
    :maxdepth: 2
    :hidden:
 
-   Installation guide<installation_guide.rst>
-   How to use<how_to_use.rst>
-   API reference<reference/index.rst>
-   Contributing<contributing.rst>
+   安装指南<installation_guide.rst>
+   如何使用<how_to_use.rst>
+   API 参考<reference/index.rst>
+   贡献<contributing.rst>
