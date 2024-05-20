@@ -1,8 +1,8 @@
 # PyQtDarkTheme
 
-PyQtDarkTheme 能够对 QtWidgets 应用程序应用平板暗色主题。也有一个亮色主题。拥有从暗色主题中获得的色彩平衡，方便在日光下查看。
+PyQtDarkTheme 能够对 QtWidgets 应用程序应用深色主题。也有一个浅色主题。拥有从浅色主题中获得的色彩平衡，方便在日光下查看。
 
-请查阅[完整文档](https://pyqtdarktheme.readthedocs.io)获取更多信息。
+请查阅[完整文档中文版](https://pyqtdarkthemecn.readthedocs.io)获取更多信息。
 
 **项目状态**
 
@@ -19,20 +19,20 @@ PyQtDarkTheme 能够对 QtWidgets 应用程序应用平板暗色主题。也有�
 
 ## 特性
 
-- 简约的暗色和亮色主题
+- 简约的深色和浅色主题
 - 支持 PySide 和 PyQt
-- 与操作系统的主题和强调色同步 (Mac、Windows、Linux)
+- 与操作系统的主题同步 (Mac、Windows、Linux)
 - 解决不同 Qt 版本之间的风格差异
-- 提供暗色/亮色主题的 QPalette
+- 提供深色/浅色主题的 QPalette
 - 覆盖 Qt 旧的标准图标
 
 ## 主题
 
-### 暗色主题
+### 深色主题
 
 ![暗色主题的部件展示](https://raw.githubusercontent.com/5yutan5/PyQtDarkTheme/main/images/widget_gallery_dark.png)
 
-### 亮色主题
+### 浅色主题
 
 ![亮色主题的部件展示](https://raw.githubusercontent.com/5yutan5/PyQtDarkTheme/main/images/widget_gallery_light.png)
 
@@ -92,7 +92,7 @@ qdarktheme.setup_theme()
 
 对于 Qt6 绑定，HiDPI “能够自动工作”而不需要使用此函数。
 
-### 亮色主题
+### 浅色主题
 
 ```Python
 qdarktheme.setup_theme("light")
