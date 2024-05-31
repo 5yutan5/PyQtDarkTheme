@@ -1,10 +1,10 @@
-How to use PyQtDarkTheme
+如何使用 PyQtDarkTheme
 ========================
 
 
-Apply dark theme to your Qt Application
+将深色主题应用于您的 Qt 应用程序
 ---------------------------------------
-PyQtDarkTheme applies a flat theme to your Qt applications.
+PyQtDarkTheme 为您的 Qt 应用程序提供了一个扁平主题。
 
 .. tab-set::
 
@@ -28,39 +28,39 @@ PyQtDarkTheme applies a flat theme to your Qt applications.
 
         .. literalinclude:: ../../examples/apply_theme/pyqtgraph.py
 
-Enable HiDPI
+启用 HiDPI
 ------------
 
-If you want to enable HiDPI, you can use ``qdarktheme.enable_hi_dpi()``. For Qt6 bindings, HiDPI “just works” without using this function.
+如果您想启用 HiDPI，可以使用 ``qdarktheme.enable_hi_dpi()``。对于 Qt6 绑定，无需使用此函数，HiDPI 就可以正常工作。
 
 .. code-block:: python
 
-    # enable_hi_dpi() must be called before instantiation of QApplication.
+    # 必须在 QApplication 实例化之前调用 enable_hi_dpi()。
     qdarktheme.enable_hi_dpi()
     app = QApplication(sys.argv)
 
-Toggle dark/light Theme
+切换深/浅主题
 -----------------------
 
-If you add ``theme`` argument as "auto", your Qt Application sync with OS's theme. On macOS, qdarktheme also syncs with accent colors.
+如果您将 ``theme`` 参数设置为 "auto"，您的 Qt 应用程序将与操作系统的主题同步。在 macOS 上，qdarktheme 也会与突出颜色同步。
 
 .. tab-set::
 
-    .. tab-item:: Source
+    .. tab-item:: 源码
 
         .. code-block:: python
 
             qdarktheme.setup_theme("auto")
 
-    .. tab-item:: Full source
+    .. tab-item:: 完整源码
 
         .. literalinclude:: ../../examples/toggle_theme/sync_with_os_theme.py
 
-You can also switch between light and dark theme manually.
+您还可以手动切换深色和浅色主题。
 
 .. tab-set::
 
-    .. tab-item:: Source
+    .. tab-item:: 源码
 
         .. code-block:: python
 
@@ -68,18 +68,18 @@ You can also switch between light and dark theme manually.
             combo_box.addItems(qdarktheme.get_themes())
             combo_box.currentTextChanged.connect(qdarktheme.setup_theme)
 
-    .. tab-item:: Full source
+    .. tab-item:: 完整源码
 
         .. literalinclude:: ../../examples/toggle_theme/toggle_dark_light.py
 
-Toggle dark/light Theme with pyqtgraph
+使用 pyqtgraph 切换深/浅主题
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-You can also switch between light and dark theme with pyqtgraph.
+您也可以使用 pyqtgraph 切换深色和浅色主题。
 
 .. tab-set::
 
-    .. tab-item:: Source
+    .. tab-item:: 源码
 
         .. code-block:: python
 
@@ -90,58 +90,58 @@ You can also switch between light and dark theme with pyqtgraph.
 
             signal.connect(toggle_theme)
 
-    .. tab-item:: Full source
+    .. tab-item:: 完整源码
 
         .. literalinclude:: ../../examples/toggle_theme/toggle_with_pyqtgraph.py
 
-Theme customization
+主题定制
 -------------------
 
-You can customize theme color.
+您可以定制主题颜色。
 
 .. tab-set::
 
-    .. tab-item:: Source
+    .. tab-item:: 源码
 
         .. code-block:: python
 
             qdarktheme.setup_theme(custom_colors={"primary": "#D0BCFF"})
 
-    .. tab-item:: Full source
+    .. tab-item:: 完整源码
 
         .. literalinclude:: ../../examples/customize_color/customize_accent_color.py
 
-    .. tab-item:: Result
+    .. tab-item:: 结果
 
         .. image:: ../../examples/customize_color/customize_accent_color.png
             :class: dark-light
 
 
-You can also change border corner shape.
+您还可以更改边框圆角形状。
 
 .. tab-set::
 
-    .. tab-item:: Source
+    .. tab-item:: 源码
 
         .. code-block:: Python
 
             qdarktheme.setup_theme(corner_shape="sharp")
 
-    .. tab-item:: Full source
+    .. tab-item:: 完整源码
 
         .. literalinclude:: ../../examples/customize_style/change_corner_to_sharp.py
 
-    .. tab-item:: Result
+    .. tab-item:: 结果
 
         .. image:: ../../examples/customize_style/change_corner_to_sharp.png
             :class: dark-light
 
-Append your own stylesheets
+附加您自己的样式表
 ---------------------------
 
 .. tab-set::
 
-    .. tab-item:: Source
+    .. tab-item:: 源码
 
         .. code-block:: Python
 
@@ -153,23 +153,23 @@ Append your own stylesheets
             """
             qdarktheme.setup_theme(additional_qss=qss)
 
-    .. tab-item:: Full source
+    .. tab-item:: 完整源码
 
         .. literalinclude:: ../../examples/customize_style/append_stylesheet.py
 
-    .. tab-item:: Result
+    .. tab-item:: 结果
 
         .. image:: ../../examples/customize_style/append_stylesheet.png
             :class: dark-light
 
-Use overridden Qt default icons
+使用覆盖的 Qt 默认图标
 -------------------------------
 
-If you setup theme with ``qdarktheme.setup_theme``, qdarktheme override ``QStyle.standardIcon()``. So you can easily use some `Google Material Design Icons <https://fonts.google.com/icons>`_. And these icons change color that adjust to theme when theme is changed.
+如果您使用 ``qdarktheme.setup_theme`` 设置主题，qdarktheme 将覆盖 ``QStyle.standardIcon()``。因此，您可以轻松使用一些 `Google Material Design Icons <https://fonts.google.com/icons>`_。当主题更改时，这些图标颜色会自动调整以适应主题。
 
 .. tab-set::
 
-    .. tab-item:: Source
+    .. tab-item:: 源码
 
         .. code-block:: Python
 
@@ -179,42 +179,42 @@ If you setup theme with ``qdarktheme.setup_theme``, qdarktheme override ``QStyle
             push_button = QPushButton("Save")
             push_button.setIcon(save_icon)
 
-    .. tab-item:: Full source
+    .. tab-item:: 完整源码
 
         .. literalinclude:: ../../examples/icons/use_standard_icons.py
 
-    .. tab-item:: Result
+    .. tab-item:: 结果
 
         .. image:: ../../examples/icons/use_standard_icons.png
 
-    .. tab-item:: Gallery
+    .. tab-item:: 图库
 
         .. image:: ../../images/standard_icons.png
 
 
-Use QPalette to your Qt Application
+将 QPalette 应用于您的 Qt 应用程序
 -----------------------------------
 
-You can apply dark and light color to your Qt Application using QPalette of PyQtDarkTheme.
+您可以使用 PyQtDarkTheme 的 QPalette 为您的 Qt 应用程序应用深色和浅色的颜色。
 
 .. tab-set::
 
-    .. tab-item:: Source
+    .. tab-item:: 源码
 
         .. code-block:: Python
 
             qdarktheme.load_palette()
 
-    .. tab-item:: Full source
+    .. tab-item:: 完整源码
 
         .. literalinclude:: ../../examples/qpalette/apply_dark_palette.py
 
-    .. tab-item:: Gallery
+    .. tab-item:: 图库
 
         .. image:: ../../images/widget_gallery_dark_qpalette.png
             :class: dark-light
 
-And you can get theme color from QPalette of PyQtDarkTheme.
+您还可以从 PyQtDarkTheme 的 QPalette 中获取主题颜色。
 
 .. code-block:: Python
 
@@ -224,19 +224,19 @@ And you can get theme color from QPalette of PyQtDarkTheme.
     link_color = dark_palette.link().color()
     link_rgb = link_color.getRgb()
 
-Use stylesheet
+使用样式表
 --------------
 
-If you want to use Qt stylesheet of PyQtDarkTheme, use following function.
+如果您想使用 PyQtDarkTheme 的 Qt 样式表，请使用以下函数。
 
 .. tab-set::
 
-    .. tab-item:: Source
+    .. tab-item:: 源码
 
         .. code-block:: Python
 
             qdarktheme.load_stylesheet()
 
-    .. tab-item:: Full source
+    .. tab-item:: 完整源码
 
         .. literalinclude:: ../../examples/use_stylesheet/apply_stylesheet.py
