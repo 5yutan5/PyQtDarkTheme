@@ -30,11 +30,11 @@ PyQtDarkTheme 能够对 QtWidgets 应用程序应用深色主题。也有一个�
 
 ### 深色主题
 
-![暗色主题的部件展示](https://raw.githubusercontent.com/5yutan5/PyQtDarkTheme/main/images/widget_gallery_dark.png)
+![深色主题的部件展示](https://raw.githubusercontent.com/5yutan5/PyQtDarkTheme/main/images/widget_gallery_dark.png)
 
 ### 浅色主题
 
-![亮色主题的部件展示](https://raw.githubusercontent.com/5yutan5/PyQtDarkTheme/main/images/widget_gallery_light.png)
+![浅色主题的部件展示](https://raw.githubusercontent.com/5yutan5/PyQtDarkTheme/main/images/widget_gallery_light.png)
 
 ## 需求
 
