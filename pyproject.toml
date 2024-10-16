@@ -28,7 +28,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.7,<3.12"
+python = ">=3.12"
 darkdetect = "^0.7.1"
 
 [tool.poetry.group.dev.dependencies]
